@@ -1,27 +1,44 @@
 module.exports = {
 
     options: {
-      separator: ';'
+      // separator: ';'
     },
-    dist: {
+    angularDev: {
       src: [
-        // Foundation core
-        'bower_components/foundation/js/foundation/foundation.js',
-
-        // Pick the componenets you need in your project
-        'bower_components/foundation/js/foundation/foundation.accordion.js',
-        'bower_components/foundation/js/foundation/foundation.clearing.js',
-        'bower_components/foundation/js/foundation/foundation.dropdown.js',
-        'bower_components/foundation/js/foundation/foundation.offcanvas.js',
-        'bower_components/foundation/js/foundation/foundation.reveal.js',
-        'bower_components/foundation/js/foundation/foundation.topbar.js',
-        // 'js/foundation/js/foundation.min.js',
-        'js/custom/init-foundation.js',
-        'js/fastclick/lib/fastclick.js',
-        'js/picturefill/dist/picturefill.min.js', // For polyfill/srcset
-        'js/custom/smoothscroll.js' // Coyer's method
+        'app/js/src/_map-config.js',
+        'app/js/services/*.js',
+        'app/js/constants/*.js',
+        'app/js/values/*.js',
+        // 'app/js/routes/*.js',
+        'app/js/controllers/*.js',
+        'app/js/directives/*.js'
+        // 'app/js/src/_map-styles.js',
+        // 'app/js/src/_map-layers.js',
       ],
-      dest: 'js/app.js'
+      dest: 'build/js/map-script.js'
+    },
+    angularProd: {
+      src: [
+        'app/js/src/_map-config.js',
+        'app/js/services/*.js',
+        'app/js/constants/*.js',
+        'app/js/values/*.js',
+        // 'app/js/routes/*.js',
+        'app/js/controllers/*.js',
+        'app/js/directives/*.js'
+        // 'app/js/src/_map-styles.js',
+        // 'app/js/src/_map-layers.js',
+      ],
+      dest: 'build/js/map-script.js'
+    },
+    vendorDev: {
+      src: [
+        'src/assets/js/vendor/bower_components/cartodb.js/dist/_cartodb_nojquery.js',
+        'src/assets/js/vendor/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
+        'src/assets/js/vendor/bower_components/carto/dist/carto.js',
+        'src/assets/js/vendor/bower_components/cartodb.js/dist/cartodb.mod.torque.uncompressed.js'
+      ],
+      dest: 'src/assets/js/vendor/map-vendors.js'
     }
 
 }

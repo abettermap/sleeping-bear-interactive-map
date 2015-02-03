@@ -41,6 +41,7 @@ module.exports = function(grunt) {
 
     // DEVELOP \\
     grunt.registerTask('build-scripts', ['concat', 'uglify']);
+    grunt.registerTask('concat-vendor-dev', ['concat:vendorDev']);
 
     // RASTER \\
     grunt.registerTask('image-opt', ['responsive_images', 'imageoptim' ]);;

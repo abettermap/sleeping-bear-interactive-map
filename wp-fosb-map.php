@@ -30,7 +30,9 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
         //// ENQUEUE FILES \\\\
 
         // Enqueue styles and scripts based on dev/prod by checking if wp-local-config.php exists
-        $localConfig = $_SERVER['DOCUMENT_ROOT'] .'/wp-local-config.php';
+        // $localConfig = plugins_url() . '/wp-fosb-map/wp-local-config.php';
+        $localConfig = $_SERVER['DOCUMENT_ROOT'] .'/wp-content/plugins/wp-fosb-map/wp-local-config.php';
+        echo $localConfig;
 
         if (file_exists($localConfig)) {    // DEVELOPMENT
 
@@ -49,11 +51,11 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
             // Angular route
             wp_register_script( 'angular_route', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js', array('angular'), '1.0.0', true);
 
-            // Vendor scripts UNminified: leaflet BUILD, cartodb build?, fastclick, fancybox, others?
-            wp_register_script( 'map_vendors', plugins_url() . '/wp-sbht-map/assets/js/vendor/map-vendors.js', array(), '1.0.0', true );
+            // Vendor scripts UNminified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, others?
+            wp_register_script( 'map_vendors', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/map-vendors.js', array(), '1.0.0', true );
 
             // map app script
-            wp_register_script( 'map_script', plugins_url() . '/wp-sbht-map/src/assets/js/map-script.js', array('map_vendors'), '1.0.0', true );
+            wp_register_script( 'map_script', plugins_url() . '/wp-fosb-map/src/assets/js/map-script.js', array('map_vendors'), '1.0.0', true );
 
         }
         else {  // PRODUCTION
@@ -74,11 +76,11 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
             // Angular route minified
             wp_register_script( 'angular_route', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.min.js', array('angular'), '1.0.0', true);
 
-            // Vendor scripts minified: leaflet BUILD, cartodb build?, fastclick, fancybox, others?
-            wp_register_script( 'map_vendors', '/wp-sbht-map/dist/assets/js/map-vendors.js', array(), '1.0.0', true);
+            // Vendor scripts minified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, others?
+            wp_register_script( 'map_vendors', '/wp-fosb-map/dist/assets/js/map-vendors.js', array(), '1.0.0', true);
 
             // map app script
-            wp_register_script( 'map_script', plugins_url() . '/wp-sbht-map/build/js/map-script.js', array('map_vendors'), '1.0.0', true );
+            wp_register_script( 'map_script', plugins_url() . '/wp-fosb-map/build/js/map-script.js', array('map_vendors'), '1.0.0', true );
 
         }
 
