@@ -1,0 +1,40 @@
+// The overall layout. Positioning, floats, display (use that lovely flex, brah)
+
+//  * CONTENTS
+//  *
+//  *
+//  * MAP WRAP (wraps all my code)
+//  *
+//  * NOT IN MAP ITSELF (but could be in certain scenarios)://  *
+//  *
+//  * 	MAP LAYERS
+//  * 
+//  * 	FIND PROJECTS
+//  * 
+//  * 	MAP FILTERS
+//  * 
+//  * FEATURE INFO
+//  * 
+//  * MAP CONTAINER
+
+// consider http://susy.oddbird.net/ for layouts
+
+// Does this work?
+// @import "breakpoint";
+
+
+// MAP WRAP
+.map-wrapper {}
+
+
+// MAP LAYERS (aka 'legend' or something)
+.map-layers {}
+
+// FIND PROJECTS (includes search, select project)
+.find-projects {}
+
+.map-filters {} // could have a few, a bunch, or none
+
+.map-container {}
+
+.feat-info {}

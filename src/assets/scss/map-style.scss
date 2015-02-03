@@ -1,0 +1,44 @@
+// Source of most tips for Sass project structuring:
+// http://thesassway.com/beginner/how-to-structure-a-sass-project
+// http://www.sitepoint.com/architecture-sass-project/
+
+
+// HELPERS
+// The helpers directory is reserved for Sass code that doesn't cause Sass to actually output CSS. Things like mixin declarations, functions, and variables.
+
+// HELPERS: FUNCTIONS
+	@import "helpers/functions/fonts";
+
+// HELPERS: MIXINS
+	@import "helpers/mixins/fonts";
+
+// HELPERS: VARIABLES
+	@import "helpers/variables/colors";
+	@import "helpers/variables/fonts";
+
+
+// BASE
+// Layout, reset, typography
+
+	@import "base/layout";
+	@import "base/reset";
+	@import "base/typography";
+
+
+// COMPONENTS
+// The components directory is where the meat of the CSS is constructed. A lot of folks like to break their stylesheets into header, content, sidebar, and footer components (and a few others).
+
+	@import "components/feat-info";
+	@import "components/find-projects";
+	@import "components/input";
+	@import "components/map-ctrls";
+	@import "components/map-filters";
+	@import "components/map-layers";
+
+
+
+// VENDOR (will vary by project)
+// The vendor directory is for third-party CSS. This is handy when using prepackaged components developed by other people (or for your own components that are maintained in another project). jQuery UI and a color picker are examples of CSS that you might want to place in the vendor directory. As a general rule, make it a point not to modify files in my vendor directory. If mods needed, add those after the vendored files are included in primary stylesheet. This should make it easy to update my third-party stylesheets to more current versions in the future.
+
+	@import "vendor/bootstrap.min";
+	@import "vendor/client";

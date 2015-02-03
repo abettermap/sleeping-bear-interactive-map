@@ -1,0 +1,26 @@
+# License #
+###########
+license.txt
+
+# Build #
+#########
+build
+
+# CSS #
+#######
+src/assets/css
+
+# JS #
+######
+src/assets/js/vendor
+
+# Spatial #
+###########
+src/assets/spatial/data
+src/assets/spatial/qgis
+
+# Images #
+##########
+src/assets/img/raster
+src/assets/img/svg/shared
+src/assets/img/svg/QGIS-default

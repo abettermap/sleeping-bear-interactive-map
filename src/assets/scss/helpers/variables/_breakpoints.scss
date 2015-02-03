@@ -1,0 +1,37 @@
+// STEPS: http://breakpoint-sass.com/
+@import "breakpoint";
+
+// create $breakpoint variables like so
+// assume min-width (by default) if only a number
+$breakpoint-medium-width: 500px;
+$breakpoint-medium-width-em: 30em;
+// set min-width/max-width if both values are numbers
+$breakpoint-medium-not-wide: 500px 700px;
+// set min/max of feature if there are two numbers
+$breakpoint-medium-height: height 300px 700px;
+// if one value is a string, assume a feature/value pair
+$breakpoint-kind-of-wide: min-width 700px;
+$breakpoint-not-too-wide: max-width 700px;
+// for multidimensional lists, assume each item is a feature value pair
+$breakpoint-wide-portrait: (max-width 700px) (orientation portrait);
+// handle one-sided features (ie. monochrome)
+$breakpoint-wide-portrait-mono: (max-width 700px) (orientation portrait) (monochrome);
+$breakpoint-mono: monochrome;
+$breakpoint-hi-rez: min-resolution 1.5dppx;
+
+// USAGE
+// .foo {
+//   @include breakpoint($breakpoint-medium-width) {
+//     content: 'medium widths';
+//   }
+// }
+// .bar {
+//   @include breakpoint($breakpoint-medium-width-em) {
+//     content: 'medium widths measured in ems';
+//   }
+// }
+// .baz {
+//   @include breakpoint($breakpoint-medium-not-wide) {
+//     content: 'medium, but not too wide';
+//   }
+// }
