@@ -41,7 +41,7 @@ module.exports = function(grunt) {
 
     // DEVELOP \\
     grunt.registerTask('build-scripts', ['concat', 'uglify']);
-    grunt.registerTask('concat-vendor-dev', ['concat:vendorDev']);
+    grunt.registerTask('concat-vendor-dev', ['newer:concat:vendorDev']);
 
     // RASTER \\
     grunt.registerTask('image-opt', ['responsive_images', 'imageoptim' ]);;
@@ -51,5 +51,13 @@ module.exports = function(grunt) {
     // VECTOR \\
     grunt.registerTask('combine-svg', ['svgmin', 'svgstore']); // Change subtask as needed
     grunt.registerTask('test', ['copy:svgToPhp']);
+
+    // BUILD
+    grunt.registerTask('build', [
+        'newer:concat:vendor',
+        'newer:uglify:vendor',
+        'uglify:app',
+    ]);
+
 
 }

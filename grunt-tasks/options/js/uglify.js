@@ -3,10 +3,14 @@ module.exports = {
     options: {
       report: 'min'
     },
-    dist: {
+    vendor: {
       files: {
-        'js/modernizr/modernizr.min.js': ['js/modernizr/modernizr.js'],
-        'js/app.js': ['js/app.js']
+        'build/assets/js/vendor/map-vendors.js': ['src/assets/js/vendor/map-vendors.js']
+      }
+    },
+    app: {
+      files: {
+        'build/app/map-app.js': ['src/app/map-app.js']
       }
     }
 
