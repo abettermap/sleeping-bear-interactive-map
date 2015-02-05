@@ -3,16 +3,16 @@ module.exports = {
   default_options: {
     bsFiles: {
       src: [
-        "css/*.css",
-        "**/*.php",
-        // "assets/pages/*.php",
-        // "parts/*.php",
-        "assets/img/services/*.svg"
+        'src/assets/css/*.css',
+        '**/*.php',
+        'src/app/**/*.js',
+        'src/app/**/*.html'
+        // "assets/img/services/*.svg"
       ]
     },
     options: {
       watchTask: true,
-      proxy: 'abettermap.dev',
+      proxy: 'wpmulti.dev', // might need full path to map??
       notify: true,
       open: false
     }

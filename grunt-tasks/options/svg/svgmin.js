@@ -9,11 +9,11 @@ module.exports = {
     icons: {
         files: [{
             expand: true,
-            cwd: 'assets/img/svg/src/icons/',
+            cwd: 'src/assets/img/svg/src/icons/',
             src: [
                 '*.svg'
             ],
-            dest: '/Users/travelampel/Google_Drive/web-projects/abm-website/web/wordpress/wp-content/uploads/svg/min/'
+            dest: 'src/assets/img/svg/min/'
         }]
     }
 

@@ -1,10 +1,18 @@
 module.exports = {
 
-    scripts: {
+    plugin: {
         expand: true,
-        cwd: 'bower_components/',
-        src: '**/*.js',
-        dest: 'js'
+        // flatten: true,
+        src: 'wp-fosb-map.php',
+        dest: 'build'
+        // filter: 'isFile'
+    },
+    license: {
+        expand: true,
+        // flatten: true,
+        src: 'license.txt',
+        dest: 'build'
+        // filter: 'isFile'
     },
     svgToPhp: {
       files: [

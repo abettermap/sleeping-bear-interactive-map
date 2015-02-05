@@ -40,8 +40,8 @@ module.exports = function(grunt) {
     grunt.registerTask('build-css', ['sass', 'uncss', 'cssmin']);
 
     // DEVELOP \\
-    grunt.registerTask('build-scripts', ['concat', 'uglify']);
-    grunt.registerTask('concat-vendor-dev', ['newer:concat:vendorDev']);
+    grunt.registerTask('build-scripts', ['concat:ng']);
+    // grunt.registerTask('concat-vendor-dev', ['newer:concat:vendorDev']);
 
     // RASTER \\
     grunt.registerTask('image-opt', ['responsive_images', 'imageoptim' ]);;
@@ -54,9 +54,24 @@ module.exports = function(grunt) {
 
     // BUILD
     grunt.registerTask('build', [
-        'newer:concat:vendor',
-        'newer:uglify:vendor',
-        'uglify:app',
+        'newer:copy:plugin',
+        'newer:copy:license',
+        'concat:vendor',
+        // 'uglify:vendor',
+        // 'concat:ng',
+        'concat:kioskScript',
+        'uglify',
+        'concat:kioskStyle',
+        'cssmin',
+        'autoprefixer'
+    ]);
+
+    // DEFAULT ()
+    grunt.registerTask('default', [
+        'concat:vendor',
+        // 'newer:concat:vendor',
+        'browserSync',
+        'watch'
     ]);
 
 

@@ -3,15 +3,33 @@ module.exports = {
     options: {
       // separator: ';'
     },
-    ngDev: {
+    kioskStyle: {
+        src: [
+            'src/assets/css/map-style.css',
+            'src/assets/css/map-style-kiosk.css'
+        ],
+        dest: 'build/src/assets/css/map-style-kiosk.css'
+    },
+    kioskScript: {
+        src: [
+            'src/app/map-app.js',
+            'src/app/kiosk/map-kiosk.js'
+        ],
+        dest: 'build/src/app/map-app-kiosk.js'
+    },
+    ng: {
       src: [
-        'app/js/src/_map-config.js',
-        'app/js/services/*.js',
-        'app/js/constants/*.js',
-        'app/js/values/*.js',
+        'src/app/config/map-app-config.js',
+        'src/app/config/mapCtrl.js',
+        'src/app/config/mapValues.js',
+        // 'src/app/config/mapFactory.js',
+        // 'src/app/config/mapService.js'
+        // 'app/js/services/*.js',
+        // 'app/js/constants/*.js',
+        // 'app/js/values/*.js',
         // 'app/js/routes/*.js',
-        'app/js/controllers/*.js',
-        'app/js/directives/*.js'
+        // 'app/js/controllers/*.js',
+        // 'app/js/directives/*.js'
         // 'app/js/src/_map-styles.js',
         // 'app/js/src/_map-layers.js',
       ],

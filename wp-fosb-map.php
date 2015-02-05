@@ -25,22 +25,56 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-    function insert_map_func() {
+    function customfield_scripts_styles(){
+        if ( is_singular() ) {
+            $post = get_post();
+            if ( is_a( $post, 'WP_Post' ) ) {
+
+                // $custom_scripts = get_post_meta( $post->ID, 'custom_scripts', false );
+                // $queue_id = 0;
+                // foreach ( (array) $custom_scripts as $custom_script ) {
+                //     wp_enqueue_script( 'custom-script-'.$post->ID.'-'.$queue_id, $custom_script );
+                //     $queue_id++;
+                // }
+
+                $custom_styles = get_post_meta( $post->ID, 'enqueue-map-style', true );
+                $queue_id = 0;
+                foreach ( (array) $custom_styles as $custom_style ) {
+                    // wp_enqueue_style( 'custom-style-'.$post->ID.'-'.$queue_id, $custom_style );
+                        $file_path = plugins_url() . '/wp-fosb-map/src/assets/css/' . $custom_style . '.css';
+                        wp_register_style( 'map_style', $file_path );
+                        wp_enqueue_style( 'map_style' );
+                        $queue_id++;
+                }
+            }
+        }
+    }
+    add_action( 'wp_enqueue_scripts', 'customfield_scripts_styles');
+
+    function insert_map_html_func() {
+
+        // Get the Angular ball rolling, likely change later w/better understanding
+        $htmlPath = plugin_dir_path(__FILE__) . 'src/app/config/map.html';
+        include_once $htmlPath;
+        enqueue_map_resources_func();
+
+    }
+    add_shortcode( 'insert_map_html', 'insert_map_html_func' );
+
+    function enqueue_map_resources_func() {
 
         //// ENQUEUE FILES \\\\
 
-        // Enqueue styles and scripts based on dev/prod by checking if wp-local-config.php exists
+        // Enqueue scripts based on dev/prod by checking if wp-local-config.php exists
         // $localConfig = plugins_url() . '/wp-fosb-map/wp-local-config.php';
         $localConfig = $_SERVER['DOCUMENT_ROOT'] .'/wp-content/plugins/wp-fosb-map/wp-local-config.php';
-        echo $localConfig;
 
         if (file_exists($localConfig)) {    // DEVELOPMENT
 
-            // DON'T FORGET THAT THERE WILL BE TWO SETS OF CODE (ONE FOR KIOSKS) \\
 
 
             // Register map style (should be combined w/Leaflet and CartoDB CSS if needed)
-            wp_register_style( 'map_style', plugins_url() . '/wp-fosb-map/src/assets/css/map-style.css' );
+            // wp_register_style( 'map_style', plugins_url() . '/wp-fosb-map/src/assets/css/map-style.css' );
 
 
             ////// DEREGISTER JQUERY?? \\\\\\
@@ -64,7 +98,7 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
 
             /// Stylesheets \\\
             // Register map style (should be combined w/Leaflet and CartoDB CSS if needed)
-            wp_register_style( 'map_style', plugins_url() . '/wp-fosb-map/dist/assets/css/map-style.css' );
+            // wp_register_style( 'map_style', plugins_url() . '/wp-fosb-map/build/assets/css/map-style.css' );
 
             /// Scripts \\\
 
@@ -84,19 +118,10 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
 
         }
 
-        // Enqueue map style
-        function enqueue_map_styles_func(){
-            wp_enqueue_style( 'map_style' );
-        }
-        // delay so that it loads after theme css
-        add_action('wp_enqueue_scripts', 'enqueue_map_styles_func', 15);
-
         // Enqueue Angular and map scripts (dev/prod irrelevant)
         wp_enqueue_script('angular_route');
         wp_enqueue_script( 'map_script' );
 
     }
-
-    add_shortcode( 'insert_map', 'insert_map_func' ); // will need to modify for dynamically pointing to kiosk stylesheet
 
 ?>

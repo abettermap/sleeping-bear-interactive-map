@@ -5,12 +5,17 @@ module.exports = {
     },
     vendor: {
       files: {
-        'build/assets/js/vendor/map-vendors.js': ['src/assets/js/vendor/map-vendors.js']
+        'build/src/assets/js/vendor/map-vendors.js': ['build/src/assets/js/vendor/map-vendors.js']
       }
     },
     app: {
       files: {
-        'build/app/map-app.js': ['src/app/map-app.js']
+        'build/src/app/map-app.js': ['src/app/map-app.js']
+      }
+    },
+    kiosk: {
+      files: {
+        'build/src/app/map-app-kiosk.js': ['build/src/app/map-app-kiosk.js']
       }
     }
 

@@ -4,8 +4,12 @@ module.exports = {
         spawn: false
     },
     sass: {
-        files: "scss/**/*.scss",
+        files: 'src/assets/scss/**/*.scss',
         tasks: ['sass']
+    },
+    scripts: {
+        files: 'src/app/**/*.js',
+        tasks: ['concat:ng']
     }
 
 }

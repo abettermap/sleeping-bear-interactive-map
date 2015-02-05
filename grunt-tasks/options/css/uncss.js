@@ -1,19 +1,15 @@
+// DON'T NEED FOR THIS PROJECT SINCE USING PRE-MADE THEME
 module.exports = {
 
   build: {
     options: {
       urls: [
-        'http://abettermap.dev/',
-        'http://abettermap.dev/about',
-        'http://abettermap.dev/about/interactive-map-portfolio',
-        'http://abettermap.dev/blog',
-        'http://abettermap.dev/contact',
-        'http://abettermap.dev/interactive-map-services'
+        'http://wpmulti.dev/fosb/sbht-interactive-map'
       ],
       report: 'min'
     },
     files: {
-      'css/tidy.css': ['empty.html']
+      'src/assets/css/tidy.css': ['src/assets/css/empty.html']
     }
   }
 
