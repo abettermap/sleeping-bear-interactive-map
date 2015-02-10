@@ -1,69 +1,64 @@
-// configgggggeration
-  var mapApp = angular.module('mapApp', ['leaflet-directive']);
-  // var mapApp = angular.module('mapApp', ['ngRoute', 'leaflet-directive']);
-  console.log("shtuff");
-mapApp.controller('MapCtrl',[ '$scope', 'MapValues', 'MapFactory', function($scope, MapValues, MapFactory) {
+var mapApp = angular.module('mapApp', ['leaflet-directive']);
 
-    angular.extend($scope, {
-      defaults: MapValues.leafletDefaults
-    });
-
-    // $scope.panels = MapFactory.panels;
-    // $scope.initialLayer = MapFactory.initialLayer();
-
-    // $scope.panelTemplatePath = function(filename){
-    //   var path = '/wordpress/wp-content/plugins/wp-interactive-map/app/html/partials/panels/panel-';
-    //   path = path + filename.name + '.html';
-    //   return path;
-    // }
-
-    // $scope.showPanel = function(visStatus){
-    //   MapFactory.showPanel(visStatus);
-    // }
-
-    // $scope.ottawa = function(){
-    //   MapFactory.ottawa();
-    // }
-
-    // $scope.pauseTorque = function(){
-    //   leafletData.getMap('mymap').then(function(map) {
-    //     timeLayer.addTo(map);
-    //     timeLayer.play();
-    //   });
-    // }
-    //     // timeLayer.pause();
-
-}]);
   mapApp.constant('MapValues', {
     id: 'map',
     table: 'sbht_rough_013115',
+    apiKey: 'e11cc18c2ce30d0b5ea6e4d199c708d2d9fd1eb8',
     cartodb: {
       user_name: 'travelampel',
       type: 'cartodb',
       // interaction: true,
       sublayers: [{
-        cartocss: "#sbht_rough_013115{marker-fill: #109DCD; marker-width: 5; marker-line-color: white; marker-line-width: 0;}",
+        cartocss: "#sbht_rough_013115{line-color:#00aaff;line-width:4;}",
         // cartocss: getMss(),
         // interactivity: 'cartodb_id, job',
         sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_rough_013115"
       }]
     },
     sqlQueries: {
-        date: "SELECT the_geom_webmercator, date, yr, cartodb_id, job, CASE yr WHEN 2004 THEN 4 WHEN 2005 THEN 5 WHEN 2006 THEN 6 WHEN 2007 THEN 7 WHEN 2008 THEN 8 WHEN 2009 THEN 9 WHEN 2010 THEN 10 WHEN 2011 THEN 11 WHEN 2012 THEN 12 WHEN 2013 THEN 13 WHEN 2014 THEN 14 END as team_n FROM sbht_rough_013115",
-        // date: "SELECT the_geom_webmercator, date, yr, cartodb_id, job, CASE yr WHEN 2004 THEN 4 WHEN 2005 THEN 5 WHEN 2006 THEN 6 WHEN 2007 THEN 7 WHEN 2008 THEN 8 WHEN 2009 THEN 9 WHEN 2010 THEN 10 WHEN 2011 THEN 11 WHEN 2012 THEN 12 WHEN 2013 THEN 13 WHEN 2014 THEN 14 END as team_n FROM sbht_rough_013115",
-        all: "SELECT * FROM sbht_rough_013115"
+        allTrail: "SELECT * FROM sbht_rough_013115"
     },
     leafletDefaults: {
       tileLayer: 'http://tile.stamen.com/toner-lite/{z}/{x}/{y}.jpg',
       tileLayerOptions: {
           attribution: '&copy; <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCAQFjAA&url=http%3A%2F%2Fmaps.stamen.com%2F&ei=YASqVPOSJYWhyASky4CoBg&usg=AFQjCNH45Se7Q4ss_N_OiCN4Jqc-TXCk-w&sig2=LAfiRGpwSILDBDkeD6CoVA">Stamen Maps</a> contributors'
       },
-      center: {
-        lat: 22,
-        lng: -77,
-        zoom: 3
-      },
       zoomControl: true
+    },
+    centroid: {
+        lat: 44.8957686012,
+        lng: -86.00646972,
+        zoom: 11
+    },
+    leafletLayers: {
+        baselayers: {
+            wms: {
+                name: 'EEUU States (WMS)',
+                type: 'wms',
+                url: 'http://suite.opengeo.org/geoserver/usa/wms',
+                layerParams: {
+                    layers: 'usa:states',
+                    format: 'image/png',
+                    transparent: true
+                }
+            }
+        },
+        overlays: {
+            cartodbInteractive: {
+                key: '4b98ea41b978a133ada5828b2c51b793:1422910483792.78',
+                // key: 'e11cc18c2ce30d0b5ea6e4d199c708d2d9fd1eb8',
+                name: 'Sleeping Bear Heritage Trail',
+                type: 'cartodbInteractive',
+                user: 'travelampel',
+                layer: 'sbht_rough_013115',
+                options: {
+                    cartocss: "#sbht_rough_013115{line-color:#00aaff;line-width:4;}",
+                    // cartocss: getMss(),
+                    // interactivity: 'cartodb_id, job',
+                    sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_rough_013115"
+                }
+            }
+        }
     },
     panels: [
       { hide: true, name: 'time', fa: 'clock-o'},
@@ -73,100 +68,70 @@ mapApp.controller('MapCtrl',[ '$scope', 'MapValues', 'MapFactory', function($sco
       { hide: true, name: 'favorites', fa: 'star'}
     ]
   });
-mapApp.factory('MapFactory', function (MapValues, leafletData) {
+angular.module('mapApp').factory('mapFactory', mapFactory); //['MapValues', 'leafletData']);
 
-    var MapFactory = {};
-    // return MapFactory
+function mapFactory (MapValues, leafletData) {
 
-    // THE INITIAL LAYER
-    MapFactory.initialLayer = function () {
+    var mapFactory = {};
 
-        // leafletData.getMap('mymap').then(function(map) {
-        //     cartodb.createLayer(map, MapValues.cartodb)
-        //     .addTo(map);
-        // });
-
+    // Add trail layer
+    mapFactory.addTrailLayer = function(){
+        leafletData.getMap('mymap')
+            .then(function(map) {
+                cartodb.createLayer(map, MapValues.cartodb)
+                .addTo(map)
+                .on('error', function() {
+                    console.log("error");
+                })
+            });
     }
 
-    MapFactory.ottawa = function () {
-      leafletData.getMap().then(function(map) {
-          map.fitBounds([ [44.712, -77.227], [45.774, -74.125] ]);
-      });
+    mapFactory.getSql = function(){
+        var sql = new cartodb.SQL({ user: MapValues.cartodb.user_name });
+        sql.execute("SELECT name FROM " + MapValues.table, { id: 3 })
+          .done(function(data) {
+            var myData = data.rows;
+            for (var i = myData.length - 1; i >= 0; i--) {
+                console.log("Trail Nombre: " + myData[i].name);
+            };
+          })
+          .error(function(errors) {
+            console.log("errors:" + errors);
+          })
     }
 
-    return MapFactory;
+    return mapFactory;
 
+}
+// });
+angular.module('mapApp').controller('MapCtrl', MapCtrl);
 
-});
-mapApp.service('cartoCss', function() {
+// Keeps things clean, and safe from minification
+MapCtrl.$inject = ['$scope', 'MapValues', 'mapFactory', 'leafletData'];
 
-  this.defaultTorque = function(){
+function MapCtrl($scope, MapValues, mapFactory, leafletData) {
 
-    var defaultArray = [
-      'Map {',
-      '-torque-time-attribute: "yr";',
-      '-torque-aggregation-function: "count(cartodb_id)";',
-      '-torque-frame-count: 512;',
-      '-torque-animation-duration: 30;',
-      '-torque-resolution: 1;',
-      '-torque-data-aggregation:cumulative;',
-      '}',
-      '#resume_subproj {',
-        'marker-width: 6;',
-        'marker-fill: #47A3FF;',
-        'marker-fill-opacity: 0.8;',
-        'comp-op: "source-over";',
-      '}',
-      '#resume_subproj[frame-offset = 1] { marker-width: 10; marker-fill-opacity: 0.05; }',
-      '#resume_subproj[frame-offset = 2] { marker-width: 15; marker-fill-opacity: 0.02; }'
-    ].join('\n');
-    var defaultCss = defaultArray;
-    return defaultCss;
-  }
+    angular.extend($scope, {
+        defaults: MapValues.leafletDefaults,
+        centroid: MapValues.centroid
+    });
 
-  this.date = function(){
-
-    var cssArray = [
-      'Map {',
-        '-torque-time-attribute: "date";',
-        '-torque-aggregation-function: "round(avg(team_n))";',
-        '-torque-frame-count: 1024;',
-        '-torque-animation-duration: 20;',
-        '-torque-resolution: 2;',
-        '-torque-data-aggregation:cumulative;',
-      '}',
-      '#resume_subproj {',
-        'marker-width: 6;',
-        'marker-fill: #47A3FF;',
-        'marker-fill-opacity: 0.8;',
-        'comp-op: "source-over";',
-      '}',
-      '#resume_subproj[frame-offset = 1] { marker-width: 10; marker-fill-opacity: 0.05; }',
-      '#resume_subproj[frame-offset = 2] { marker-width: 15; marker-fill-opacity: 0.02; }'
-    ];
-
-    var i = 4,
-      gradient = "",
-      prefix = "#resume_subproj[value=",
-      middle = "] { marker-fill: hsl(310, 68%, ",
-      middleHue = "] { marker-fill: hsl(",
-      lightness = 75,
-      hue = 25,
-      suffix = "%) }",
-      suffixHue = ", 68%, 55%) }";
-
-    while (i < 15) {
-      lightness = lightness - 5;
-      hue = hue + 25;
-      // params = prefix + i + middle + lightness + suffix;
-      params = prefix + i + middleHue + hue + suffixHue;
-      cssArray.push(params);
-      i++;
+    $scope.getSql = function(){
+        mapFactory.getSql();
     }
 
-    var dateCss = cssArray.join('\n');
-    return dateCss;
+    $scope.addTrailLayer = function () {
+        mapFactory.addTrailLayer();
+    }
 
-  }
+    $scope.addTrailLayer();
 
-});
+    // $scope.$on('$viewContentLoaded', function(){
+    //   hey();
+    // });
+
+    $scope.$watch("centroid.lng", function (zoom) {
+        $scope.zoomLev = zoom;
+    });
+
+}

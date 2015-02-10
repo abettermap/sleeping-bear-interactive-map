@@ -1,32 +1,31 @@
-mapApp.controller('MapCtrl',[ '$scope', 'MapValues', 'MapFactory', function($scope, MapValues, MapFactory) {
+angular.module('mapApp').controller('MapCtrl', MapCtrl);
+
+// Keeps things clean, and safe from minification
+MapCtrl.$inject = ['$scope', 'MapValues', 'mapFactory', 'leafletData'];
+
+function MapCtrl($scope, MapValues, mapFactory, leafletData) {
 
     angular.extend($scope, {
-      defaults: MapValues.leafletDefaults
+        defaults: MapValues.leafletDefaults,
+        centroid: MapValues.centroid
     });
 
-    // $scope.panels = MapFactory.panels;
-    // $scope.initialLayer = MapFactory.initialLayer();
+    $scope.getSql = function(){
+        mapFactory.getSql();
+    }
 
-    // $scope.panelTemplatePath = function(filename){
-    //   var path = '/wordpress/wp-content/plugins/wp-interactive-map/app/html/partials/panels/panel-';
-    //   path = path + filename.name + '.html';
-    //   return path;
-    // }
+    $scope.addTrailLayer = function () {
+        mapFactory.addTrailLayer();
+    }
 
-    // $scope.showPanel = function(visStatus){
-    //   MapFactory.showPanel(visStatus);
-    // }
+    $scope.addTrailLayer();
 
-    // $scope.ottawa = function(){
-    //   MapFactory.ottawa();
-    // }
+    // $scope.$on('$viewContentLoaded', function(){
+    //   hey();
+    // });
 
-    // $scope.pauseTorque = function(){
-    //   leafletData.getMap('mymap').then(function(map) {
-    //     timeLayer.addTo(map);
-    //     timeLayer.play();
-    //   });
-    // }
-    //     // timeLayer.pause();
+    $scope.$watch("centroid.lng", function (zoom) {
+        $scope.zoomLev = zoom;
+    });
 
-}]);
+}

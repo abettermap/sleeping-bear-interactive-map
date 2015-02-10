@@ -72,11 +72,6 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
         if (file_exists($localConfig)) {    // DEVELOPMENT
 
 
-
-            // Register map style (should be combined w/Leaflet and CartoDB CSS if needed)
-            // wp_register_style( 'map_style', plugins_url() . '/wp-fosb-map/src/assets/css/map-style.css' );
-
-
             ////// DEREGISTER JQUERY?? \\\\\\
 
             // Angular
@@ -87,9 +82,10 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
 
             // Vendor scripts UNminified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, others?
             wp_register_script( 'map_vendors', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/map-vendors.js', array(), '1.0.0', true );
+            wp_register_script( 'utf', 'http://tombatossals.github.io/angular-leaflet-directive/bower_components/Leaflet.utfgrid/dist/leaflet.utfgrid.js', array('map_vendors'), '1.0.0', true );
 
             // map app script
-            wp_register_script( 'map_script', plugins_url() . '/wp-fosb-map/src/app/map-app.js', array('map_vendors'), '1.0.0', true );
+            wp_register_script( 'map_script', plugins_url() . '/wp-fosb-map/src/app/map-app.js', array('utf'), '1.0.0', true );
 
         }
         else {  // PRODUCTION

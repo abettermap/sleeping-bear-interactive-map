@@ -1,6 +1,8 @@
-<div ng-app="mapApp" class="map-wrapper">
-    <div class="map-container" ng-controller="MapCtrl">
-        <leaflet id="mymap" width="640px" height="480px" defaults="defaults"></leaflet>
+<div ng-app="mapApp" class="map-wrapper" ng-controller="MapCtrl">
+    <div class="map-container" >
+        <leaflet id="mymap" width="640px" height="480px" defaults="defaults" center="centroid"></leaflet>
+        <button id="add-trail" ng-click="addTrailLayer()">Add Trail</button>
+        <button ng-click="getSql()">Get SQL</button>
+        <p ng-bind="zoomLev"></p>
     </div>
-    <button ng-click="ottawa()">Ottawa</button>
 </div>

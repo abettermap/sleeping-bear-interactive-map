@@ -1,33 +1,62 @@
   mapApp.constant('MapValues', {
     id: 'map',
     table: 'sbht_rough_013115',
+    apiKey: 'e11cc18c2ce30d0b5ea6e4d199c708d2d9fd1eb8',
     cartodb: {
       user_name: 'travelampel',
       type: 'cartodb',
       // interaction: true,
       sublayers: [{
-        cartocss: "#sbht_rough_013115{marker-fill: #109DCD; marker-width: 5; marker-line-color: white; marker-line-width: 0;}",
+        cartocss: "#sbht_rough_013115{line-color:#00aaff;line-width:4;}",
         // cartocss: getMss(),
         // interactivity: 'cartodb_id, job',
         sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_rough_013115"
       }]
     },
     sqlQueries: {
-        date: "SELECT the_geom_webmercator, date, yr, cartodb_id, job, CASE yr WHEN 2004 THEN 4 WHEN 2005 THEN 5 WHEN 2006 THEN 6 WHEN 2007 THEN 7 WHEN 2008 THEN 8 WHEN 2009 THEN 9 WHEN 2010 THEN 10 WHEN 2011 THEN 11 WHEN 2012 THEN 12 WHEN 2013 THEN 13 WHEN 2014 THEN 14 END as team_n FROM sbht_rough_013115",
-        // date: "SELECT the_geom_webmercator, date, yr, cartodb_id, job, CASE yr WHEN 2004 THEN 4 WHEN 2005 THEN 5 WHEN 2006 THEN 6 WHEN 2007 THEN 7 WHEN 2008 THEN 8 WHEN 2009 THEN 9 WHEN 2010 THEN 10 WHEN 2011 THEN 11 WHEN 2012 THEN 12 WHEN 2013 THEN 13 WHEN 2014 THEN 14 END as team_n FROM sbht_rough_013115",
-        all: "SELECT * FROM sbht_rough_013115"
+        allTrail: "SELECT * FROM sbht_rough_013115"
     },
     leafletDefaults: {
       tileLayer: 'http://tile.stamen.com/toner-lite/{z}/{x}/{y}.jpg',
       tileLayerOptions: {
           attribution: '&copy; <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCAQFjAA&url=http%3A%2F%2Fmaps.stamen.com%2F&ei=YASqVPOSJYWhyASky4CoBg&usg=AFQjCNH45Se7Q4ss_N_OiCN4Jqc-TXCk-w&sig2=LAfiRGpwSILDBDkeD6CoVA">Stamen Maps</a> contributors'
       },
-      center: {
-        lat: 22,
-        lng: -77,
-        zoom: 3
-      },
       zoomControl: true
+    },
+    centroid: {
+        lat: 44.8957686012,
+        lng: -86.00646972,
+        zoom: 11
+    },
+    leafletLayers: {
+        baselayers: {
+            wms: {
+                name: 'EEUU States (WMS)',
+                type: 'wms',
+                url: 'http://suite.opengeo.org/geoserver/usa/wms',
+                layerParams: {
+                    layers: 'usa:states',
+                    format: 'image/png',
+                    transparent: true
+                }
+            }
+        },
+        overlays: {
+            cartodbInteractive: {
+                key: '4b98ea41b978a133ada5828b2c51b793:1422910483792.78',
+                // key: 'e11cc18c2ce30d0b5ea6e4d199c708d2d9fd1eb8',
+                name: 'Sleeping Bear Heritage Trail',
+                type: 'cartodbInteractive',
+                user: 'travelampel',
+                layer: 'sbht_rough_013115',
+                options: {
+                    cartocss: "#sbht_rough_013115{line-color:#00aaff;line-width:4;}",
+                    // cartocss: getMss(),
+                    // interactivity: 'cartodb_id, job',
+                    sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_rough_013115"
+                }
+            }
+        }
     },
     panels: [
       { hide: true, name: 'time', fa: 'clock-o'},

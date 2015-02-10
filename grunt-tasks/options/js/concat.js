@@ -20,9 +20,9 @@ module.exports = {
     ng: {
       src: [
         'src/app/config/map-app-config.js',
-        'src/app/config/mapCtrl.js',
         'src/app/config/mapValues.js',
-        // 'src/app/config/mapFactory.js',
+        'src/app/config/mapFactory.js',
+        'src/app/config/mapCtrl.js',
         // 'src/app/config/mapService.js'
         // 'app/js/services/*.js',
         // 'app/js/constants/*.js',
