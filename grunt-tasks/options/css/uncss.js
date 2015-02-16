@@ -1,4 +1,6 @@
-// DON'T NEED FOR THIS PROJECT SINCE USING PRE-MADE THEME
+// will need to dequeue theme style if using this
+// probably don't need to mess with this, not a huge stylesheet
+
 module.exports = {
 
   build: {

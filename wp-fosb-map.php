@@ -27,8 +27,8 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
 
     function customfield_scripts_styles(){
         // register & enqueue cartodb css for now, less sloppy later
-        wp_register_style( 'cartodb', 'http://libs.cartocdn.com/cartodb.js/v3/3.11/themes/css/cartodb.css' );
-        wp_enqueue_style( 'cartodb' );
+        // wp_register_style( 'cartodb', 'http://libs.cartocdn.com/cartodb.js/v3/3.11/themes/css/cartodb.css' );
+        // wp_enqueue_style( 'cartodb' );
 
         if ( is_singular() ) {
             $post = get_post();
@@ -69,54 +69,24 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
 
         //// ENQUEUE FILES \\\\
 
-        // Enqueue scripts based on dev/prod by checking if wp-local-config.php exists
-        // $localConfig = plugins_url() . '/wp-fosb-map/wp-local-config.php';
-        $localConfig = $_SERVER['DOCUMENT_ROOT'] .'/wp-content/plugins/wp-fosb-map/wp-local-config.php';
+        // use this instead of messing with custom fields? probably.
+        // $localConfig = $_SERVER['DOCUMENT_ROOT'] .'/wp-content/plugins/wp-fosb-map/wp-local-config.php';
 
-        if (file_exists($localConfig)) {    // DEVELOPMENT
-
+        // if (file_exists($localConfig)) {    // DEVELOPMENT
 
             ////// DEREGISTER JQUERY?? \\\\\\
 
-            // Angular
-            wp_register_script( 'angular', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js', array(), '1.0.0', true);
+        // Angular
+        wp_register_script( 'angular', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js', array(), '1.0.0', true);
 
-            // Angular route
-            wp_register_script( 'angular_route', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js', array('angular'), '1.0.0', true);
+        // Angular route
+        wp_register_script( 'angular_route', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js', array('angular'), '1.0.0', true);
 
-            // Vendor scripts UNminified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, bindonce, others?
-            wp_register_script( 'map_vendors', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/map-vendors.js', array(), '1.0.0', true );
-            // wp_register_script( 'utf', 'http://tombatossals.github.io/angular-leaflet-directive/bower_components/Leaflet.utfgrid/dist/leaflet.utfgrid.js', array('map_vendors'), '1.0.0', true );
+        // Vendor scripts UNminified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, bindonce, others?
+        wp_register_script( 'map_vendors', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/map-vendors.js', array(), '1.0.0', true );
 
-            // map app script
-            wp_register_script( 'map_script', plugins_url() . '/wp-fosb-map/src/app/map-app.js', array('map_vendors'), '1.0.0', true );
-
-        }
-        else {  // PRODUCTION
-
-            // DON'T FORGET THAT THERE WILL BE TWO SETS OF CODE (ONE FOR KIOSKS) \\
-
-            /// Stylesheets \\\
-            // Register map style (should be combined w/Leaflet and CartoDB CSS if needed)
-            // wp_register_style( 'map_style', plugins_url() . '/wp-fosb-map/build/assets/css/map-style.css' );
-
-            /// Scripts \\\
-
-            ////// DEREGISTER JQUERY?? \\\\\\
-
-            // Angular minified
-            wp_register_script( 'angular', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js', array(), '1.0.0', true);
-
-            // Angular route minified
-            wp_register_script( 'angular_route', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.min.js', array('angular'), '1.0.0', true);
-
-            // Vendor scripts minified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, others?
-            wp_register_script( 'map_vendors', '/wp-fosb-map/build/assets/js/map-vendors.js', array(), '1.0.0', true);
-
-            // map app script
-            wp_register_script( 'map_script', plugins_url() . '/wp-fosb-map/build/app/map-app.js', array('map_vendors'), '1.0.0', true );
-
-        }
+        // map app script
+        wp_register_script( 'map_script', plugins_url() . '/wp-fosb-map/src/app/map-app.js', array('map_vendors'), '1.0.0', true );
 
         // Enqueue Angular and map scripts (dev/prod irrelevant)
         wp_enqueue_script('angular_route');

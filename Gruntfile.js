@@ -50,29 +50,22 @@ module.exports = function(grunt) {
 
     // VECTOR \\
     grunt.registerTask('combine-svg', ['svgmin', 'svgstore']); // Change subtask as needed
-    grunt.registerTask('test', ['copy:svgToPhp']);
 
     // BUILD
     grunt.registerTask('build', [
-        'newer:copy:plugin',
-        'newer:copy:license',
-        'concat:vendor',
-        // 'uglify:vendor',
-        // 'concat:ng',
-        'concat:kioskScript',
+        'copy',
+        // 'concat:kioskScript',
         'uglify',
-        'concat:kioskStyle',
+        // 'concat:kioskStyle',
         'cssmin',
-        'autoprefixer'
+        'autoprefixer:build'
     ]);
 
     // DEFAULT ()
     grunt.registerTask('default', [
-        'concat:vendor',
-        // 'newer:concat:vendor',
+        'concat:vendorScripts',
         'browserSync',
         'watch'
     ]);
-
 
 }

@@ -3,20 +3,27 @@ module.exports = {
     options: {
       // separator: ';'
     },
-    kioskStyle: {
+    buildStyles: {
         src: [
-            'src/assets/css/map-style.css',
-            'src/assets/css/map-style-kiosk.css'
+            'src/assets/js/vendor/bower_components/cartodb.js/dist/themes/css/cartodb.css',
+            'src/assets/css/map-style.css'
         ],
-        dest: 'build/src/assets/css/map-style-kiosk.css'
+        dest: 'build/src/assets/css/map-style.css'
     },
-    kioskScript: {
-        src: [
-            'src/app/map-app.js',
-            'src/app/kiosk/map-kiosk.js'
-        ],
-        dest: 'build/src/app/map-app-kiosk.js'
-    },
+    // kioskStyle: {
+    //     src: [
+    //         'src/assets/css/map-style.css',
+    //         'src/assets/css/map-style-kiosk.css'
+    //     ],
+    //     dest: 'build/src/assets/css/map-style-kiosk.css'
+    // },
+    // kioskScript: {
+    //     src: [
+    //         'src/app/map-app.js',
+    //         'src/app/kiosk/map-kiosk.js'
+    //     ],
+    //     dest: 'build/src/app/map-app-kiosk.js'
+    // },
     ng: {
       src: [
         'src/app/config/map-app-config.js',
@@ -35,7 +42,7 @@ module.exports = {
       ],
       dest: 'src/app/map-app.js'
     },
-    vendor: {
+    vendorScripts: {
       src: [
         // CartoDB, no jQuery, unminified
         'src/assets/js/vendor/bower_components/cartodb.js/dist/_cartodb_nojquery.js',
@@ -43,8 +50,6 @@ module.exports = {
         // 'src/assets/js/vendor/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
         // Picturefill
         'src/assets/js/vendor/bower_components/picturefill/dist/picturefill.js',
-        // Bindonce
-        // 'src/assets/js/vendor/bower_components/bindonce/bindonce.js',
         // Lightbox
         'src/assets/js/vendor/bower_components/lightbox2/js/lightbox.js'
 

@@ -5,16 +5,16 @@ module.exports = {
         report: 'min'
       },
       files: {
-        'build/src/assets/css/map-style.css': ['src/assets/css/tidy.css']
+        'build/src/assets/css/map-style.css': ['src/assets/css/map-style.css']
       }
-    },
-    kiosk: {
-      options: {
-        report: 'min'
-      },
-      files: {
-        'build/src/assets/css/map-style-kiosk.css': ['build/src/assets/css/map-style-kiosk.css']
-      }
-    }
+    }//,
+    // kiosk: {
+    //   options: {
+    //     report: 'min'
+    //   },
+    //   files: {
+    //     'build/src/assets/css/map-style-kiosk.css': ['build/src/assets/css/map-style-kiosk.css']
+    //   }
+    // }
 
 }

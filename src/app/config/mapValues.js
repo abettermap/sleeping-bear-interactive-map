@@ -2,22 +2,28 @@ mapApp.constant('MapValueDefaults', {
     cartodb: {
         type: 'CartoDB',
         user_name: 'remcaninch',
+        tiler_protocol: "https",
+        tiler_domain: "cartodb.com",
+        tiler_port: "443",
+        sql_domain: "cartodb.com",
+        sql_port: "443",
+        sql_protocol: "https",
         sublayers: [
             {   // TRAIL FOR NOW
                 sql: "SELECT * FROM sbht_temp",
-                cartocss: "#sbht_temp{line-color:green;line-width:3.5;}",
+                cartocss: "#sbht_temp{line-color:green;line-width:4;}",
                 interactivity: "name",
                 name: "Sleeping Bear Heritage Trail"
             },
             {   // GRADE FOR NOW
                 sql: "SELECT * FROM sbht_grade_temp",
-                cartocss: "#sbht_grade_temp{line-color: #000000;line-width: 3;line-opacity: 0.7;line-dasharray: 2,3;}",
+                cartocss: "#sbht_grade_temp{line-color: #000000;line-width: 5;line-dasharray: 2,3;}",
                 interactivity: "name, direction, grade",
                 name: "Grade"
             },
             {   // CAUTION FOR NOW
                 sql: "SELECT * FROM sbht_caution_temp",
-                cartocss: "#sbht_caution_temp{line-color:#F11810;line-width:4;line-opacity:0.55;}",
+                cartocss: "#sbht_caution_temp{line-color:#F11810;line-width:5;}",
                 interactivity: "descrip, type",
                 name: 'Caution'
             },
