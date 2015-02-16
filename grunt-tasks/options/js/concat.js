@@ -40,9 +40,11 @@ module.exports = {
         // CartoDB, no jQuery, unminified
         'src/assets/js/vendor/bower_components/cartodb.js/dist/_cartodb_nojquery.js',
         // Leaflet directive, unminified
-        'src/assets/js/vendor/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
+        // 'src/assets/js/vendor/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
         // Picturefill
         'src/assets/js/vendor/bower_components/picturefill/dist/picturefill.js',
+        // Bindonce
+        // 'src/assets/js/vendor/bower_components/bindonce/bindonce.js',
         // Lightbox
         'src/assets/js/vendor/bower_components/lightbox2/js/lightbox.js'
 

@@ -26,6 +26,10 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
 */
 
     function customfield_scripts_styles(){
+        // register & enqueue cartodb css for now, less sloppy later
+        wp_register_style( 'cartodb', 'http://libs.cartocdn.com/cartodb.js/v3/3.11/themes/css/cartodb.css' );
+        wp_enqueue_style( 'cartodb' );
+
         if ( is_singular() ) {
             $post = get_post();
             if ( is_a( $post, 'WP_Post' ) ) {
@@ -80,12 +84,12 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
             // Angular route
             wp_register_script( 'angular_route', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js', array('angular'), '1.0.0', true);
 
-            // Vendor scripts UNminified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, others?
+            // Vendor scripts UNminified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, bindonce, others?
             wp_register_script( 'map_vendors', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/map-vendors.js', array(), '1.0.0', true );
-            wp_register_script( 'utf', 'http://tombatossals.github.io/angular-leaflet-directive/bower_components/Leaflet.utfgrid/dist/leaflet.utfgrid.js', array('map_vendors'), '1.0.0', true );
+            // wp_register_script( 'utf', 'http://tombatossals.github.io/angular-leaflet-directive/bower_components/Leaflet.utfgrid/dist/leaflet.utfgrid.js', array('map_vendors'), '1.0.0', true );
 
             // map app script
-            wp_register_script( 'map_script', plugins_url() . '/wp-fosb-map/src/app/map-app.js', array('utf'), '1.0.0', true );
+            wp_register_script( 'map_script', plugins_url() . '/wp-fosb-map/src/app/map-app.js', array('map_vendors'), '1.0.0', true );
 
         }
         else {  // PRODUCTION
