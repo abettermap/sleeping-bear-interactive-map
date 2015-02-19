@@ -22,11 +22,11 @@
 //  *
 //  * MAP CONTAINER
 
-// consider http://susy.oddbird.net/ for layouts
 
-// Does this work?
-// @import "breakpoint";
-
+#map {
+    height: 600px;
+    width: 100%;
+}
 
 // MAP WRAP
 .map-wrapper {}

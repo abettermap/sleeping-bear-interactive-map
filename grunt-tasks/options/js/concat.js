@@ -26,19 +26,11 @@ module.exports = {
     // },
     ng: {
       src: [
-        'src/app/config/map-app-config.js',
-        'src/app/config/mapValues.js',
-        'src/app/config/mapFactory.js',
-        'src/app/config/mapCtrl.js',
-        // 'src/app/config/mapService.js'
-        // 'app/js/services/*.js',
-        // 'app/js/constants/*.js',
-        // 'app/js/values/*.js',
-        // 'app/js/routes/*.js',
-        // 'app/js/controllers/*.js',
-        // 'app/js/directives/*.js'
-        // 'app/js/src/_map-styles.js',
-        // 'app/js/src/_map-layers.js',
+        'src/app/config/app-config.js', // should work as long as app-config comes first
+        'src/app/map/*.js',
+        'src/app/popups/**/*.js',
+        'src/app/ctrls/**/*.js',
+        'src/app/panels/**/*.js'
       ],
       dest: 'src/app/map-app.js'
     },
@@ -46,13 +38,10 @@ module.exports = {
       src: [
         // CartoDB, no jQuery, unminified
         'src/assets/js/vendor/bower_components/cartodb.js/dist/_cartodb_nojquery.js',
-        // Leaflet directive, unminified
-        // 'src/assets/js/vendor/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
         // Picturefill
         'src/assets/js/vendor/bower_components/picturefill/dist/picturefill.js',
         // Lightbox
         'src/assets/js/vendor/bower_components/lightbox2/js/lightbox.js'
-
       ],
       dest: 'src/assets/js/vendor/map-vendors.js'
     }

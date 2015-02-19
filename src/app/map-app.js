@@ -1,274 +1,293 @@
-var mapApp = angular.module('mapApp', ['ngRoute']);
-mapApp.constant('MapValueDefaults', {
-    cartodb: {
-        type: 'CartoDB',
-        user_name: 'remcaninch',
-        tiler_protocol: "https",
-        tiler_domain: "cartodb.com",
-        tiler_port: "443",
-        sql_domain: "cartodb.com",
-        sql_port: "443",
-        sql_protocol: "https",
-        sublayers: [
-            {   // TRAIL FOR NOW
-                sql: "SELECT * FROM sbht_temp",
-                cartocss: "#sbht_temp{line-color:green;line-width:4;}",
-                interactivity: "name",
-                name: "Sleeping Bear Heritage Trail"
-            },
-            {   // GRADE FOR NOW
-                sql: "SELECT * FROM sbht_grade_temp",
-                cartocss: "#sbht_grade_temp{line-color: #000000;line-width: 5;line-dasharray: 2,3;}",
-                interactivity: "name, direction, grade",
-                name: "Grade"
-            },
-            {   // CAUTION FOR NOW
-                sql: "SELECT * FROM sbht_caution_temp",
-                cartocss: "#sbht_caution_temp{line-color:#F11810;line-width:5;}",
-                interactivity: "descrip, type",
-                name: 'Caution'
-            },
-            {   // NPS POI
-                sql: "SELECT * FROM nps_poi_digitize",
-                cartocss: "#nps_poi_giscloud{marker-fill:#A6CEE3;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
-                name: 'NPS POI'
-            },
-            {   // SBHT POI
-                sql: "SELECT * FROM sbht_poi_digitize",
-                cartocss: "#sbht_poi_digitize{marker-fill:#000;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
-                name: 'SBHT POI'
-            },
-            {   // COMM POI
-                sql: "SELECT * FROM comm_poi_master",
-                cartocss: "#trail_pix_digitize{marker-fill:orange;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                interactivity: "name, type, mile, name_id, season, x, y, sw_offset, ne_offset, descrip, video, audio, phone, addr_no, addr_name, addr_type, city, zip, email, website",
-                name: 'Commercial POI'
-            },
-            {   // TRAIL PIX
-                sql: "SELECT * FROM trail_pix_digitize",
-                cartocss: "#trail_pix_digitize{marker-fill:red;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                interactivity: "img_file, season",
-                name: 'Trail Pics'
-            }
-        ]
-    },
-    tileLayer: {
-        url: "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-        options: {
-            attribution: "\u00a9 <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors \u00a9 <a href= \"http://cartodb.com/attributions#basemaps\">CartoDB</a>"
-        }
-    },
-    leaflet: {
-        // tileLayer: 'http://tile.stamen.com/toner-lite/{z}/{x}/{y}.jpg',
-        // tileLayerOptions: {
-        //     attribution: '&copy; <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCAQFjAA&url=http%3A%2F%2Fmaps.stamen.com%2F&ei=YASqVPOSJYWhyASky4CoBg&usg=AFQjCNH45Se7Q4ss_N_OiCN4Jqc-TXCk-w&sig2=LAfiRGpwSILDBDkeD6CoVA">Stamen Maps</a> contributors'
-        // },
-        zoom: 11,
-        zoomControl: true,
-        center: [44.8957686012,-86.00646972]
-    }
-});
-angular.module('mapApp').factory('mapFactory', ['MapValueDefaults', function mapFactory(MapValueDefaults) {
+(function() {
 
-    var mapFactory = {};
+    'use strict';
 
-    mapFactory.map = new L.Map('map', MapValueDefaults.leaflet);
-
-    L.tileLayer(MapValueDefaults.tileLayer.url, MapValueDefaults.tileLayer.options)
-    .addTo(mapFactory.map);
-
-    mapFactory.loadInitialMap = function(){
-        cartodb.createLayer(mapFactory.map, MapValues.cartodb)
-        .addTo(mapFactory.map)
-        .on('done', function(layer) {
-            cdb.vis.Vis.addCursorInteraction(mapFactory.map, layer);
-            var sublayer = layer.getSubLayer(0);
-            console.log(layer);
-            sublayer.setInteractivity('name');
-            layer.setInteractivity('name');
-            sublayer.setInteraction(true);
-            layer.setInteraction(true);
-            sublayer.on('featureClick', function(e, pos, latlng, data) {
-                $scope.$apply(function() {
-                    $scope.pointData = data.name;
-                });
-            });
-        }).on('error', function() {
-            console.log("some error occurred");
+    angular
+        .module('mapApp', [
+            'ngRoute',
+            'mapModule'//,
+            // 'mapFactory'
+            // 'mapModuleFactory'
+            // 'popupModule',
+            // 'ctrlModule',
+            // 'panelModule'
+        ])
+        .run(function($rootScope) {
         });
-    }
 
+})();
+(function() {
 
-    mapFactory.getSql = function(){
-        var sql = new cartodb.SQL({ user: MapValues.cartodb.user_name });
-        sql.execute("SELECT name FROM " + MapValues.table, { id: 3 })
-          .done(function(data) {
-            var myData = data.rows;
-            for (var i = myData.length - 1; i >= 0; i--) {
-                console.log("Trail Nombre: " + myData[i].name);
-            };
-          })
-          .error(function(errors) {
-            console.log("errors:" + errors);
-          })
-    }
+    'use strict';
 
-    return mapFactory;
+    angular
+        .module('mapModule', []);
 
-}]);
-var mapPopupDirective = function () {
-    return {
-        // scope: {
-        //     name: '@'
-        // },
-        templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/popups/templates/mapPopup.html'
-    };
-};
+})();
+(function() {
 
-angular.module('mapApp').directive('mapPopup', mapPopupDirective);
+    angular
+        .module('mapModule')
+        .controller('MapCtrl', MapCtrl);
 
-angular.module('mapApp').controller('MapCtrl', MapCtrl);
+    MapCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];
 
-// Keeps things clean, and safe from minification
-MapCtrl.$inject = ['$scope', 'MapValueDefaults', 'mapFactory'];
+    function MapCtrl($scope, mapFactory, $rootScope){
 
-function MapCtrl($scope, MapValues, mapFactory) {
+        var vm = this;
 
-    $scope.featureData = [];
-    $scope.tableName = '';
+        vm.map = mapFactory.map;
+        vm.mapDefaults = mapFactory.mapDefaults;
 
-    $scope.getFeatureData = function(data, tableName){
-        if (!data){
-            return "";
-        } else {
-            var dataArray = Object.keys(data).map(function(key){
-                var result = {
-                    key: key,
-                    data: data[key]
-                }
-                return result;
-                // return  '<b>' + key + ': </b>' + data[key];
-            });
-            $scope.tableName = tableName;
-            $scope.featureData = dataArray;
-            // return dataArray;
-        }
-        console.log($scope.featureData);
-    }
-
-    // $scope.loadInitialMap = function(){
-    //     mapFactory.loadInitialMap();
-    // }
-    $scope.loadInitialMap = function(){
-        cartodb.createLayer(mapFactory.map, MapValues.cartodb)
-        .addTo(mapFactory.map)
+        cartodb.createLayer(vm.map, vm.mapDefaults.cartodb)
+        .addTo(vm.map)
         .on('done', function(layer) {
-            cdb.vis.Vis.addCursorInteraction(mapFactory.map, layer);
+            cdb.vis.Vis.addCursorInteraction(vm.map, layer);
             var sublayers = layer.options.sublayers;
+            var tableNameArr = [];
             for (var i = sublayers.length - 1; i >= 0; i--) {
+
                 var sublayer = layer.getSubLayer(i);
                 sublayer.setInteraction(true);
-                var tableNameArr = [];
-                // tableNameArr.push(sublayers[i].name);
-                sublayer.on('featureClick', function(e, pos, latlng, data) {
-                    $scope.$apply(function() {
-                        var tableName = '';
-                        $scope.getFeatureData(data, tableName);
-                        console.log(tableName);
-                    });
+
+                tableNameArr.push({
+                    tablename: sublayers[i].name,
+                    index: i
                 });
+
+                // sublayer.on('featureClick', mapFactory.featureClick(e, pos, latlng, data));
+                sublayer.on('featureClick', function(e, pos, latlng, data) {
+                    $rootScope.$apply(function() {
+                        $rootScope.data = data;
+                    });
+                     // mapFactory.featureClick(data);
+                    // mapFactory.setProperty(data.name);
+                    // var newSub = layer.options.sublayers[this._position]
+                    // var tableName = newSub.name;
+                    // var dataArray = vm.getFeatureData(data, tableName);
+                    // $scope.$apply(function() {
+                    //     vm.featureData = {
+                    //         name: tableName,
+                    //         data: dataArray
+                    //     }
+                    // });
+                });
+
+
             };
         }).on('error', function() {
             console.log("some error occurred");
         });
-    }
 
-    $scope.loadInitialMap();
-
-
-
-    function addCursorInteraction(layer) {
-      var hovers = [];
-
-      layer.bind('mouseover', function(e, latlon, pxPos, data, layer) {
-      console.log(layer);
-        hovers[layer] = 1;
-        cursor.set('pointer')
-        // if(_.any(hovers)) {
-        //   $('#map').css('cursor', 'pointer');
-        // }
-      });
-
-      layer.bind('featureOut', function(m, layer) {
-        hovers[layer] = 0;
-        if(!_.any(hovers)) {
-          $('#map').css('cursor', 'pointer');
+        vm.getFeatureData = function(data, tableName){
+            console.log("passed");
+            if (!data){
+                return "";
+            } else {
+                function dataArray(){
+                    var hey = Object.keys(data).map(function(key){
+                        var result = {
+                            key: key,
+                            data: data[key]
+                        }
+                        return result;
+                    });
+                    return hey;
+                }
+                return dataArray();
+            }
         }
-      });
+
+        //     // $scope.$on('$viewContentLoaded', function(){
+        //     //   hey();
+        //     // });
+        //     // $scope.$watch("traildata.name", function (zoom) {
+        //     //     console.log("things happenin");
+        //     // });
+
+        //     // $scope.$watch("centroid.lng", function (zoom) {
+        //     //     $scope.zoomLev = zoom;
+        //     // });
+
+    }
+
+})();
+(function() {
+
+    angular
+        .module('mapModule')
+        .directive('interactiveMap', interactiveMap);
+
+    function interactiveMap(){
+        return {
+            restrict: 'E',
+            template: '<div id="map"></div>',
+            controller: 'MapCtrl',
+            controllerAs: 'vm',
+            replace: true
+        }
+    }
+
+})();
+(function() {
+
+    angular
+        .module('mapApp')
+        // .module('mapModuleFactory')
+        .factory('mapFactory', mapFactory);
+
+    function mapFactory($rootScope){
+
+        var mapFactory = {}
+
+        mapFactory.mapDefaults = {
+            cartodb: {
+                type: 'CartoDB',
+                user_name: 'remcaninch',
+                tiler_protocol: "https",
+                tiler_domain: "cartodb.com",
+                tiler_port: "443",
+                sql_domain: "cartodb.com",
+                sql_port: "443",
+                sql_protocol: "https",
+                sublayers: [
+                    {   // TRAIL FOR NOW
+                        sql: "SELECT * FROM sbht_temp",
+                        cartocss: "#sbht_temp{line-color:green;line-width:4;}",
+                        interactivity: "name",
+                        name: "Sleeping Bear Heritage Trail",
+                        id: "sbht"
+                    },
+                    {   // GRADE FOR NOW
+                        sql: "SELECT * FROM sbht_grade_temp",
+                        cartocss: "#sbht_grade_temp{line-color: #000000;line-width: 5;line-dasharray: 2,3;}",
+                        interactivity: "name, direction, grade",
+                        name: "Grade",
+                        id: "grade"
+                    },
+                    {   // CAUTION FOR NOW
+                        sql: "SELECT * FROM sbht_caution_temp",
+                        cartocss: "#sbht_caution_temp{line-color:#F11810;line-width:5;}",
+                        interactivity: "descrip, type",
+                        name: 'Caution',
+                        id: "caution"
+                    },
+                    {   // NPS POI
+                        sql: "SELECT * FROM nps_poi_giscloud",
+                        cartocss: "#nps_poi_giscloud{marker-fill:#A6CEE3;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
+                        interactivity: "name",
+                        // interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
+                        name: 'NPS POI',
+                        id: "nps_poi"
+                    },
+                    {   // SBHT POI
+                        sql: "SELECT * FROM sbht_poi_digitize",
+                        cartocss: "#sbht_poi_digitize{marker-fill:#000;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
+                        interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
+                        name: 'SBHT POI',
+                        id: "sbht_poi"
+                    },
+                    {   // COMM POI
+                        sql: "SELECT * FROM comm_poi_master",
+                        cartocss: "#trail_pix_digitize{marker-fill:orange;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
+                        interactivity: "name, type, mile, name_id, season, x, y, sw_offset, ne_offset, descrip, video, audio, phone, addr_no, addr_name, addr_type, city, zip, email, website",
+                        name: 'Commercial POI',
+                        id: "comm_poi"
+                    },
+                    {   // TRAIL PIX
+                        sql: "SELECT * FROM trail_pix_digitize",
+                        cartocss: "#trail_pix_digitize{marker-fill:red;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
+                        interactivity: "img_file, season",
+                        name: 'Trail Pics',
+                        id: "trail_pix"
+                    }
+                ]
+            },
+            tileLayer: {
+                url: "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+                options: {
+                    attribution: "\u00a9 <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors \u00a9 <a href= \"http://cartodb.com/attributions#basemaps\">CartoDB</a>"
+                }
+            },
+            leaflet: {
+                zoom: 12,
+                zoomControl: true,
+                center: [44.8957686012,-86.00646972]
+            }
+
+    }
+
+        mapFactory.map = new L.Map('map', mapFactory.mapDefaults.leaflet);
+
+        L.tileLayer(mapFactory.mapDefaults.tileLayer.url, mapFactory.mapDefaults.tileLayer.options)
+        .addTo(mapFactory.map);
+
+        return mapFactory;
+
     }
 
 
-    $scope.getSql = function(){
-        mapFactory.getSql();
+})();
+(function() {
+
+    angular
+        .module('mapApp')
+        .controller('PopupCtrl', PopupCtrl);
+
+    PopupCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];
+
+    function PopupCtrl($scope, mapFactory, $rootScope){
+        var vm = this;
+        vm.data = {}
+
+        $rootScope.$watch('data', function() {
+            vm.data = $rootScope.data;
+        });
+
     }
 
-    $scope.trailInfo = '';
-    $scope.getTrailInfo = function(data){
-        sendTrailInfo(data);
+})();
+(function() {
+
+    angular
+        .module('mapApp')
+        .directive('popup', popup);
+
+    function popup(){
+        return {
+            restrict: 'E',
+            // scope: {
+            //     // test: '='
+            // },
+            templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/popups/templates/mapPopup.html',
+            controller: 'PopupCtrl',
+            controllerAs: 'vm',
+            replace: true
+        }
     }
 
-    // $scope.$watch("centroid.lng", function (zoom) {
-    //     $scope.zoomLev = zoom;
-    // });
+})();
+(function() {
 
-    // leafletData.getMap().then(function(map) {
-    //     // console.log("shtuff");
-    //     // cartodb.createLayer(map, vizPath)
-    //     cartodb.createLayer(map, MapValues.cartodb)
-    //     .addTo(map)
-    //     .on('done', function(layer) {
-    //         var trailSublayer = layer.getSubLayer(0);
-    //         addCursorInteraction(trailSublayer);
-    //         // cdb.vis.Vis.addCursorInteraction(map, trailSublayer);
-    //         trailSublayer.setInteraction(true);
-    //         trailSublayer.on('featureOver', function() {
-    //           cursor.set('pointer')
-    //         });
-    //         layer.on('featureOver', function() {
-    //           cursor.set('pointer')
-    //         });
-    //         trailSublayer.on('featureClick', function(e, pos, latlng, data) {
-    //             $scope.trailInfo = data.name;
-    //             // $scope.getTrailInfo(data);
-    //         });
-    //         // trailSublayer.on('mouseover', function() {
-    //         //   cursor.set('pointer')
-    //         // });
-    //         var npsSublayer = layer.getSubLayer(1);
-    //         // cdb.vis.Vis.addCursorInteraction(map, npsSublayer);
-    //         npsSublayer.setInteraction(true);
-    //         npsSublayer.on('featureClick', function(e, pos, latlng, data) {
-    //             $scope.trailInfo = data.type;
-    //             // $scope.getTrailInfo(data);
-    //         });
-    //     })
-    //     .on('error', function() {
-    //         console.log("error");
-    //     });
-    // });
+    'use strict';
 
+    angular
+        .module('popupModule', []);
 
-    // $scope.$on('$viewContentLoaded', function(){
-    //   hey();
-    // });
-    // $scope.$watch("traildata.name", function (zoom) {
-    //     console.log("things happenin");
-    // });
+})();
+(function() {
 
-    // $scope.$watch("centroid.lng", function (zoom) {
-    //     $scope.zoomLev = zoom;
-    // });
+    'use strict';
 
-}
+    angular
+        .module('ctrlModule', []);
+
+})();
+(function() {
+
+    'use strict';
+
+    angular
+        .module('panelModule', []);
+
+})();

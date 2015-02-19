@@ -26,9 +26,6 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
 */
 
     function customfield_scripts_styles(){
-        // register & enqueue cartodb css for now, less sloppy later
-        // wp_register_style( 'cartodb', 'http://libs.cartocdn.com/cartodb.js/v3/3.11/themes/css/cartodb.css' );
-        // wp_enqueue_style( 'cartodb' );
 
         if ( is_singular() ) {
             $post = get_post();

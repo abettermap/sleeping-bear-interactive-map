@@ -1,1 +1,0 @@
-var mapApp = angular.module('mapApp', ['ngRoute']);

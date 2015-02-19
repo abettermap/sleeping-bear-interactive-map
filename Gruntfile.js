@@ -63,8 +63,8 @@ module.exports = function(grunt) {
 
     // DEFAULT ()
     grunt.registerTask('default', [
-        'concat:vendorScripts',
-        'browserSync',
+        'newer:concat:vendorScripts',
+        // 'browserSync',
         'watch'
     ]);
 

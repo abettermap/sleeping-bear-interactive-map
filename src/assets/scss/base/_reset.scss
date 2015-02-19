@@ -1,0 +1,12 @@
+// Override theme's defaults
+
+// No right sidebar
+#rightcol {
+    display: none;
+}
+
+// Full-width main content
+#content-wide {
+    width: 100%;
+    float: none;
+}
