@@ -4,6 +4,9 @@
         .module('ctrlsModule')
         .factory('ctrlsFactory', ctrlsFactory);
 
+    // do this so you don't lose it during ugg...
+    ctrlsFactory.$inject = ['mapFactory', '$rootScope', 'Fullscreen'];
+
     function ctrlsFactory(mapFactory, $rootScope, Fullscreen){
 
         var ctrlsFactory = {}

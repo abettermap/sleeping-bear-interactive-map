@@ -7,7 +7,7 @@
     function interactiveMap(){
         return {
             restrict: 'E',
-            template: '<div id="map"></div>',
+            template: '<div class="map" id="map"></div>',
             controller: 'MapCtrl',
             controllerAs: 'vm',
             replace: true

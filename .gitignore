@@ -23,4 +23,9 @@ src/assets/spatial/qgis
 ##########
 src/assets/img/raster
 src/assets/img/svg/shared
+src/assets/img/svg/project/icons/min
 src/assets/img/svg/QGIS-default
+
+# Grunt #
+##########
+.sublime-grunt-cache

@@ -14,18 +14,33 @@ module.exports = {
         dest: 'build'
         // filter: 'isFile'
     },
-    config: {
-        // expand: true,
+    html: {
+        expand: true,
+        cwd: 'src/',
         // flatten: true,
-        src: 'src/app/config/map.html',
-        dest: 'build/src/app/config/map.html'
+        // src: 'src/app/config/map.html',
+        filter: 'isFile',
+        src: ['app/**/*.html'],
+        dest: 'build/src'
     },
-    template: {
-        // expand: true,
+    // template: {
+    //     // expand: true,
+    //     // flatten: true,
+    //     src: 'src/app/popups/templates/mapPopup.html',
+    //     dest: 'build/src/app/popups/templates/mapPopup.html'
+    // },
+    svg: {
+        cwd: 'src/',
+        filter: 'isFile',
         // flatten: true,
-        src: 'src/app/popups/templates/mapPopup.html',
-        dest: 'build/src/app/popups/templates/mapPopup.html'
+        src: ['assets/img/svg/project/defs/**/*.svg'],
+        expand: true,
+        dest: 'build/src/assets/img/svg/project/defs'
     }//,
+    // fastclick: {
+    //     src: 'src/assets/js/vendor/fastclick.js',        
+    //     dest: 'build/src/assets/js/vendor/fastclick.js'        
+    // }
     // svgToPhp: {
     //   files: [
     //       {

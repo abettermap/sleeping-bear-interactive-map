@@ -41,12 +41,15 @@ module.exports = function(grunt) {
 
     // DEVELOP \\
     grunt.registerTask('build-scripts', ['concat:ng']);
+    grunt.registerTask('copy-html', ['copy:html']);
+    grunt.registerTask('copy-svg', ['copy:svg']);
     // grunt.registerTask('concat-vendor-dev', ['newer:concat:vendorDev']);
 
     // RASTER \\
     grunt.registerTask('image-opt', ['responsive_images', 'imageoptim' ]);;
     grunt.registerTask('image-deep', ['image' ]);;
     grunt.registerTask('yahoo', ['smushit']);
+    grunt.registerTask('ug', ['newer:uglify']);
 
     // VECTOR \\
     grunt.registerTask('combine-svg', ['svgmin', 'svgstore']); // Change subtask as needed
@@ -55,7 +58,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'copy',
         // 'concat:kioskScript',
-        'uglify',
+        'newer:uglify',
         // 'concat:kioskStyle',
         'cssmin',
         'autoprefixer:build'

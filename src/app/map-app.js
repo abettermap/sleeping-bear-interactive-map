@@ -127,7 +127,7 @@
     function interactiveMap(){
         return {
             restrict: 'E',
-            template: '<div id="map"></div>',
+            template: '<div class="map" id="map"></div>',
             controller: 'MapCtrl',
             controllerAs: 'vm',
             replace: true
@@ -141,6 +141,9 @@
         .module('mapApp')
         // .module('mapModuleFactory')
         .factory('mapFactory', mapFactory);
+
+    // do this so you don't lose it during ugg...
+    mapFactory.$inject = ['$rootScope'];
 
     function mapFactory($rootScope){
 
@@ -362,6 +365,9 @@
     angular
         .module('ctrlsModule')
         .factory('ctrlsFactory', ctrlsFactory);
+
+    // do this so you don't lose it during ugg...
+    ctrlsFactory.$inject = ['mapFactory', '$rootScope', 'Fullscreen'];
 
     function ctrlsFactory(mapFactory, $rootScope, Fullscreen){
 

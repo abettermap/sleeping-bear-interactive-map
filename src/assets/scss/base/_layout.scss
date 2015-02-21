@@ -1,24 +1,25 @@
-#map {
-    height: 100%;
-    width: 100%;
+.map {
+  height: 100%;
+  width: 100%;
 }
 
 // MAP WRAP
 .map-wrapper {
-    // position: relative;
-    // left: -15px;
+  // position: relative;
+  // left: -15px;
 }
 
-#map-container.fullscreen {
-    height: 100%;
-    width: 100%;
+.map-container.fullscreen {
+  height: 100%;
+  width: 100%;
 }
 
-#map-container {
-    height: 500px;
-    width: calc(100% + 30px);
-    position: relative;
-    left: -15px;
+.map-container {
+  height: 500px;
+  left: -15px;
+  position: relative;
+  width: calc(100% + 30px);
 }
 
-$panel-spacing: 15px;
+$panel-spacing: 15px; 
+

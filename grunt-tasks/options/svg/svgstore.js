@@ -5,7 +5,7 @@ module.exports = {
     },
     all: {
         files: {
-            'src/assets/img/svg/project/fosb-svg-defs.svg': ['src/assets/img/svg/project/icons/min/*.svg']
+            'src/assets/img/svg/project/defs/fosb-svg-defs.svg': ['src/assets/img/svg/project/min/*.svg']
         }
     }
 

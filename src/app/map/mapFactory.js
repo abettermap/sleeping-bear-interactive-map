@@ -5,6 +5,9 @@
         // .module('mapModuleFactory')
         .factory('mapFactory', mapFactory);
 
+    // do this so you don't lose it during ugg...
+    mapFactory.$inject = ['$rootScope'];
+
     function mapFactory($rootScope){
 
         var mapFactory = {}
