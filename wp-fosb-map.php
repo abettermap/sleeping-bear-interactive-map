@@ -72,6 +72,8 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
         // if (file_exists($localConfig)) {    // DEVELOPMENT
 
             ////// DEREGISTER JQUERY?? \\\\\\
+        // Fastclick needs to load before other stuff
+        wp_register_script( 'fastclick', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/fastclick.js', array(), '1.0.0', false );
 
         // Angular
         wp_register_script( 'angular', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js', array(), '1.0.0', true);
@@ -86,6 +88,7 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
         wp_register_script( 'map_script', plugins_url() . '/wp-fosb-map/src/app/map-app.js', array('map_vendors'), '1.0.0', true );
 
         // Enqueue Angular and map scripts (dev/prod irrelevant)
+        wp_enqueue_script('fastclick');
         wp_enqueue_script('angular_route');
         wp_enqueue_script( 'map_script' );
 

@@ -2,26 +2,30 @@
 
     'use strict';
 
+    FastClick.attach(document.body);
+
+    angular
+        .module('ctrlsModule', [
+
+        ]);
+    angular
+        .module('mapModule', []);
+    angular
+        .module('panelsModule', []);
+    angular
+        .module('popupsModule', []);
+
     angular
         .module('mapApp', [
             'ngRoute',
-            'mapModule'//,
-            // 'mapFactory'
-            // 'mapModuleFactory'
-            // 'popupModule',
-            // 'ctrlModule',
-            // 'panelModule'
+            'FBAngular',
+            'ctrlsModule',
+            'mapModule',
+            'panelsModule',
+            'popupsModule',
         ])
         .run(function($rootScope) {
-        });
-
-})();
-(function() {
-
-    'use strict';
-
-    angular
-        .module('mapModule', []);
+    });
 
 })();
 (function() {
@@ -33,6 +37,8 @@
     MapCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];
 
     function MapCtrl($scope, mapFactory, $rootScope){
+
+        $rootScope.className = "map-container";
 
         var vm = this;
 
@@ -204,14 +210,11 @@
                 ]
             },
             tileLayer: {
-                url: "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-                options: {
-                    attribution: "\u00a9 <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors \u00a9 <a href= \"http://cartodb.com/attributions#basemaps\">CartoDB</a>"
-                }
+                url: "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
             },
             leaflet: {
                 zoom: 12,
-                zoomControl: true,
+                zoomControl: false,
                 center: [44.8957686012,-86.00646972]
             }
 
@@ -221,6 +224,7 @@
 
         L.tileLayer(mapFactory.mapDefaults.tileLayer.url, mapFactory.mapDefaults.tileLayer.options)
         .addTo(mapFactory.map);
+        L.control.scale().addTo(mapFactory.map);
 
         return mapFactory;
 
@@ -231,7 +235,7 @@
 (function() {
 
     angular
-        .module('mapApp')
+        .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
     PopupCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];
@@ -250,7 +254,7 @@
 (function() {
 
     angular
-        .module('mapApp')
+        .module('popupsModule')
         .directive('popup', popup);
 
     function popup(){
@@ -259,7 +263,8 @@
             // scope: {
             //     // test: '='
             // },
-            templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/popups/templates/mapPopup.html',
+            // templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/popups/templates/popupTemplate.html',
+            template: '<p class="test"></p>',
             controller: 'PopupCtrl',
             controllerAs: 'vm',
             replace: true
@@ -269,25 +274,145 @@
 })();
 (function() {
 
-    'use strict';
-
     angular
-        .module('popupModule', []);
+        .module('ctrlsModule')
+        .controller('CtrlsCtrl', CtrlsCtrl);
+
+    CtrlsCtrl.$inject = ['$scope', 'ctrlsFactory', '$rootScope', 'Fullscreen'];
+
+    function CtrlsCtrl($scope, ctrlsFactory, $rootScope, Fullscreen){
+        var vm = this;
+
+        vm.zoomIn = function(){
+            ctrlsFactory.zoomIn();
+        }
+        vm.zoomOut = function(){
+            ctrlsFactory.zoomOut();
+        }
+        vm.zoomHome = function(){
+            ctrlsFactory.zoomHome();
+        }
+        vm.locate = function(){
+            ctrlsFactory.locate();
+        }
+
+        vm.fullScreen = function() {
+            ctrlsFactory.fullScreen();
+        }
+
+        vm.executeFunctionByName = function(functionName, context /*, args */) {
+            ctrlsFactory.executeFunctionByName(functionName, context /*, args */);
+        }
+
+        vm.ctrls = [
+            {
+                name: '+',
+                fn: 'zoomIn',
+                className: '#icon-zoom-in'
+            },
+            {
+                name: '-',
+                fn: 'zoomOut',
+                className: '#icon-zoom-out'
+            },
+            {
+                name: 'home',
+                fn: 'zoomHome',
+                className: '#icon-zoom-home'
+            },
+            {
+                name: 'GPS',
+                fn: 'locate',
+                className: '#icon-locate'
+            },
+            {
+                name: 'full',
+                fn: 'fullScreen',
+                className: '#icon-enable-full'
+            }
+        ];
+
+
+        $rootScope.$watch('data', function() {
+            vm.data = $rootScope.data;
+        });
+
+    }
 
 })();
 (function() {
 
-    'use strict';
-
     angular
-        .module('ctrlModule', []);
+        .module('ctrlsModule')
+        .directive('mapControls', mapControls);
+
+    function mapControls(){
+        return {
+            restrict: 'E',
+            templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/ctrls/templates/ctrlsTemplate.html',
+            controller: 'CtrlsCtrl',
+            controllerAs: 'vm',
+            replace: true
+        }
+    }
 
 })();
 (function() {
 
-    'use strict';
-
     angular
-        .module('panelModule', []);
+        .module('ctrlsModule')
+        .factory('ctrlsFactory', ctrlsFactory);
+
+    function ctrlsFactory(mapFactory, $rootScope, Fullscreen){
+
+        var ctrlsFactory = {}
+
+        ctrlsFactory.zoomIn = function(){
+            mapFactory.map.zoomIn();
+        }
+
+        ctrlsFactory.zoomOut = function(){
+            mapFactory.map.zoomOut();
+        }
+
+        ctrlsFactory.zoomHome = function(){
+            mapFactory.map.setView(mapFactory.mapDefaults.leaflet.center,12);
+        }
+
+        ctrlsFactory.locate = function(){
+            mapFactory.map.locate({
+                setView: true,
+                maxZoom: 12
+            });
+        }
+
+        ctrlsFactory.executeFunctionByName = function(functionName, context /*, args */) {
+            var args = [].slice.call(arguments).splice(2);
+            var namespaces = functionName.split(".");
+            var func = namespaces.pop();
+            for(var i = 0; i < namespaces.length; i++) {
+              context = context[namespaces[i]];
+            }
+            return context[func].apply(this, args);
+        }
+
+        $rootScope.isFullscreen = false;
+
+        ctrlsFactory.fullScreen = function(){
+            if (Fullscreen.isEnabled()){
+                // angular.element('#map-container').toggleClass('fullscreen');
+                angular.element('#map-container').toggleClass('fullscreen');
+                Fullscreen.cancel();
+                return;
+            } else {
+                angular.element('#map-container').toggleClass('fullscreen');
+                $rootScope.isFullscreen = !$rootScope.isFullscreen;
+            }
+        }
+
+        return ctrlsFactory;
+
+    }
+
 
 })();

@@ -1,7 +1,7 @@
 (function() {
 
     angular
-        .module('mapApp')
+        .module('popupsModule')
         .directive('popup', popup);
 
     function popup(){
@@ -10,7 +10,8 @@
             // scope: {
             //     // test: '='
             // },
-            templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/popups/templates/mapPopup.html',
+            // templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/popups/templates/popupTemplate.html',
+            template: '<p class="test"></p>',
             controller: 'PopupCtrl',
             controllerAs: 'vm',
             replace: true

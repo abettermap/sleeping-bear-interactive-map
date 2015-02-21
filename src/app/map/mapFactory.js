@@ -73,14 +73,11 @@
                 ]
             },
             tileLayer: {
-                url: "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-                options: {
-                    attribution: "\u00a9 <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors \u00a9 <a href= \"http://cartodb.com/attributions#basemaps\">CartoDB</a>"
-                }
+                url: "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
             },
             leaflet: {
                 zoom: 12,
-                zoomControl: true,
+                zoomControl: false,
                 center: [44.8957686012,-86.00646972]
             }
 
@@ -90,6 +87,7 @@
 
         L.tileLayer(mapFactory.mapDefaults.tileLayer.url, mapFactory.mapDefaults.tileLayer.options)
         .addTo(mapFactory.map);
+        L.control.scale().addTo(mapFactory.map);
 
         return mapFactory;
 

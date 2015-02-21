@@ -2,17 +2,29 @@
 
     'use strict';
 
+    FastClick.attach(document.body);
+
+    angular
+        .module('ctrlsModule', [
+
+        ]);
+    angular
+        .module('mapModule', []);
+    angular
+        .module('panelsModule', []);
+    angular
+        .module('popupsModule', []);
+
     angular
         .module('mapApp', [
             'ngRoute',
-            'mapModule'//,
-            // 'mapFactory'
-            // 'mapModuleFactory'
-            // 'popupModule',
-            // 'ctrlModule',
-            // 'panelModule'
+            'FBAngular',
+            'ctrlsModule',
+            'mapModule',
+            'panelsModule',
+            'popupsModule',
         ])
         .run(function($rootScope) {
-        });
+    });
 
 })();

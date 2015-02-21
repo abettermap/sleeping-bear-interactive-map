@@ -1,7 +1,7 @@
 (function() {
 
     angular
-        .module('mapApp')
+        .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
     PopupCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];

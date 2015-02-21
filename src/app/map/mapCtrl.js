@@ -8,6 +8,8 @@
 
     function MapCtrl($scope, mapFactory, $rootScope){
 
+        $rootScope.className = "map-container";
+
         var vm = this;
 
         vm.map = mapFactory.map;

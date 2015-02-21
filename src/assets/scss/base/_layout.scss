@@ -1,45 +1,24 @@
-//  *
-//  *
-//  *
-//  *
-//  *
-//  *
-
-//  * CONTENTS
-//  *
-//  *
-//  * MAP WRAP (wraps all my code)
-//  *
-//  * NOT IN MAP ITSELF (but could be in certain scenarios)://  *
-//  *
-//  * 	MAP LAYERS
-//  *
-//  * 	FIND PROJECTS
-//  *
-//  * 	MAP FILTERS
-//  *
-//  * FEATURE INFO
-//  *
-//  * MAP CONTAINER
-
-
 #map {
-    height: 600px;
+    height: 100%;
     width: 100%;
 }
 
 // MAP WRAP
-.map-wrapper {}
+.map-wrapper {
+    // position: relative;
+    // left: -15px;
+}
 
+#map-container.fullscreen {
+    height: 100%;
+    width: 100%;
+}
 
-// MAP LAYERS (aka 'legend' or something)
-.map-layers {}
+#map-container {
+    height: 500px;
+    width: calc(100% + 30px);
+    position: relative;
+    left: -15px;
+}
 
-// FIND PROJECTS (includes search, select project)
-.find-projects {}
-
-.map-filters {} // could have a few, a bunch, or none
-
-.map-container {}
-
-.feat-info {}
+$panel-spacing: 15px;

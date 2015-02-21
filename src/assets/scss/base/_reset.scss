@@ -10,3 +10,13 @@
     width: 100%;
     float: none;
 }
+
+.entry {
+    overflow: visible;
+}
+
+// no horiz padding on entry content
+.content .post {
+    // padding-left: 0;
+    // padding-right: 0;
+}

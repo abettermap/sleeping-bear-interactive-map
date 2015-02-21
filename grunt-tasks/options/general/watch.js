@@ -5,7 +5,7 @@ module.exports = {
     },
     sass: {
         files: 'src/assets/scss/**/*.scss',
-        tasks: ['sass']
+        tasks: ['sass', 'autoprefixer:dev']
     },
     scripts: {
         files: 'src/app/**/*.js',

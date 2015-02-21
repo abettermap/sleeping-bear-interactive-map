@@ -9,11 +9,11 @@ module.exports = {
     icons: {
         files: [{
             expand: true,
-            cwd: 'src/assets/img/svg/src/icons/',
+            cwd: 'src/assets/img/svg/project/icons/src/',
             src: [
                 '*.svg'
             ],
-            dest: 'src/assets/img/svg/min/'
+            dest: 'src/assets/img/svg/project/icons/min/'
         }]
     }
 
