@@ -10,7 +10,7 @@
 
     function mapFactory($rootScope){
 
-        var mapFactory = {}
+        var mapFactory = {};
 
         mapFactory.mapDefaults = {
             cartodb: {
@@ -84,13 +84,12 @@
                 center: [44.8957686012,-86.00646972]
             }
 
-    }
+    };
 
         mapFactory.map = new L.Map('map', mapFactory.mapDefaults.leaflet);
 
         L.tileLayer(mapFactory.mapDefaults.tileLayer.url, mapFactory.mapDefaults.tileLayer.options)
         .addTo(mapFactory.map);
-        L.control.scale().addTo(mapFactory.map);
 
         return mapFactory;
 

@@ -46,8 +46,8 @@ module.exports = function(grunt) {
     // grunt.registerTask('concat-vendor-dev', ['newer:concat:vendorDev']);
 
     // RASTER \\
-    grunt.registerTask('image-opt', ['responsive_images', 'imageoptim' ]);;
-    grunt.registerTask('image-deep', ['image' ]);;
+    grunt.registerTask('image-opt', ['responsive_images', 'imageoptim']);
+    grunt.registerTask('image-deep', ['image']);
     grunt.registerTask('yahoo', ['smushit']);
     grunt.registerTask('ug', ['newer:uglify']);
 
@@ -71,4 +71,4 @@ module.exports = function(grunt) {
         'watch'
     ]);
 
-}
+};

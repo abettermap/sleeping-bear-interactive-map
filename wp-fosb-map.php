@@ -76,10 +76,13 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
         wp_register_script( 'fastclick', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/fastclick.js', array(), '1.0.0', false );
 
         // Angular
-        wp_register_script( 'angular', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js', array(), '1.0.0', true);
+        wp_register_script( 'angular', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js', array(), '1.0.0', true);
 
         // Angular route
-        wp_register_script( 'angular_route', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js', array('angular'), '1.0.0', true);
+        // wp_register_script( 'angular_route', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js', array('angular'), '1.0.0', true);
+
+        // Angular ui.router
+        wp_register_script( 'ng_ui_router', '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js', array('angular'), '1.0.0', true);
 
         // Vendor scripts UNminified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, bindonce, others?
         wp_register_script( 'map_vendors', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/map-vendors.js', array(), '1.0.0', true );
@@ -89,7 +92,7 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
 
         // Enqueue Angular and map scripts (dev/prod irrelevant)
         wp_enqueue_script('fastclick');
-        wp_enqueue_script('angular_route');
+        wp_enqueue_script('ng_ui_router');
         wp_enqueue_script( 'map_script' );
 
     }

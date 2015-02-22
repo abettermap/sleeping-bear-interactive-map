@@ -1,3 +1,5 @@
+$panel-spacing: 15px;
+
 .map {
   height: 100%;
   width: 100%;
@@ -11,15 +13,21 @@
 
 .map-container.fullscreen {
   height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
   width: 100%;
 }
 
 .map-container {
+
   height: 500px;
-  left: -15px;
   position: relative;
-  width: calc(100% + 30px);
+
+  @include mq($until: tablet) {
+    height: 300px;
+    left: $panel-spacing*-1;
+    width: calc(100% + 30px);
+  }
+
 }
-
-$panel-spacing: 15px; 
-

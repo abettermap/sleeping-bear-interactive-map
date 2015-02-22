@@ -9,47 +9,58 @@
     top: $panel-spacing;
 }
 
+.ctrls-menu .icon-zoom-in {
+}
+
 //vars
 $pi:3.14;
 
 //config
-$menu-items:5;
+$menu-items:6;
 $open-distance:105px;
-$opening-angle:$pi*2;
+$opening-angle: $pi*2;
 
 .ctrls-container a{
-  color:inherit;
+  color: inherit;
 }
 
 $ball-size: 50px;
 
-%ball{
-  background:$skyblue;
-  border-radius:100%;
-  box-shadow: 0px 3px 5px $medblue;
-  width:$ball-size;
-  height:$ball-size;
-  position:absolute;
-  color:white;
-  text-align:center;
-  line-height:$ball-size;
-  transform:translate3d(0,0,0);
-  transition:transform ease-out 200ms;
+%ball {
+  background-color: $green;
+  border-radius: 100%;
+  box-shadow: 0 3px 5px $medblue;
+  color: $green;
+  display: block;
+  height: $ball-size;
+  line-height: $ball-size;
+  position: absolute;
+  text-align: center;
+  transform: translate3d(0, 0, 0);
+  transition: transform ease 2200ms;
+  width: $ball-size;
 }
-.menu-open{
-  display:none;
+
+.menu-open {
+  display: none;
 }
-.ctrls-menu-item{
+
+.ctrls-menu-item {
   @extend %ball;
 }
 
 
-.ctrls-menu{
+.ctrls-menu {
   box-sizing:border-box;
   font-size:1rem;
   text-align:left;
+}
+
+
+.ctrls-menu-item{
   svg {
-    fill: $deepblue;
+    transition: fill 400ms ease;
+    fill: #eee;
     display: block;
     position: relative;
     $size: 75%;
@@ -58,46 +69,49 @@ $ball-size: 50px;
     width: $size;
     height: $size;
   }
-}
-
-
-.ctrls-menu-item{
-  &:hover{
-    background:$paleblue;
+  &:hover {
+    svg {
+        fill: $green;
+        transition: fill 400ms ease;
+    }
+    background-color: #eee;
     cursor: pointer;
   }
   @for $i from 1 through $menu-items{
     &:nth-child(#{$i+2}){
-      transition-duration:180ms;
+      transition-duration:480ms;
     }
   }
 }
 
 .menu-open-button{
   @extend %ball;
-  z-index:2;
-  transition-timing-function:cubic-bezier(0.175, 0.885, 0.320, 1.275);
-  transition-duration:400ms;
-  transform:scale(1.1,1.1) translate3d(0,0,0);
-  cursor:pointer;
-}
-.menu-open-button:hover{
-  transform:scale(1.2,1.2) translate3d(0,0,0);
-}
-.menu-open:checked+.menu-open-button{
-  transition-timing-function:linear;
-  transition-duration:200ms;
-  transform:scale(0.8,0.8) translate3d(0,0,0);
+  cursor: pointer;
+  transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(.175, .885, .320, 1.275);
+  z-index: 2;
 }
 
+.menu-open-button:hover{
+  transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+}
+
+.menu-open:checked+.menu-open-button{
+  transform: scale(.8, .8) translate3d(0, 0, 0);
+  transition-duration: 550ms;
+  transition-timing-function: linear;
+}
 
 .menu-open:checked~.ctrls-menu-item{
-  transition-timing-function:cubic-bezier(0.165, 0.840, 0.440, 1.000);
+  transition-timing-function:cubic-bezier(.165, .840, .440, 1.000);
   @for $i from 1 through $menu-items{
 
     &:nth-child(#{$i+2}){
-      transition-duration:90ms+(100ms*$i);
+      // transition-duration:90ms+(100ms*$i);
       transform:translate3d(0,$ball-size*$i,0);
+      transition: background-color 600ms ease,
+                  transform 90ms+(100ms*$i) ease;
     }
   }
 }
@@ -106,16 +120,16 @@ $ball-size: 50px;
 .hamburger{
   $width:25px;
   $height:3px;
-  width:$width;
-  height:$height;
-  background:white;
-  display:block;
-  position:absolute;
-  top:50%;
-  left:50%;
-  margin-left:-$width/2;
-  margin-top:-$height/2;
-  transition:transform 200ms;
+  width: $width;
+  height: $height;
+  background: #eee;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -$width/2;
+  margin-top: -$height/2;
+  transition: transform 200ms;
 }
 
 $hamburger-spacing:8px;
@@ -135,7 +149,7 @@ $hamburger-spacing:8px;
     transform:translate3d(0,0,0) rotate(45deg);
   }
   .hamburger-2{
-    transform:translate3d(0,0,0) scale(0.1,1);
+    transform:translate3d(0,0,0) scale(.1,1);
   }
   .hamburger-3{
     transform:translate3d(0,0,0) rotate(-45deg);

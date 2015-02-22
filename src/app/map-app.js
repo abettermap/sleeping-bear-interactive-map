@@ -5,9 +5,7 @@
     FastClick.attach(document.body);
 
     angular
-        .module('ctrlsModule', [
-
-        ]);
+        .module('ctrlsModule', []);
     angular
         .module('mapModule', []);
     angular
@@ -17,7 +15,7 @@
 
     angular
         .module('mapApp', [
-            'ngRoute',
+            'ui.router',
             'FBAngular',
             'ctrlsModule',
             'mapModule',
@@ -147,7 +145,7 @@
 
     function mapFactory($rootScope){
 
-        var mapFactory = {}
+        var mapFactory = {};
 
         mapFactory.mapDefaults = {
             cartodb: {
@@ -221,13 +219,12 @@
                 center: [44.8957686012,-86.00646972]
             }
 
-    }
+    };
 
         mapFactory.map = new L.Map('map', mapFactory.mapDefaults.leaflet);
 
         L.tileLayer(mapFactory.mapDefaults.tileLayer.url, mapFactory.mapDefaults.tileLayer.options)
         .addTo(mapFactory.map);
-        L.control.scale().addTo(mapFactory.map);
 
         return mapFactory;
 
@@ -245,7 +242,18 @@
 
     function PopupCtrl($scope, mapFactory, $rootScope){
         var vm = this;
-        vm.data = {}
+        vm.data = {};
+        vm.coords = '';
+
+        vm.map = mapFactory.map;
+
+
+        // vm.map.on('mousemove click', function(e) {
+        //     $scope.$apply(function(){
+        //         vm.coords = e.latlng.toString();
+        //     });
+        // });
+
 
         $rootScope.$watch('data', function() {
             vm.data = $rootScope.data;
@@ -266,8 +274,7 @@
             // scope: {
             //     // test: '='
             // },
-            // templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/popups/templates/popupTemplate.html',
-            template: '<p class="test"></p>',
+            templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/popups/templates/popupTemplate.html',
             controller: 'PopupCtrl',
             controllerAs: 'vm',
             replace: true
@@ -311,27 +318,27 @@
             {
                 name: '+',
                 fn: 'zoomIn',
-                className: '#icon-zoom-in'
+                id: '#icon-zoom-in'
             },
             {
                 name: '-',
                 fn: 'zoomOut',
-                className: '#icon-zoom-out'
+                id: '#icon-zoom-out'
             },
             {
                 name: 'home',
                 fn: 'zoomHome',
-                className: '#icon-zoom-home'
+                id: '#icon-zoom-home'
             },
             {
                 name: 'GPS',
                 fn: 'locate',
-                className: '#icon-locate'
+                id: '#icon-locate'
             },
             {
                 name: 'full',
                 fn: 'fullScreen',
-                className: '#icon-enable-full'
+                id: '#icon-enable-full'
             }
         ];
 
@@ -360,6 +367,7 @@
     }
 
 })();
+//////*   ctrlsFactory.js   *//////
 (function() {
 
     angular
@@ -372,25 +380,32 @@
     function ctrlsFactory(mapFactory, $rootScope, Fullscreen){
 
         var ctrlsFactory = {}
+        var map = mapFactory.map;
 
         ctrlsFactory.zoomIn = function(){
-            mapFactory.map.zoomIn();
-        }
+            map.zoomIn();
+        };
 
         ctrlsFactory.zoomOut = function(){
-            mapFactory.map.zoomOut();
-        }
+            map.zoomOut();
+        };
 
         ctrlsFactory.zoomHome = function(){
-            mapFactory.map.setView(mapFactory.mapDefaults.leaflet.center,12);
-        }
+            var southWest = L.latLng(44.82641, -86.07977),
+                northEast = L.latLng(44.94245, -85.93695),
+                bounds = L.latLngBounds(southWest, northEast);
+            map.fitBounds([
+                [southWest],
+                [northEast]
+            ]);
+        };
 
         ctrlsFactory.locate = function(){
-            mapFactory.map.locate({
+            map.locate({
                 setView: true,
-                maxZoom: 12
+                maxZoom: 13
             });
-        }
+        };
 
         ctrlsFactory.executeFunctionByName = function(functionName, context /*, args */) {
             var args = [].slice.call(arguments).splice(2);
@@ -400,21 +415,17 @@
               context = context[namespaces[i]];
             }
             return context[func].apply(this, args);
-        }
+        };
 
         $rootScope.isFullscreen = false;
 
         ctrlsFactory.fullScreen = function(){
-            if (Fullscreen.isEnabled()){
-                // angular.element('#map-container').toggleClass('fullscreen');
-                angular.element('#map-container').toggleClass('fullscreen');
-                Fullscreen.cancel();
-                return;
-            } else {
-                angular.element('#map-container').toggleClass('fullscreen');
-                $rootScope.isFullscreen = !$rootScope.isFullscreen;
-            }
-        }
+            // map.invalidateSize();
+            angular.element('#map-container').toggleClass('fullscreen');
+                map.invalidateSize();
+            setTimeout(function(){
+            }, 400);
+        };
 
         return ctrlsFactory;
 

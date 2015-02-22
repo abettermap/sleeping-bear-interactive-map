@@ -1,3 +1,4 @@
+//////*   ctrlsFactory.js   *//////
 (function() {
 
     angular
@@ -10,25 +11,32 @@
     function ctrlsFactory(mapFactory, $rootScope, Fullscreen){
 
         var ctrlsFactory = {}
+        var map = mapFactory.map;
 
         ctrlsFactory.zoomIn = function(){
-            mapFactory.map.zoomIn();
-        }
+            map.zoomIn();
+        };
 
         ctrlsFactory.zoomOut = function(){
-            mapFactory.map.zoomOut();
-        }
+            map.zoomOut();
+        };
 
         ctrlsFactory.zoomHome = function(){
-            mapFactory.map.setView(mapFactory.mapDefaults.leaflet.center,12);
-        }
+            var southWest = L.latLng(44.82641, -86.07977),
+                northEast = L.latLng(44.94245, -85.93695),
+                bounds = L.latLngBounds(southWest, northEast);
+            map.fitBounds([
+                [southWest],
+                [northEast]
+            ]);
+        };
 
         ctrlsFactory.locate = function(){
-            mapFactory.map.locate({
+            map.locate({
                 setView: true,
-                maxZoom: 12
+                maxZoom: 13
             });
-        }
+        };
 
         ctrlsFactory.executeFunctionByName = function(functionName, context /*, args */) {
             var args = [].slice.call(arguments).splice(2);
@@ -38,21 +46,17 @@
               context = context[namespaces[i]];
             }
             return context[func].apply(this, args);
-        }
+        };
 
         $rootScope.isFullscreen = false;
 
         ctrlsFactory.fullScreen = function(){
-            if (Fullscreen.isEnabled()){
-                // angular.element('#map-container').toggleClass('fullscreen');
-                angular.element('#map-container').toggleClass('fullscreen');
-                Fullscreen.cancel();
-                return;
-            } else {
-                angular.element('#map-container').toggleClass('fullscreen');
-                $rootScope.isFullscreen = !$rootScope.isFullscreen;
-            }
-        }
+            // map.invalidateSize();
+            angular.element('#map-container').toggleClass('fullscreen');
+                map.invalidateSize();
+            setTimeout(function(){
+            }, 400);
+        };
 
         return ctrlsFactory;
 

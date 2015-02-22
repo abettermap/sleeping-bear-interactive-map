@@ -44,7 +44,7 @@ module.exports = {
         // Lightbox
         'src/assets/js/vendor/bower_components/lightbox2/js/lightbox.js',
         // Angular Fullscreen
-        'src/assets/js/vendor/bower_components/angular-fullscreen/src/angular-fullscreen.js',
+        // 'src/assets/js/vendor/bower_components/angular-fullscreen/src/angular-fullscreen.js',
         // // Multiline (need this or no?)
         // 'src/assets/js/vendor/bower_components/multiline/browser.js'
       ],

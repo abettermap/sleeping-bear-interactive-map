@@ -5,9 +5,7 @@
     FastClick.attach(document.body);
 
     angular
-        .module('ctrlsModule', [
-
-        ]);
+        .module('ctrlsModule', []);
     angular
         .module('mapModule', []);
     angular
@@ -17,7 +15,7 @@
 
     angular
         .module('mapApp', [
-            'ngRoute',
+            'ui.router',
             'FBAngular',
             'ctrlsModule',
             'mapModule',

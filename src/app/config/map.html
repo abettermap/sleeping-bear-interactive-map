@@ -1,9 +1,11 @@
 <div ng-app="mapApp" class="map-wrapper">
     <h1>{{name}}</h1>
-    <div class="map-container" id="map-container" fullscreen="isFullscreen" >
+    <div class="map-container" id="map-container">
+    <!-- <div class="map-container" id="map-container" fullscreen="isFullscreen" > -->
         <interactive-map></interactive-map>
-        <popup></popup>
         <panels></panels>
+    	<popup></popup>
         <map-controls></map-controls>
     </div>
+	<popup></popup>
 </div>

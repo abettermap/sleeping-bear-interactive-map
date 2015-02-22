@@ -34,27 +34,27 @@
             {
                 name: '+',
                 fn: 'zoomIn',
-                className: '#icon-zoom-in'
+                id: '#icon-zoom-in'
             },
             {
                 name: '-',
                 fn: 'zoomOut',
-                className: '#icon-zoom-out'
+                id: '#icon-zoom-out'
             },
             {
                 name: 'home',
                 fn: 'zoomHome',
-                className: '#icon-zoom-home'
+                id: '#icon-zoom-home'
             },
             {
                 name: 'GPS',
                 fn: 'locate',
-                className: '#icon-locate'
+                id: '#icon-locate'
             },
             {
                 name: 'full',
                 fn: 'fullScreen',
-                className: '#icon-enable-full'
+                id: '#icon-enable-full'
             }
         ];
 
