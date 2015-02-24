@@ -11,49 +11,13 @@
         $rootScope.className = "map-container";
 
         var vm = this;
-
+        $scope.value = 'foo';
         vm.map = mapFactory.map;
+        vm.cartodbDefaults = mapFactory.cartodbDefaults;
         vm.mapDefaults = mapFactory.mapDefaults;
 
-        cartodb.createLayer(vm.map, vm.mapDefaults.cartodb)
-        .addTo(vm.map)
-        .on('done', function(layer) {
-            cdb.vis.Vis.addCursorInteraction(vm.map, layer);
-            var sublayers = layer.options.sublayers;
-            var tableNameArr = [];
-            for (var i = sublayers.length - 1; i >= 0; i--) {
-
-                var sublayer = layer.getSubLayer(i);
-                sublayer.setInteraction(true);
-
-                tableNameArr.push({
-                    tablename: sublayers[i].name,
-                    index: i
-                });
-
-                // sublayer.on('featureClick', mapFactory.featureClick(e, pos, latlng, data));
-                sublayer.on('featureClick', function(e, pos, latlng, data) {
-                    $rootScope.$apply(function() {
-                        $rootScope.data = data;
-                    });
-                     // mapFactory.featureClick(data);
-                    // mapFactory.setProperty(data.name);
-                    // var newSub = layer.options.sublayers[this._position]
-                    // var tableName = newSub.name;
-                    // var dataArray = vm.getFeatureData(data, tableName);
-                    // $scope.$apply(function() {
-                    //     vm.featureData = {
-                    //         name: tableName,
-                    //         data: dataArray
-                    //     }
-                    // });
-                });
-
-
-            };
-        }).on('error', function() {
-            console.log("some error occurred");
-        });
+        vm.addCdbLayer = mapFactory.addCdbLayer;
+        vm.addCdbLayer();
 
         vm.getFeatureData = function(data, tableName){
             console.log("passed");
@@ -81,9 +45,6 @@
         //     //     console.log("things happenin");
         //     // });
 
-        //     // $scope.$watch("centroid.lng", function (zoom) {
-        //     //     $scope.zoomLev = zoom;
-        //     // });
 
     }
 

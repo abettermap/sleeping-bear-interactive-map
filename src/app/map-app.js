@@ -26,6 +26,7 @@
     });
 
 })();
+
 (function() {
 
     angular
@@ -39,49 +40,13 @@
         $rootScope.className = "map-container";
 
         var vm = this;
-
+        $scope.value = 'foo';
         vm.map = mapFactory.map;
+        vm.cartodbDefaults = mapFactory.cartodbDefaults;
         vm.mapDefaults = mapFactory.mapDefaults;
 
-        cartodb.createLayer(vm.map, vm.mapDefaults.cartodb)
-        .addTo(vm.map)
-        .on('done', function(layer) {
-            cdb.vis.Vis.addCursorInteraction(vm.map, layer);
-            var sublayers = layer.options.sublayers;
-            var tableNameArr = [];
-            for (var i = sublayers.length - 1; i >= 0; i--) {
-
-                var sublayer = layer.getSubLayer(i);
-                sublayer.setInteraction(true);
-
-                tableNameArr.push({
-                    tablename: sublayers[i].name,
-                    index: i
-                });
-
-                // sublayer.on('featureClick', mapFactory.featureClick(e, pos, latlng, data));
-                sublayer.on('featureClick', function(e, pos, latlng, data) {
-                    $rootScope.$apply(function() {
-                        $rootScope.data = data;
-                    });
-                     // mapFactory.featureClick(data);
-                    // mapFactory.setProperty(data.name);
-                    // var newSub = layer.options.sublayers[this._position]
-                    // var tableName = newSub.name;
-                    // var dataArray = vm.getFeatureData(data, tableName);
-                    // $scope.$apply(function() {
-                    //     vm.featureData = {
-                    //         name: tableName,
-                    //         data: dataArray
-                    //     }
-                    // });
-                });
-
-
-            };
-        }).on('error', function() {
-            console.log("some error occurred");
-        });
+        vm.addCdbLayer = mapFactory.addCdbLayer;
+        vm.addCdbLayer();
 
         vm.getFeatureData = function(data, tableName){
             console.log("passed");
@@ -109,9 +74,6 @@
         //     //     console.log("things happenin");
         //     // });
 
-        //     // $scope.$watch("centroid.lng", function (zoom) {
-        //     //     $scope.zoomLev = zoom;
-        //     // });
 
     }
 
@@ -147,95 +109,145 @@
 
         var mapFactory = {}
 
-        mapFactory.mapDefaults = {
-            cartodb: {
-                attribution: false,
-                type: 'CartoDB',
-                user_name: 'remcaninch',
-                tiler_protocol: "https",
-                tiler_domain: "cartodb.com",
-                tiler_port: "443",
-                sql_domain: "cartodb.com",
-                sql_port: "443",
-                sql_protocol: "https",
-                sublayers: [
-                    {   // TRAIL FOR NOW
-                        sql: "SELECT * FROM sbht",
-                        cartocss: "#sbht{line-color:green;line-width:4;}",
-                        interactivity: "name",
-                        name: "Sleeping Bear Heritage Trail",
-                        id: "sbht"
-                    },
-                    {   // GRADE FOR NOW
-                        sql: "SELECT * FROM sbht_grade",
-                        cartocss: "#sbht_grade{line-color: #000000;line-width: 5;line-dasharray: 2,3;}",
-                        interactivity: "name, direction, grade",
-                        name: "Grade",
-                        id: "grade"
-                    },
-                    {   // CAUTION FOR NOW
-                        sql: "SELECT * FROM sbht_caution",
-                        cartocss: "#sbht_caution{line-color:#F11810;line-width:5;}",
-                        interactivity: "descrip, type",
-                        name: 'Caution',
-                        id: "caution"
-                    },
-                    {   // NPS POI
-                        sql: "SELECT * FROM nps_poi_giscloud",
-                        cartocss: "#nps_poi_giscloud{marker-fill:#A6CEE3;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                        interactivity: "name",
-                        // interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
-                        name: 'NPS POI',
-                        id: "nps_poi"
-                    },
-                    {   // SBHT POI
-                        sql: "SELECT * FROM sbht_poi_digitize",
-                        cartocss: "#sbht_poi_digitize{marker-fill:#000;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                        interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
-                        name: 'SBHT POI',
-                        id: "sbht_poi"
-                    },
-                    {   // COMM POI
-                        sql: "SELECT * FROM comm_poi_master",
-                        cartocss: "#trail_pix_digitize{marker-fill:orange;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                        interactivity: "name, type, mile, name_id, season, x, y, sw_offset, ne_offset, descrip, video, audio, phone, addr_no, addr_name, addr_type, city, zip, email, website",
-                        name: 'Commercial POI',
-                        id: "comm_poi"
-                    },
-                    {   // TRAIL PIX
-                        sql: "SELECT * FROM trail_pix_digitize",
-                        cartocss: "#trail_pix_digitize{marker-fill:red;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                        interactivity: "img_file, season",
-                        name: 'Trail Pics',
-                        id: "trail_pix"
-                    }
-                ]
-            },
-            tileLayer: {
-                url: "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
-            }
+        mapFactory.cartodbDefaults = {
+            attribution: false,
+            type: 'CartoDB',
+            user_name: 'remcaninch',
+            tiler_protocol: "https",
+            tiler_domain: "cartodb.com",
+            tiler_port: "443",
+            sql_domain: "cartodb.com",
+            sql_port: "443",
+            sql_protocol: "https",
+            sublayers: [
+                {   // TRAIL FOR NOW
+                    sql: "SELECT * FROM sbht",
+                    cartocss: "#sbht{line-color:green;line-width:4;}",
+                    interactivity: "name",
+                    name: "Sleeping Bear Heritage Trail",
+                    id: "sbht"
+                },
+                {   // GRADE FOR NOW
+                    sql: "SELECT * FROM sbht_grade",
+                    cartocss: "#sbht_grade{line-color: #000000;line-width: 5;line-dasharray: 2,3;}",
+                    interactivity: "name, direction, grade",
+                    name: "Grade",
+                    id: "grade"
+                },
+                {   // CAUTION FOR NOW
+                    sql: "SELECT * FROM sbht_caution",
+                    cartocss: "#sbht_caution{line-color:#F11810;line-width:5;}",
+                    interactivity: "descrip, type",
+                    name: 'Caution',
+                    id: "caution"
+                },
+                {   // NPS POI
+                    sql: "SELECT * FROM nps_poi_giscloud",
+                    cartocss: "#nps_poi_giscloud{marker-fill:#A6CEE3;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
+                    interactivity: "name",
+                    // interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
+                    name: 'NPS POI',
+                    id: "nps_poi"
+                },
+                {   // SBHT POI
+                    sql: "SELECT * FROM sbht_poi_digitize",
+                    cartocss: "#sbht_poi_digitize{marker-fill:#000;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
+                    interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
+                    name: 'SBHT POI',
+                    id: "sbht_poi"
+                },
+                {   // COMM POI
+                    sql: "SELECT * FROM comm_poi_master",
+                    cartocss: "#trail_pix_digitize{marker-fill:orange;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
+                    interactivity: "name, type, mile, name_id, season, x, y, sw_offset, ne_offset, descrip, video, audio, phone, addr_no, addr_name, addr_type, city, zip, email, website",
+                    name: 'Commercial POI',
+                    id: "comm_poi"
+                },
+                {   // TRAIL PIX
+                    sql: "SELECT * FROM trail_pix_digitize",
+                    cartocss: "#trail_pix_digitize{marker-fill:red;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
+                    interactivity: "img_file, season",
+                    name: 'Trail Pics',
+                    id: "trail_pix"
+                }
+            ]
+            
         }
-        var aerial = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png', {
-            attribution: '<p>Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png"></p>',
-            subdomains: '1234'
-        }),
-            terrain = L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.run-bike-hike/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q', {
-            attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a> <a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>"
-        });
-        
+
+        var tileLayers = {
+            aerial: L.esri.basemapLayer('Imagery'),
+            // terrain: L.esri.basemapLayer('Topographic')
+            terrain: L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.run-bike-hike/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q', {
+                attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a><a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>"
+            })
+        }
+
         mapFactory.leafletDefaults = {
             
             attribution: false,
             center: [44.88652,-86.00544],
             zoom: 12,
             zoomControl: false,
-            layers: [terrain]
+            layers: tileLayers.terrain
             
         }
     
         mapFactory.map = new L.Map('map', mapFactory.leafletDefaults);
 
+        mapFactory.addCdbLayer = function(){
+
+            cartodb.createLayer(mapFactory.map, mapFactory.cartodbDefaults)
+            .addTo(mapFactory.map)
+            .on('done', function(layer) {
+                cdb.vis.Vis.addCursorInteraction(mapFactory.map, layer);
+                var sublayers = layer.options.sublayers;
+                var tableNameArr = [];
+                for (var i = sublayers.length - 1; i >= 0; i--) {
+
+                    var sublayer = layer.getSubLayer(i);
+                    sublayer.setInteraction(true);
+
+                    tableNameArr.push({
+                        tablename: sublayers[i].name,
+                        index: i
+                    });
+
+                    // sublayer.on('featureClick', mapFactory.featureClick(e, pos, latlng, data));
+                    sublayer.on('featureClick', function(e, pos, latlng, data) {
+                        $rootScope.$apply(function() {
+                            $rootScope.data = data;
+                        });
+                         // mapFactory.featureClick(data);
+                        // mapFactory.setProperty(data.name);
+                        // var newSub = layer.options.sublayers[this._position]
+                        // var tableName = newSub.name;
+                        // var dataArray = mapFactory.getFeatureData(data, tableName);
+                        // $scope.$apply(function() {
+                        //     mapFactory.featureData = {
+                        //         name: tableName,
+                        //         data: dataArray
+                        //     }
+                        // });
+                    });
+
+
+                };
+            }).on('error', function() {
+                console.log("some error occurred");
+            });
+            
+        }
+
+        mapFactory.changeTiles = function(current, newLayer) {
+        // mapFactory.changeTiles = function(layer) {
+            var layerName = current.toString();
+            mapFactory.map.removeLayer(tileLayers[layerName]);
+            mapFactory.map.addLayer(tileLayers[newLayer]);
+            tileLayers[newLayer].bringToBack();
+        };
+
         return mapFactory;
+
     };
 
 
@@ -457,52 +469,31 @@
         .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
-    PanelsCtrl.$inject = ['$scope', 'panelsFactory', '$rootScope'];
+    PanelsCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];
 
-    function PanelsCtrl($scope, panelsFactory, $rootScope){
+    function PanelsCtrl($scope, mapFactory, $rootScope){
 
     	var vm = this;
     	
-    	vm.panels = [
-    		{
-                name: 'Background',
-                className: 'background-panel-toggle',
-                id: 'back'
-            },
-            {
-                name: 'Seasons',
-                className: 'seasons-panel-toggle',
-                id: 'seasons'
-            },
-            {
-                name: 'Points of Interest',
-                className: 'poi-panel-toggle',
-                id: 'poi'
-            },
-            {
-                name: 'Legend',
-                className: 'legend-panel-toggle',
-                id: 'legend'
-            }
-    	];
-
-        vm.switchStatus = '';
+        vm.panelSwitchStatus = '';
 
         vm.changePanel = function(panel){
             
-            if (vm.switchStatus === panel){
-                vm.switchStatus = '';
+            if (vm.panelSwitchStatus === panel){
+                vm.panelSwitchStatus = '';
             } else {
-                vm.switchStatus = panel;
+                vm.panelSwitchStatus = panel;
             }
         }
 
-        $scope.$watch('vm.switchStatus', function() {
-            // vm.switchStatus = panel;
-            // vm.data = $rootScope.data;
-        });
+        vm.changeTiles = function(current, newLayer){
+            mapFactory.changeTiles(current, newLayer);
+        }
 
-        // console.log($scope.$id);
+        // $scope.$watch('vm.value', function(){
+        //     console.log("oijmasdlkjfjklasdfkljasdfljksd");
+        //     mapFactory.leafletDefaults.layers = [mapFactory.tilesDict[vm.value]];
+        // });
 
     };
 

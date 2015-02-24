@@ -44,7 +44,9 @@ module.exports = {
         // Lightbox
         'src/assets/js/vendor/bower_components/lightbox2/js/lightbox.js',
         // Leaflet Google plugin
-        'src/assets/js/vendor/bower_components/leaflet-plugins/layer/tile/Google.js',
+        // 'src/assets/js/vendor/bower_components/leaflet-plugins/layer/tile/Bing.js',
+        // ESRI/Leaflet Baselayer only
+        'src/assets/js/vendor/bower_components/esri-leaflet-baselayer-only/esri-leaflet-basemaps.js',
         // Angular Fullscreen
         // 'src/assets/js/vendor/bower_components/angular-fullscreen/src/angular-fullscreen.js',
         // // Multiline (need this or no?)

@@ -5,7 +5,7 @@
     width: 100%;
 }
 
-a.panel-toggle {
+a[class^="panel-toggle-"] {
   display: block;
   background-color: $primary-color;
   color: #fff;

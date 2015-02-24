@@ -1,16 +1,12 @@
 <div class="panel-toggles">
-	<div ng-switch on="vm.switchStatus">
-		<div class="panel" ng-switch-when="back">
+	<div ng-switch on="vm.panelSwitchStatus">
+		<div class="panel" ng-switch-when="background">
 			<h2>Background</h2>
-			<div class="baselayer-select">
-				<input checked="checked" id="terrain" type="radio" name="baselayer">
-				<label for="terrain" title="Mapbox Terrain">
-					<span>Map</span>
-				</label>
-				<input id="sat" type="radio" name="baselayer">
-				<label for="sat" title="ArcGIS Satellite">
-					<span>Satellite</span>
-				</label>
+			<div ng-init="value='aerial'">
+				<input type="radio" id="terrain-toggle" ng-model="value" value="aerial" ng-change='vm.changeTiles(value, "terrain")'>
+				<label for="terrain-toggle">Terrain</label>
+				<input type="radio" id="aerial-toggle" ng-model="value" value="terrain" ng-change='vm.changeTiles(value, "aerial")'>
+				<label for="aerial-toggle">Aerial</label>
 			</div>
 		</div>
 		<div class="panel" ng-switch-when="seasons">
@@ -26,5 +22,8 @@
 			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet, quibusdam quisquam inventore perspiciatis a, quasi asperiores ipsum minima corrupti veniam repellendus repudiandae ipsa, sequi, laboriosam tenetur blanditiis consequuntur id?
 		</div>
 	</div>
-	<a href="#" ng-repeat="panel in vm.panels" ng-class="panel.className + ' panel-toggle'" ng-click="vm.changePanel(panel.id)">{{panel.name}}</a>
+	<a href="#"ng-click="vm.changePanel('background')" class="panel-toggle-background">Background</a>
+	<a href="#"ng-click="vm.changePanel('seasons')" class="panel-toggle-seasons">Seasons</a>
+	<a href="#"ng-click="vm.changePanel('poi')" class="panel-toggle-poi">Points of Interest</a>
+	<a href="#"ng-click="vm.changePanel('legend')" class="panel-toggle-legend">Legend</a>
 </div>
