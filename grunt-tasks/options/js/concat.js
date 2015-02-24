@@ -37,12 +37,14 @@ module.exports = {
     vendorScripts: {
       src: [
          // CartoDB, no jQuery, unminified
-        'src/assets/js/vendor/bower_components/cartodb.js/dist/cartodb.js',
+        // 'src/assets/js/vendor/bower_components/cartodb.js/dist/cartodb.js',
         // 'src/assets/js/vendor/bower_components/cartodb.js/dist/_cartodb_nojquery.js',
         // Picturefill
         'src/assets/js/vendor/bower_components/picturefill/dist/picturefill.js',
         // Lightbox
         'src/assets/js/vendor/bower_components/lightbox2/js/lightbox.js',
+        // Leaflet Google plugin
+        'src/assets/js/vendor/bower_components/leaflet-plugins/layer/tile/Google.js',
         // Angular Fullscreen
         // 'src/assets/js/vendor/bower_components/angular-fullscreen/src/angular-fullscreen.js',
         // // Multiline (need this or no?)

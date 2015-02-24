@@ -3,7 +3,7 @@
     'use strict';
 
     FastClick.attach(document.body);
-
+    
     angular
         .module('ctrlsModule', []);
     angular
@@ -16,11 +16,11 @@
     angular
         .module('mapApp', [
             'ui.router',
-            'FBAngular',
+            // 'FBAngular',f
             'ctrlsModule',
             'mapModule',
             'panelsModule',
-            'popupsModule',
+            'popupsModule'
         ])
         .run(function($rootScope) {
     });

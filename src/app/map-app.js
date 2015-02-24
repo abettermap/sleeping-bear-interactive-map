@@ -3,7 +3,7 @@
     'use strict';
 
     FastClick.attach(document.body);
-
+    
     angular
         .module('ctrlsModule', []);
     angular
@@ -16,11 +16,11 @@
     angular
         .module('mapApp', [
             'ui.router',
-            'FBAngular',
+            // 'FBAngular',f
             'ctrlsModule',
             'mapModule',
             'panelsModule',
-            'popupsModule',
+            'popupsModule'
         ])
         .run(function($rootScope) {
     });
@@ -29,7 +29,7 @@
 (function() {
 
     angular
-        .module('mapModule')
+        .module('mapApp')
         .controller('MapCtrl', MapCtrl);
 
     MapCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];
@@ -141,14 +141,15 @@
         .factory('mapFactory', mapFactory);
 
     // do this so you don't lose it during ugg...
-    mapFactory.$inject = ['$rootScope'];
+    // mapFactory.$inject = [''];
 
-    function mapFactory($rootScope){
+    function mapFactory(){
 
-        var mapFactory = {};
+        var mapFactory = {}
 
         mapFactory.mapDefaults = {
             cartodb: {
+                attribution: false,
                 type: 'CartoDB',
                 user_name: 'remcaninch',
                 tiler_protocol: "https",
@@ -159,22 +160,22 @@
                 sql_protocol: "https",
                 sublayers: [
                     {   // TRAIL FOR NOW
-                        sql: "SELECT * FROM sbht_temp",
-                        cartocss: "#sbht_temp{line-color:green;line-width:4;}",
+                        sql: "SELECT * FROM sbht",
+                        cartocss: "#sbht{line-color:green;line-width:4;}",
                         interactivity: "name",
                         name: "Sleeping Bear Heritage Trail",
                         id: "sbht"
                     },
                     {   // GRADE FOR NOW
-                        sql: "SELECT * FROM sbht_grade_temp",
-                        cartocss: "#sbht_grade_temp{line-color: #000000;line-width: 5;line-dasharray: 2,3;}",
+                        sql: "SELECT * FROM sbht_grade",
+                        cartocss: "#sbht_grade{line-color: #000000;line-width: 5;line-dasharray: 2,3;}",
                         interactivity: "name, direction, grade",
                         name: "Grade",
                         id: "grade"
                     },
                     {   // CAUTION FOR NOW
-                        sql: "SELECT * FROM sbht_caution_temp",
-                        cartocss: "#sbht_caution_temp{line-color:#F11810;line-width:5;}",
+                        sql: "SELECT * FROM sbht_caution",
+                        cartocss: "#sbht_caution{line-color:#F11810;line-width:5;}",
                         interactivity: "descrip, type",
                         name: 'Caution',
                         id: "caution"
@@ -212,23 +213,32 @@
             },
             tileLayer: {
                 url: "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
-            },
-            leaflet: {
-                zoom: 12,
-                zoomControl: false,
-                center: [44.8957686012,-86.00646972]
             }
-
-    };
-
-        mapFactory.map = new L.Map('map', mapFactory.mapDefaults.leaflet);
-
-        L.tileLayer(mapFactory.mapDefaults.tileLayer.url, mapFactory.mapDefaults.tileLayer.options)
-        .addTo(mapFactory.map);
+        }
+        var aerial = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png', {
+            attribution: '<p>Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png"></p>',
+            subdomains: '1234'
+        }),
+            terrain = L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.run-bike-hike/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q', {
+            attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a> <a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>"
+        });
+        
+        mapFactory.leafletDefaults = {
+            
+            attribution: false,
+            center: [44.88652,-86.00544],
+            zoom: 12,
+            zoomControl: false,
+            layers: [terrain]
+            
+        }
+    
+        mapFactory.map = new L.Map('map', mapFactory.leafletDefaults);
 
         return mapFactory;
+    };
 
-    }
+
 
 
 })();
@@ -244,16 +254,27 @@
         var vm = this;
         vm.data = {};
         vm.coords = '';
+        vm.tests = [
+            {name: "popup1"},
+            {name: "popup2"}
+        ];
+
+        vm.mapCenter = {
+            center: ''
+        }
+
+        vm.getCenter = function(){
+            vm.coords = vm.map.getCenter();
+        }
 
         vm.map = mapFactory.map;
-
 
         // vm.map.on('mousemove click', function(e) {
         //     $scope.$apply(function(){
         //         vm.coords = e.latlng.toString();
         //     });
         // });
-
+        // console.log($scope.$id);
 
         $rootScope.$watch('data', function() {
             vm.data = $rootScope.data;
@@ -271,9 +292,7 @@
     function popup(){
         return {
             restrict: 'E',
-            // scope: {
-            //     // test: '='
-            // },
+            scope: {},
             templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/popups/templates/popupTemplate.html',
             controller: 'PopupCtrl',
             controllerAs: 'vm',
@@ -285,12 +304,12 @@
 (function() {
 
     angular
-        .module('ctrlsModule')
+        .module('mapApp')
         .controller('CtrlsCtrl', CtrlsCtrl);
 
-    CtrlsCtrl.$inject = ['$scope', 'ctrlsFactory', '$rootScope', 'Fullscreen'];
+    CtrlsCtrl.$inject = ['$scope', 'ctrlsFactory', '$rootScope'];
 
-    function CtrlsCtrl($scope, ctrlsFactory, $rootScope, Fullscreen){
+    function CtrlsCtrl($scope, ctrlsFactory, $rootScope){
         var vm = this;
 
         vm.zoomIn = function(){
@@ -375,9 +394,9 @@
         .factory('ctrlsFactory', ctrlsFactory);
 
     // do this so you don't lose it during ugg...
-    ctrlsFactory.$inject = ['mapFactory', '$rootScope', 'Fullscreen'];
+    ctrlsFactory.$inject = ['mapFactory'];
 
-    function ctrlsFactory(mapFactory, $rootScope, Fullscreen){
+    function ctrlsFactory(mapFactory){
 
         var ctrlsFactory = {}
         var map = mapFactory.map;
@@ -398,7 +417,9 @@
                 [southWest],
                 [northEast]
             ]);
+            console.log("zoomHome called");
         };
+        // ctrlsFactory.zoomHome();
 
         ctrlsFactory.locate = function(){
             map.locate({
@@ -417,19 +438,110 @@
             return context[func].apply(this, args);
         };
 
-        $rootScope.isFullscreen = false;
-
+        /* FULLSCREEN */
         ctrlsFactory.fullScreen = function(){
-            // map.invalidateSize();
-            angular.element('#map-container').toggleClass('fullscreen');
-                map.invalidateSize();
-            setTimeout(function(){
-            }, 400);
+            angular.element('#map-wrapper').toggleClass('fullscreen');
+            map.invalidateSize();
+            $('#map-wrapper')[0].scrollIntoView(true);
         };
 
         return ctrlsFactory;
 
     }
+
+
+})();
+(function() {
+
+    angular
+        .module('panelsModule')
+        .controller('PanelsCtrl', PanelsCtrl);
+
+    PanelsCtrl.$inject = ['$scope', 'panelsFactory', '$rootScope'];
+
+    function PanelsCtrl($scope, panelsFactory, $rootScope){
+
+    	var vm = this;
+    	
+    	vm.panels = [
+    		{
+                name: 'Background',
+                className: 'background-panel-toggle',
+                id: 'back'
+            },
+            {
+                name: 'Seasons',
+                className: 'seasons-panel-toggle',
+                id: 'seasons'
+            },
+            {
+                name: 'Points of Interest',
+                className: 'poi-panel-toggle',
+                id: 'poi'
+            },
+            {
+                name: 'Legend',
+                className: 'legend-panel-toggle',
+                id: 'legend'
+            }
+    	];
+
+        vm.switchStatus = '';
+
+        vm.changePanel = function(panel){
+            
+            if (vm.switchStatus === panel){
+                vm.switchStatus = '';
+            } else {
+                vm.switchStatus = panel;
+            }
+        }
+
+        $scope.$watch('vm.switchStatus', function() {
+            // vm.switchStatus = panel;
+            // vm.data = $rootScope.data;
+        });
+
+        // console.log($scope.$id);
+
+    };
+
+})();
+(function() {
+
+    angular
+        .module('panelsModule')
+        .directive('panels', panels);
+
+    function panels(){
+        return {
+            restrict: 'E',
+            scope: {},
+            templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/panels/templates/panelsTemplate.html',
+            controller: 'PanelsCtrl',
+            controllerAs: 'vm',
+            replace: true
+        }
+    }
+
+})();
+//////*   panelsFactory.js   *//////
+(function() {
+
+    angular
+        .module('panelsModule')
+        .factory('panelsFactory', panelsFactory);
+
+    // do this so you don't lose it during ugg...
+    panelsFactory.$inject = ['mapFactory', '$rootScope'];
+
+    function panelsFactory(mapFactory, $rootScope){
+
+		var panelsFactory = {}
+
+		return panelsFactory;
+
+    };
 
 
 })();

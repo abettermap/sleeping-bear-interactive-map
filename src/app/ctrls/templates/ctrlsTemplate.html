@@ -8,7 +8,6 @@
             <span class="hamburger hamburger-2"></span>
             <span class="hamburger hamburger-3"></span>
         </label>
-
         <a href="#" ng-repeat="ctrl in vm.ctrls" ng-class="ctrl.className + ' ctrls-menu-item'" ng-click="vm.executeFunctionByName(ctrl.fn,vm)">
             <svg viewbox="0 0 100 100">
                 <use xlink:href="{{ctrl.id}}"></use>

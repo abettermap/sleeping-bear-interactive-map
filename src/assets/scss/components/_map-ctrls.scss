@@ -27,10 +27,10 @@ $opening-angle: $pi*2;
 $ball-size: 50px;
 
 %ball {
-  background-color: $green;
+  background-color: $primary-color;
   border-radius: 100%;
   box-shadow: 0 3px 5px $medblue;
-  color: $green;
+  color: $primary-color;
   display: block;
   height: $ball-size;
   line-height: $ball-size;
@@ -60,7 +60,7 @@ $ball-size: 50px;
 .ctrls-menu-item{
   svg {
     transition: fill 400ms ease;
-    fill: #eee;
+    fill: #fff;
     display: block;
     position: relative;
     $size: 75%;
@@ -71,10 +71,10 @@ $ball-size: 50px;
   }
   &:hover {
     svg {
-        fill: $green;
+        fill: $primary-color;
         transition: fill 400ms ease;
     }
-    background-color: #eee;
+    background-color: #fff;
     cursor: pointer;
   }
   @for $i from 1 through $menu-items{
@@ -122,7 +122,7 @@ $ball-size: 50px;
   $height:3px;
   width: $width;
   height: $height;
-  background: #eee;
+  background: #fff;
   display: block;
   position: absolute;
   top: 50%;

@@ -1,33 +1,38 @@
-$panel-spacing: 15px;
+$panel-spacing: 30px;
+
+html, body {
+  height:100%;
+  margin:0;
+}
 
 .map {
-  height: 100%;
-  width: 100%;
+  flex: 1;
 }
 
 // MAP WRAP
 .map-wrapper {
-  // position: relative;
-  // left: -15px;
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  left: $panel-spacing*-.5;
+  position: relative;
+  width: calc(100% + 30px);
+
+  @include mq($from: tablet) {
+    height: 550px;
+    left: 0;
+    width: 100%;
+  }
+
 }
 
-.map-container.fullscreen {
+.map-wrapper.fullscreen {
   height: 100%;
   left: 0;
+  margin: 0;
   position: fixed;
   top: 0;
   width: 100%;
 }
 
-.map-container {
-
-  height: 500px;
-  position: relative;
-
-  @include mq($until: tablet) {
-    height: 300px;
-    left: $panel-spacing*-1;
-    width: calc(100% + 30px);
-  }
-
-}
+// @warn $mobile-left;

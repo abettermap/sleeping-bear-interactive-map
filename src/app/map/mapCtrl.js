@@ -1,7 +1,7 @@
 (function() {
 
     angular
-        .module('mapModule')
+        .module('mapApp')
         .controller('MapCtrl', MapCtrl);
 
     MapCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];

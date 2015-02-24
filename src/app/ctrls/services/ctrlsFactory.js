@@ -6,9 +6,9 @@
         .factory('ctrlsFactory', ctrlsFactory);
 
     // do this so you don't lose it during ugg...
-    ctrlsFactory.$inject = ['mapFactory', '$rootScope', 'Fullscreen'];
+    ctrlsFactory.$inject = ['mapFactory'];
 
-    function ctrlsFactory(mapFactory, $rootScope, Fullscreen){
+    function ctrlsFactory(mapFactory){
 
         var ctrlsFactory = {}
         var map = mapFactory.map;
@@ -29,7 +29,9 @@
                 [southWest],
                 [northEast]
             ]);
+            console.log("zoomHome called");
         };
+        // ctrlsFactory.zoomHome();
 
         ctrlsFactory.locate = function(){
             map.locate({
@@ -48,14 +50,11 @@
             return context[func].apply(this, args);
         };
 
-        $rootScope.isFullscreen = false;
-
+        /* FULLSCREEN */
         ctrlsFactory.fullScreen = function(){
-            // map.invalidateSize();
-            angular.element('#map-container').toggleClass('fullscreen');
-                map.invalidateSize();
-            setTimeout(function(){
-            }, 400);
+            angular.element('#map-wrapper').toggleClass('fullscreen');
+            map.invalidateSize();
+            $('#map-wrapper')[0].scrollIntoView(true);
         };
 
         return ctrlsFactory;

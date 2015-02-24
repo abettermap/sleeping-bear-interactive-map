@@ -1,0 +1,29 @@
+// Map Panels
+
+// TOGGLES \\
+.panel-toggles {
+    width: 100%;
+}
+
+a.panel-toggle {
+  display: block;
+  background-color: $primary-color;
+  color: #fff;
+  float: left;
+  font-size: 1.2em;
+  padding: 1.1em 0;
+  text-align: center;
+  text-decoration: none;
+  width: 25%;
+  &:hover {
+    background-color: #fff;
+    color: $primary-color;
+    transition: $hover-transition;
+  }
+}
+
+// BASELAYERS \\
+.baselayers input, .other-layers input {
+  display: none;
+  margin: 0;
+}

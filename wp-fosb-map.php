@@ -66,33 +66,48 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
 
         //// ENQUEUE FILES \\\\
 
-        // use this instead of messing with custom fields? probably.
-        // $localConfig = $_SERVER['DOCUMENT_ROOT'] .'/wp-content/plugins/wp-fosb-map/wp-local-config.php';
+        // Angular for dev/production
+        $localConfig = $_SERVER['DOCUMENT_ROOT'] .'/wp-content/plugins/wp-fosb-map/wp-local-config.php';
 
-        // if (file_exists($localConfig)) {    // DEVELOPMENT
+        if (file_exists($localConfig)) {    // DEVELOPMENT
+
+            // Angular
+            wp_register_script( 'angular', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js', array(), '1.0.0', true);
+
+            // Angular ui.router
+            wp_register_script( 'ng_ui_router', '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.js', array('angular'), '1.0.0', true);
+
+            // CartoDB uncompressed
+            wp_register_script( 'cartodb', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/cartodb.uncompressed.js', array(), '1.0.0', false );
+
+        } else {
+
+            // Angular
+            wp_register_script( 'angular', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js', array(), '1.0.0', true);
+
+            // Angular ui.router
+            wp_register_script( 'ng_ui_router', '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js', array('angular'), '1.0.0', true);
+
+            // CartoDB CDN
+            wp_register_script( 'cartodb', '//libs.cartocdn.com/cartodb.js/v3/cartodb.js', array(), '1.0.0', false );
+
+        }
 
             ////// DEREGISTER JQUERY?? \\\\\\
         // Fastclick needs to load before other stuff
         wp_register_script( 'fastclick', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/fastclick.js', array(), '1.0.0', false );
 
-        // Angular
-        wp_register_script( 'angular', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js', array(), '1.0.0', true);
-
-        // Angular route
-        // wp_register_script( 'angular_route', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js', array('angular'), '1.0.0', true);
-
-        // Angular ui.router
-        wp_register_script( 'ng_ui_router', '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js', array('angular'), '1.0.0', true);
-
         // Vendor scripts UNminified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, bindonce, others?
         wp_register_script( 'map_vendors', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/map-vendors.js', array(), '1.0.0', true );
 
         // map app script
-        wp_register_script( 'map_script', plugins_url() . '/wp-fosb-map/src/app/map-app.js', array('map_vendors'), '1.0.0', true );
+        wp_register_script( 'map_script', plugins_url() . '/wp-fosb-map/src/app/map-app.js', array('cartodb'), '1.0.0', true );
 
         // Enqueue Angular and map scripts (dev/prod irrelevant)
         wp_enqueue_script('fastclick');
         wp_enqueue_script('ng_ui_router');
+        wp_enqueue_script('cartodb');
+        wp_enqueue_script('map_vendors');
         wp_enqueue_script( 'map_script' );
 
     }

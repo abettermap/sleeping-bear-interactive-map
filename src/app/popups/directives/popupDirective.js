@@ -7,9 +7,7 @@
     function popup(){
         return {
             restrict: 'E',
-            // scope: {
-            //     // test: '='
-            // },
+            scope: {},
             templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/popups/templates/popupTemplate.html',
             controller: 'PopupCtrl',
             controllerAs: 'vm',

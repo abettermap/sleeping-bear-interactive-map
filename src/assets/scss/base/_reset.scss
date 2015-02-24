@@ -2,21 +2,37 @@
 
 // No right sidebar
 #rightcol {
-    display: none;
+  display: none;
+}
+
+// No meta
+.article-meta {
+  display: none;
 }
 
 // Full-width main content
 #content-wide {
-    width: 100%;
-    float: none;
+  width: 100%;
+  // float: none;
+  // float: left;
+  max-width: 918px;
+  padding: 30px;
+  background: #fff;
+  outline: 1px solid #c1c1c1;
 }
 
 .entry {
-    overflow: visible;
+  overflow: visible;
 }
 
-// no horiz padding on entry content
-.content .post {
-    // padding-left: 0;
-    // padding-right: 0;
+
+// Attribution
+.leaflet-bottom .leaflet-right {
+}
+
+.leaflet-container .leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.4);
+  border-top-left-radius: 5px;
+  width: 190px;
+  text-align: right;
 }

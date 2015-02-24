@@ -1,12 +1,12 @@
 (function() {
 
     angular
-        .module('ctrlsModule')
+        .module('mapApp')
         .controller('CtrlsCtrl', CtrlsCtrl);
 
-    CtrlsCtrl.$inject = ['$scope', 'ctrlsFactory', '$rootScope', 'Fullscreen'];
+    CtrlsCtrl.$inject = ['$scope', 'ctrlsFactory', '$rootScope'];
 
-    function CtrlsCtrl($scope, ctrlsFactory, $rootScope, Fullscreen){
+    function CtrlsCtrl($scope, ctrlsFactory, $rootScope){
         var vm = this;
 
         vm.zoomIn = function(){

@@ -30,7 +30,7 @@ $mq-static-breakpoint: desktop;
 // If you want to display the currently active breakpoint in the top
 // right corner of your site during development, add the breakpoints
 // to this list, ordered by width, e.g. (mobile, tablet, desktop).
-$mq-show-breakpoints: (mobile, mobileLandscape, tablet, desktop, wide);
+// $mq-show-breakpoints: (mobile, mobileLandscape, tablet, desktop, wide);
 @import 'vendor/sass-mq/mq';
 @import 'vendor/leaflet';
 
@@ -43,7 +43,7 @@ $mq-show-breakpoints: (mobile, mobileLandscape, tablet, desktop, wide);
 
 // HELPERS: MIXINS
 @import 'helpers/mixins/fonts';
-@import 'helpers/mixins/breakpoints';
+// @import 'helpers/mixins/breakpoints';
 
 // HELPERS: VARIABLES
 @import 'helpers/variables/colors';
@@ -56,6 +56,7 @@ $mq-show-breakpoints: (mobile, mobileLandscape, tablet, desktop, wide);
 @import 'base/layout';
 @import 'base/reset';
 @import 'base/typography';
+@import 'base/transitions';
 
 
 // COMPONENTS
@@ -64,6 +65,7 @@ $mq-show-breakpoints: (mobile, mobileLandscape, tablet, desktop, wide);
 @import 'components/find-projects';
 @import 'components/input';
 @import 'components/map-ctrls';
+@import 'components/map-panels';
 @import 'components/map-filters';
 @import 'components/map-layers';
 

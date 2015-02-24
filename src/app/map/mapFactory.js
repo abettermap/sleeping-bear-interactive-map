@@ -6,14 +6,15 @@
         .factory('mapFactory', mapFactory);
 
     // do this so you don't lose it during ugg...
-    mapFactory.$inject = ['$rootScope'];
+    // mapFactory.$inject = [''];
 
-    function mapFactory($rootScope){
+    function mapFactory(){
 
-        var mapFactory = {};
+        var mapFactory = {}
 
         mapFactory.mapDefaults = {
             cartodb: {
+                attribution: false,
                 type: 'CartoDB',
                 user_name: 'remcaninch',
                 tiler_protocol: "https",
@@ -24,22 +25,22 @@
                 sql_protocol: "https",
                 sublayers: [
                     {   // TRAIL FOR NOW
-                        sql: "SELECT * FROM sbht_temp",
-                        cartocss: "#sbht_temp{line-color:green;line-width:4;}",
+                        sql: "SELECT * FROM sbht",
+                        cartocss: "#sbht{line-color:green;line-width:4;}",
                         interactivity: "name",
                         name: "Sleeping Bear Heritage Trail",
                         id: "sbht"
                     },
                     {   // GRADE FOR NOW
-                        sql: "SELECT * FROM sbht_grade_temp",
-                        cartocss: "#sbht_grade_temp{line-color: #000000;line-width: 5;line-dasharray: 2,3;}",
+                        sql: "SELECT * FROM sbht_grade",
+                        cartocss: "#sbht_grade{line-color: #000000;line-width: 5;line-dasharray: 2,3;}",
                         interactivity: "name, direction, grade",
                         name: "Grade",
                         id: "grade"
                     },
                     {   // CAUTION FOR NOW
-                        sql: "SELECT * FROM sbht_caution_temp",
-                        cartocss: "#sbht_caution_temp{line-color:#F11810;line-width:5;}",
+                        sql: "SELECT * FROM sbht_caution",
+                        cartocss: "#sbht_caution{line-color:#F11810;line-width:5;}",
                         interactivity: "descrip, type",
                         name: 'Caution',
                         id: "caution"
@@ -77,23 +78,32 @@
             },
             tileLayer: {
                 url: "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
-            },
-            leaflet: {
-                zoom: 12,
-                zoomControl: false,
-                center: [44.8957686012,-86.00646972]
             }
-
-    };
-
-        mapFactory.map = new L.Map('map', mapFactory.mapDefaults.leaflet);
-
-        L.tileLayer(mapFactory.mapDefaults.tileLayer.url, mapFactory.mapDefaults.tileLayer.options)
-        .addTo(mapFactory.map);
+        }
+        var aerial = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png', {
+            attribution: '<p>Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png"></p>',
+            subdomains: '1234'
+        }),
+            terrain = L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.run-bike-hike/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q', {
+            attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a> <a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>"
+        });
+        
+        mapFactory.leafletDefaults = {
+            
+            attribution: false,
+            center: [44.88652,-86.00544],
+            zoom: 12,
+            zoomControl: false,
+            layers: [terrain]
+            
+        }
+    
+        mapFactory.map = new L.Map('map', mapFactory.leafletDefaults);
 
         return mapFactory;
+    };
 
-    }
+
 
 
 })();
