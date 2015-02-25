@@ -4,9 +4,9 @@
         .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
-    PanelsCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];
+    PanelsCtrl.$inject = ['$scope', 'panelsFactory', '$rootScope'];
 
-    function PanelsCtrl($scope, mapFactory, $rootScope){
+    function PanelsCtrl($scope, panelsFactory, $rootScope){
 
     	var vm = this;
     	
@@ -21,14 +21,11 @@
             }
         }
 
-        vm.changeTiles = function(current, newLayer){
-            mapFactory.changeTiles(current, newLayer);
+        $scope.currentBaselayer = {
+            name: 'terrain'
         }
-
-        // $scope.$watch('vm.value', function(){
-        //     console.log("oijmasdlkjfjklasdfkljasdfljksd");
-        //     mapFactory.leafletDefaults.layers = [mapFactory.tilesDict[vm.value]];
-        // });
+        
+        vm.changeTiles = panelsFactory.changeTiles;
 
     };
 

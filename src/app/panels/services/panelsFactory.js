@@ -12,6 +12,31 @@
 
 		var panelsFactory = {}
 
+		var map = mapFactory.map;
+		var tileLayers = mapFactory.tileLayers;
+
+		panelsFactory.changeTiles = function(current) {
+			 // debugger;
+			// if (current){
+			    var layerName = current.toString();
+			    // var obj = tileLayers[key];
+					var newLayer = '',
+						currentLayer = '';
+				for (var key in tileLayers) {
+					console.log("shtuff");
+					if (key === layerName){
+						newLayer = key;
+					} else {
+						currentLayer = key;
+					}
+				}
+		    		map.removeLayer(tileLayers[currentLayer]);					
+		    		map.addLayer(tileLayers[newLayer]);
+		    tileLayers[newLayer].bringToBack();
+			// }
+		    // map.addLayer(tileLayers[newLayer]);
+		};
+
 		return panelsFactory;
 
     };

@@ -174,12 +174,12 @@
             
         }
 
-        var tileLayers = {
+        mapFactory.tileLayers = {
             aerial: L.esri.basemapLayer('Imagery'),
-            // terrain: L.esri.basemapLayer('Topographic')
-            terrain: L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.run-bike-hike/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q', {
-                attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a><a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>"
-            })
+            terrain: L.esri.basemapLayer('Topographic')
+            // terrain: L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.run-bike-hike/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q', {
+            //     attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a><a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>"
+            // })
         }
 
         mapFactory.leafletDefaults = {
@@ -188,17 +188,18 @@
             center: [44.88652,-86.00544],
             zoom: 12,
             zoomControl: false,
-            layers: tileLayers.terrain
+            layers: mapFactory.tileLayers.terrain
             
         }
     
         mapFactory.map = new L.Map('map', mapFactory.leafletDefaults);
 
-        mapFactory.addCdbLayer = function(){
+        mapFactory.cdbLayer = {}
 
+        mapFactory.addCdbLayer = function(){
             cartodb.createLayer(mapFactory.map, mapFactory.cartodbDefaults)
             .addTo(mapFactory.map)
-            .on('done', function(layer) {
+            .on('done', function(layer){
                 cdb.vis.Vis.addCursorInteraction(mapFactory.map, layer);
                 var sublayers = layer.options.sublayers;
                 var tableNameArr = [];
@@ -230,21 +231,13 @@
                         // });
                     });
 
+                } // end for loop
 
-                };
-            }).on('error', function() {
+            })
+            .on('error', function() {
                 console.log("some error occurred");
             });
-            
         }
-
-        mapFactory.changeTiles = function(current, newLayer) {
-        // mapFactory.changeTiles = function(layer) {
-            var layerName = current.toString();
-            mapFactory.map.removeLayer(tileLayers[layerName]);
-            mapFactory.map.addLayer(tileLayers[newLayer]);
-            tileLayers[newLayer].bringToBack();
-        };
 
         return mapFactory;
 
@@ -469,9 +462,9 @@
         .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
-    PanelsCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];
+    PanelsCtrl.$inject = ['$scope', 'panelsFactory', '$rootScope'];
 
-    function PanelsCtrl($scope, mapFactory, $rootScope){
+    function PanelsCtrl($scope, panelsFactory, $rootScope){
 
     	var vm = this;
     	
@@ -486,14 +479,11 @@
             }
         }
 
-        vm.changeTiles = function(current, newLayer){
-            mapFactory.changeTiles(current, newLayer);
+        $scope.currentBaselayer = {
+            name: 'terrain'
         }
-
-        // $scope.$watch('vm.value', function(){
-        //     console.log("oijmasdlkjfjklasdfkljasdfljksd");
-        //     mapFactory.leafletDefaults.layers = [mapFactory.tilesDict[vm.value]];
-        // });
+        
+        vm.changeTiles = panelsFactory.changeTiles;
 
     };
 
@@ -529,6 +519,31 @@
     function panelsFactory(mapFactory, $rootScope){
 
 		var panelsFactory = {}
+
+		var map = mapFactory.map;
+		var tileLayers = mapFactory.tileLayers;
+
+		panelsFactory.changeTiles = function(current) {
+			 // debugger;
+			// if (current){
+			    var layerName = current.toString();
+			    // var obj = tileLayers[key];
+					var newLayer = '',
+						currentLayer = '';
+				for (var key in tileLayers) {
+					console.log("shtuff");
+					if (key === layerName){
+						newLayer = key;
+					} else {
+						currentLayer = key;
+					}
+				}
+		    		map.removeLayer(tileLayers[currentLayer]);					
+		    		map.addLayer(tileLayers[newLayer]);
+		    tileLayers[newLayer].bringToBack();
+			// }
+		    // map.addLayer(tileLayers[newLayer]);
+		};
 
 		return panelsFactory;
 
