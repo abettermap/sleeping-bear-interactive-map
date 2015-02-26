@@ -4,6 +4,8 @@
 
     FastClick.attach(document.body);
     
+    // angular
+    //     .module('basePath', []);
     angular
         .module('ctrlsModule', []);
     angular
@@ -16,7 +18,6 @@
     angular
         .module('mapApp', [
             'ui.router',
-            // 'FBAngular',f
             'ctrlsModule',
             'mapModule',
             'panelsModule',
@@ -29,87 +30,11 @@
 
 (function() {
 
-    angular
-        .module('mapApp')
-        .controller('MapCtrl', MapCtrl);
-
-    MapCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];
-
-    function MapCtrl($scope, mapFactory, $rootScope){
-
-        $rootScope.className = "map-container";
-
-        var vm = this;
-        $scope.value = 'foo';
-        vm.map = mapFactory.map;
-        vm.cartodbDefaults = mapFactory.cartodbDefaults;
-        vm.mapDefaults = mapFactory.mapDefaults;
-
-        vm.addCdbLayer = mapFactory.addCdbLayer;
-        vm.addCdbLayer();
-
-        vm.getFeatureData = function(data, tableName){
-            console.log("passed");
-            if (!data){
-                return "";
-            } else {
-                function dataArray(){
-                    var hey = Object.keys(data).map(function(key){
-                        var result = {
-                            key: key,
-                            data: data[key]
-                        }
-                        return result;
-                    });
-                    return hey;
-                }
-                return dataArray();
-            }
-        }
-
-        //     // $scope.$on('$viewContentLoaded', function(){
-        //     //   hey();
-        //     // });
-        //     // $scope.$watch("traildata.name", function (zoom) {
-        //     //     console.log("things happenin");
-        //     // });
-
-
-    }
-
-})();
-(function() {
-
-    angular
-        .module('mapModule')
-        .directive('interactiveMap', interactiveMap);
-
-    function interactiveMap(){
-        return {
-            restrict: 'E',
-            template: '<div class="map" id="map"></div>',
-            controller: 'MapCtrl',
-            controllerAs: 'vm',
-            replace: true
-        }
-    }
-
-})();
-(function() {
+    'use strict';
 
     angular
         .module('mapApp')
-        // .module('mapModuleFactory')
-        .factory('mapFactory', mapFactory);
-
-    // do this so you don't lose it during ugg...
-    // mapFactory.$inject = [''];
-
-    function mapFactory(){
-
-        var mapFactory = {}
-
-        mapFactory.cartodbDefaults = {
+        .value('cdbValues',{
             attribution: false,
             type: 'CartoDB',
             user_name: 'remcaninch',
@@ -172,7 +97,97 @@
                 }
             ]
             
-        }
+        });
+
+})();
+
+(function() {
+
+    'use strict';
+
+    angular
+        .module('mapApp')
+        .controller('MapCtrl', MapCtrl);
+
+    MapCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];
+
+    function MapCtrl($scope, mapFactory, $rootScope){
+
+        $rootScope.className = "map-container";
+
+        var vm = this;
+
+        vm.map = mapFactory.map;
+        vm.cartodbDefaults = mapFactory.cartodbDefaults;
+        vm.mapDefaults = mapFactory.mapDefaults;
+
+        vm.addCdbLayer = mapFactory.addCdbLayer;
+        vm.addCdbLayer();
+
+        vm.dataArray = function(){
+            var hey = Object.keys(data).map(function(key){
+                var result = {
+                    key: key,
+                    data: data[key]
+                };
+                return result;
+            });
+            return hey;
+        };
+
+        vm.getFeatureData = function(data, tableName){
+            console.log("passed");
+            if (!data){
+                return "";
+            } else {
+                return dataArray();
+            }
+        };
+
+        //     // $scope.$on('$viewContentLoaded', function(){
+        //     //   hey();
+        //     // });
+        //     // $scope.$watch("traildata.name", function (zoom) {
+        //     //     console.log("things happenin");
+        //     // });
+
+
+    }
+
+})();
+(function() {
+
+    'use strict';
+
+    angular
+        .module('mapModule')
+        .directive('interactiveMap', interactiveMap);
+
+    function interactiveMap(){
+        return {
+            restrict: 'E',
+            template: '<div class="map" id="map"></div>',
+            controller: 'MapCtrl',
+            controllerAs: 'vm',
+            replace: true
+        };
+    }
+
+})();
+(function() {
+
+    'use strict';
+
+    angular
+        .module('mapApp')
+        .factory('mapFactory', mapFactory);
+
+    // do this so you don't lose it during ugg...
+    mapFactory.$inject = ['$rootScope', 'cdbValues'];
+
+    function mapFactory($rootScope, cdbValues){
+
+        var mapFactory = {};
 
         mapFactory.tileLayers = {
             aerial: L.esri.basemapLayer('Imagery'),
@@ -180,7 +195,7 @@
             // terrain: L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.run-bike-hike/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q', {
             //     attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a><a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>"
             // })
-        }
+        };
 
         mapFactory.leafletDefaults = {
             
@@ -190,102 +205,67 @@
             zoomControl: false,
             layers: mapFactory.tileLayers.terrain
             
-        }
+        };
     
         mapFactory.map = new L.Map('map', mapFactory.leafletDefaults);
 
-        mapFactory.cdbLayer = {}
+        mapFactory.cdbLayer = {};
 
         mapFactory.addCdbLayer = function(){
-            cartodb.createLayer(mapFactory.map, mapFactory.cartodbDefaults)
+            cartodb.createLayer(mapFactory.map, cdbValues)
             .addTo(mapFactory.map)
             .on('done', function(layer){
-                cdb.vis.Vis.addCursorInteraction(mapFactory.map, layer);
-                var sublayers = layer.options.sublayers;
-                var tableNameArr = [];
-                for (var i = sublayers.length - 1; i >= 0; i--) {
-
-                    var sublayer = layer.getSubLayer(i);
-                    sublayer.setInteraction(true);
-
-                    tableNameArr.push({
-                        tablename: sublayers[i].name,
-                        index: i
-                    });
-
-                    // sublayer.on('featureClick', mapFactory.featureClick(e, pos, latlng, data));
-                    sublayer.on('featureClick', function(e, pos, latlng, data) {
-                        $rootScope.$apply(function() {
-                            $rootScope.data = data;
-                        });
-                         // mapFactory.featureClick(data);
-                        // mapFactory.setProperty(data.name);
-                        // var newSub = layer.options.sublayers[this._position]
-                        // var tableName = newSub.name;
-                        // var dataArray = mapFactory.getFeatureData(data, tableName);
-                        // $scope.$apply(function() {
-                        //     mapFactory.featureData = {
-                        //         name: tableName,
-                        //         data: dataArray
-                        //     }
-                        // });
-                    });
-
-                } // end for loop
-
+                mapFactory.setCdbInteraction(layer);
             })
             .on('error', function() {
                 console.log("some error occurred");
             });
-        }
+        };
+        mapFactory.setCdbInteraction = function(layer){
+            cdb.vis.Vis.addCursorInteraction(mapFactory.map, layer);
+            var sublayers = layer.options.sublayers;
+            var tableNameArr = [];
+            for (var i = sublayers.length - 1; i >= 0; i--) {
+
+                var sublayer = layer.getSubLayer(i);
+                sublayer.setInteraction(true);
+
+                tableNameArr.push({
+                    name: sublayers[i].name,
+                    index: i
+                });
+
+                var newSub = layer.options.sublayers[i];
+                // var newSub = layer.options.sublayers[this._position];
+                // debugger;
+                var tableName = newSub.name;
+                // var dataArray = mapFactory.getFeatureData(data, tableName);
+
+                sublayer.on('featureClick', function(e, pos, latlng, data){
+                    if (e){
+                        var i = this._position;
+                        mapFactory.getFeatureInfo(e, pos, latlng, data, tableNameArr, i);
+                    }
+                });
+
+            } // end for loop
+        };
+
+        $rootScope.testData = {};
+
+        mapFactory.getFeatureInfo = function(e, pos, latlng, data, tableName, i) {
+
+            $rootScope.$apply(function() {
+                $rootScope.tableName = tableName[i].name;
+                $rootScope.testData = data;
+            });
+            
+        };
 
         return mapFactory;
 
-    };
-
-
-
-
-})();
-(function() {
-
-    angular
-        .module('popupsModule')
-        .controller('PopupCtrl', PopupCtrl);
-
-    PopupCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];
-
-    function PopupCtrl($scope, mapFactory, $rootScope){
-        var vm = this;
-        vm.data = {};
-        vm.coords = '';
-        vm.tests = [
-            {name: "popup1"},
-            {name: "popup2"}
-        ];
-
-        vm.mapCenter = {
-            center: ''
-        }
-
-        vm.getCenter = function(){
-            vm.coords = vm.map.getCenter();
-        }
-
-        vm.map = mapFactory.map;
-
-        // vm.map.on('mousemove click', function(e) {
-        //     $scope.$apply(function(){
-        //         vm.coords = e.latlng.toString();
-        //     });
-        // });
-        // console.log($scope.$id);
-
-        $rootScope.$watch('data', function() {
-            vm.data = $rootScope.data;
-        });
-
     }
+
 
 })();
 (function() {
@@ -295,6 +275,7 @@
         .directive('popup', popup);
 
     function popup(){
+
         return {
             restrict: 'E',
             scope: {},
@@ -302,11 +283,62 @@
             controller: 'PopupCtrl',
             controllerAs: 'vm',
             replace: true
-        }
+        };
     }
 
 })();
 (function() {
+
+    'use strict';
+
+    angular.module('panelsModule')
+        .config(['$stateProvider', '$urlRouterProvider', wtf]);
+
+        function wtf($stateProvider, $urlRouterProvider) {
+        
+            function getAppPath(suffix){
+                var scripts = document.getElementsByTagName("script"),
+                    item,
+                    basePath;
+                for (var i = 0, len = scripts.length; i < len; i++) {
+                    item = scripts[i];
+                    if (item.src.indexOf('map-app') !== -1){
+                        basePath = item.src;
+                        var name = basePath.split('/').pop(); 
+                        basePath = basePath.replace('/'+name,"");
+                        break;
+                    }
+                }
+                return basePath + suffix;
+            }
+
+            $urlRouterProvider.otherwise('/home');
+
+            $stateProvider
+                
+                // HOME STATES AND NESTED VIEWS ========================================
+                .state('home', {
+                    url: '/home',
+                    templateUrl: getAppPath('/config/homeTemplate.html')
+                })
+                .state('home.popup', {
+                    url: '/popup',
+                    templateUrl: getAppPath('/popups/templates/popupTemplate.html')
+                });
+
+            // $locationProvider.html5Mode({
+            //   enabled: true,
+            //   requireBase: false,
+            //   rewriteLinks: true
+            // });
+            // $locationProvider.hashPrefix('!');
+
+        }
+
+})();
+(function() {
+
+    'use strict';
 
     angular
         .module('mapApp')
@@ -319,24 +351,24 @@
 
         vm.zoomIn = function(){
             ctrlsFactory.zoomIn();
-        }
+        };
         vm.zoomOut = function(){
             ctrlsFactory.zoomOut();
-        }
+        };
         vm.zoomHome = function(){
             ctrlsFactory.zoomHome();
-        }
+        };
         vm.locate = function(){
             ctrlsFactory.locate();
-        }
+        };
 
         vm.fullScreen = function() {
             ctrlsFactory.fullScreen();
-        }
+        };
 
         vm.executeFunctionByName = function(functionName, context /*, args */) {
             ctrlsFactory.executeFunctionByName(functionName, context /*, args */);
-        }
+        };
 
         vm.ctrls = [
             {
@@ -376,6 +408,8 @@
 })();
 (function() {
 
+    'use strict';
+
     angular
         .module('ctrlsModule')
         .directive('mapControls', mapControls);
@@ -387,12 +421,14 @@
             controller: 'CtrlsCtrl',
             controllerAs: 'vm',
             replace: true
-        }
+        };
     }
 
 })();
 //////*   ctrlsFactory.js   *//////
 (function() {
+
+    'use strict';
 
     angular
         .module('ctrlsModule')
@@ -403,7 +439,7 @@
 
     function ctrlsFactory(mapFactory){
 
-        var ctrlsFactory = {}
+        var ctrlsFactory = {};
         var map = mapFactory.map;
 
         ctrlsFactory.zoomIn = function(){
@@ -458,6 +494,8 @@
 })();
 (function() {
 
+    'use strict';
+
     angular
         .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
@@ -490,10 +528,15 @@
 })();
 (function() {
 
+    'use strict';
+
     angular
         .module('panelsModule')
         .directive('panels', panels);
 
+    // panels.$inject = ['$rootScope'];
+
+    // function panels($rootScope){
     function panels(){
         return {
             restrict: 'E',
@@ -502,12 +545,13 @@
             controller: 'PanelsCtrl',
             controllerAs: 'vm',
             replace: true
-        }
+        };
     }
 
 })();
-//////*   panelsFactory.js   *//////
 (function() {
+
+	'use strict';
 
     angular
         .module('panelsModule')
@@ -518,36 +562,30 @@
 
     function panelsFactory(mapFactory, $rootScope){
 
-		var panelsFactory = {}
+		var panelsFactory = {};
 
 		var map = mapFactory.map;
 		var tileLayers = mapFactory.tileLayers;
 
 		panelsFactory.changeTiles = function(current) {
-			 // debugger;
-			// if (current){
-			    var layerName = current.toString();
-			    // var obj = tileLayers[key];
-					var newLayer = '',
-						currentLayer = '';
-				for (var key in tileLayers) {
-					console.log("shtuff");
-					if (key === layerName){
-						newLayer = key;
-					} else {
-						currentLayer = key;
-					}
+		    var layerName = current.toString();
+			var newLayer = '',
+				currentLayer = '';
+			for (var key in tileLayers) {
+				if (key === layerName){
+					newLayer = key;
+				} else {
+					currentLayer = key;
 				}
-		    		map.removeLayer(tileLayers[currentLayer]);					
-		    		map.addLayer(tileLayers[newLayer]);
+			}
+    		map.removeLayer(tileLayers[currentLayer]);					
+    		map.addLayer(tileLayers[newLayer]);
 		    tileLayers[newLayer].bringToBack();
-			// }
-		    // map.addLayer(tileLayers[newLayer]);
 		};
 
 		return panelsFactory;
 
-    };
+    }
 
 
 })();

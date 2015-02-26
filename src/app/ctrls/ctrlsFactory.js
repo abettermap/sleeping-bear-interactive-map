@@ -1,6 +1,8 @@
 //////*   ctrlsFactory.js   *//////
 (function() {
 
+    'use strict';
+
     angular
         .module('ctrlsModule')
         .factory('ctrlsFactory', ctrlsFactory);
@@ -10,7 +12,7 @@
 
     function ctrlsFactory(mapFactory){
 
-        var ctrlsFactory = {}
+        var ctrlsFactory = {};
         var map = mapFactory.map;
 
         ctrlsFactory.zoomIn = function(){

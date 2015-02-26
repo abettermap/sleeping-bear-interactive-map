@@ -139,3 +139,31 @@
 //   }
 
 // });
+// angular.module("tripRiskApp").directive("leafletMap", ["$rootScope", "$templateCache", "CartoDBService", "AppConfig", "LeafletService", "NokiaService", function(a, b, c, d, e, f) {
+//         return {replace: !0,restrict: "E",transclude: !0,template: b.get("leaflet-map-template.html"),link: function(b, e) {
+//                 var map = L.map(e[0]).setView(d.vicDefaultMapLocation, 12);
+//                 map.addLayer(c.createTileLayer(d.baseTileUrl));
+//                 var h = cartodb.createLayer(g, {user_name: "geoplex",type: "cartodb",cartodb_logo: !1,sublayers: [{sql: "SELECT COUNT(*) as accident_count, SUM(no_of_vehicles) as no_of_vehicles, SUM(bike) as bike, SUM(pedestrian) as pedestrian, SUM(no_persons_killed) as no_persons_killed, SUM(no_persons) as no_persons, MAX(cartodb_id) as cartodb_id, the_geom_webmercator FROM " + d.accidents + " WHERE 1 = 2",cartocss: d.carAccidentCSS,interactivity: "cartodb_id, accident_count, no_of_vehicles, no_persons_killed, no_persons, bike, pedestrian"}]});
+//                 h.addTo(map).on("done", function(c) {
+//                     function e(a) {
+//                         var c = a.coords.latitude, e = a.coords.longitude, h = f.reverseGeocode(c, e);
+//                         h.then(function(a) {
+//                             var f = a.Response.View[0].Result[0].Location.Address.State;
+//                             "VIC" === f ? (b.userLocation = [c, e], console.log("In Victoria"), map.setView([c, e], 15), L.circle([c, e], 5).addTo(map).bindPopup("Your Location")) : (map.setView(d.vicDefaultMapLocation, 12), $("#locationModel").foundation("reveal", "open"), console.log("Not in Victoria"))
+//                         })
+//                     }
+//                     function h() {
+//                         return ""
+//                     }
+//                     map.cartoDbLayer = c, c.getSubLayer(0).setSQL("SELECT * FROM " + d.accidents + " WHERE 1 = 2");
+//                     var i = c.getSubLayer(0);
+//                     i.setInteraction(!0);
+//                     var j = L.popup();
+//                     map.popup = j, i.on("featureClick", function(a, pos, c, data) {
+//                         j.setLatLng(pos), j.setContent("<h5>Location Details</h5><p>Crashes:  <b> " + data.accident_count + " </b><br>Vehicles:  <b>" + data.no_of_vehicles + " </b><br>Persons:  <b>" + data.no_persons + " </b><br>Fatalities:  <b>" + data.no_persons_killed + " </b></p>"), j.addTo(map), j.openOn(map)
+//                     }), "geolocation" in navigator && navigator.geolocation.getCurrentPosition(e, h), map.on("click", function(b) {
+//                         a.$broadcast("MAP_CLICK_EVENT", b)
+//                     })
+//                 }), a.map = g
+//             }}
+//     }])

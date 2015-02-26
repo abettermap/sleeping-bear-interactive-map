@@ -89,7 +89,7 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
             wp_register_script( 'ng_ui_router', '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js', array('angular'), '1.0.0', true);
 
             // CartoDB CDN
-            wp_register_script( 'cartodb', '//libs.cartocdn.com/cartodb.js/v3/cartodb.js', array(), '1.0.0', false );
+            wp_register_script( 'cartodb', '//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.js', array(), '1.0.0', false );
 
         }
 

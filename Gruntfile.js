@@ -58,7 +58,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'copy',
         // 'concat:kioskScript',
-        'newer:uglify',
+        'uglify',
         // 'concat:kioskStyle',
         'cssmin',
         'autoprefixer:build'

@@ -1,5 +1,7 @@
 (function() {
 
+    'use strict';
+
     angular
         .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);

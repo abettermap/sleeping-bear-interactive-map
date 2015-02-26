@@ -1,5 +1,7 @@
 (function() {
 
+    'use strict';
+
     angular
         .module('ctrlsModule')
         .directive('mapControls', mapControls);
@@ -11,7 +13,7 @@
             controller: 'CtrlsCtrl',
             controllerAs: 'vm',
             replace: true
-        }
+        };
     }
 
 })();

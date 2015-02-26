@@ -5,6 +5,7 @@
         .directive('popup', popup);
 
     function popup(){
+
         return {
             restrict: 'E',
             scope: {},
@@ -12,7 +13,7 @@
             controller: 'PopupCtrl',
             controllerAs: 'vm',
             replace: true
-        }
+        };
     }
 
 })();

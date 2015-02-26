@@ -1,5 +1,7 @@
 (function() {
 
+    'use strict';
+
     angular
         .module('mapModule')
         .directive('interactiveMap', interactiveMap);
@@ -11,7 +13,7 @@
             controller: 'MapCtrl',
             controllerAs: 'vm',
             replace: true
-        }
+        };
     }
 
 })();

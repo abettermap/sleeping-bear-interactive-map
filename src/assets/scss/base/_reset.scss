@@ -1,5 +1,18 @@
 // Override theme's defaults
 
+// For fuller fullscreen?
+html {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+}
+
+// Overflow on body
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 // No right sidebar
 #rightcol {
   display: none;
@@ -12,13 +25,11 @@
 
 // Full-width main content
 #content-wide {
-  width: 100%;
-  // float: none;
-  // float: left;
-  max-width: 918px;
-  padding: 30px;
   background: #fff;
+  max-width: 918px;
   outline: 1px solid #c1c1c1;
+  padding: 30px;
+  width: 100%;
 }
 
 .entry {
