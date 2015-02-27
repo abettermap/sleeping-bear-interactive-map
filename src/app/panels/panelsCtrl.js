@@ -6,29 +6,32 @@
         .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
-    PanelsCtrl.$inject = ['$scope', 'panelsFactory', '$rootScope'];
+    PanelsCtrl.$inject = ['$scope', 'panelsFactory', '$rootScope', 'mapService'];
 
-    function PanelsCtrl($scope, panelsFactory, $rootScope){
+    function PanelsCtrl($scope, panelsFactory, $rootScope, mapService){
 
     	var vm = this;
-    	
+
         vm.panelSwitchStatus = '';
+
+        vm.panel = '';
 
         vm.changePanel = function(panel){
             
-            if (vm.panelSwitchStatus === panel){
-                vm.panelSwitchStatus = '';
+            if (vm.panel === panel){
+                vm.panel = '';
             } else {
-                vm.panelSwitchStatus = panel;
+                vm.panel = panel;
             }
-        }
+            
+        };
 
         $scope.currentBaselayer = {
             name: 'terrain'
-        }
+        };
         
         vm.changeTiles = panelsFactory.changeTiles;
 
-    };
+    }
 
 })();

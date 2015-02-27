@@ -7,14 +7,14 @@
         .factory('panelsFactory', panelsFactory);
 
     // do this so you don't lose it during ugg...
-    panelsFactory.$inject = ['mapFactory', '$rootScope'];
+    panelsFactory.$inject = ['mapService', '$rootScope'];
 
-    function panelsFactory(mapFactory, $rootScope){
+    function panelsFactory(mapService, $rootScope){
 
 		var panelsFactory = {};
 
-		var map = mapFactory.map;
-		var tileLayers = mapFactory.tileLayers;
+		var map = mapService.map;
+		var tileLayers = mapService.tileLayers;
 
 		panelsFactory.changeTiles = function(current) {
 		    var layerName = current.toString();

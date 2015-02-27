@@ -3,27 +3,39 @@
     'use strict';
 
     FastClick.attach(document.body);
-    
-    // angular
-    //     .module('basePath', []);
+
     angular
         .module('ctrlsModule', []);
     angular
         .module('mapModule', []);
     angular
+        .module('layersModule', []);
+    angular
         .module('panelsModule', []);
     angular
         .module('popupsModule', []);
 
+
     angular
         .module('mapApp', [
-            'ui.router',
             'ctrlsModule',
             'mapModule',
             'panelsModule',
-            'popupsModule'
+            'popupsModule',
+            'ui.router'
         ])
-        .run(function($rootScope) {
-    });
+        .run(['$rootScope', '$state', '$stateParams',
+            function ($rootScope,   $state,   $stateParams) {
+                $rootScope.$state = $state;
+                $rootScope.$stateParams = $stateParams;
+            }
+        ]);
+    // angular
+    //     .module('basePathModule',['ui.router'])
+    //     .constant('basePath',{
+    //         url: ''
+    //     });
+
+
 
 })();

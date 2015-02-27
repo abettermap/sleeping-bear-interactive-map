@@ -3,28 +3,40 @@
     'use strict';
 
     FastClick.attach(document.body);
-    
-    // angular
-    //     .module('basePath', []);
+
     angular
         .module('ctrlsModule', []);
     angular
         .module('mapModule', []);
     angular
+        .module('layersModule', []);
+    angular
         .module('panelsModule', []);
     angular
         .module('popupsModule', []);
 
+
     angular
         .module('mapApp', [
-            'ui.router',
             'ctrlsModule',
             'mapModule',
             'panelsModule',
-            'popupsModule'
+            'popupsModule',
+            'ui.router'
         ])
-        .run(function($rootScope) {
-    });
+        .run(['$rootScope', '$state', '$stateParams',
+            function ($rootScope,   $state,   $stateParams) {
+                $rootScope.$state = $state;
+                $rootScope.$stateParams = $stateParams;
+            }
+        ]);
+    // angular
+    //     .module('basePathModule',['ui.router'])
+    //     .constant('basePath',{
+    //         url: ''
+    //     });
+
+
 
 })();
 
@@ -45,21 +57,21 @@
             sql_port: "443",
             sql_protocol: "https",
             sublayers: [
-                {   // TRAIL FOR NOW
+                {   // TRAIL
                     sql: "SELECT * FROM sbht",
                     cartocss: "#sbht{line-color:green;line-width:4;}",
                     interactivity: "name",
                     name: "Sleeping Bear Heritage Trail",
-                    id: "sbht"
+                    id: "trail-pic"
                 },
-                {   // GRADE FOR NOW
+                {   // GRADE
                     sql: "SELECT * FROM sbht_grade",
                     cartocss: "#sbht_grade{line-color: #000000;line-width: 5;line-dasharray: 2,3;}",
                     interactivity: "name, direction, grade",
                     name: "Grade",
                     id: "grade"
                 },
-                {   // CAUTION FOR NOW
+                {   // CAUTION
                     sql: "SELECT * FROM sbht_caution",
                     cartocss: "#sbht_caution{line-color:#F11810;line-width:5;}",
                     interactivity: "descrip, type",
@@ -72,28 +84,28 @@
                     interactivity: "name",
                     // interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
                     name: 'NPS POI',
-                    id: "nps_poi"
+                    id: "nps-poi"
                 },
                 {   // SBHT POI
                     sql: "SELECT * FROM sbht_poi_digitize",
                     cartocss: "#sbht_poi_digitize{marker-fill:#000;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
                     interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
                     name: 'SBHT POI',
-                    id: "sbht_poi"
+                    id: "sbht-poi"
                 },
                 {   // COMM POI
                     sql: "SELECT * FROM comm_poi_master",
                     cartocss: "#trail_pix_digitize{marker-fill:orange;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
                     interactivity: "name, type, mile, name_id, season, x, y, sw_offset, ne_offset, descrip, video, audio, phone, addr_no, addr_name, addr_type, city, zip, email, website",
                     name: 'Commercial POI',
-                    id: "comm_poi"
+                    id: "comm-poi"
                 },
                 {   // TRAIL PIX
                     sql: "SELECT * FROM trail_pix_digitize",
                     cartocss: "#trail_pix_digitize{marker-fill:red;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
                     interactivity: "img_file, season",
                     name: 'Trail Pics',
-                    id: "trail_pix"
+                    id: "trail-pix"
                 }
             ]
             
@@ -109,68 +121,19 @@
         .module('mapApp')
         .controller('MapCtrl', MapCtrl);
 
-    MapCtrl.$inject = ['$scope', 'mapFactory', '$rootScope'];
+    MapCtrl.$inject = ['$scope', 'mapService', '$rootScope', 'layersFactory'];
 
-    function MapCtrl($scope, mapFactory, $rootScope){
+    function MapCtrl($scope, mapService, $rootScope, layersFactory){
+
+        // console.log($location);
 
         $rootScope.className = "map-container";
 
-        var vm = this;
+        function init(){
+            layersFactory.addCdbLayer();
+        }
+        init();
 
-        vm.map = mapFactory.map;
-        vm.cartodbDefaults = mapFactory.cartodbDefaults;
-        vm.mapDefaults = mapFactory.mapDefaults;
-
-        vm.addCdbLayer = mapFactory.addCdbLayer;
-        vm.addCdbLayer();
-
-        vm.dataArray = function(){
-            var hey = Object.keys(data).map(function(key){
-                var result = {
-                    key: key,
-                    data: data[key]
-                };
-                return result;
-            });
-            return hey;
-        };
-
-        vm.getFeatureData = function(data, tableName){
-            console.log("passed");
-            if (!data){
-                return "";
-            } else {
-                return dataArray();
-            }
-        };
-
-        //     // $scope.$on('$viewContentLoaded', function(){
-        //     //   hey();
-        //     // });
-        //     // $scope.$watch("traildata.name", function (zoom) {
-        //     //     console.log("things happenin");
-        //     // });
-
-
-    }
-
-})();
-(function() {
-
-    'use strict';
-
-    angular
-        .module('mapModule')
-        .directive('interactiveMap', interactiveMap);
-
-    function interactiveMap(){
-        return {
-            restrict: 'E',
-            template: '<div class="map" id="map"></div>',
-            controller: 'MapCtrl',
-            controllerAs: 'vm',
-            replace: true
-        };
     }
 
 })();
@@ -180,110 +143,26 @@
 
     angular
         .module('mapApp')
-        .factory('mapFactory', mapFactory);
+        // .directive('interactiveMap', interactiveMap);
+        .directive('interactiveMap', interactiveMap);
 
-    // do this so you don't lose it during ugg...
-    mapFactory.$inject = ['$rootScope', 'cdbValues'];
+    interactiveMap.$inject = ['mapService', '$rootScope', 'layersFactory'];
 
-    function mapFactory($rootScope, cdbValues){
-
-        var mapFactory = {};
-
-        mapFactory.tileLayers = {
-            aerial: L.esri.basemapLayer('Imagery'),
-            terrain: L.esri.basemapLayer('Topographic')
-            // terrain: L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.run-bike-hike/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q', {
-            //     attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a><a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>"
-            // })
-        };
-
-        mapFactory.leafletDefaults = {
-            
-            attribution: false,
-            center: [44.88652,-86.00544],
-            zoom: 12,
-            zoomControl: false,
-            layers: mapFactory.tileLayers.terrain
-            
-        };
-    
-        mapFactory.map = new L.Map('map', mapFactory.leafletDefaults);
-
-        mapFactory.cdbLayer = {};
-
-        mapFactory.addCdbLayer = function(){
-            cartodb.createLayer(mapFactory.map, cdbValues)
-            .addTo(mapFactory.map)
-            .on('done', function(layer){
-                mapFactory.setCdbInteraction(layer);
-            })
-            .on('error', function() {
-                console.log("some error occurred");
-            });
-        };
-        mapFactory.setCdbInteraction = function(layer){
-            cdb.vis.Vis.addCursorInteraction(mapFactory.map, layer);
-            var sublayers = layer.options.sublayers;
-            var tableNameArr = [];
-            for (var i = sublayers.length - 1; i >= 0; i--) {
-
-                var sublayer = layer.getSubLayer(i);
-                sublayer.setInteraction(true);
-
-                tableNameArr.push({
-                    name: sublayers[i].name,
-                    index: i
-                });
-
-                var newSub = layer.options.sublayers[i];
-                // var newSub = layer.options.sublayers[this._position];
-                // debugger;
-                var tableName = newSub.name;
-                // var dataArray = mapFactory.getFeatureData(data, tableName);
-
-                sublayer.on('featureClick', function(e, pos, latlng, data){
-                    if (e){
-                        var i = this._position;
-                        mapFactory.getFeatureInfo(e, pos, latlng, data, tableNameArr, i);
-                    }
-                });
-
-            } // end for loop
-        };
-
-        $rootScope.testData = {};
-
-        mapFactory.getFeatureInfo = function(e, pos, latlng, data, tableName, i) {
-
-            $rootScope.$apply(function() {
-                $rootScope.tableName = tableName[i].name;
-                $rootScope.testData = data;
-            });
-            
-        };
-
-        return mapFactory;
-
-    }
-
-
-})();
-(function() {
-
-    angular
-        .module('popupsModule')
-        .directive('popup', popup);
-
-    function popup(){
+    function interactiveMap(mapService, $rootScope, layersFactory){
 
         return {
             restrict: 'E',
-            scope: {},
-            templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/popups/templates/popupTemplate.html',
-            controller: 'PopupCtrl',
-            controllerAs: 'vm',
-            replace: true
+            template: '<div class="map" id="map"></div>',
+            replace: true,
+            controller: function(){
+                
+                function init(map){
+                    layersFactory.addCdbLayer(mapService.createMap());
+                }
+                init();
+            }
         };
+        
     }
 
 })();
@@ -291,49 +170,211 @@
 
     'use strict';
 
-    angular.module('panelsModule')
-        .config(['$stateProvider', '$urlRouterProvider', wtf]);
+    angular
+        .module('mapApp')
+        .service('mapService', mapService);
+        // .factory('mapService', mapService);
 
-        function wtf($stateProvider, $urlRouterProvider) {
-        
-            function getAppPath(suffix){
-                var scripts = document.getElementsByTagName("script"),
-                    item,
-                    basePath;
-                for (var i = 0, len = scripts.length; i < len; i++) {
-                    item = scripts[i];
-                    if (item.src.indexOf('map-app') !== -1){
-                        basePath = item.src;
-                        var name = basePath.split('/').pop(); 
-                        basePath = basePath.replace('/'+name,"");
-                        break;
-                    }
-                }
-                return basePath + suffix;
-            }
+    // do this so you don't lose it during ugg...
+    mapService.$inject = ['$rootScope', 'cdbValues'];
 
-            $urlRouterProvider.otherwise('/home');
+    function mapService($rootScope, cdbValues){
 
-            $stateProvider
-                
-                // HOME STATES AND NESTED VIEWS ========================================
-                .state('home', {
-                    url: '/home',
-                    templateUrl: getAppPath('/config/homeTemplate.html')
-                })
-                .state('home.popup', {
-                    url: '/popup',
-                    templateUrl: getAppPath('/popups/templates/popupTemplate.html')
-                });
+        this.tileLayers = {
+            aerial: L.esri.basemapLayer('Imagery'),
+            terrain: L.esri.basemapLayer('Topographic')
+            // terrain: L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.run-bike-hike/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q', {
+            //     attribution: "<a href='https://www.mapbox.com/about/maps/' target='_blank'>&copy; Mapbox &copy; OpenStreetMap</a><a class='mapbox-improve-map' href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a>"
+            // })
+        };
 
-            // $locationProvider.html5Mode({
-            //   enabled: true,
-            //   requireBase: false,
-            //   rewriteLinks: true
-            // });
-            // $locationProvider.hashPrefix('!');
+        this.leafletDefaults = {
+            
+            attribution: false,
+            center: [44.88652,-86.00544],
+            zoom: 12,
+            zoomControl: false,
+            layers: this.tileLayers.terrain
+            
+        };
 
+        this.map = {};
+
+        this.createMap = function(yes){
+            this.map = L.map('map', this.leafletDefaults);
+            return this.map;
         }
+
+        $rootScope.testData = {};
+
+        // return this;
+
+    }
+
+
+})();
+(function() {
+
+    'use strict';
+
+    angular
+        // .module('layersModule')
+        .module('layersModule')
+        .controller('LayersCtrl', LayersCtrl);
+
+    LayersCtrl.$inject = ['$scope', 'mapService', '$rootScope', 'layersFactory'];
+
+    function LayersCtrl($scope, mapService, $rootScope, layersFactory){
+
+    	$scope.sublayers = layersFactory.sublayers;
+
+	}
+
+})();
+(function() {
+
+    'use strict';
+
+    angular
+        .module('mapApp')
+        .factory('layersFactory', layersFactory);
+
+    // do this so you don't lose it during ugg...
+    layersFactory.$inject = ['$rootScope', 'cdbValues', 'mapService'];
+
+    function layersFactory($rootScope, cdbValues, mapService){
+
+    	var layersFactory = {
+    		tileLayers: {},
+    		setCdbInteraction: {},
+    		getFeatureInfo: {}
+    	};
+
+    	// var map = mapService.map;
+
+    	layersFactory.tileLayers = mapService.tileLayers;
+
+    	layersFactory.addCdbLayer = function(map){
+
+    	    cartodb.createLayer(map, cdbValues)
+    	    .addTo(map)
+    	    .on('done', function(layer){
+    	        layersFactory.setCdbInteraction(map, layer);
+    	    })
+    	    .on('error', function() {
+    	        console.log("could not add cdb layer");
+    	    });
+    	};
+
+    	layersFactory.getFeatureInfo = function(e, pos, latlng, data, tableName, i) {
+
+    	    $rootScope.$apply(function() {
+    	        $rootScope.tableName = tableName[i].name;
+                $rootScope.data = data;
+    	        $rootScope.name = data.name;
+                console.log($rootScope.name);
+
+    	    });
+    	    
+    	};
+
+    	layersFactory.sublayers = [];
+    	
+    	layersFactory.setCdbInteraction = function(map, layer){
+    	    cdb.vis.Vis.addCursorInteraction(map, layer);
+    	    var sublayers = layer.options.sublayers;
+    	    // debugger;
+    	    var tableNameArr = [];
+    	    for (var i = 0; i < sublayers.length; i++) {
+                // for (var i = 0; i < Things.length; i++) {
+                //     Things[i]
+                // };
+    	        var sublayer = layer.getSubLayer(i);
+    	        layersFactory.sublayers.push(sublayer);
+    	        sublayer.setInteraction(true);
+
+    	        tableNameArr.push({
+    	            name: sublayers[i].name,
+    	            index: i
+    	        });
+
+    	        var newSub = layer.options.sublayers[i];
+    	        // var newSub = layer.options.sublayers[this._position];
+    	        // debugger;
+    	        var tableName = newSub.name;
+    	        // var dataArray = layersFactory.getFeatureData(data, tableName);
+
+    	        // sublayer.on('featureClick', layersFactory.featureClick(pos, latlng, data));
+    	        sublayer.on('featureClick', function(e, pos, latlng, data){
+		            if (e){
+		                var i = this._position;
+		                layersFactory.getFeatureInfo(e, pos, latlng, data, tableNameArr, i);
+		            }    	        	
+
+    	        });
+
+    	    } // end for loop
+    	};
+
+    	return layersFactory;
+    };
+
+})();
+(function() {
+
+    'use strict';
+
+    angular
+        .module('popupsModule')
+        .controller('PopupCtrl', PopupCtrl);
+
+    PopupCtrl.$inject = ['$scope', 'mapService', '$rootScope', 'layersFactory'];
+
+    function PopupCtrl($scope, mapService, $rootScope, layersFactory){
+
+    	$scope.sublayers = layersFactory.sublayers;
+        var vm = this;
+        vm.data = layersFactory.getFeatureInfo;
+        $scope.$watch('vm.data', function(){
+            alert('things change');
+        });
+
+    	var vm = this;
+
+    	vm.dataArray = function(){
+    	    var hey = Object.keys(data).map(function(key){
+    	        var result = {
+    	            key: key,
+    	            data: data[key]
+    	        };
+    	        return result;
+    	    });
+    	    return hey;
+    	}; 
+
+    	vm.getFeatureData = function(data, tableName){
+    	    console.log("passed");
+    	    if (!data){
+    	        return "";
+    	    } else {
+    	        return dataArray();
+    	    }
+    	};
+        // console.log("mapService.map._container");
+        vm.container = mapService.map._container;
+        // vm.container = mapService.map._container.id;
+        // $scope.$watch('vm.container',function(){
+        //     console.log(vm.container);
+        // });
+    	//     // $scope.$on('$viewContentLoaded', function(){
+    	//     //   hey();
+    	//     // });
+    	//     // $scope.$watch("traildata.name", function (zoom) {
+    	//     //     console.log("things happenin");
+    	//     // });
+
+
+	}
 
 })();
 (function() {
@@ -370,38 +411,38 @@
             ctrlsFactory.executeFunctionByName(functionName, context /*, args */);
         };
 
-        vm.ctrls = [
-            {
-                name: '+',
-                fn: 'zoomIn',
-                id: '#icon-zoom-in'
-            },
-            {
-                name: '-',
-                fn: 'zoomOut',
-                id: '#icon-zoom-out'
-            },
-            {
-                name: 'home',
-                fn: 'zoomHome',
-                id: '#icon-zoom-home'
-            },
-            {
-                name: 'GPS',
-                fn: 'locate',
-                id: '#icon-locate'
-            },
-            {
-                name: 'full',
-                fn: 'fullScreen',
-                id: '#icon-enable-full'
-            }
-        ];
+        // vm.ctrls = [
+        //     {
+        //         name: '+',
+        //         fn: 'zoomIn',
+        //         id: '#icon-zoom-in'
+        //     },
+        //     {
+        //         name: '-',
+        //         fn: 'zoomOut',
+        //         id: '#icon-zoom-out'
+        //     },
+        //     {
+        //         name: 'home',
+        //         fn: 'zoomHome',
+        //         id: '#icon-zoom-home'
+        //     },
+        //     {
+        //         name: 'GPS',
+        //         fn: 'locate',
+        //         id: '#icon-locate'
+        //     },
+        //     {
+        //         name: 'full',
+        //         fn: 'fullScreen',
+        //         id: '#icon-enable-full'
+        //     }
+        // ];
 
 
-        $rootScope.$watch('data', function() {
-            vm.data = $rootScope.data;
-        });
+        // $rootScope.$watch('data', function() {
+        //     vm.data = $rootScope.data;
+        // });
 
     }
 
@@ -435,12 +476,12 @@
         .factory('ctrlsFactory', ctrlsFactory);
 
     // do this so you don't lose it during ugg...
-    ctrlsFactory.$inject = ['mapFactory'];
+    ctrlsFactory.$inject = ['mapService'];
 
-    function ctrlsFactory(mapFactory){
-
+    function ctrlsFactory(mapService){
+        
         var ctrlsFactory = {};
-        var map = mapFactory.map;
+        var map = mapService.map;
 
         ctrlsFactory.zoomIn = function(){
             map.zoomIn();
@@ -458,9 +499,7 @@
                 [southWest],
                 [northEast]
             ]);
-            console.log("zoomHome called");
         };
-        // ctrlsFactory.zoomHome();
 
         ctrlsFactory.locate = function(){
             map.locate({
@@ -500,30 +539,33 @@
         .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
-    PanelsCtrl.$inject = ['$scope', 'panelsFactory', '$rootScope'];
+    PanelsCtrl.$inject = ['$scope', 'panelsFactory', '$rootScope', 'mapService'];
 
-    function PanelsCtrl($scope, panelsFactory, $rootScope){
+    function PanelsCtrl($scope, panelsFactory, $rootScope, mapService){
 
     	var vm = this;
-    	
+
         vm.panelSwitchStatus = '';
+
+        vm.panel = '';
 
         vm.changePanel = function(panel){
             
-            if (vm.panelSwitchStatus === panel){
-                vm.panelSwitchStatus = '';
+            if (vm.panel === panel){
+                vm.panel = '';
             } else {
-                vm.panelSwitchStatus = panel;
+                vm.panel = panel;
             }
-        }
+            
+        };
 
         $scope.currentBaselayer = {
             name: 'terrain'
-        }
+        };
         
         vm.changeTiles = panelsFactory.changeTiles;
 
-    };
+    }
 
 })();
 (function() {
@@ -558,14 +600,14 @@
         .factory('panelsFactory', panelsFactory);
 
     // do this so you don't lose it during ugg...
-    panelsFactory.$inject = ['mapFactory', '$rootScope'];
+    panelsFactory.$inject = ['mapService', '$rootScope'];
 
-    function panelsFactory(mapFactory, $rootScope){
+    function panelsFactory(mapService, $rootScope){
 
 		var panelsFactory = {};
 
-		var map = mapFactory.map;
-		var tileLayers = mapFactory.tileLayers;
+		var map = mapService.map;
+		var tileLayers = mapService.tileLayers;
 
 		panelsFactory.changeTiles = function(current) {
 		    var layerName = current.toString();
@@ -589,3 +631,67 @@
 
 
 })();
+(function() {
+
+    'use strict';
+
+    angular.module('mapApp')
+        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+        // .config(['$stateProvider', '$urlRouterProvider', 'basePath', function($stateProvider, $urlRouterProvider, basePath) {
+            function getAppPath(suffix){
+                var scripts = document.getElementsByTagName("script"),
+                    item,
+                    basePath;
+                for (var i = 0, len = scripts.length; i < len; i++) {
+                    item = scripts[i];
+                    if (item.src.indexOf('map-app') !== -1){
+                        basePath = item.src;
+                        var name = basePath.split('/').pop(); 
+                        basePath = basePath.replace('/'+name,"");
+                        break;
+                    }
+                }
+                return basePath + suffix;
+            }
+
+            $urlRouterProvider.otherwise('/');
+
+            $stateProvider
+                
+                // HOME STATES AND NESTED VIEWS ========================================
+                .state('home', {
+                    url: '/',
+                    templateUrl: getAppPath('/config/homeTemplate.html'),
+                    // controller: PopupCtrl
+                })
+                .state('home.comm', {
+                    url: 'comm-poi',
+                    templateUrl: getAppPath('/popups/templates/comm-poi-template.html')
+                })
+                .state('home.nps', {
+                    url: '/nps-poi/{name}',
+                    templateUrl: getAppPath('/popups/templates/nps-poi-template.html'),
+                    controller: function($stateParams){
+                       $stateParams.contactId  //*** Exists! ***//
+                    }
+                })
+                .state('home.sbht', {
+                    url: 'sbht-poi',
+                    templateUrl: getAppPath('/popups/templates/sbht-poi-template.html'),
+                })
+                .state('home.trail-pix', {
+                    url: 'trail-pix',
+                    templateUrl: getAppPath('/popups/templates/trail-pix-template.html'),
+                });
+
+            // $locationProvider.html5Mode({
+            //   enabled: true,
+            //   requireBase: false,
+            //   rewriteLinks: true
+            // });
+            // $locationProvider.hashPrefix('!');
+
+        }]);
+
+})();
+

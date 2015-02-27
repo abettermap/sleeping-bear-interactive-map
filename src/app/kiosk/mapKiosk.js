@@ -1,1 +1,0 @@
-// Kiosk script goes here.

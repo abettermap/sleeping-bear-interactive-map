@@ -15,21 +15,21 @@
             sql_port: "443",
             sql_protocol: "https",
             sublayers: [
-                {   // TRAIL FOR NOW
+                {   // TRAIL
                     sql: "SELECT * FROM sbht",
                     cartocss: "#sbht{line-color:green;line-width:4;}",
                     interactivity: "name",
                     name: "Sleeping Bear Heritage Trail",
-                    id: "sbht"
+                    id: "trail-pic"
                 },
-                {   // GRADE FOR NOW
+                {   // GRADE
                     sql: "SELECT * FROM sbht_grade",
                     cartocss: "#sbht_grade{line-color: #000000;line-width: 5;line-dasharray: 2,3;}",
                     interactivity: "name, direction, grade",
                     name: "Grade",
                     id: "grade"
                 },
-                {   // CAUTION FOR NOW
+                {   // CAUTION
                     sql: "SELECT * FROM sbht_caution",
                     cartocss: "#sbht_caution{line-color:#F11810;line-width:5;}",
                     interactivity: "descrip, type",
@@ -42,28 +42,28 @@
                     interactivity: "name",
                     // interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
                     name: 'NPS POI',
-                    id: "nps_poi"
+                    id: "nps-poi"
                 },
                 {   // SBHT POI
                     sql: "SELECT * FROM sbht_poi_digitize",
                     cartocss: "#sbht_poi_digitize{marker-fill:#000;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
                     interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
                     name: 'SBHT POI',
-                    id: "sbht_poi"
+                    id: "sbht-poi"
                 },
                 {   // COMM POI
                     sql: "SELECT * FROM comm_poi_master",
                     cartocss: "#trail_pix_digitize{marker-fill:orange;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
                     interactivity: "name, type, mile, name_id, season, x, y, sw_offset, ne_offset, descrip, video, audio, phone, addr_no, addr_name, addr_type, city, zip, email, website",
                     name: 'Commercial POI',
-                    id: "comm_poi"
+                    id: "comm-poi"
                 },
                 {   // TRAIL PIX
                     sql: "SELECT * FROM trail_pix_digitize",
                     cartocss: "#trail_pix_digitize{marker-fill:red;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
                     interactivity: "img_file, season",
                     name: 'Trail Pics',
-                    id: "trail_pix"
+                    id: "trail-pix"
                 }
             ]
             

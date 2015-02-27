@@ -8,12 +8,12 @@
         .factory('ctrlsFactory', ctrlsFactory);
 
     // do this so you don't lose it during ugg...
-    ctrlsFactory.$inject = ['mapFactory'];
+    ctrlsFactory.$inject = ['mapService'];
 
-    function ctrlsFactory(mapFactory){
-
+    function ctrlsFactory(mapService){
+        
         var ctrlsFactory = {};
-        var map = mapFactory.map;
+        var map = mapService.map;
 
         ctrlsFactory.zoomIn = function(){
             map.zoomIn();
@@ -31,9 +31,7 @@
                 [southWest],
                 [northEast]
             ]);
-            console.log("zoomHome called");
         };
-        // ctrlsFactory.zoomHome();
 
         ctrlsFactory.locate = function(){
             map.locate({

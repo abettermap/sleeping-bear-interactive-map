@@ -1,24 +1,105 @@
-// Map Panels
+$panel-toggle-padding: 10px;
+$panel-toggle-content-ht: 40px;
+$panel-toggle-ht: $panel-toggle-padding*2 + $panel-toggle-content-ht;
 
-// TOGGLES \\
-.panel-toggles {
-    width: 100%;
+$panel-width: 25%;
+$panel-inner-padding: 20px;
+
+// Map Panels
+.panel {
+  background: url('../../../../../themes/sleepingbear/images/background.jpg') center;
+  bottom: $panel-toggle-ht - $panel-toggle-padding;
+  position: absolute;
+  width: 100%;
+  z-index: 1000001;
+
+  @include mq($from: tablet) {
+
+    bottom: $panel-toggle-ht;
+    width: $panel-width;
+
+    &:nth-of-type(2) {
+      left: 25%;
+    }
+
+    &:nth-of-type(3) {
+      left: 50%;
+    }
+
+    &:last-of-type {
+      right: 0;
+    }
+
+  }
+
 }
 
-a[class^="panel-toggle-"] {
-  display: block;
-  background-color: $primary-color;
+// Panel headers
+.panel-header {
+  background-color: $med-blue;
   color: #fff;
+  padding: 10px;
+}
+
+.panel-close {
+  color: #fff;
+  display: inline-block;
+  float: right;
+}
+
+// Inner padding
+.panel-inner {
+
+  padding: $panel-inner-padding * .75;
+
+  @include mq($from: tablet) {
+    padding: $panel-inner-padding;
+  }
+
+}
+
+// TOGGLES \\
+.panel-toggle {
+  background-color: $med-dull-blue;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
   float: left;
   font-size: 1.2em;
-  padding: 1.1em 0;
+  padding: $panel-toggle-padding 0;
   text-align: center;
   text-decoration: none;
   width: 25%;
+
   &:hover {
     background-color: #fff;
     color: $primary-color;
     transition: $hover-transition;
+  }
+
+}
+
+.panel-toggles {
+  
+  svg {
+    display: inline-block;
+    height: $panel-toggle-content-ht * .75;
+    vertical-align: middle;
+
+    @include mq($from: tablet) {
+      height: $panel-toggle-content-ht;
+    }
+
+  }
+
+  span {
+    display: none;
+
+    @include mq($from: tablet) {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
   }
 }
 

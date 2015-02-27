@@ -8,11 +8,30 @@
             <span class="hamburger hamburger-2"></span>
             <span class="hamburger hamburger-3"></span>
         </label>
-        <a href="#" ng-repeat="ctrl in vm.ctrls" ng-class="ctrl.className + ' ctrls-menu-item'" ng-click="vm.executeFunctionByName(ctrl.fn,vm)">
-            <svg viewbox="0 0 100 100">
-                <use xlink:href="{{ctrl.id}}"></use>
+        <a href="#" ng-click="vm.zoomIn()" class="ctrls-menu-item">
+            <svg viewBox="0 0 100 100">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-zoom-in"></use>
             </svg>
         </a>
-
+        <a href="#" ng-click="vm.zoomOut()" class="ctrls-menu-item">
+            <svg viewBox="0 0 100 100">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-zoom-out"></use>
+            </svg>
+        </a>
+        <a href="#" ng-click="vm.zoomHome()" class="ctrls-menu-item">
+            <svg viewBox="0 0 100 100">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-zoom-home"></use>
+            </svg>
+        </a>
+        <a href="#" ng-click="vm.locate()" class="ctrls-menu-item">
+            <svg viewBox="0 0 100 100">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-locate"></use>
+            </svg>
+        </a>
+        <a href="#" ng-click="vm.fullScreen()" class="ctrls-menu-item">
+            <svg viewBox="0 0 100 100">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-enable-full"></use>
+            </svg>
+        </a>
     </nav>
 </div>

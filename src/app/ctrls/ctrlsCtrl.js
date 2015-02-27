@@ -32,38 +32,38 @@
             ctrlsFactory.executeFunctionByName(functionName, context /*, args */);
         };
 
-        vm.ctrls = [
-            {
-                name: '+',
-                fn: 'zoomIn',
-                id: '#icon-zoom-in'
-            },
-            {
-                name: '-',
-                fn: 'zoomOut',
-                id: '#icon-zoom-out'
-            },
-            {
-                name: 'home',
-                fn: 'zoomHome',
-                id: '#icon-zoom-home'
-            },
-            {
-                name: 'GPS',
-                fn: 'locate',
-                id: '#icon-locate'
-            },
-            {
-                name: 'full',
-                fn: 'fullScreen',
-                id: '#icon-enable-full'
-            }
-        ];
+        // vm.ctrls = [
+        //     {
+        //         name: '+',
+        //         fn: 'zoomIn',
+        //         id: '#icon-zoom-in'
+        //     },
+        //     {
+        //         name: '-',
+        //         fn: 'zoomOut',
+        //         id: '#icon-zoom-out'
+        //     },
+        //     {
+        //         name: 'home',
+        //         fn: 'zoomHome',
+        //         id: '#icon-zoom-home'
+        //     },
+        //     {
+        //         name: 'GPS',
+        //         fn: 'locate',
+        //         id: '#icon-locate'
+        //     },
+        //     {
+        //         name: 'full',
+        //         fn: 'fullScreen',
+        //         id: '#icon-enable-full'
+        //     }
+        // ];
 
 
-        $rootScope.$watch('data', function() {
-            vm.data = $rootScope.data;
-        });
+        // $rootScope.$watch('data', function() {
+        //     vm.data = $rootScope.data;
+        // });
 
     }
 

@@ -3,17 +3,27 @@
     'use strict';
 
     angular
-        .module('mapModule')
+        .module('mapApp')
+        // .directive('interactiveMap', interactiveMap);
         .directive('interactiveMap', interactiveMap);
 
-    function interactiveMap(){
+    interactiveMap.$inject = ['mapService', '$rootScope', 'layersFactory'];
+
+    function interactiveMap(mapService, $rootScope, layersFactory){
+
         return {
             restrict: 'E',
             template: '<div class="map" id="map"></div>',
-            controller: 'MapCtrl',
-            controllerAs: 'vm',
-            replace: true
+            replace: true,
+            controller: function(){
+                
+                function init(map){
+                    layersFactory.addCdbLayer(mapService.createMap());
+                }
+                init();
+            }
         };
+        
     }
 
 })();
