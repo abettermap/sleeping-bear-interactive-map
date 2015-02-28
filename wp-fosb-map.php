@@ -3,7 +3,7 @@
 Plugin Name: Sleeping Bear Heritage Trail Interactive Map
 Plugin URI: http://abettermap.com/contact
 Description: An interactive map of the Sleeping Bear Heritage Trail, powered by Leaflet, CartoDB, and AngularJS.
-Version: 1.0 or whatever version of the plugin (pretty self explanatory)
+Version: 0.7.0
 Author: Jason Lampel
 Author URI: http://abettermap.com
 License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -49,6 +49,8 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
                 }
             }
         }
+        wp_register_style( 'average_sans', 'http://fonts.googleapis.com/css?family=Average+Sans' );
+        wp_enqueue_style( 'average_sans' );
     }
     add_action( 'wp_enqueue_scripts', 'customfield_scripts_styles');
 
@@ -77,6 +79,9 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
             // Angular ui.router
             wp_register_script( 'ng_ui_router', '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.js', array('angular'), '1.0.0', true);
 
+            // Angular animate
+            wp_register_script( 'ng_animate', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.js', array('angular'), '1.0.0', true);
+
             // CartoDB uncompressed
             wp_register_script( 'cartodb', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/cartodb.uncompressed.js', array(), '1.0.0', false );
 
@@ -87,6 +92,9 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
 
             // Angular ui.router
             wp_register_script( 'ng_ui_router', '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js', array('angular'), '1.0.0', true);
+
+            // Angular animate
+            wp_register_script( 'ng_animate', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.min.js', array('angular'), '1.0.0', true);
 
             // CartoDB CDN
             wp_register_script( 'cartodb', '//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.js', array(), '1.0.0', false );
@@ -105,6 +113,7 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
 
         // Enqueue Angular and map scripts (dev/prod irrelevant)
         wp_enqueue_script('fastclick');
+        wp_enqueue_script('ng_animate');
         wp_enqueue_script('ng_ui_router');
         wp_enqueue_script('cartodb');
         wp_enqueue_script('map_vendors');

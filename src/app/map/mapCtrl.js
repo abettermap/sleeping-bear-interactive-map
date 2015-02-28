@@ -10,10 +10,9 @@
 
     function MapCtrl($scope, mapService, $rootScope, layersFactory){
 
-        // console.log($location);
-
         $rootScope.className = "map-container";
 
+        alert('mapctrl called');
         function init(){
             layersFactory.addCdbLayer();
         }

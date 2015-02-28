@@ -3,54 +3,43 @@
     'use strict';
 
     angular
+        // .module('mapApp')
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$scope', 'mapService', '$rootScope', 'layersFactory'];
+    PopupCtrl.$inject = ['$scope', 'mapService', '$rootScope', 'layersFactory', '$stateParams', '$state', 'features'];
 
-    function PopupCtrl($scope, mapService, $rootScope, layersFactory){
+    function PopupCtrl($scope, mapService, $rootScope, layersFactory, $stateParams, $state, features){
 
-    	$scope.sublayers = layersFactory.sublayers;
+        $scope.city = features.rows[0].city;
+        
+        $scope.id = $stateParams.id;
+        $scope.mile = $stateParams.mile;
+
+        $scope.sublayers = layersFactory.sublayers;
         var vm = this;
-        vm.data = layersFactory.getFeatureInfo;
-        $scope.$watch('vm.data', function(){
-            alert('things change');
+
+        $scope.featureData = [];
+        $scope.featureName = null;
+
+        $scope.$on('feature updated', function(event,data) {
+            $scope.tableName = data;
+            console.log(data);
+          // $scope.name = user.firstname + ' ' + user.lastname;
         });
 
-    	var vm = this;
-
-    	vm.dataArray = function(){
-    	    var hey = Object.keys(data).map(function(key){
-    	        var result = {
-    	            key: key,
-    	            data: data[key]
-    	        };
-    	        return result;
-    	    });
-    	    return hey;
-    	}; 
-
-    	vm.getFeatureData = function(data, tableName){
-    	    console.log("passed");
-    	    if (!data){
-    	        return "";
-    	    } else {
-    	        return dataArray();
-    	    }
-    	};
-        // console.log("mapService.map._container");
-        vm.container = mapService.map._container;
-        // vm.container = mapService.map._container.id;
-        // $scope.$watch('vm.container',function(){
-        //     console.log(vm.container);
-        // });
-    	//     // $scope.$on('$viewContentLoaded', function(){
-    	//     //   hey();
-    	//     // });
-    	//     // $scope.$watch("traildata.name", function (zoom) {
-    	//     //     console.log("things happenin");
-    	//     // });
-
+        function init() {
+            layersFactory.getFeatureInfo()
+                .success(function(featureData) {
+                    $stateParams.id = featureData.rows[0].cartodb_id;
+                    $scope.featureData = featureData.rows;
+                })
+                .error(function(data, status, headers, config) {
+                    $log.log(data.error + ' ' + status);
+                });
+        }
+        
+        init();
 
 	}
 

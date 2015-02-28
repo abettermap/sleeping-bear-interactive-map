@@ -3,7 +3,8 @@
     'use strict';
 
     angular
-        .module('ctrlsModule')
+        .module('mapApp')
+        // .module('ctrlsModule')
         .directive('mapControls', mapControls);
 
     function mapControls(){

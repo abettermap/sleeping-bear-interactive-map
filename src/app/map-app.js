@@ -15,28 +15,114 @@
     angular
         .module('popupsModule', []);
 
+    // angular
+    //     .module('blank', [
+    //         'ui.router',
+    //     ])
+    //     .controller('wtf',function(){
+    //         alert('i really made a controller');
+    //     }); 
 
-    angular
-        .module('mapApp', [
+    var mapApp = angular.module('mapApp', [
+            // 'blank',
             'ctrlsModule',
             'mapModule',
             'panelsModule',
             'popupsModule',
-            'ui.router'
-        ])
+            'layersModule',
+            'ngAnimate',
+            'ui.router',
+        ]);
+
+    mapApp
         .run(['$rootScope', '$state', '$stateParams',
             function ($rootScope,   $state,   $stateParams) {
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
             }
-        ]);
-    // angular
-    //     .module('basePathModule',['ui.router'])
-    //     .constant('basePath',{
-    //         url: ''
-    //     });
+        ])
+        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+        // .config(['$stateProvider', '$urlRouterProvider', 'basePath', function($stateProvider, $urlRouterProvider, basePath) {
+            function getAppPath(suffix){
+                var scripts = document.getElementsByTagName("script"),
+                    item,
+                    basePath;
+                for (var i = 0, len = scripts.length; i < len; i++) {
+                    item = scripts[i];
+                    if (item.src.indexOf('map-app') !== -1){
+                        basePath = item.src;
+                        var name = basePath.split('/').pop(); 
+                        basePath = basePath.replace('/'+name,"");
+                        break;
+                    }
+                }
+                return basePath + suffix;
+            }
 
 
+
+            $urlRouterProvider.otherwise('/');
+
+            $stateProvider
+                
+                .state('home', {
+                    url: '/',
+                    template: '<div ui-view></div>',
+                })
+                .state('home.comm-poi', {
+                    url: 'comm-poi/:id/:mile',
+                    templateUrl: getAppPath('/popups/templates/comm-poi-template.html'),
+                    controller: 'PopupCtrl',
+                    resolve: {
+                        features: ['$http', function($http) {
+                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM comm_poi_master')
+                                .then(function(response){
+                                    return response.data;
+                                });
+                        }],
+                    }
+                })
+                .state('home.nps-poi', {
+                    url: 'nps-poi/:id/:mile',
+                    templateUrl: getAppPath('/popups/templates/nps-poi-template.html'),
+                    controller: 'PopupCtrl',
+                    resolve: {
+                        features: ['$http', function($http) {
+                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM nps_poi_giscloud')
+                                .then(function(response){
+                                    return response.data;
+                                });
+                        }],
+                    }
+                })
+                .state('home.sbht-poi', {
+                    url: 'sbht-poi/:id/:mile',
+                    templateUrl: getAppPath('/popups/templates/sbht-poi-template.html'),
+                    controller: 'PopupCtrl',
+                    resolve: {
+                        features: ['$http', function($http) {
+                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM sbht_poi_digitize')
+                                .then(function(response){
+                                    return response.data;
+                                });
+                        }],
+                    }
+                })
+                .state('home.trail-pix', {
+                    url: 'trail-pix/:id/:mile',
+                    templateUrl: getAppPath('/popups/templates/trail-pix-template.html'),
+                    controller: 'PopupCtrl',
+                    resolve: {
+                        features: ['$http', function($http) {
+                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM trail_pix_digitize')
+                                .then(function(response){
+                                    return response.data;
+                                });
+                        }],
+                    }
+                });
+
+        }]);
 
 })();
 
@@ -60,52 +146,58 @@
                 {   // TRAIL
                     sql: "SELECT * FROM sbht",
                     cartocss: "#sbht{line-color:green;line-width:4;}",
-                    interactivity: "name",
+                    interactivity: "cartodb_id, name",
                     name: "Sleeping Bear Heritage Trail",
-                    id: "trail-pic"
+                    route: "trail-pix",
+                    table: 'sbht'
                 },
                 {   // GRADE
                     sql: "SELECT * FROM sbht_grade",
                     cartocss: "#sbht_grade{line-color: #000000;line-width: 5;line-dasharray: 2,3;}",
-                    interactivity: "name, direction, grade",
+                    // interactivity: "cartodb_id, name, direction, grade",
                     name: "Grade",
-                    id: "grade"
+                    route: "",
+                    table: ''
                 },
                 {   // CAUTION
                     sql: "SELECT * FROM sbht_caution",
                     cartocss: "#sbht_caution{line-color:#F11810;line-width:5;}",
-                    interactivity: "descrip, type",
+                    // interactivity: "cartodb_id, descrip, type",
                     name: 'Caution',
-                    id: "caution"
+                    route: ""
                 },
                 {   // NPS POI
                     sql: "SELECT * FROM nps_poi_giscloud",
                     cartocss: "#nps_poi_giscloud{marker-fill:#A6CEE3;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                    interactivity: "name",
-                    // interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
+                    interactivity: "cartodb_id, mile, name",
+                    // interactivity: "cartodb_id, name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
                     name: 'NPS POI',
-                    id: "nps-poi"
+                    route: "nps-poi",
+                    table: 'nps_poi_giscloud'
                 },
                 {   // SBHT POI
                     sql: "SELECT * FROM sbht_poi_digitize",
                     cartocss: "#sbht_poi_digitize{marker-fill:#000;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                    interactivity: "name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
+                    interactivity: "cartodb_id, name, type, mile, name_id, season, sw_offset, ne_offset, descrip, video, audio",
                     name: 'SBHT POI',
-                    id: "sbht-poi"
+                    route: "sbht-poi",
+                    table: 'sbht_poi_digitize'
                 },
                 {   // COMM POI
                     sql: "SELECT * FROM comm_poi_master",
                     cartocss: "#trail_pix_digitize{marker-fill:orange;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                    interactivity: "name, type, mile, name_id, season, x, y, sw_offset, ne_offset, descrip, video, audio, phone, addr_no, addr_name, addr_type, city, zip, email, website",
+                    interactivity: "cartodb_id, name, type, mile, name_id, season, x, y, sw_offset, ne_offset, descrip, video, audio, phone, addr_no, addr_name, addr_type, city, zip, email, website",
                     name: 'Commercial POI',
-                    id: "comm-poi"
+                    route: "comm-poi",
+                    table: 'comm_poi_master'
                 },
                 {   // TRAIL PIX
                     sql: "SELECT * FROM trail_pix_digitize",
                     cartocss: "#trail_pix_digitize{marker-fill:red;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                    interactivity: "img_file, season",
+                    interactivity: "cartodb_id, img_file, season",
                     name: 'Trail Pics',
-                    id: "trail-pix"
+                    route: "trail-pix",
+                    table: 'trail_pix_digitize'
                 }
             ]
             
@@ -125,10 +217,9 @@
 
     function MapCtrl($scope, mapService, $rootScope, layersFactory){
 
-        // console.log($location);
-
         $rootScope.className = "map-container";
 
+        alert('mapctrl called');
         function init(){
             layersFactory.addCdbLayer();
         }
@@ -205,7 +296,7 @@
             return this.map;
         }
 
-        $rootScope.testData = {};
+        // $rootScope.testData = {};
 
         // return this;
 
@@ -217,32 +308,102 @@
 
     'use strict';
 
-    angular
-        // .module('layersModule')
-        .module('layersModule')
-        .controller('LayersCtrl', LayersCtrl);
-
-    LayersCtrl.$inject = ['$scope', 'mapService', '$rootScope', 'layersFactory'];
-
-    function LayersCtrl($scope, mapService, $rootScope, layersFactory){
+    var LayersCtrl = function($scope, mapService, $rootScope, layersFactory){
 
     	$scope.sublayers = layersFactory.sublayers;
 
-	}
+    	var user = layersFactory.getFeatureInfo();
+
+    	// if you don't want to expose the actual object in your scope you could expose just the values, or derive a value for your purposes
+    	 $scope.name = user.firstname + ' ' +user.lastname;
+
+    	 $scope.$on('user:updated', function(event,data) {
+    	   console.log(data);
+    	   $scope.name = user.firstname + ' ' + user.lastname;
+    	 });
+         console.log("asdfjlkjjkljkll");
+         var makePromiseWithSon = function() {
+             // This service's function returns a promise, but we'll deal with that shortly
+             layersFactory.getWeather()
+                 // then() called when son gets back
+                 .then(function(data) {
+                     // promise fulfilled
+                     if (data.rows[0].name==='Parking Test Point') {
+                         alert("yes");
+                     } else {
+                         alert("nah");
+                     }
+                 }, function(error) {
+                     // promise rejected, could log the error with: console.log('error', error);
+                     alert("ayo nayo");
+                 });
+         };
+
+	}; 
+
+	LayersCtrl.$inject = ['$scope', 'mapService', '$rootScope', 'layersFactory'];
+
+	angular
+	    // .module('layersModule')
+        .module('mapApp')
+	    // .module('layersModule')
+	    .controller('LayersCtrl', LayersCtrl);
+
 
 })();
 (function() {
 
     'use strict';
 
+    var playground = function(mapService, $rootScope, layersFactory){
+
+        return {
+            restrict: 'E',
+            templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/layers/templates/layersTemplate.html',
+            replace: true,
+            // CAREFUL WITH MINIFICATION HERE, NOT SURE HOW THIS WORKS W/INTERNAL CTRLER!
+            controller: function($scope, layersFactory){
+            // controller: function($scope, layersFactory){
+				            	
+                // $scope.tableName = '';
+                // $scope.customers = [];
+
+                // function init() {
+                //     layersFactory.getWeather()
+                //         .success(function(customers) {
+                //             $scope.customers = customers.rows;
+                //         })
+                //         .error(function(data, status, headers, config) {
+                //             $log.log(data.error + ' ' + status);
+                //         });
+                // }
+                
+                // init();
+
+                // $scope.$on('feature updated', function(event, e, pos, latlng, data, tableName, i) {
+                   
+                //    $scope.tableName = tableName[i].name;
+
+                // });
+
+            }
+        };
+        
+    };
+
+    playground.$inject = ['mapService', '$rootScope', 'layersFactory'];
+
     angular
         .module('mapApp')
-        .factory('layersFactory', layersFactory);
+        // .directive('interactiveMap', interactiveMap);
+        .directive('playground', playground);
 
-    // do this so you don't lose it during ugg...
-    layersFactory.$inject = ['$rootScope', 'cdbValues', 'mapService'];
+})();
+(function() {
 
-    function layersFactory($rootScope, cdbValues, mapService){
+    'use strict';
+
+    var layersFactory = function($rootScope, cdbValues, mapService, $q, $state, $http, $stateParams){
 
     	var layersFactory = {
     		tileLayers: {},
@@ -266,58 +427,81 @@
     	    });
     	};
 
-    	layersFactory.getFeatureInfo = function(e, pos, latlng, data, tableName, i) {
-
-    	    $rootScope.$apply(function() {
-    	        $rootScope.tableName = tableName[i].name;
-                $rootScope.data = data;
-    	        $rootScope.name = data.name;
-                console.log($rootScope.name);
-
-    	    });
-    	    
-    	};
-
-    	layersFactory.sublayers = [];
-    	
     	layersFactory.setCdbInteraction = function(map, layer){
     	    cdb.vis.Vis.addCursorInteraction(map, layer);
     	    var sublayers = layer.options.sublayers;
-    	    // debugger;
     	    var tableNameArr = [];
     	    for (var i = 0; i < sublayers.length; i++) {
-                // for (var i = 0; i < Things.length; i++) {
-                //     Things[i]
-                // };
     	        var sublayer = layer.getSubLayer(i);
-    	        layersFactory.sublayers.push(sublayer);
+    	        // layersFactory.sublayers.push(sublayer);
     	        sublayer.setInteraction(true);
 
     	        tableNameArr.push({
     	            name: sublayers[i].name,
-    	            index: i
+    	            index: i,
+                    route: sublayers[i].route,
+                    table: sublayers[i].table
     	        });
 
     	        var newSub = layer.options.sublayers[i];
     	        // var newSub = layer.options.sublayers[this._position];
-    	        // debugger;
     	        var tableName = newSub.name;
     	        // var dataArray = layersFactory.getFeatureData(data, tableName);
 
-    	        // sublayer.on('featureClick', layersFactory.featureClick(pos, latlng, data));
     	        sublayer.on('featureClick', function(e, pos, latlng, data){
-		            if (e){
-		                var i = this._position;
-		                layersFactory.getFeatureInfo(e, pos, latlng, data, tableNameArr, i);
-		            }    	        	
+                    if (e){
 
-    	        });
+                        var i = this._position,
+                            thisTable = tableNameArr[i],
+                            state = '';
 
-    	    } // end for loop
-    	};
+                        if (thisTable.route){
+                            state = 'home.' + thisTable.route;
+                            $state.go(state, {
+                                    id: data.cartodb_id,
+                                    mile: data.mile,
+                                }, {
+                                    reload: true
+                                }
+                            );
+                        }
+
+                        // layersFactory.getFeatureInfo();
+                        layersFactory.getTableInfo(thisTable);
+                    }                   
+
+                });
+
+            } // end for loop
+        };
+
+        layersFactory.getFeatureInfo = function(table) {
+
+            var test = table;
+            // debugger;
+            var prefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM sbht';
+            return $http.get(prefix);
+
+        };
+
+        layersFactory.getTableInfo = function(table) {
+
+            var test = table;
+            $rootScope.$broadcast('feature updated', test);
+            // return table.name;
+
+        };
 
     	return layersFactory;
     };
+
+    angular
+        // .module('mapApp')
+        .module('layersModule')
+        .factory('layersFactory', layersFactory);
+
+    // do this so you don't lose it during ugg...
+    layersFactory.$inject = ['$rootScope', 'cdbValues', 'mapService', '$q', '$state', '$http', '$stateParams'];
 
 })();
 (function() {
@@ -325,54 +509,43 @@
     'use strict';
 
     angular
+        // .module('mapApp')
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$scope', 'mapService', '$rootScope', 'layersFactory'];
+    PopupCtrl.$inject = ['$scope', 'mapService', '$rootScope', 'layersFactory', '$stateParams', '$state', 'features'];
 
-    function PopupCtrl($scope, mapService, $rootScope, layersFactory){
+    function PopupCtrl($scope, mapService, $rootScope, layersFactory, $stateParams, $state, features){
 
-    	$scope.sublayers = layersFactory.sublayers;
+        $scope.city = features.rows[0].city;
+        
+        $scope.id = $stateParams.id;
+        $scope.mile = $stateParams.mile;
+
+        $scope.sublayers = layersFactory.sublayers;
         var vm = this;
-        vm.data = layersFactory.getFeatureInfo;
-        $scope.$watch('vm.data', function(){
-            alert('things change');
+
+        $scope.featureData = [];
+        $scope.featureName = null;
+
+        $scope.$on('feature updated', function(event,data) {
+            $scope.tableName = data;
+            console.log(data);
+          // $scope.name = user.firstname + ' ' + user.lastname;
         });
 
-    	var vm = this;
-
-    	vm.dataArray = function(){
-    	    var hey = Object.keys(data).map(function(key){
-    	        var result = {
-    	            key: key,
-    	            data: data[key]
-    	        };
-    	        return result;
-    	    });
-    	    return hey;
-    	}; 
-
-    	vm.getFeatureData = function(data, tableName){
-    	    console.log("passed");
-    	    if (!data){
-    	        return "";
-    	    } else {
-    	        return dataArray();
-    	    }
-    	};
-        // console.log("mapService.map._container");
-        vm.container = mapService.map._container;
-        // vm.container = mapService.map._container.id;
-        // $scope.$watch('vm.container',function(){
-        //     console.log(vm.container);
-        // });
-    	//     // $scope.$on('$viewContentLoaded', function(){
-    	//     //   hey();
-    	//     // });
-    	//     // $scope.$watch("traildata.name", function (zoom) {
-    	//     //     console.log("things happenin");
-    	//     // });
-
+        function init() {
+            layersFactory.getFeatureInfo()
+                .success(function(featureData) {
+                    $stateParams.id = featureData.rows[0].cartodb_id;
+                    $scope.featureData = featureData.rows;
+                })
+                .error(function(data, status, headers, config) {
+                    $log.log(data.error + ' ' + status);
+                });
+        }
+        
+        init();
 
 	}
 
@@ -452,7 +625,8 @@
     'use strict';
 
     angular
-        .module('ctrlsModule')
+        .module('mapApp')
+        // .module('ctrlsModule')
         .directive('mapControls', mapControls);
 
     function mapControls(){
@@ -472,7 +646,8 @@
     'use strict';
 
     angular
-        .module('ctrlsModule')
+        .module('mapApp')
+        // .module('ctrlsModule')
         .factory('ctrlsFactory', ctrlsFactory);
 
     // do this so you don't lose it during ugg...
@@ -536,7 +711,8 @@
     'use strict';
 
     angular
-        .module('panelsModule')
+        .module('mapApp')
+        // .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
     PanelsCtrl.$inject = ['$scope', 'panelsFactory', '$rootScope', 'mapService'];
@@ -573,7 +749,8 @@
     'use strict';
 
     angular
-        .module('panelsModule')
+        .module('mapApp')
+        // .module('panelsModule')
         .directive('panels', panels);
 
     // panels.$inject = ['$rootScope'];
@@ -596,7 +773,8 @@
 	'use strict';
 
     angular
-        .module('panelsModule')
+        .module('mapApp')
+        // .module('panelsModule')
         .factory('panelsFactory', panelsFactory);
 
     // do this so you don't lose it during ugg...
@@ -631,67 +809,87 @@
 
 
 })();
-(function() {
+// (function() {
 
-    'use strict';
+//     'use strict';
 
-    angular.module('mapApp')
-        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-        // .config(['$stateProvider', '$urlRouterProvider', 'basePath', function($stateProvider, $urlRouterProvider, basePath) {
-            function getAppPath(suffix){
-                var scripts = document.getElementsByTagName("script"),
-                    item,
-                    basePath;
-                for (var i = 0, len = scripts.length; i < len; i++) {
-                    item = scripts[i];
-                    if (item.src.indexOf('map-app') !== -1){
-                        basePath = item.src;
-                        var name = basePath.split('/').pop(); 
-                        basePath = basePath.replace('/'+name,"");
-                        break;
-                    }
-                }
-                return basePath + suffix;
-            }
+//     angular.module('mapApp')
+//         .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+//         // .config(['$stateProvider', '$urlRouterProvider', 'basePath', function($stateProvider, $urlRouterProvider, basePath) {
+//             function getAppPath(suffix){
+//                 var scripts = document.getElementsByTagName("script"),
+//                     item,
+//                     basePath;
+//                 for (var i = 0, len = scripts.length; i < len; i++) {
+//                     item = scripts[i];
+//                     if (item.src.indexOf('map-app') !== -1){
+//                         basePath = item.src;
+//                         var name = basePath.split('/').pop(); 
+//                         basePath = basePath.replace('/'+name,"");
+//                         break;
+//                     }
+//                 }
+//                 return basePath + suffix;
+//             }
 
-            $urlRouterProvider.otherwise('/');
+//             $urlRouterProvider.otherwise('/');
 
-            $stateProvider
+//             $stateProvider
                 
-                // HOME STATES AND NESTED VIEWS ========================================
-                .state('home', {
-                    url: '/',
-                    templateUrl: getAppPath('/config/homeTemplate.html'),
-                    // controller: PopupCtrl
-                })
-                .state('home.comm', {
-                    url: 'comm-poi',
-                    templateUrl: getAppPath('/popups/templates/comm-poi-template.html')
-                })
-                .state('home.nps', {
-                    url: '/nps-poi/{name}',
-                    templateUrl: getAppPath('/popups/templates/nps-poi-template.html'),
-                    controller: function($stateParams){
-                       $stateParams.contactId  //*** Exists! ***//
-                    }
-                })
-                .state('home.sbht', {
-                    url: 'sbht-poi',
-                    templateUrl: getAppPath('/popups/templates/sbht-poi-template.html'),
-                })
-                .state('home.trail-pix', {
-                    url: 'trail-pix',
-                    templateUrl: getAppPath('/popups/templates/trail-pix-template.html'),
-                });
+//                 // HOME STATES AND NESTED VIEWS ========================================
+//                 .state('home', {
+//                     url: '/',
+//                     template: '',
+//                     // templateUrl: getAppPath('/config/homeTemplate.html'),
+//                     // controller: function($stateParams){
+//                     // }
+//                 })
+//                 .state('comm-poi', {
+//                     url: 'comm-poi/:',
+//                     templateUrl: getAppPath('/popups/templates/comm-poi-template.html'),
+//                     // controller: function($scope, $stateParams, $state){
+//                     //     $scope.customers = [];
+//                     //     $scope.customer = null;
 
-            // $locationProvider.html5Mode({
-            //   enabled: true,
-            //   requireBase: false,
-            //   rewriteLinks: true
-            // });
-            // $locationProvider.hashPrefix('!');
+//                     //     function init() {
+//                     //         layersFactory.getWeather()
+//                     //             .success(function(customers) {
+//                     //                 $scope.customers = customers.rows;
+//                     //             })
+//                     //             .error(function(data, status, headers, config) {
+//                     //                 $log.log(data.error + ' ' + status);
+//                     //             });
+//                     //     }
+                        
+//                     //     init();
+//                     // }
+//                 })
+//                 .state('nps-poi', {
+//                     url: 'nps-poi',
+//                     templateUrl: getAppPath('/popups/templates/nps-poi-template.html'),
+//                     controller: function($scope, $stateParams, $state){
+//                         // debugger;
+//                         $scope.cartodb_id = 2;
+//                         $stateParams.cartodb_id = $scope.cartodb_id;
+//                     }
+//                 })
+//                 .state('sbht-poi', {
+//                     url: 'sbht-poi',
+//                     templateUrl: getAppPath('/popups/templates/sbht-poi-template.html'),
+//                 })
+//                 .state('trail-pix', {
+//                     url: 'trail-pix',
+//                     templateUrl: getAppPath('/popups/templates/trail-pix-template.html'),
+//                 });
 
-        }]);
+//             // $locationProvider.html5Mode({
+//             //   enabled: true,
+//             //   requireBase: false,
+//             //   rewriteLinks: true
+//             // });
+//             // $locationProvider.hashPrefix('!');
 
-})();
+//         }]);
+
+// })();
 

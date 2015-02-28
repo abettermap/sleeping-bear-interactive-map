@@ -33,7 +33,7 @@ module.exports = {
         'src/app/popups/popupDirective.js',
         'src/app/ctrls/*.js',
         'src/app/panels/*.js',
-        'src/app/popups/popupRoutes.js'
+        // 'src/app/popups/popupRoutes.js'
       ],
       dest: 'src/app/map-app.js'
     },

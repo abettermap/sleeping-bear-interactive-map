@@ -15,27 +15,113 @@
     angular
         .module('popupsModule', []);
 
+    // angular
+    //     .module('blank', [
+    //         'ui.router',
+    //     ])
+    //     .controller('wtf',function(){
+    //         alert('i really made a controller');
+    //     }); 
 
-    angular
-        .module('mapApp', [
+    var mapApp = angular.module('mapApp', [
+            // 'blank',
             'ctrlsModule',
             'mapModule',
             'panelsModule',
             'popupsModule',
-            'ui.router'
-        ])
+            'layersModule',
+            'ngAnimate',
+            'ui.router',
+        ]);
+
+    mapApp
         .run(['$rootScope', '$state', '$stateParams',
             function ($rootScope,   $state,   $stateParams) {
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
             }
-        ]);
-    // angular
-    //     .module('basePathModule',['ui.router'])
-    //     .constant('basePath',{
-    //         url: ''
-    //     });
+        ])
+        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+        // .config(['$stateProvider', '$urlRouterProvider', 'basePath', function($stateProvider, $urlRouterProvider, basePath) {
+            function getAppPath(suffix){
+                var scripts = document.getElementsByTagName("script"),
+                    item,
+                    basePath;
+                for (var i = 0, len = scripts.length; i < len; i++) {
+                    item = scripts[i];
+                    if (item.src.indexOf('map-app') !== -1){
+                        basePath = item.src;
+                        var name = basePath.split('/').pop(); 
+                        basePath = basePath.replace('/'+name,"");
+                        break;
+                    }
+                }
+                return basePath + suffix;
+            }
 
 
+
+            $urlRouterProvider.otherwise('/');
+
+            $stateProvider
+                
+                .state('home', {
+                    url: '/',
+                    template: '<div ui-view></div>',
+                })
+                .state('home.comm-poi', {
+                    url: 'comm-poi/:id/:mile',
+                    templateUrl: getAppPath('/popups/templates/comm-poi-template.html'),
+                    controller: 'PopupCtrl',
+                    resolve: {
+                        features: ['$http', function($http) {
+                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM comm_poi_master')
+                                .then(function(response){
+                                    return response.data;
+                                });
+                        }],
+                    }
+                })
+                .state('home.nps-poi', {
+                    url: 'nps-poi/:id/:mile',
+                    templateUrl: getAppPath('/popups/templates/nps-poi-template.html'),
+                    controller: 'PopupCtrl',
+                    resolve: {
+                        features: ['$http', function($http) {
+                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM nps_poi_giscloud')
+                                .then(function(response){
+                                    return response.data;
+                                });
+                        }],
+                    }
+                })
+                .state('home.sbht-poi', {
+                    url: 'sbht-poi/:id/:mile',
+                    templateUrl: getAppPath('/popups/templates/sbht-poi-template.html'),
+                    controller: 'PopupCtrl',
+                    resolve: {
+                        features: ['$http', function($http) {
+                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM sbht_poi_digitize')
+                                .then(function(response){
+                                    return response.data;
+                                });
+                        }],
+                    }
+                })
+                .state('home.trail-pix', {
+                    url: 'trail-pix/:id/:mile',
+                    templateUrl: getAppPath('/popups/templates/trail-pix-template.html'),
+                    controller: 'PopupCtrl',
+                    resolve: {
+                        features: ['$http', function($http) {
+                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM trail_pix_digitize')
+                                .then(function(response){
+                                    return response.data;
+                                });
+                        }],
+                    }
+                });
+
+        }]);
 
 })();

@@ -3,7 +3,8 @@
 	'use strict';
 
     angular
-        .module('panelsModule')
+        .module('mapApp')
+        // .module('panelsModule')
         .factory('panelsFactory', panelsFactory);
 
     // do this so you don't lose it during ugg...

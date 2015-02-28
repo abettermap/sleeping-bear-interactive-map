@@ -1,62 +1,61 @@
-<div class="panels">
-	<div>
-		<div class="panel" ng-show="vm.panel == 'background'">
-			<h2 class="panel-header">Background
-				<a href="javascript:;" class="panel-close" ng-click="vm.changePanel('')">
-					<svg viewBox="0 0 100 100">
-		    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
-					</svg>
-				</a>
-			</h2>
+<div>
+	<div class="animated fadeInUp panel" ng-show="vm.panel == 'background'">
+	<!-- <div ng-animate="'slide'" class="spanel" ng-show="vm.panel == 'background'"> -->
+		<h2 class="panel-header">Background Layer
+			<a href="javascript:;" class="panel-close" ng-click="vm.changePanel('')">
+				<svg viewBox="0 0 100 100">
+	    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
+				</svg>
+			</a>
+		</h2>
+		<div class="panel-inner">
+			<input id="terrain-toggle" type="radio" value="terrain" name="baselayer-toggle" ng-change="vm.changeTiles('terrain')" ng-model="currentBaselayer.name" />
+			<label for="terrain-toggle">TERRAIN</label>
+			<input id="aerial-toggle" type="radio" value="aerial" name="baselayer-toggle" ng-change="vm.changeTiles('aerial')" ng-model="currentBaselayer.name" />
+			<label for="aerial-toggle">AERIAL</label>
+		</div>
+	</div>
+	<div class="panel" ng-show="vm.panel == 'seasons'">
+		<h2 class="panel-header">Seasons
+			<a href="javascript:;" class="panel-close" ng-click="vm.changePanel('')">
+				<svg viewBox="0 0 100 100">
+	    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
+				</svg>
+			</a>
+		</h2>
+		<div ng-init="vm.season='spring'">
 			<div class="panel-inner">
-				<input id="terrain-toggle" type="radio" value="terrain" name="baselayer-toggle" ng-change="vm.changeTiles('terrain')" ng-model="currentBaselayer.name" />
-				<label for="terrain-toggle">TERRAIN</label>
-				<input id="aerial-toggle" type="radio" value="aerial" name="baselayer-toggle" ng-change="vm.changeTiles('aerial')" ng-model="currentBaselayer.name" />
-				<label for="aerial-toggle">AERIAL</label>
+				<input type="radio" id="spring-toggle" ng-model="vm.season" value="spring" ng-change='vm.changeSeason(value)'>
+				<label class="season-toggle-spring" for="spring-toggle">Spring</label>
+				<input type="radio" id="summer-toggle" ng-model="vm.season" value="summer" ng-change='vm.changeSeason(value)'>
+				<label class="season-toggle-summer" for="summer-toggle">Summer</label>
+				<input type="radio" id="fall-toggle" ng-model="vm.season" value="fall" ng-change='vm.changeSeason(value)'>
+				<label class="season-toggle-fall" for="fall-toggle">Fall</label>
+				<input type="radio" id="winter-toggle" ng-model="vm.season" value="winter" ng-change='vm.changeSeason(value)'>
+				<label class="season-toggle-winter" for="winter-toggle">Winter</label>
+				<p>Bathrooms ain't open all year, buddy. Don't git yer hopes up!</p>
 			</div>
 		</div>
-		<div class="panel" ng-show="vm.panel == 'seasons'">
-			<h2 class="panel-header">Seasons
-				<a href="javascript:;" class="panel-close" ng-click="vm.changePanel('')">
-					<svg viewBox="0 0 100 100">
-		    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
-					</svg>
-				</a>
-			</h2>
-			<div ng-init="vm.season='spring'">
-				<div class="panel-inner">
-					<input type="radio" id="spring-toggle" ng-model="vm.season" value="spring" ng-change='vm.changeSeason(value)'>
-					<label class="season-toggle-spring" for="spring-toggle">Spring</label>
-					<input type="radio" id="summer-toggle" ng-model="vm.season" value="summer" ng-change='vm.changeSeason(value)'>
-					<label class="season-toggle-summer" for="summer-toggle">Summer</label>
-					<input type="radio" id="fall-toggle" ng-model="vm.season" value="fall" ng-change='vm.changeSeason(value)'>
-					<label class="season-toggle-fall" for="fall-toggle">Fall</label>
-					<input type="radio" id="winter-toggle" ng-model="vm.season" value="winter" ng-change='vm.changeSeason(value)'>
-					<label class="season-toggle-winter" for="winter-toggle">Winter</label>
-					<p>Bathrooms ain't open all year, buddy. Don't git yer hopes up!</p>
-				</div>
-			</div>
-		</div>
-		<div class="panel" ng-show="vm.panel == 'poi'">
-			<h2 class="panel-header">Poi
-				<a href="javascript:;" class="panel-close" ng-click="vm.changePanel('')">
-					<svg viewBox="0 0 100 100">
-		    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
-					</svg>
-				</a>
-			</h2>
-			<div class="panel-inner">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis nesciunt, deleniti sit fugit quis temporibus aspernatur facere dolorum reiciendis sint tempora ad ipsum. Dolorem explicabo ab molestias saepe, animi. Veniam.</div>
-		</div>
-		<div class="panel" ng-show="vm.panel == 'legend'">
-			<h2 class="panel-header">Legend
-				<a href="javascript:;" class="panel-close" ng-click="vm.changePanel('')">
-					<svg viewBox="0 0 100 100">
-		    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
-					</svg>
-				</a>
-			</h2>
-			<div class="panel-inner">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet, quibusdam quisquam inventore perspiciatis a, quasi asperiores ipsum minima corrupti veniam repellendus repudiandae ipsa, sequi, laboriosam tenetur blanditiis consequuntur id?</div>
-		</div>
+	</div>
+	<div class="panel" ng-show="vm.panel == 'poi'">
+		<h2 class="panel-header">Points of Interest
+			<a href="javascript:;" class="panel-close" ng-click="vm.changePanel('')">
+				<svg viewBox="0 0 100 100">
+	    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
+				</svg>
+			</a>
+		</h2>
+		<div class="panel-inner">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis nesciunt, deleniti sit fugit quis temporibus aspernatur facere dolorum reiciendis sint tempora ad ipsum. Dolorem explicabo ab molestias saepe, animi. Veniam.</div>
+	</div>
+	<div class="panel" ng-show="vm.panel == 'legend'">
+		<h2 class="panel-header">Legend
+			<a href="javascript:;" class="panel-close" ng-click="vm.changePanel('')">
+				<svg viewBox="0 0 100 100">
+	    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
+				</svg>
+			</a>
+		</h2>
+		<div class="panel-inner">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet, quibusdam quisquam inventore perspiciatis a, quasi asperiores ipsum minima corrupti veniam repellendus repudiandae ipsa, sequi, laboriosam tenetur blanditiis consequuntur id?</div>
 	</div>
 	<div class="panel-toggles">
 		<a href="javascript:;" ng-click="vm.changePanel('background')" class="panel-toggle">

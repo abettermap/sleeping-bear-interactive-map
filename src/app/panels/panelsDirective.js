@@ -3,7 +3,8 @@
     'use strict';
 
     angular
-        .module('panelsModule')
+        .module('mapApp')
+        // .module('panelsModule')
         .directive('panels', panels);
 
     // panels.$inject = ['$rootScope'];

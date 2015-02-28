@@ -3,7 +3,8 @@
     'use strict';
 
     angular
-        .module('panelsModule')
+        .module('mapApp')
+        // .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
     PanelsCtrl.$inject = ['$scope', 'panelsFactory', '$rootScope', 'mapService'];

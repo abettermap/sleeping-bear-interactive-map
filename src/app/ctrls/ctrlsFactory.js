@@ -4,7 +4,8 @@
     'use strict';
 
     angular
-        .module('ctrlsModule')
+        .module('mapApp')
+        // .module('ctrlsModule')
         .factory('ctrlsFactory', ctrlsFactory);
 
     // do this so you don't lose it during ugg...

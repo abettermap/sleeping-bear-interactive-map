@@ -37,7 +37,7 @@
             return this.map;
         }
 
-        $rootScope.testData = {};
+        // $rootScope.testData = {};
 
         // return this;
 
