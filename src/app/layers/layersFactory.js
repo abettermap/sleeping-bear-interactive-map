@@ -10,8 +10,6 @@
     		getFeatureInfo: {}
     	};
 
-    	// var map = mapService.map;
-
     	layersFactory.tileLayers = mapService.tileLayers;
 
     	layersFactory.addCdbLayer = function(map){
@@ -65,8 +63,8 @@
                             );
                         }
 
-                        // layersFactory.getFeatureInfo();
                         layersFactory.getTableInfo(thisTable);
+
                     }                   
 
                 });
@@ -74,10 +72,8 @@
             } // end for loop
         };
 
-        layersFactory.getFeatureInfo = function(table) {
+        layersFactory.getFeatureInfo = function() {
 
-            var test = table;
-            // debugger;
             var prefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM sbht';
             return $http.get(prefix);
 
@@ -85,9 +81,13 @@
 
         layersFactory.getTableInfo = function(table) {
 
-            var test = table;
-            $rootScope.$broadcast('feature updated', test);
-            // return table.name;
+            var thisTable = table;
+            $rootScope.$broadcast('feature updated', thisTable);
+            $rootScope.table = thisTable.table;
+            // $rootScope.$apply(function(){
+            //     table = test.table;
+            // });
+            layersFactory.getFeatureInfo();
 
         };
 
@@ -95,11 +95,9 @@
     };
 
     angular
-        // .module('mapApp')
         .module('layersModule')
         .factory('layersFactory', layersFactory);
 
-    // do this so you don't lose it during ugg...
     layersFactory.$inject = ['$rootScope', 'cdbValues', 'mapService', '$q', '$state', '$http', '$stateParams'];
 
 })();

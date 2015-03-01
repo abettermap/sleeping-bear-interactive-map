@@ -73,7 +73,8 @@ h2.panel-header {
 
 // TOGGLES \\
 .panel-toggle {
-  background-color: $med-blue;
+  background-color: lighten($green, 25%);
+  // background-color: $med-blue;
   color: $near-white;
   display: flex;
   flex-direction: column;
@@ -82,10 +83,12 @@ h2.panel-header {
   padding: $panel-toggle-padding 0;
   text-align: center;
   text-decoration: none;
+  text-shadow: 1px 1px 5px #222;
   width: 25%;
 
   &:hover {
-    background-color: $primary-color;
+    background-color: lighten($green, 10%);
+    // background-color: $primary-color;
     color: $near-white;
     // color: darken($med-blue, 30%);
     transition: $hover-transition;

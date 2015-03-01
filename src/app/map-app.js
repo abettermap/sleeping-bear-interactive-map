@@ -59,12 +59,13 @@
                 return basePath + suffix;
             }
 
-
+            // Make these constants later...
+            var queryPrefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT ',
+                midString = 'WHERE cartodb_id = ';
 
             $urlRouterProvider.otherwise('/');
 
-            $stateProvider
-                
+            $stateProvider                
                 .state('home', {
                     url: '/',
                     template: '<div ui-view></div>',
@@ -74,11 +75,15 @@
                     templateUrl: getAppPath('/popups/templates/comm-poi-template.html'),
                     controller: 'PopupCtrl',
                     resolve: {
-                        features: ['$http', function($http) {
-                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM comm_poi_master')
-                                .then(function(response){
-                                    return response.data;
-                                });
+                        features: ['$http', '$stateParams', function($http, $stateParams) {
+
+                            var columns = 'cartodb_id, type, name, audio, video FROM comm_poi_master ',
+                                query = queryPrefix + columns + midString + $stateParams.id;
+
+                            return $http.get(query).then(function(response){
+                                return response.data;
+                            });
+
                         }],
                     }
                 })
@@ -87,11 +92,16 @@
                     templateUrl: getAppPath('/popups/templates/nps-poi-template.html'),
                     controller: 'PopupCtrl',
                     resolve: {
-                        features: ['$http', function($http) {
-                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM nps_poi_giscloud')
-                                .then(function(response){
-                                    return response.data;
-                                });
+                        features: ['$http', '$stateParams', function($http, $stateParams) {
+
+                            var columns = 'cartodb_id, type, name FROM nps_poi_giscloud ',
+                                query = queryPrefix + columns + midString + $stateParams.id;
+
+                            return $http.get(query).then(function(response){
+                                return response.data;
+                            });
+
+
                         }],
                     }
                 })
@@ -100,11 +110,15 @@
                     templateUrl: getAppPath('/popups/templates/sbht-poi-template.html'),
                     controller: 'PopupCtrl',
                     resolve: {
-                        features: ['$http', function($http) {
-                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM sbht_poi_digitize')
-                                .then(function(response){
-                                    return response.data;
-                                });
+                        features: ['$http', function($http, $stateParams) {
+
+                            var columns = 'cartodb_id, type, name FROM sbht_poi_digitize ',
+                                query = queryPrefix + columns + midString + $stateParams.id;
+
+                            return $http.get(query).then(function(response){
+                                return response.data;
+                            });
+
                         }],
                     }
                 })
@@ -304,53 +318,53 @@
 
 
 })();
-(function() {
+// (function() {
 
-    'use strict';
+//     'use strict';
 
-    var LayersCtrl = function($scope, mapService, $rootScope, layersFactory){
+//     var LayersCtrl = function($scope, mapService, $rootScope, layersFactory){
 
-    	$scope.sublayers = layersFactory.sublayers;
+//     	$scope.sublayers = layersFactory.sublayers;
 
-    	var user = layersFactory.getFeatureInfo();
+//     	var user = layersFactory.getFeatureInfo();
 
-    	// if you don't want to expose the actual object in your scope you could expose just the values, or derive a value for your purposes
-    	 $scope.name = user.firstname + ' ' +user.lastname;
+//     	// if you don't want to expose the actual object in your scope you could expose just the values, or derive a value for your purposes
+//     	 $scope.name = user.firstname + ' ' +user.lastname;
 
-    	 $scope.$on('user:updated', function(event,data) {
-    	   console.log(data);
-    	   $scope.name = user.firstname + ' ' + user.lastname;
-    	 });
-         console.log("asdfjlkjjkljkll");
-         var makePromiseWithSon = function() {
-             // This service's function returns a promise, but we'll deal with that shortly
-             layersFactory.getWeather()
-                 // then() called when son gets back
-                 .then(function(data) {
-                     // promise fulfilled
-                     if (data.rows[0].name==='Parking Test Point') {
-                         alert("yes");
-                     } else {
-                         alert("nah");
-                     }
-                 }, function(error) {
-                     // promise rejected, could log the error with: console.log('error', error);
-                     alert("ayo nayo");
-                 });
-         };
+//     	 $scope.$on('user:updated', function(event,data) {
+//     	   console.log(data);
+//     	   $scope.name = user.firstname + ' ' + user.lastname;
+//     	 });
+//          console.log("asdfjlkjjkljkll");
+//          var makePromiseWithSon = function() {
+//              // This service's function returns a promise, but we'll deal with that shortly
+//              layersFactory.getWeather()
+//                  // then() called when son gets back
+//                  .then(function(data) {
+//                      // promise fulfilled
+//                      if (data.rows[0].name==='Parking Test Point') {
+//                          alert("yes");
+//                      } else {
+//                          alert("nah");
+//                      }
+//                  }, function(error) {
+//                      // promise rejected, could log the error with: console.log('error', error);
+//                      alert("ayo nayo");
+//                  });
+//          };
 
-	}; 
+// 	}; 
 
-	LayersCtrl.$inject = ['$scope', 'mapService', '$rootScope', 'layersFactory'];
+// 	LayersCtrl.$inject = ['$scope', 'mapService', '$rootScope', 'layersFactory'];
 
-	angular
-	    // .module('layersModule')
-        .module('mapApp')
-	    // .module('layersModule')
-	    .controller('LayersCtrl', LayersCtrl);
+// 	angular
+// 	    // .module('layersModule')
+//         .module('mapApp')
+// 	    // .module('layersModule')
+// 	    .controller('LayersCtrl', LayersCtrl);
 
 
-})();
+// })();
 (function() {
 
     'use strict';
@@ -411,8 +425,6 @@
     		getFeatureInfo: {}
     	};
 
-    	// var map = mapService.map;
-
     	layersFactory.tileLayers = mapService.tileLayers;
 
     	layersFactory.addCdbLayer = function(map){
@@ -466,8 +478,8 @@
                             );
                         }
 
-                        // layersFactory.getFeatureInfo();
                         layersFactory.getTableInfo(thisTable);
+
                     }                   
 
                 });
@@ -475,10 +487,8 @@
             } // end for loop
         };
 
-        layersFactory.getFeatureInfo = function(table) {
+        layersFactory.getFeatureInfo = function() {
 
-            var test = table;
-            // debugger;
             var prefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM sbht';
             return $http.get(prefix);
 
@@ -486,9 +496,13 @@
 
         layersFactory.getTableInfo = function(table) {
 
-            var test = table;
-            $rootScope.$broadcast('feature updated', test);
-            // return table.name;
+            var thisTable = table;
+            $rootScope.$broadcast('feature updated', thisTable);
+            $rootScope.table = thisTable.table;
+            // $rootScope.$apply(function(){
+            //     table = test.table;
+            // });
+            layersFactory.getFeatureInfo();
 
         };
 
@@ -496,11 +510,9 @@
     };
 
     angular
-        // .module('mapApp')
         .module('layersModule')
         .factory('layersFactory', layersFactory);
 
-    // do this so you don't lose it during ugg...
     layersFactory.$inject = ['$rootScope', 'cdbValues', 'mapService', '$q', '$state', '$http', '$stateParams'];
 
 })();
@@ -508,59 +520,47 @@
 
     'use strict';
 
-    angular
-        // .module('mapApp')
-        .module('popupsModule')
-        .controller('PopupCtrl', PopupCtrl);
-
-    PopupCtrl.$inject = ['$scope', 'mapService', '$rootScope', 'layersFactory', '$stateParams', '$state', 'features'];
-
-    function PopupCtrl($scope, mapService, $rootScope, layersFactory, $stateParams, $state, features){
-
-        $scope.city = features.rows[0].city;
+    var PopupCtrl = function($scope, layersFactory, $stateParams, $state, features){
         
         $scope.id = $stateParams.id;
         $scope.mile = $stateParams.mile;
 
-        $scope.sublayers = layersFactory.sublayers;
-        var vm = this;
+        // $scope.sublayers = layersFactory.sublayers;
 
-        $scope.featureData = [];
-        $scope.featureName = null;
+        $scope.features = features.rows[0];
+        // debugger;
 
         $scope.$on('feature updated', function(event,data) {
             $scope.tableName = data;
-            console.log(data);
-          // $scope.name = user.firstname + ' ' + user.lastname;
         });
 
-        function init() {
-            layersFactory.getFeatureInfo()
-                .success(function(featureData) {
-                    $stateParams.id = featureData.rows[0].cartodb_id;
-                    $scope.featureData = featureData.rows;
-                })
-                .error(function(data, status, headers, config) {
-                    $log.log(data.error + ' ' + status);
-                });
-        }
+        // function init() {
+        //     layersFactory.getFeatureInfo()
+        //         .success(function(featureData) {
+        //             $stateParams.id = featureData.rows[0].cartodb_id;
+        //             $scope.featureData = featureData.rows;
+        //         })
+        //         .error(function(data, status, headers, config) {
+        //             $log.log(data.error + ' ' + status);
+        //         });
+        // }
         
-        init();
+        // init();
 
-	}
+	};
+
+    angular
+        .module('popupsModule')
+        .controller('PopupCtrl', PopupCtrl);
+
+    PopupCtrl.$inject = ['$scope', 'layersFactory', '$stateParams', '$state', 'features'];
 
 })();
 (function() {
 
     'use strict';
 
-    angular
-        .module('mapApp')
-        .controller('CtrlsCtrl', CtrlsCtrl);
-
-    CtrlsCtrl.$inject = ['$scope', 'ctrlsFactory', '$rootScope'];
-
-    function CtrlsCtrl($scope, ctrlsFactory, $rootScope){
+    var CtrlsCtrl = function($scope, ctrlsFactory){
         var vm = this;
 
         vm.zoomIn = function(){
@@ -584,40 +584,17 @@
             ctrlsFactory.executeFunctionByName(functionName, context /*, args */);
         };
 
-        // vm.ctrls = [
-        //     {
-        //         name: '+',
-        //         fn: 'zoomIn',
-        //         id: '#icon-zoom-in'
-        //     },
-        //     {
-        //         name: '-',
-        //         fn: 'zoomOut',
-        //         id: '#icon-zoom-out'
-        //     },
-        //     {
-        //         name: 'home',
-        //         fn: 'zoomHome',
-        //         id: '#icon-zoom-home'
-        //     },
-        //     {
-        //         name: 'GPS',
-        //         fn: 'locate',
-        //         id: '#icon-locate'
-        //     },
-        //     {
-        //         name: 'full',
-        //         fn: 'fullScreen',
-        //         id: '#icon-enable-full'
-        //     }
-        // ];
-
-
         // $rootScope.$watch('data', function() {
         //     vm.data = $rootScope.data;
         // });
 
-    }
+    };
+
+    angular
+        .module('ctrlsModule')
+        .controller('CtrlsCtrl', CtrlsCtrl);
+
+    CtrlsCtrl.$inject = ['$scope', 'ctrlsFactory'];
 
 })();
 (function() {

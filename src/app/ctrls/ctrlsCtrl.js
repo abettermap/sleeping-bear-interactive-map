@@ -2,13 +2,7 @@
 
     'use strict';
 
-    angular
-        .module('mapApp')
-        .controller('CtrlsCtrl', CtrlsCtrl);
-
-    CtrlsCtrl.$inject = ['$scope', 'ctrlsFactory', '$rootScope'];
-
-    function CtrlsCtrl($scope, ctrlsFactory, $rootScope){
+    var CtrlsCtrl = function($scope, ctrlsFactory){
         var vm = this;
 
         vm.zoomIn = function(){
@@ -32,39 +26,16 @@
             ctrlsFactory.executeFunctionByName(functionName, context /*, args */);
         };
 
-        // vm.ctrls = [
-        //     {
-        //         name: '+',
-        //         fn: 'zoomIn',
-        //         id: '#icon-zoom-in'
-        //     },
-        //     {
-        //         name: '-',
-        //         fn: 'zoomOut',
-        //         id: '#icon-zoom-out'
-        //     },
-        //     {
-        //         name: 'home',
-        //         fn: 'zoomHome',
-        //         id: '#icon-zoom-home'
-        //     },
-        //     {
-        //         name: 'GPS',
-        //         fn: 'locate',
-        //         id: '#icon-locate'
-        //     },
-        //     {
-        //         name: 'full',
-        //         fn: 'fullScreen',
-        //         id: '#icon-enable-full'
-        //     }
-        // ];
-
-
         // $rootScope.$watch('data', function() {
         //     vm.data = $rootScope.data;
         // });
 
-    }
+    };
+
+    angular
+        .module('ctrlsModule')
+        .controller('CtrlsCtrl', CtrlsCtrl);
+
+    CtrlsCtrl.$inject = ['$scope', 'ctrlsFactory'];
 
 })();

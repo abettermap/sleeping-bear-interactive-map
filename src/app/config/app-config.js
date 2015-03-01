@@ -59,12 +59,13 @@
                 return basePath + suffix;
             }
 
-
+            // Make these constants later...
+            var queryPrefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT ',
+                midString = 'WHERE cartodb_id = ';
 
             $urlRouterProvider.otherwise('/');
 
-            $stateProvider
-                
+            $stateProvider                
                 .state('home', {
                     url: '/',
                     template: '<div ui-view></div>',
@@ -74,11 +75,15 @@
                     templateUrl: getAppPath('/popups/templates/comm-poi-template.html'),
                     controller: 'PopupCtrl',
                     resolve: {
-                        features: ['$http', function($http) {
-                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM comm_poi_master')
-                                .then(function(response){
-                                    return response.data;
-                                });
+                        features: ['$http', '$stateParams', function($http, $stateParams) {
+
+                            var columns = 'cartodb_id, type, name, audio, video FROM comm_poi_master ',
+                                query = queryPrefix + columns + midString + $stateParams.id;
+
+                            return $http.get(query).then(function(response){
+                                return response.data;
+                            });
+
                         }],
                     }
                 })
@@ -87,11 +92,16 @@
                     templateUrl: getAppPath('/popups/templates/nps-poi-template.html'),
                     controller: 'PopupCtrl',
                     resolve: {
-                        features: ['$http', function($http) {
-                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM nps_poi_giscloud')
-                                .then(function(response){
-                                    return response.data;
-                                });
+                        features: ['$http', '$stateParams', function($http, $stateParams) {
+
+                            var columns = 'cartodb_id, type, name FROM nps_poi_giscloud ',
+                                query = queryPrefix + columns + midString + $stateParams.id;
+
+                            return $http.get(query).then(function(response){
+                                return response.data;
+                            });
+
+
                         }],
                     }
                 })
@@ -100,11 +110,15 @@
                     templateUrl: getAppPath('/popups/templates/sbht-poi-template.html'),
                     controller: 'PopupCtrl',
                     resolve: {
-                        features: ['$http', function($http) {
-                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM sbht_poi_digitize')
-                                .then(function(response){
-                                    return response.data;
-                                });
+                        features: ['$http', function($http, $stateParams) {
+
+                            var columns = 'cartodb_id, type, name FROM sbht_poi_digitize ',
+                                query = queryPrefix + columns + midString + $stateParams.id;
+
+                            return $http.get(query).then(function(response){
+                                return response.data;
+                            });
+
                         }],
                     }
                 })

@@ -1,5 +1,9 @@
-<div class="popup">
-	<h2 class="panel-header">NPS POI</h>
-	<h2>ID: {{id}}</h2>
-	<h2>Mile: {{mile}}</h2>
+<div class="popup panel">
+	<h2 class="panel-header">{{features.name}}
+		<a ui-sref="home" href="javascript:;" class="panel-close" ng-click="$state.go('home')">X</a>
+	</h2>
+	<div class="panel-inner">
+		<h2>ID: {{id}}</h2>
+		<h2>Mile: {{mile}}</h2>
+	</div>
 </div>
