@@ -13,30 +13,20 @@
     angular
         .module('panelsModule', []);
     angular
-        .module('popupsModule', []);
+        .module('popupModule', []);
 
-    // angular
-    //     .module('blank', [
-    //         'ui.router',
-    //     ])
-    //     .controller('wtf',function(){
-    //         alert('i really made a controller');
-    //     }); 
-
-    var mapApp = angular.module('mapApp', [
+    angular.module('mapApp', [
             // 'blank',
             'ctrlsModule',
             'mapModule',
             'panelsModule',
-            'popupsModule',
+            'popupModule',
             'layersModule',
             'ngAnimate',
             'ui.router',
-        ]);
-
-    mapApp
+        ])
         .run(['$rootScope', '$state', '$stateParams',
-            function ($rootScope,   $state,   $stateParams) {
+            function ($rootScope, $state, $stateParams) {
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
             }
@@ -74,6 +64,7 @@
                     url: 'comm-poi/:id/:mile',
                     templateUrl: getAppPath('/popups/templates/comm-poi-template.html'),
                     controller: 'PopupCtrl',
+                    controllerAs: 'vm',
                     resolve: {
                         features: ['$http', '$stateParams', function($http, $stateParams) {
 
@@ -91,6 +82,7 @@
                     url: 'nps-poi/:id/:mile',
                     templateUrl: getAppPath('/popups/templates/nps-poi-template.html'),
                     controller: 'PopupCtrl',
+                    controllerAs: 'vm',
                     resolve: {
                         features: ['$http', '$stateParams', function($http, $stateParams) {
 
@@ -109,6 +101,7 @@
                     url: 'sbht-poi/:id/:mile',
                     templateUrl: getAppPath('/popups/templates/sbht-poi-template.html'),
                     controller: 'PopupCtrl',
+                    controllerAs: 'vm',
                     resolve: {
                         features: ['$http', function($http, $stateParams) {
 
@@ -126,6 +119,7 @@
                     url: 'trail-pix/:id/:mile',
                     templateUrl: getAppPath('/popups/templates/trail-pix-template.html'),
                     controller: 'PopupCtrl',
+                    controllerAs: 'vm',
                     resolve: {
                         features: ['$http', function($http) {
                             return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM trail_pix_digitize')

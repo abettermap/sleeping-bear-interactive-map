@@ -3,19 +3,16 @@
     'use strict';
 
     angular
-        .module('mapApp')
-        // .module('panelsModule')
+        .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
-    PanelsCtrl.$inject = ['$scope', 'panelsFactory', '$rootScope', 'mapService'];
+    PanelsCtrl.$inject = ['panelsFactory'];
 
-    function PanelsCtrl($scope, panelsFactory, $rootScope, mapService){
+    function PanelsCtrl(panelsFactory){
 
     	var vm = this;
 
-        vm.panelSwitchStatus = '';
-
-        vm.panel = '';
+        vm.changeTiles = panelsFactory.changeTiles;
 
         vm.changePanel = function(panel){
             
@@ -27,11 +24,7 @@
             
         };
 
-        $scope.currentBaselayer = {
-            name: 'terrain'
-        };
-        
-        vm.changeTiles = panelsFactory.changeTiles;
+        vm.panel = '';        
 
     }
 

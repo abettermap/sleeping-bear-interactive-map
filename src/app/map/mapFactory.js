@@ -5,12 +5,10 @@
     angular
         .module('mapApp')
         .service('mapService', mapService);
-        // .factory('mapService', mapService);
 
-    // do this so you don't lose it during ugg...
-    mapService.$inject = ['$rootScope', 'cdbValues'];
+    mapService.$inject = ['cdbValues'];
 
-    function mapService($rootScope, cdbValues){
+    function mapService(cdbValues){
 
         this.tileLayers = {
             aerial: L.esri.basemapLayer('Imagery'),
@@ -37,11 +35,6 @@
             return this.map;
         }
 
-        // $rootScope.testData = {};
-
-        // return this;
-
     }
-
 
 })();

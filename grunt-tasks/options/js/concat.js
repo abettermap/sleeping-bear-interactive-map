@@ -29,8 +29,7 @@ module.exports = {
         'src/app/config/app-config.js', // should work as long as app-config comes first
         'src/app/map/*.js',
         'src/app/layers/*.js',
-        'src/app/popups/popupCtrl.js',
-        'src/app/popups/popupDirective.js',
+        'src/app/popups/*js',
         'src/app/ctrls/*.js',
         'src/app/panels/*.js',
         // 'src/app/popups/popupRoutes.js'

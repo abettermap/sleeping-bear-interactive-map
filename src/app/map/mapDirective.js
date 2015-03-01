@@ -4,12 +4,11 @@
 
     angular
         .module('mapApp')
-        // .directive('interactiveMap', interactiveMap);
         .directive('interactiveMap', interactiveMap);
 
-    interactiveMap.$inject = ['mapService', '$rootScope', 'layersFactory'];
+    interactiveMap.$inject = ['mapService', 'layersFactory'];
 
-    function interactiveMap(mapService, $rootScope, layersFactory){
+    function interactiveMap(mapService, layersFactory){
 
         return {
             restrict: 'E',
@@ -17,7 +16,7 @@
             replace: true,
             controller: function(){
                 
-                function init(map){
+                function init(){
                     layersFactory.addCdbLayer(mapService.createMap());
                 }
                 init();

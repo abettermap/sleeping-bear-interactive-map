@@ -3,14 +3,12 @@
 	'use strict';
 
     angular
-        .module('mapApp')
-        // .module('panelsModule')
+        .module('panelsModule')
         .factory('panelsFactory', panelsFactory);
 
-    // do this so you don't lose it during ugg...
-    panelsFactory.$inject = ['mapService', '$rootScope'];
+    panelsFactory.$inject = ['mapService'];
 
-    function panelsFactory(mapService, $rootScope){
+    function panelsFactory(mapService){
 
 		var panelsFactory = {};
 
@@ -18,9 +16,11 @@
 		var tileLayers = mapService.tileLayers;
 
 		panelsFactory.changeTiles = function(current) {
-		    var layerName = current.toString();
-			var newLayer = '',
+
+		    var layerName = current.toString(),
+				newLayer = '',
 				currentLayer = '';
+
 			for (var key in tileLayers) {
 				if (key === layerName){
 					newLayer = key;
@@ -28,6 +28,7 @@
 					currentLayer = key;
 				}
 			}
+    		
     		map.removeLayer(tileLayers[currentLayer]);					
     		map.addLayer(tileLayers[newLayer]);
 		    tileLayers[newLayer].bringToBack();

@@ -13,6 +13,7 @@ src/assets/css
 # JS #
 ######
 src/assets/js/vendor
+src/app/map-app.js
 
 # Spatial #
 ###########
