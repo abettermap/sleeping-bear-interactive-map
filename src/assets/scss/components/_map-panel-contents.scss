@@ -1,0 +1,120 @@
+$baselayer-primary: $med-blue;
+$big-radio-checked-fill: lighten($steely-blue, 25%);
+
+$big-radio-size: 75px;
+
+// The container
+.big-radio-container {
+
+  border-radius: 10px;
+  cursor: pointer;
+  float: left;
+  text-align: center;
+
+  @include mq($from: desktop) {
+
+    &:hover {
+      background-color: $big-radio-checked-fill;
+      border-radius: 10px;
+      transition: $hover-transition;
+    }
+
+    width: 50%;
+
+  }
+
+}
+
+// The labels
+.big-radio {
+
+  display: block;
+  padding: 0 12px 12px;
+
+  span {
+    display: block;
+    font-size: 1em;
+  }
+
+  svg {
+    display: block;
+    fill: darken($med-dull-blue, 5%);
+    width: 100%;
+  }
+
+}
+
+
+input:checked+.big-radio {
+  background-color: $big-radio-checked-fill;
+  border-radius: 10px;
+  border: solid 1px darken($big-radio-checked-fill, 5%);
+  // box-shadow: -1px -1px 5px #666 inset;
+
+  .spring {
+    fill: $spring;
+  }
+
+  .summer {
+    fill: $summer;
+  }
+
+  .fall {
+    fill: $fall;
+  }
+
+  .winter {
+    fill: $winter;
+  }
+
+}
+
+// Baselayers panel
+.panel-baselayer {
+
+  .big-radio-container {
+    margin: 12px 2%;
+    width: 45%;
+    &:first-of-type {
+      margin-right: 4%;
+    }
+  }
+
+}
+
+.panel-seasons {
+
+  $spacing-x: 6%;
+  $spacing-y: .65em;
+  width: 100%;
+
+  .big-radio {
+    padding-top: $spacing-y;
+  }
+
+  .big-radio-container {
+    margin-top: $spacing-y;
+    width: (100% - $spacing-x*3)/2;
+
+    &:first-of-type, &:nth-of-type(3) {
+      margin-left: $spacing-x;
+      margin-right: $spacing-x;
+    }
+
+    &:nth-of-type(2), &:last-of-type {
+      margin-right: $spacing-x;
+    }
+
+    &:last-of-type {
+      margin-bottom: $spacing-y*0.75;
+    }
+
+  }
+
+  .panel-descrip {
+    font-size: $spacing-y*1.05;
+    margin-bottom: $spacing-y*0.5;
+  }
+
+
+}

@@ -3,23 +3,7 @@
     'use strict';
 
     angular.module('mapApp')
-        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-        // .config(['$stateProvider', '$urlRouterProvider', 'basePath', function($stateProvider, $urlRouterProvider, basePath) {
-            function getAppPath(suffix){
-                var scripts = document.getElementsByTagName("script"),
-                    item,
-                    basePath;
-                for (var i = 0, len = scripts.length; i < len; i++) {
-                    item = scripts[i];
-                    if (item.src.indexOf('map-app') !== -1){
-                        basePath = item.src;
-                        var name = basePath.split('/').pop(); 
-                        basePath = basePath.replace('/'+name,"");
-                        break;
-                    }
-                }
-                return basePath + suffix;
-            }
+        .config(['$stateProvider', '$urlRouterProvider', 'basePath', function($stateProvider, $urlRouterProvider, basePath) {
 
             // Make these constants later...
             var queryPrefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT ',
@@ -27,14 +11,14 @@
 
             $urlRouterProvider.otherwise('/');
 
-            $stateProvider                
+            $stateProvider
                 .state('home', {
                     url: '/',
                     template: '<div ui-view></div>',
                 })
                 .state('home.comm-poi', {
                     url: 'comm-poi/:id/:mile',
-                    templateUrl: getAppPath('/popups/templates/comm-poi-template.html'),
+                    templateUrl: basePath.url('app/popups/templates/comm-poi-template.html'),
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
@@ -52,7 +36,7 @@
                 })
                 .state('home.nps-poi', {
                     url: 'nps-poi/:id/:mile',
-                    templateUrl: getAppPath('/popups/templates/nps-poi-template.html'),
+                    templateUrl: basePath.url('app/popups/templates/nps-poi-template.html'),
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
@@ -71,7 +55,7 @@
                 })
                 .state('home.sbht-poi', {
                     url: 'sbht-poi/:id/:mile',
-                    templateUrl: getAppPath('/popups/templates/sbht-poi-template.html'),
+                    templateUrl: basePath.url('app/popups/templates/sbht-poi-template.html'),
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
@@ -89,7 +73,7 @@
                 })
                 .state('home.trail-pix', {
                     url: 'trail-pix/:id/:mile',
-                    templateUrl: getAppPath('/popups/templates/trail-pix-template.html'),
+                    templateUrl: basePath.url('app/popups/templates/trail-pix-template.html'),
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {

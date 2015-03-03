@@ -3,13 +3,13 @@
     'use strict';
 
     angular
-        .module('popupModule')
+        .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
     PopupCtrl.$inject = ['$scope', '$stateParams', 'features'];
 
     function PopupCtrl($scope, $stateParams, features){
-            
+
         var vm = this;
 
         vm.id = $stateParams.id;

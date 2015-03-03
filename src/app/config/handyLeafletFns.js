@@ -172,3 +172,20 @@
     // vm.executeFunctionByName = function(functionName, context /*, args */) {
     //     ctrlsFactory.executeFunctionByName(functionName, context /*, args */);
     // };
+
+            // function getAppPath(suffix){
+            //     var scripts = document.getElementsByTagName("script"),
+            //         item,
+            //         basePath;
+            //     for (var i = 0, len = scripts.length; i < len; i++) {
+            //         item = scripts[i];
+            //         if (item.src.indexOf('map-app') !== -1){
+            //             basePath = item.src;
+            //             var name = basePath.split('/').pop();
+            //             basePath = basePath.replace('/'+name,"");
+            //             break;
+            //         }
+            //     }
+            //     return basePath + suffix;
+            // }
+

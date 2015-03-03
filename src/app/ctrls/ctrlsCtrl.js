@@ -6,11 +6,13 @@
         .module('ctrlsModule')
         .controller('CtrlsCtrl', CtrlsCtrl);
 
-    CtrlsCtrl.$inject = ['ctrlsFactory'];
+    CtrlsCtrl.$inject = ['ctrlsFactory', 'basePath'];
 
-    function CtrlsCtrl(ctrlsFactory){
+    function CtrlsCtrl(ctrlsFactory, basePath){
 
         var vm = this;
+
+        vm.svgPath = basePath.url;
 
         vm.fullScreen = ctrlsFactory.fullScreen;
 

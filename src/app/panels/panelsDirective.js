@@ -6,11 +6,13 @@
         .module('panelsModule')
         .directive('panels', panels);
 
-    function panels(){
+    panels.$inject = ['basePath'];
+
+    function panels(basePath){
         return {
             restrict: 'E',
             scope: {},
-            templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/panels/templates/panelsTemplate.html',
+            templateUrl: basePath.url('app/panels/templates/panelsTemplate.html'),
             controller: 'PanelsCtrl',
             controllerAs: 'vm',
             replace: true

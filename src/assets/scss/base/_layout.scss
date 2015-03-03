@@ -15,6 +15,7 @@ $theme-padding: 30px;
   width: calc(100% + #{$theme-padding});
 
   * {
+    box-sizing: border-box;
     font-family: 'Average Sans', sans-serif;
   }
 

@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('popupModule') 
+        .module('popupsModule')
         .factory('popupFactory', popupFactory);
 
     popupFactory.$inject = ['$rootScope'];
@@ -15,7 +15,7 @@
             var thisTable = table;
 
             $rootScope.$broadcast('feature updated', thisTable);
-            
+
         };
 
     	return popupFactory;
@@ -28,7 +28,7 @@
 // popupFactory.getFeatureInfo = function() {
 
 //     var prefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM sbht';
-    
+
 //     return $http.get(prefix);
 
 // };

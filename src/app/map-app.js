@@ -11,24 +11,44 @@
     angular
         .module('panelsModule', []);
     angular
-        .module('popupModule', []);
+        .module('popupsModule', []);
+
+    function getBasePath(suffix){
+
+        var path = '';
+
+        if (window.host === 'friendsofsleepingbear.org'){
+            path = window.location.origin + '/wp-content/plugins/wp-fosb-map/src/' + suffix;
+        } else {
+            path = window.location.origin + '/fosb/wp-content/plugins/wp-fosb-map/src/' + suffix;
+        }
+
+        return path;
+
+    }
+
+    angular
+        .module('basePathModule',[])
+        .constant('basePath',{
+            url: getBasePath
+        });
 
     angular.module('mapApp', [
-            // 'blank',
+            'basePathModule',
             'ctrlsModule',
             'panelsModule',
-            'popupModule',
+            'popupsModule',
             'layersModule',
             'ngAnimate',
             'ui.router',
         ])
-        .run(['$rootScope', '$state', '$stateParams',
-            function ($rootScope, $state, $stateParams) {
+        .run(['$rootScope', '$state', '$stateParams', '$location',
+            function ($rootScope, $state, $stateParams, $location) {
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
             }
         ]);
-        
+
 })();
 
 (function() {
@@ -117,15 +137,17 @@
             template: '<div class="map" id="map"></div>',
             replace: true,
             controller: function(){
-                
+
                 function init(){
                     mapFactory.createMap();
                     layersFactory.addCdbLayer(mapFactory.map);
                 }
+
                 init();
+
             }
         };
-        
+
     }
 
 })();
@@ -312,13 +334,13 @@
     'use strict';
 
     angular
-        .module('popupModule')
+        .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
     PopupCtrl.$inject = ['$scope', '$stateParams', 'features'];
 
     function PopupCtrl($scope, $stateParams, features){
-            
+
         var vm = this;
 
         vm.id = $stateParams.id;
@@ -357,7 +379,7 @@
     'use strict';
 
     angular
-        .module('popupModule') 
+        .module('popupsModule')
         .factory('popupFactory', popupFactory);
 
     popupFactory.$inject = ['$rootScope'];
@@ -369,7 +391,7 @@
             var thisTable = table;
 
             $rootScope.$broadcast('feature updated', thisTable);
-            
+
         };
 
     	return popupFactory;
@@ -382,7 +404,7 @@
 // popupFactory.getFeatureInfo = function() {
 
 //     var prefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM sbht';
-    
+
 //     return $http.get(prefix);
 
 // };
@@ -391,23 +413,7 @@
     'use strict';
 
     angular.module('mapApp')
-        .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-        // .config(['$stateProvider', '$urlRouterProvider', 'basePath', function($stateProvider, $urlRouterProvider, basePath) {
-            function getAppPath(suffix){
-                var scripts = document.getElementsByTagName("script"),
-                    item,
-                    basePath;
-                for (var i = 0, len = scripts.length; i < len; i++) {
-                    item = scripts[i];
-                    if (item.src.indexOf('map-app') !== -1){
-                        basePath = item.src;
-                        var name = basePath.split('/').pop(); 
-                        basePath = basePath.replace('/'+name,"");
-                        break;
-                    }
-                }
-                return basePath + suffix;
-            }
+        .config(['$stateProvider', '$urlRouterProvider', 'basePath', function($stateProvider, $urlRouterProvider, basePath) {
 
             // Make these constants later...
             var queryPrefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT ',
@@ -415,14 +421,14 @@
 
             $urlRouterProvider.otherwise('/');
 
-            $stateProvider                
+            $stateProvider
                 .state('home', {
                     url: '/',
                     template: '<div ui-view></div>',
                 })
                 .state('home.comm-poi', {
                     url: 'comm-poi/:id/:mile',
-                    templateUrl: getAppPath('/popups/templates/comm-poi-template.html'),
+                    templateUrl: basePath.url('app/popups/templates/comm-poi-template.html'),
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
@@ -440,7 +446,7 @@
                 })
                 .state('home.nps-poi', {
                     url: 'nps-poi/:id/:mile',
-                    templateUrl: getAppPath('/popups/templates/nps-poi-template.html'),
+                    templateUrl: basePath.url('app/popups/templates/nps-poi-template.html'),
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
@@ -459,7 +465,7 @@
                 })
                 .state('home.sbht-poi', {
                     url: 'sbht-poi/:id/:mile',
-                    templateUrl: getAppPath('/popups/templates/sbht-poi-template.html'),
+                    templateUrl: basePath.url('app/popups/templates/sbht-poi-template.html'),
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
@@ -477,7 +483,7 @@
                 })
                 .state('home.trail-pix', {
                     url: 'trail-pix/:id/:mile',
-                    templateUrl: getAppPath('/popups/templates/trail-pix-template.html'),
+                    templateUrl: basePath.url('app/popups/templates/trail-pix-template.html'),
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
@@ -502,11 +508,13 @@
         .module('ctrlsModule')
         .controller('CtrlsCtrl', CtrlsCtrl);
 
-    CtrlsCtrl.$inject = ['ctrlsFactory'];
+    CtrlsCtrl.$inject = ['ctrlsFactory', 'basePath'];
 
-    function CtrlsCtrl(ctrlsFactory){
+    function CtrlsCtrl(ctrlsFactory, basePath){
 
         var vm = this;
+
+        vm.svgPath = basePath.url;
 
         vm.fullScreen = ctrlsFactory.fullScreen;
 
@@ -527,14 +535,15 @@
     'use strict';
 
     angular
-        .module('mapApp')
-        // .module('ctrlsModule')
+        .module('ctrlsModule')
         .directive('mapControls', mapControls);
 
-    function mapControls(){
+    mapControls.$inject = ['basePath'];
+
+    function mapControls(basePath){
         return {
             restrict: 'E',
-            templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/ctrls/templates/ctrlsTemplate.html',
+            templateUrl: basePath.url('app/ctrls/templates/ctrlsTemplate.html'),
             controller: 'CtrlsCtrl',
             controllerAs: 'vm',
             replace: true
@@ -653,11 +662,13 @@
         .module('panelsModule')
         .directive('panels', panels);
 
-    function panels(){
+    panels.$inject = ['basePath'];
+
+    function panels(basePath){
         return {
             restrict: 'E',
             scope: {},
-            templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/panels/templates/panelsTemplate.html',
+            templateUrl: basePath.url('app/panels/templates/panelsTemplate.html'),
             controller: 'PanelsCtrl',
             controllerAs: 'vm',
             replace: true

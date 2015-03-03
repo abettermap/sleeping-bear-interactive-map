@@ -3,14 +3,15 @@
     'use strict';
 
     angular
-        .module('mapApp')
-        // .module('ctrlsModule')
+        .module('ctrlsModule')
         .directive('mapControls', mapControls);
 
-    function mapControls(){
+    mapControls.$inject = ['basePath'];
+
+    function mapControls(basePath){
         return {
             restrict: 'E',
-            templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/ctrls/templates/ctrlsTemplate.html',
+            templateUrl: basePath.url('app/ctrls/templates/ctrlsTemplate.html'),
             controller: 'CtrlsCtrl',
             controllerAs: 'vm',
             replace: true
