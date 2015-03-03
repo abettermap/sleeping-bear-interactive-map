@@ -2,7 +2,7 @@
 
     'use strict';
 
-    var playground = function(mapService, $rootScope, layersFactory){
+    var playground = function(mapFactory, $rootScope, layersFactory){
 
         return {
             restrict: 'E',
@@ -38,7 +38,7 @@
         
     };
 
-    playground.$inject = ['mapService', '$rootScope', 'layersFactory'];
+    playground.$inject = ['mapFactory', '$rootScope', 'layersFactory'];
 
     angular
         .module('mapApp')

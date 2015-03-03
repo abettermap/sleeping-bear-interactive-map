@@ -4,27 +4,33 @@
     'use strict';
 
     angular
-        .module('mapApp')
-        // .module('ctrlsModule')
+        .module('ctrlsModule')
         .factory('ctrlsFactory', ctrlsFactory);
 
     // do this so you don't lose it during ugg...
-    ctrlsFactory.$inject = ['mapService'];
+    ctrlsFactory.$inject = ['mapFactory'];
 
-    function ctrlsFactory(mapService){
+    function ctrlsFactory(mapFactory){
         
-        var ctrlsFactory = {};
-        var map = mapService.map;
+        var map = mapFactory.map;
 
-        ctrlsFactory.zoomIn = function(){
+        var ctrlsFactory = {
+            fullScreen: fullScreen,
+            locate: locate,
+            zoomHome: zoomHome,
+            zoomIn: zoomIn,
+            zoomOut: zoomOut,
+        };
+
+        function zoomIn(){
             map.zoomIn();
-        };
+        }
 
-        ctrlsFactory.zoomOut = function(){
+        function zoomOut(){
             map.zoomOut();
-        };
+        }
 
-        ctrlsFactory.zoomHome = function(){
+        function zoomHome(){
             var southWest = L.latLng(44.82641, -86.07977),
                 northEast = L.latLng(44.94245, -85.93695),
                 bounds = L.latLngBounds(southWest, northEast);
@@ -32,20 +38,20 @@
                 [southWest],
                 [northEast]
             ]);
-        };
+        }
 
-        ctrlsFactory.locate = function(){
+        function locate(){
             map.locate({
                 setView: true,
                 maxZoom: 13
             });
-        };
+        }
 
-        ctrlsFactory.fullScreen = function(){
+        function fullScreen(){
             angular.element('#map-wrapper').toggleClass('fullscreen');
             map.invalidateSize();
             $('#map-wrapper')[0].scrollIntoView(true);
-        };
+        }
 
         // ctrlsFactory.executeFunctionByName = function(functionName, context /*, args */) {
         //     var args = [].slice.call(arguments).splice(2);

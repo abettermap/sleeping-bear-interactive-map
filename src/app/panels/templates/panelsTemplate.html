@@ -1,6 +1,5 @@
 <div>
-	<div class="animated fadeInUp panel" ng-show="vm.panel == 'background'">
-	<!-- <div ng-animate="'slide'" class="spanel" ng-show="vm.panel == 'background'"> -->
+	<div class="panel" ng-show="vm.panel == 'background'">
 		<h2 class="panel-header">Background Layer
 			<a href="javascript:;" class="panel-close" ng-click="vm.changePanel('')">
 				<svg viewBox="0 0 100 100">
@@ -8,11 +7,25 @@
 				</svg>
 			</a>
 		</h2>
-		<div class="panel-inner">
-			<input id="terrain-toggle" type="radio" value="terrain" name="baselayer-toggle" ng-change="vm.changeTiles('terrain')" ng-model="currentBaselayer.name" />
-			<label for="terrain-toggle">TERRAIN</label>
-			<input id="aerial-toggle" type="radio" value="aerial" name="baselayer-toggle" ng-change="vm.changeTiles('aerial')" ng-model="currentBaselayer.name" />
-			<label for="aerial-toggle">AERIAL</label>
+		<div class="panel-inner clearfix">
+			<div class="baselayer-toggle">
+				<input id="terrain-toggle" type="radio" value="terrain" name="baselayer-toggle" ng-change="vm.changeTiles('terrain')" ng-model="vm.currentBase.name" />
+				<label for="terrain-toggle">
+					<svg viewBox="0 0 100 100">
+		    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-mountain"></use>
+					</svg>
+					<span>Terrain</span>
+				</label>
+			</div>
+			<div class="baselayer-toggle">
+				<input id="aerial-toggle" type="radio" value="aerial" name="baselayer-toggle" ng-change="vm.changeTiles('aerial')" ng-model="vm.currentBase.name" />
+				<label for="aerial-toggle">
+					<svg viewBox="0 0 100 100">
+		    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-camera"></use>
+					</svg>
+					<span>Imagery</span>
+				</label>
+			</div>
 		</div>
 	</div>
 	<div class="panel" ng-show="vm.panel == 'seasons'">

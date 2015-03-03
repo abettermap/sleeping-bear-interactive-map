@@ -17,7 +17,11 @@ $theme-padding: 30px;
   * {
     font-family: 'Average Sans', sans-serif;
   }
-  
+
+  input {
+    display: none;
+  }
+
   @include mq($from: tablet) {
     height: 550px;
     left: 0;
@@ -36,3 +40,17 @@ $theme-padding: 30px;
 }
 
 // @warn $mobile-left;
+.clearfix:after {
+  clear: both;
+  content: " ";
+  display: block;
+  font-size: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */

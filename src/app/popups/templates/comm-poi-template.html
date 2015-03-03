@@ -1,6 +1,10 @@
 <div class="popup panel">
 	<h2 class="panel-header">{{vm.features.name}}
-		<a ui-sref="home" href="javascript:;" class="panel-close" ng-click="$state.go('home')">X</a>
+		<a ui-sref="home" href="javascript:;" class="panel-close" ng-click="$state.go('home')">
+			<svg viewBox="0 0 100 100">
+    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-x"></use>
+			</svg>
+		</a>
 	</h2>
 	<div class="panel-inner">
 		<h2><a href='{{vm.features.audio}}' target="_blank">SoundCloud clip</a></h2>

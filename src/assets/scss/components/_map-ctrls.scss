@@ -145,7 +145,7 @@ $hamburger-spacing:7px;
   transform: translate3d(0, $hamburger-spacing, 0);
 }
 
-.menu-open:checked+.menu-open-button{
+.menu-open:checked+.menu-open-button {
 
   .hamburger {
     background-color: $med-blue;

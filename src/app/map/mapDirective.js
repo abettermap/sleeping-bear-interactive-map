@@ -6,9 +6,9 @@
         .module('mapApp')
         .directive('interactiveMap', interactiveMap);
 
-    interactiveMap.$inject = ['mapService', 'layersFactory'];
+    interactiveMap.$inject = ['mapFactory', 'layersFactory'];
 
-    function interactiveMap(mapService, layersFactory){
+    function interactiveMap(mapFactory, layersFactory){
 
         return {
             restrict: 'E',
@@ -17,7 +17,8 @@
             controller: function(){
                 
                 function init(){
-                    layersFactory.addCdbLayer(mapService.createMap());
+                    mapFactory.createMap();
+                    layersFactory.addCdbLayer(mapFactory.map);
                 }
                 init();
             }

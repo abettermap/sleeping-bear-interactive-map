@@ -4,13 +4,15 @@
 
     angular
         .module('mapApp')
-        .service('mapService', mapService);
+        .factory('mapFactory', mapFactory);
 
-    mapService.$inject = ['cdbValues'];
+    mapFactory.$inject = ['cdbValues'];
 
-    function mapService(cdbValues){
+    function mapFactory(cdbValues){
 
-        this.tileLayers = {
+        var map = {};
+
+        var tileLayers = {
             aerial: L.esri.basemapLayer('Imagery'),
             terrain: L.esri.basemapLayer('Topographic')
             // terrain: L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.run-bike-hike/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IlhHVkZmaW8ifQ.hAMX5hSW-QnTeRCMAy9A8Q', {
@@ -18,22 +20,29 @@
             // })
         };
 
-        this.leafletDefaults = {
+        var leafletDefaults = {
             
             attribution: false,
             center: [44.88652,-86.00544],
             zoom: 12,
             zoomControl: false,
-            layers: this.tileLayers.terrain
+            layers: tileLayers.terrain
             
         };
 
-        this.map = {};
+        var mapFactory = {
+            createMap: createMap,
+            map: map,
+            leafletDefaults: leafletDefaults,
+            tileLayers: tileLayers,
+        };
 
-        this.createMap = function(yes){
-            this.map = L.map('map', this.leafletDefaults);
-            return this.map;
+        function createMap(){
+            mapFactory.map = L.map('map', leafletDefaults);
+            return mapFactory.map;
         }
+
+        return mapFactory;
 
     }
 

@@ -18,7 +18,7 @@
         vm.features = features.rows[0];
         vm.tableName = null;
 
-    };
+    }
 
 })();
 

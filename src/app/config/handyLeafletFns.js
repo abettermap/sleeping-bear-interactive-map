@@ -167,3 +167,8 @@
 //                 }), a.map = g
 //             }}
 //     }])
+
+
+    // vm.executeFunctionByName = function(functionName, context /*, args */) {
+    //     ctrlsFactory.executeFunctionByName(functionName, context /*, args */);
+    // };

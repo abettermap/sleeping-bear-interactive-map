@@ -49,7 +49,7 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
                 }
             }
         }
-        wp_register_style( 'average_sans', 'http://fonts.googleapis.com/css?family=Average+Sans' );
+        wp_register_style( 'average_sans', '//fonts.googleapis.com/css?family=Average+Sans' );
         wp_enqueue_style( 'average_sans' );
     }
     add_action( 'wp_enqueue_scripts', 'customfield_scripts_styles');

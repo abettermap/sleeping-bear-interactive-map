@@ -1,28 +1,16 @@
-
+// VENDORS \\
 @import 'vendor/vendors';
 
-// HELPERS: FUNCTIONS
-@import 'helpers/functions/fonts';
-
-// HELPERS: MIXINS
-@import 'helpers/mixins/fonts';
-// @import 'helpers/mixins/breakpoints';
-
-// HELPERS: VARIABLES
-@import 'helpers/variables/colors';
-@import 'helpers/variables/fonts';
-
 // BASE \\
+@import 'base/animations';
+@import 'base/breakpoints';
+@import 'base/colors';
 @import 'base/layout';
 @import 'base/reset';
 @import 'base/transitions';
 
-
-// COMPONENTS
+// COMPONENTS \\ 
 @import 'components/map-popups';
 @import 'components/map-ctrls';
 @import 'components/map-panels';
 @import 'components/map-layers';
-
-
-

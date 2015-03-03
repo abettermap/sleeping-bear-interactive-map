@@ -11,6 +11,7 @@ html {
 body {
   overflow-x: hidden;
   overflow-y: auto;
+  -webkit-backface-visibility: hidden;
 }
 
 // No right sidebar
@@ -32,18 +33,19 @@ body {
   width: 100%;
 }
 
+// Hidden by default
 .entry {
   overflow: visible;
 }
 
-
 // Attribution
-.leaflet-bottom .leaflet-right {
+.leaflet-container .leaflet-control-attribution {
+  background: rgba(255, 255, 255, .4);
+  border-top-left-radius: 5px;
+  text-align: right;
+  width: 190px;
 }
 
-.leaflet-container .leaflet-control-attribution {
-  background: rgba(255, 255, 255, 0.4);
-  border-top-left-radius: 5px;
-  width: 190px;
-  text-align: right;
+*:focus {
+  outline: none;
 }

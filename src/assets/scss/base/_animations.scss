@@ -1,0 +1,24 @@
+// READY THE ANIMATION LIBRARY! \\
+
+body {
+    -webkit-backface-visibility: hidden; // Addresses a small issue in webkit: http://bit.ly/NEdoDq
+}
+.animated {
+    @include animate-prefixer(animation-duration, $base-duration);
+    @include animate-prefixer(animation-fill-mode, both);
+
+    &.hinge {
+        @include animate-prefixer(animation-duration, $base-duration * 2);
+    }
+}
+
+// PANELS \\
+.ng-hide-remove {
+  animation: .5s fadeInUp ease;
+}
+
+.ng-hide-add {
+  animation: .5s fadeOutDown ease;
+}
+
+// http://yearofmoo-articles.github.io/angularjs-animation-article/app/#/ng-show-hide

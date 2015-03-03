@@ -10,6 +10,10 @@ build
 #######
 src/assets/css
 
+# Sass #
+#######
+src/assets/scss/vendor
+
 # JS #
 ######
 src/assets/js/vendor
@@ -22,7 +26,6 @@ src/assets/spatial/qgis
 
 # Images #
 ##########
-src/assets/img/raster
 src/assets/img/svg/shared
 src/assets/img/svg/project/icons/min
 src/assets/img/svg/QGIS-default

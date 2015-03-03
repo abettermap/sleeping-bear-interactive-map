@@ -6,30 +6,29 @@
         .module('layersModule')
         .factory('layersFactory', layersFactory);
 
-    layersFactory.$inject = ['popupFactory', 'cdbValues', 'mapService', '$state', '$stateParams'];
+    layersFactory.$inject = ['popupFactory', 'cdbValues', 'mapFactory', '$state', '$stateParams'];
 
-    function layersFactory(popupFactory, cdbValues, mapService, $state, $stateParams){
+    function layersFactory(popupFactory, cdbValues, mapFactory, $state, $stateParams){
 
     	var layersFactory = {
-    		tileLayers: {},
-    		setCdbInteraction: {},
+            addCdbLayer: addCdbLayer,
+    		setCdbInteraction: setCdbInteraction,
     	};
 
-    	layersFactory.tileLayers = mapService.tileLayers;
-
-    	layersFactory.addCdbLayer = function(map){
+    	function addCdbLayer(map){
 
     	    cartodb.createLayer(map, cdbValues)
     	    .addTo(map)
     	    .on('done', function(layer){
-    	        layersFactory.setCdbInteraction(map, layer);
+    	        setCdbInteraction(map, layer);
     	    })
     	    .on('error', function() {
     	        console.log("Ayo nayo! Could not add cdb layer");
     	    });
+
     	};
 
-    	layersFactory.setCdbInteraction = function(map, layer){
+    	function setCdbInteraction(map, layer){
     	    cdb.vis.Vis.addCursorInteraction(map, layer);
     	    var sublayers = layer.options.sublayers;
     	    var tableNameArr = [];

@@ -32,10 +32,10 @@ module.exports = {
     svg: {
         cwd: 'src/',
         filter: 'isFile',
-        // flatten: true,
-        src: ['assets/img/svg/project/defs/**/*.svg'],
+        flatten: true,
+        src: ['assets/img/svg/project/defs/fosb-svg-defs.svg'],
         expand: true,
-        dest: 'build/src/assets/img/svg/project/defs'
+        dest: 'build/src/assets/img/svg/project/defs/'
     }//,
     // fastclick: {
     //     src: 'src/assets/js/vendor/fastclick.js',        

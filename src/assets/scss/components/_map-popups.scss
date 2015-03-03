@@ -1,8 +1,27 @@
 .panel.popup {	
-  box-shadow: 2px 2px 5px gray;
-	height: 250px;
-  position: absolute;
+  box-shadow: 2px 2px 5px #808080;
+  height: 250px;
   right: $panel-spacing/2;
   top: $panel-spacing/2;
-  width: 320px;
+
+  @include mq($from: tablet) {
+    width: 320px;
+  }
+
+  // fill it up on mobile
+  @include mq($until: tablet) {
+    bottom: $panel-spacing/1.7;
+    left: $panel-spacing/1.7;
+    right: $panel-spacing/1.7;
+    top: $panel-spacing/1.7;
+    width: auto;
+  }
+
+}
+
+// Different color headers for popups
+.popup {
+  .panel-header {
+    background-color: darken($pink, 20%);
+  }
 }

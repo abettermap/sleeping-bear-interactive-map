@@ -6,16 +6,18 @@
         .module('panelsModule')
         .factory('panelsFactory', panelsFactory);
 
-    panelsFactory.$inject = ['mapService'];
+    panelsFactory.$inject = ['mapFactory'];
 
-    function panelsFactory(mapService){
+    function panelsFactory(mapFactory){
 
-		var panelsFactory = {};
+		var map = mapFactory.map,
+			tileLayers = mapFactory.tileLayers;
 
-		var map = mapService.map;
-		var tileLayers = mapService.tileLayers;
+		var panelsFactory = {
+			changeTiles: changeTiles
+		};
 
-		panelsFactory.changeTiles = function(current) {
+		function changeTiles(current) {
 
 		    var layerName = current.toString(),
 				newLayer = '',
@@ -32,6 +34,7 @@
     		map.removeLayer(tileLayers[currentLayer]);					
     		map.addLayer(tileLayers[newLayer]);
 		    tileLayers[newLayer].bringToBack();
+		    
 		};
 
 		return panelsFactory;

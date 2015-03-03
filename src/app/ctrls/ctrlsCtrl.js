@@ -12,26 +12,16 @@
 
         var vm = this;
 
-        vm.fullScreen = function() {
-            ctrlsFactory.fullScreen();
-        };
-        vm.locate = function(){
-            ctrlsFactory.locate();
-        };
-        vm.zoomHome = function(){
-            ctrlsFactory.zoomHome();
-        };
-        vm.zoomIn = function(){
-            ctrlsFactory.zoomIn();
-        };
-        vm.zoomOut = function(){
-            ctrlsFactory.zoomOut();
-        };
+        vm.fullScreen = ctrlsFactory.fullScreen;
 
-    };
+        vm.locate = ctrlsFactory.locate;
+
+        vm.zoomHome = ctrlsFactory.zoomHome;
+
+        vm.zoomIn = ctrlsFactory.zoomIn;
+
+        vm.zoomOut = ctrlsFactory.zoomOut;
+
+    }
 
 })();
-
-    // vm.executeFunctionByName = function(functionName, context /*, args */) {
-    //     ctrlsFactory.executeFunctionByName(functionName, context /*, args */);
-    // };

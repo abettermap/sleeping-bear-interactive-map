@@ -3,13 +3,9 @@
     'use strict';
 
     angular
-        .module('mapApp')
-        // .module('panelsModule')
+        .module('panelsModule')
         .directive('panels', panels);
 
-    // panels.$inject = ['$rootScope'];
-
-    // function panels($rootScope){
     function panels(){
         return {
             restrict: 'E',
