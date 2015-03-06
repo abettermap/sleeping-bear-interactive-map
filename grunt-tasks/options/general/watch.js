@@ -1,7 +1,11 @@
 module.exports = {
 
     options: {
-        spawn: false
+        spawn: false,
+        livereload: true
+    },
+    html: {
+        files: 'src/app/**/*.html'
     },
     sass: {
         files: 'src/assets/scss/**/*.scss',

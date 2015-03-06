@@ -11,20 +11,20 @@
     function PanelsCtrl(panelsFactory){
 
     	var vm = this;
-
+        vm.season = 'summer';
         vm.changeTiles = panelsFactory.changeTiles;
-        vm.panel = '';        
+        vm.panel = '';
         vm.currentBase = {
             name: 'terrain'
         };
         vm.changePanel = function(panel){
-            
+
             if (vm.panel === panel){
                 vm.panel = '';
             } else {
                 vm.panel = panel;
             }
-            
+
         };
 
     }

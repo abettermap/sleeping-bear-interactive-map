@@ -1,136 +1,23 @@
 <div>
-	<div class="panel" ng-show="vm.panel == 'background'">
-		<h2 class="panel-header">Background Layer
-			<a href="javascript:;" class="panel-close" ng-click="vm.changePanel('')">
-				<svg viewBox="0 0 100 100">
-	    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
-				</svg>
-			</a>
-		</h2>
-		<div class="panel-inner panel-baselayer clearfix">
-			<div class="big-radio-container">
-				<input id="terrain-toggle" type="radio" value="terrain" name="baselayer-toggle" ng-change="vm.changeTiles('terrain')" ng-model="vm.currentBase.name" />
-				<label class="big-radio" for="terrain-toggle">
-					<svg viewBox="0 0 100 100">
-		    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-mountain"></use>
-					</svg>
-					<span>Terrain</span>
-				</label>
-			</div>
-			<div class="big-radio-container">
-				<input id="aerial-toggle" type="radio" value="aerial" name="baselayer-toggle" ng-change="vm.changeTiles('aerial')" ng-model="vm.currentBase.name" />
-				<label class="big-radio" for="aerial-toggle">
-					<svg viewBox="0 0 100 100">
-		    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-camera"></use>
-					</svg>
-					<span>Imagery</span>
-				</label>
-			</div>
-			<p class="panel-descrip">All tiled background maps powered by <a href="https://developers.arcgis.com/" target="_blank">ESRI</a>.</p>
-		</div>
-	</div>
-	<div class="panel" ng-show="vm.panel == 'seasons'">
-		<h2 class="panel-header">Seasons
-			<a href="javascript:;" class="panel-close" ng-click="vm.changePanel('')">
-				<svg viewBox="0 0 100 100">
-	    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
-				</svg>
-			</a>
-		</h2>
-		<div ng-init="vm.season='summer'">
-			<div class="needsclick panel-inner clearfix panel-seasons">
-				<p class="panel-descrip">Some facilities and businesses operate seasonally. Choose a season below to determine availablility.</p>
-				<div class="big-radio-container">
-					<input name="seasons-toggle" type="radio" id="spring-toggle" ng-model="vm.season" value="spring" ng-change='vm.changeSeason(value)'>
-					<label class="big-radio" for="spring-toggle">
-						<svg class="spring" viewBox="0 0 100 100">
-							    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-grass"></use>
-						</svg>
-						<!-- <span>Spring</span> -->
-					</label>
-				</div>
-				<div class="big-radio-container">
-					<input name="seasons-toggle" type="radio" id="summer-toggle" ng-model="vm.season" value="summer" ng-change='vm.changeSeason(value)'>
-					<label class="big-radio" for="summer-toggle">
-						<svg class="summer" viewBox="0 0 100 100">
-							    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-sun"></use>
-						</svg>
-						<!-- <span>Summer</span> -->
-					</label>
-				</div>
-				<div class="big-radio-container">
-					<input name="seasons-toggle" type="radio" id="fall-toggle" ng-model="vm.season" value="fall" ng-change='vm.changeSeason(value)'>
-					<label class="big-radio" for="fall-toggle">
-						<svg class="fall" viewBox="0 0 100 100">
-							    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-maple-leaf"></use>
-						</svg>
-						<!-- <span>Fall</span> -->
-					</label>
-				</div>
-				<div class="big-radio-container">
-					<input name="seasons-toggle" type="radio" id="winter-toggle" ng-model="vm.season" value="winter" ng-change='vm.changeSeason(value)'>
-					<label class="big-radio" for="winter-toggle">
-						<svg class="winter" viewBox="0 0 100 100">
-							    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-snowflake"></use>
-						</svg>
-						<!-- <span>Winter</span> -->
-					</label>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="panel" ng-show="vm.panel == 'poi'">
-		<h2 class="panel-header">Points of Interest
-			<a href="javascript:;" class="panel-close" ng-click="vm.changePanel('')">
-				<svg viewBox="0 0 100 100">
-	    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
-				</svg>
-			</a>
-		</h2>
-		<div class="panel-inner">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis nesciunt, deleniti sit fugit quis temporibus aspernatur facere dolorum reiciendis sint tempora ad ipsum. Dolorem explicabo ab molestias saepe, animi. Veniam.</div>
-	</div>
-	<div class="panel" ng-show="vm.panel == 'legend'">
-		<h2 class="panel-header">Legend
-			<a href="javascript:;" class="panel-close" ng-click="vm.changePanel('')">
-				<svg viewBox="0 0 100 100">
-	    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
-				</svg>
-			</a>
-		</h2>
-		<div class="panel-inner">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet, quibusdam quisquam inventore perspiciatis a, quasi asperiores ipsum minima corrupti veniam repellendus repudiandae ipsa, sequi, laboriosam tenetur blanditiis consequuntur id?</div>
-	</div>
-	<div class="panel-toggles">
-		<a href="javascript:;" ng-click="vm.changePanel('background')" class="panel-toggle">
-			<span>
-				<svg viewBox="0 0 100 100">
-				    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-layers"></use>
-				</svg>
-				<span class="panel-toggle-label">Background</span>
-			</span>
-		</a>
-		<a href="javascript:;" ng-click="vm.changePanel('seasons')" class="panel-toggle">
-			<span>
-				<svg viewBox="0 0 100 100">
-				    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-sun"></use>
-				</svg>
-				<span class="panel-toggle-label">Seasons</span>
-			</span>
-		</a>
-		<a href="javascript:;" ng-click="vm.changePanel('poi')" class="panel-toggle">
-			<span>
-				<svg viewBox="0 0 100 100">
-				    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-map-pin"></use>
-				</svg>
-				<span class="panel-toggle-label">POI</span>
-			</span>
-		</a>
-		<a href="javascript:;" ng-click="vm.changePanel('legend')" class="panel-toggle">
-			<span>
-				<svg viewBox="0 0 100 100">
-	    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-list"></use>
-				</svg>
-				<span class="panel-toggle-label">Legend</span>
-			</span>
-		</a>
-	</div>
+	<panel-seasons></panel-seasons>
+	<panel-poi></panel-poi>
+	<panel-legend></panel-legend>
+	<a href="javascript:;" ng-click="vm.changePanel('seasons')" class="panel__toggle">
+		<span>
+			<svg class="panel__toggle__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-sun"></use></svg>
+			<span class="panel__toggle__label">Seasons</span>
+		</span>
+	</a>
+	<a href="javascript:;" ng-click="vm.changePanel('poi')" class="panel__toggle">
+		<span>
+			<svg class="panel__toggle__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-map-pin"></use></svg>
+			<span class="panel__toggle__label">POI</span>
+		</span>
+	</a>
+	<a href="javascript:;" ng-click="vm.changePanel('legend')" class="panel__toggle">
+		<span>
+			<svg class="panel__toggle__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-list"></use></svg>
+			<span class="panel__toggle__label">Legend</span>
+		</span>
+	</a>
 </div>

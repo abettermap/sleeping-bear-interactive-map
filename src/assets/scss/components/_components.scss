@@ -1,12 +1,12 @@
 @import 'controls/map-ctrls';
 
-@import 'popups/map-popups';
-@import 'popups/nearby';
-@import 'popups/directions';
-@import 'popups/share';
-
-@import 'panels/map-panels';
-@import 'panels/baselayer';
+@import 'panels/panels';
+@import 'panels/baselayers';
+// @import 'panels/legend';
+// @import 'panels/poi';
 @import 'panels/seasons';
-@import 'panels/poi';
-@import 'panels/legend';
+
+@import 'popups/popups';
+// @import 'popups/directions';
+// @import 'popups/nearby';
+// @import 'popups/share';

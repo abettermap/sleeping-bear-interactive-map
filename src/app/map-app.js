@@ -22,7 +22,6 @@
         } else {
             path = window.location.origin + '/fosb/wp-content/plugins/wp-fosb-map/src/' + suffix;
         }
-        console.log(path);
         return path;
 
     }
@@ -86,36 +85,43 @@
                     cartocss: "#sbht_caution{line-color:#F11810;line-width:5;}",
                     route: ''
                 },
-                {   // NPS POI
-                    sql: "SELECT the_geom_webmercator, cartodb_id FROM nps_poi_giscloud",
+                {   // FEATURES
+                    sql: "SELECT the_geom_webmercator, cartodb_id FROM features",
                     cartocss: "#nps_poi_giscloud{marker-fill:#A6CEE3;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
                     interactivity: 'cartodb_id',
                     route: 'nps-poi',
                     table: 'nps_poi_giscloud'
                 },
-                {   // SBHT POI
-                    sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_poi_digitize",
-                    cartocss: "#sbht_poi_digitize{marker-fill:#000;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                    interactivity: 'cartodb_id',
-                    route: 'sbht-poi',
-                    table: 'sbht_poi_digitize'
-                },
-                {   // COMM POI
+                {   // COMMERCIAL
                     sql: "SELECT the_geom_webmercator, cartodb_id FROM comm_poi_master",
                     cartocss: "#trail_pix_digitize{marker-fill:orange;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
                     interactivity: 'cartodb_id',
                     route: 'comm-poi',
                     table: 'comm_poi_master'
                 },
-                {   // TRAIL PIX
-                    sql: "SELECT the_geom_webmercator, cartodb_id FROM trail_pix_digitize",
-                    cartocss: "#trail_pix_digitize{marker-fill:red;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                    interactivity: 'cartodb_id',
-                    route: 'trail-pix',
-                    table: 'trail_pix_digitize'
-                }
+                // {   // TRAIL PIX
+                //     sql: "SELECT the_geom_webmercator, cartodb_id FROM trail_pix_digitize",
+                //     cartocss: "#trail_pix_digitize{marker-fill:red;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
+                //     interactivity: 'cartodb_id',
+                //     route: 'trail-pix',
+                //     table: 'trail_pix_digitize'
+                // },
+                // {   // NPS POI
+                //     sql: "SELECT the_geom_webmercator, cartodb_id FROM nps_poi_giscloud",
+                //     cartocss: "#nps_poi_giscloud{marker-fill:#A6CEE3;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
+                //     interactivity: 'cartodb_id',
+                //     route: 'nps-poi',
+                //     table: 'nps_poi_giscloud'
+                // },
+                // {   // SBHT POI
+                //     sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_poi_digitize",
+                //     cartocss: "#sbht_poi_digitize{marker-fill:#000;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
+                //     interactivity: 'cartodb_id',
+                //     route: 'sbht-poi',
+                //     table: 'sbht_poi_digitize'
+                // },
             ]
-            
+
         });
 
 })();
@@ -628,6 +634,90 @@
 
     angular
         .module('panelsModule')
+        .directive('panelBaselayers', panelBaselayers);
+
+    panelBaselayers.$inject = ['basePath'];
+
+    function panelBaselayers(basePath){
+        return {
+            restrict: 'E',
+            templateUrl: basePath.url('app/panels/templates/panel.baselayers.html'),
+            controller: 'PanelsCtrl',
+            controllerAs: 'vm',
+            replace: true
+        };
+    }
+
+})();
+(function() {
+
+    'use strict';
+
+    angular
+        .module('panelsModule')
+        .directive('panelLegend', panelLegend);
+
+    panelLegend.$inject = ['basePath'];
+
+    function panelLegend(basePath){
+        return {
+            restrict: 'E',
+            templateUrl: basePath.url('app/panels/templates/panel.legend.html'),
+            controller: 'PanelsCtrl',
+            controllerAs: 'vm',
+            replace: true
+        };
+    }
+
+})();
+(function() {
+
+    'use strict';
+
+    angular
+        .module('panelsModule')
+        .directive('panelPoi', panelPoi);
+
+    panelPoi.$inject = ['basePath'];
+
+    function panelPoi(basePath){
+        return {
+            restrict: 'E',
+            templateUrl: basePath.url('app/panels/templates/panel.poi.html'),
+            controller: 'PanelsCtrl',
+            controllerAs: 'vm',
+            replace: true
+        };
+    }
+
+})();
+(function() {
+
+    'use strict';
+
+    angular
+        .module('panelsModule')
+        .directive('panelSeasons', panelSeasons);
+
+    panelSeasons.$inject = ['basePath'];
+
+    function panelSeasons(basePath){
+        return {
+            restrict: 'E',
+            templateUrl: basePath.url('app/panels/templates/panel.seasons.html'),
+            controller: 'PanelsCtrl',
+            controllerAs: 'vm',
+            replace: true
+        };
+    }
+
+})();
+(function() {
+
+    'use strict';
+
+    angular
+        .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
     PanelsCtrl.$inject = ['panelsFactory'];
@@ -635,20 +725,20 @@
     function PanelsCtrl(panelsFactory){
 
     	var vm = this;
-
+        vm.season = 'summer';
         vm.changeTiles = panelsFactory.changeTiles;
-        vm.panel = '';        
+        vm.panel = '';
         vm.currentBase = {
             name: 'terrain'
         };
         vm.changePanel = function(panel){
-            
+
             if (vm.panel === panel){
                 vm.panel = '';
             } else {
                 vm.panel = panel;
             }
-            
+
         };
 
     }

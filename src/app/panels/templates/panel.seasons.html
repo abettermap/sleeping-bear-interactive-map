@@ -1,0 +1,46 @@
+<div class="panel" ng-show="vm.panel == 'seasons'">
+	<h2 class="panel__header">Seasons
+		<a href="javascript:;" class="panel__close" ng-click="vm.changePanel('')">
+			<svg viewBox="0 0 100 100">
+    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
+			</svg>
+		</a>
+	</h2>
+	<div class="needsclick panel__inner clearfix">
+		<p class="panel__descrip">The Heritage Trail is a dynamic landscape that changes throughout the year. Choose an option below, then click on the Trail to see how it looks during that season. Your choice also sets the map to display only the corresponding businesses and facilities operating seasonally.</p>
+		<div class="clearfix">
+			<input class="panel__radio" name="seasons-toggle" type="radio" id="spring-toggle" ng-model="vm.season" value="spring" ng-change='vm.changeSeason(value)'>
+			<label class="panel__label--seasons" for="spring-toggle">
+				<span class="flexy">
+					<svg class="panel__icon spring" viewBox="0 0 100 100">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-grass"></use>
+					</svg>
+				</span>
+			</label>
+			<input class="panel__radio" name="seasons-toggle" type="radio" id="summer-toggle" ng-model="vm.season" value="summer" ng-change='vm.changeSeason(value)'>
+			<label class="panel__label--seasons" for="summer-toggle">
+				<span class="flexy">
+					<svg class="panel__icon summer" viewBox="0 0 100 100">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-sun"></use>
+					</svg>
+				</span>
+			</label>
+			<input class="panel__radio" name="seasons-toggle" type="radio" id="fall-toggle" ng-model="vm.season" value="fall" ng-change='vm.changeSeason(value)'>
+			<label class="panel__label--seasons" for="fall-toggle">
+				<span class="flexy">
+					<svg class="panel__icon fall" viewBox="0 0 100 100">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-maple-leaf"></use>
+					</svg>
+				</span>
+			</label>
+			<input class="panel__radio" name="seasons-toggle" type="radio" id="winter-toggle" ng-model="vm.season" value="winter" ng-change='vm.changeSeason(value)'>
+			<label class="panel__label--seasons" for="winter-toggle">
+				<span class="flexy">
+					<svg class="panel__icon winter" viewBox="0 0 100 100">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-snowflake"></use>
+					</svg>
+				</span>
+			</label>
+		</div>
+	</div>
+</div>

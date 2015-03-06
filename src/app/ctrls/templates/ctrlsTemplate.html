@@ -1,35 +1,37 @@
-<div class="ctrls-container">
-    <nav class="ctrls-menu">
-        <input type="checkbox" href="javascript:;" class="menu-open" name="menu-open" id="menu-open"/>
-        <label class="menu-open-button" for="menu-open">
-            <span class="hamburger hamburger-1"></span>
-            <span class="hamburger hamburger-2"></span>
-            <span class="hamburger hamburger-3"></span>
-        </label>
-        <a href="javascript:;" ng-click="vm.zoomIn()" class="ctrls-menu-item">
-            <svg viewBox="0 0 100 100">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-zoom-in"></use>
-            </svg>
-        </a>
-        <a href="javascript:;" ng-click="vm.zoomOut()" class="ctrls-menu-item">
-            <svg viewBox="0 0 100 100">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-zoom-out"></use>
-            </svg>
-        </a>
-        <a href="javascript:;" ng-click="vm.zoomHome()" class="ctrls-menu-item">
-            <svg viewBox="0 0 100 100">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-zoom-home"></use>
-            </svg>
-        </a>
-        <a href="javascript:;" ng-click="vm.locate()" class="ctrls-menu-item">
-            <svg viewBox="0 0 100 100">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-locate"></use>
-            </svg>
-        </a>
-        <a href="javascript:;" ng-click="vm.fullScreen()" class="ctrls-menu-item">
-            <svg viewBox="0 0 100 100">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-enable-full"></use>
-            </svg>
-        </a>
-    </nav>
-</div>
+<nav class="controls">
+    <input checked class="controls__checkbox" type="checkbox" href="javascript:;" name="menu-open" id="menu-open"/>
+    <label class="controls__label" for="menu-open">
+        <span class="hamburger hamburger-1"></span>
+        <span class="hamburger hamburger-2"></span>
+        <span class="hamburger hamburger-3"></span>
+    </label>
+    <div class="filter-container-y">
+        <a class="controls__menu-item" href="javascript:;"></a>
+        <a class="controls__menu-item" href="javascript:;"></a>
+        <a class="controls__menu-item" href="javascript:;"></a>
+    </div>
+    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.zoomIn()">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-zoom-in"></use>
+    </svg>
+    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.zoomOut()">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-zoom-out"></use>
+    </svg>
+    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.zoomHome()">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-zoom-home"></use>
+    </svg>
+    </div>
+    <div class="filter-container-x">
+        <a class="controls__menu-item" href="javascript:;"></a>
+        <a class="controls__menu-item" href="javascript:;"></a>
+        <a class="controls__menu-item" href="javascript:;"></a>
+    </div>
+    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.locate()">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-locate"></use>
+    </svg>
+    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.fullScreen()">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-enable-full"></use>
+    </svg>
+    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.changeTiles()">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-camera"></use>
+    </svg>
+</nav>

@@ -9,18 +9,17 @@ html {
 
 // Overflow on body
 body {
+  -webkit-backface-visibility: hidden;
   overflow-x: hidden;
   overflow-y: auto;
-  -webkit-backface-visibility: hidden;
 }
 
-// No right sidebar
-#rightcol {
-  display: none;
-}
-
-// No meta
-.article-meta {
+// Even the header goes
+#header,
+.header,
+#rightcol,
+.article-meta,
+.never-show {
   display: none;
 }
 
@@ -28,7 +27,7 @@ body {
 #content-wide {
   background: #fff;
   max-width: 918px;
-  outline: 1px solid #c1c1c1;
+  outline: none;
   padding: 30px;
   width: 100%;
 }

@@ -83,7 +83,10 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
             wp_register_script( 'ng_animate', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.js', array('angular'), '1.0.0', true);
 
             // CartoDB uncompressed
-            wp_register_script( 'cartodb', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/cartodb.uncompressed.js', array(), '1.0.0', false );
+            wp_register_script( 'cartodb', plugins_url() . '/wp-fosb-map/src/assets/js/vendor/cartodb.uncompressed.js', array(), '1.0.0', true );
+
+            // LiveReload
+            wp_register_script( 'livereload', 'http://localhost:35729/livereload.js', array(), '1.0.0', true );
 
         } else {
 
@@ -97,7 +100,7 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
             wp_register_script( 'ng_animate', '//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.min.js', array('angular'), '1.0.0', true);
 
             // CartoDB CDN
-            wp_register_script( 'cartodb', '//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.js', array(), '1.0.0', false );
+            wp_register_script( 'cartodb', '//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.js', array(), '1.0.0', true );
 
         }
 
@@ -118,6 +121,10 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
         wp_enqueue_script('cartodb');
         wp_enqueue_script('map_vendors');
         wp_enqueue_script( 'map_script' );
+
+        if (file_exists($localConfig)) {
+            wp_enqueue_script('livereload');
+        }
 
     }
 

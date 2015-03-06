@@ -1,0 +1,28 @@
+.popup {
+  box-shadow: 2px 2px 5px #808080;
+  height: 250px;
+  right: $container-spacing/2;
+  top: $container-spacing/2;
+
+  @include mq($from: tablet) {
+    width: 320px;
+  }
+
+  // fill it up on mobile
+  @include mq($until: tablet) {
+    bottom: $container-spacing/1.7;
+    left: $container-spacing/1.7;
+    right: $container-spacing/1.7;
+    top: $container-spacing/1.7;
+    width: auto;
+  }
+
+  .popup--header {
+
+    @extend .panel--header;
+
+    background-color: darken($pink, 20%);
+
+  }
+
+}

@@ -44,7 +44,9 @@ module.exports = {
         // Picturefill
         'src/assets/js/vendor/bower_components/picturefill/dist/picturefill.js',
         // Lightbox
-        'src/assets/js/vendor/bower_components/lightbox2/js/lightbox.js',
+        // 'src/assets/js/vendor/bower_components/lightbox2/js/lightbox.js',
+        // SVG4Everybody
+        'src/assets/js/vendor/svg4everybody.ie8.js',
         // Leaflet Google plugin
         // 'src/assets/js/vendor/bower_components/leaflet-plugins/layer/tile/Bing.js',
         // ESRI/Leaflet Baselayer only
