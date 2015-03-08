@@ -1,9 +1,9 @@
 <nav class="controls">
     <input checked class="controls__checkbox" type="checkbox" href="javascript:;" name="menu-open" id="menu-open"/>
     <label class="controls__label" for="menu-open">
-        <span class="hamburger hamburger-1"></span>
-        <span class="hamburger hamburger-2"></span>
-        <span class="hamburger hamburger-3"></span>
+        <svg class="controls__icon" viewBox="0 0 100 100">
+            <use xlink:href="#icon-tools"></use>
+        </svg>
     </label>
     <div class="filter-container-y">
         <a class="controls__menu-item" href="javascript:;"></a>
@@ -11,27 +11,30 @@
         <a class="controls__menu-item" href="javascript:;"></a>
     </div>
     <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.zoomIn()">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-zoom-in"></use>
+        <use xlink:href="#icon-zoom-in"></use>
     </svg>
     <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.zoomOut()">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-zoom-out"></use>
+        <use xlink:href="#icon-zoom-out"></use>
     </svg>
     <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.zoomHome()">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-zoom-home"></use>
+        <use xlink:href="#icon-zoom-home"></use>
     </svg>
-    </div>
     <div class="filter-container-x">
+        <a class="controls__menu-item" href="javascript:;"></a>
         <a class="controls__menu-item" href="javascript:;"></a>
         <a class="controls__menu-item" href="javascript:;"></a>
         <a class="controls__menu-item" href="javascript:;"></a>
     </div>
     <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.locate()">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-locate"></use>
+        <use xlink:href="#icon-locate"></use>
     </svg>
     <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.fullScreen()">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-enable-full"></use>
+        <use xlink:href="#icon-enable-full"></use>
     </svg>
     <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.changeTiles()">
-        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-camera"></use>
+        <use xlink:href="#icon-camera"></use>
+    </svg>
+    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.changeTiles()">
+        <use xlink:href="#icon-back"></use>
     </svg>
 </nav>

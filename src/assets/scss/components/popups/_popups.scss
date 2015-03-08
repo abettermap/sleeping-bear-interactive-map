@@ -1,8 +1,4 @@
 .popup {
-  box-shadow: 2px 2px 5px #808080;
-  height: 250px;
-  right: $container-spacing/2;
-  top: $container-spacing/2;
 
   @include mq($from: tablet) {
     width: 320px;
@@ -17,11 +13,23 @@
     width: auto;
   }
 
-  .popup--header {
+  .popup__header {
 
-    @extend .panel--header;
+    @extend %panel__header;
 
     background-color: darken($pink, 20%);
+
+  }
+
+  &__close {
+
+    @extend %panel__close;
+
+  }
+
+  &__inner {
+
+    @extend %panel__inner;
 
   }
 

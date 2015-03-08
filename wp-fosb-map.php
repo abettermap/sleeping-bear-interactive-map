@@ -123,7 +123,7 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
         wp_enqueue_script( 'map_script' );
 
         if (file_exists($localConfig)) {
-            wp_enqueue_script('livereload');
+            // wp_enqueue_script('livereload');
         }
 
     }

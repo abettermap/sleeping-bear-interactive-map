@@ -2,22 +2,30 @@
 	<panel-seasons></panel-seasons>
 	<panel-poi></panel-poi>
 	<panel-legend></panel-legend>
-	<a href="javascript:;" ng-click="vm.changePanel('seasons')" class="panel__toggle">
-		<span>
-			<svg class="panel__toggle__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-sun"></use></svg>
-			<span class="panel__toggle__label">Seasons</span>
-		</span>
-	</a>
-	<a href="javascript:;" ng-click="vm.changePanel('poi')" class="panel__toggle">
-		<span>
-			<svg class="panel__toggle__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-map-pin"></use></svg>
-			<span class="panel__toggle__label">POI</span>
-		</span>
-	</a>
-	<a href="javascript:;" ng-click="vm.changePanel('legend')" class="panel__toggle">
-		<span>
-			<svg class="panel__toggle__icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-list"></use></svg>
-			<span class="panel__toggle__label">Legend</span>
-		</span>
-	</a>
+	<div class="panel__toggles clearfix">
+		<a href="javascript:;" ng-click="vm.changePanel('seasons')" class="panel__toggle">
+			<span>
+				<svg viewBox="0 0 100 100" class="panel__toggle__icon">
+					<use xlink:href="#icon-sun"></use>
+				</svg>
+				<span class="panel__toggle__label">Seasons</span>
+			</span>
+		</a>
+		<a href="javascript:;" ng-click="vm.changePanel('poi')" class="panel__toggle">
+			<span>
+				<svg viewBox="0 0 100 100" class="panel__toggle__icon">
+					<use xlink:href="#icon-map-pin"></use>
+				</svg>
+				<span class="panel__toggle__label">POI</span>
+			</span>
+		</a>
+		<a href="javascript:;" ng-click="vm.changePanel('legend')" class="panel__toggle">
+			<span>
+				<svg viewBox="0 0 100 100" class="panel__toggle__icon">
+					<use xlink:href="#icon-list"></use>
+				</svg>
+				<span class="panel__toggle__label">Legend</span>
+			</span>
+		</a>
+	</div>
 </div>

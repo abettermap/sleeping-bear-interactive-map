@@ -1,43 +1,30 @@
-.no-filter {
-  filter: none;
-}
-
 //vars
-$c-fg: $primary-color;
 $pi: 3.14;
-
-//config
-$menu-items: 6;
-
+$menu-items: 7;
 $l-ball-ht: 50px;
+$a-trans-timing-items: cubic-bezier(.165, .840, .440, 1);
+$a-trans-tools: transform 600ms ease;
+$a-trans-fill: fill 250ms ease;
 
 %ball {
-  background: $c-fg;
+  background: $c-ball-color;
   border-radius: 100%;
-  color: $near-white;
   height: $l-ball-ht;
-  left: 0;
-  line-height: $l-ball-ht;
   position: absolute;
-  text-align: center;
-  top: 0;
-  transform: translate3d(0, 0, 0);
-  transition: transform ease-out 200ms;
   width: $l-ball-ht;
 }
 
+
+// Filters
 %goo {
   filter: url(../img/svg/project/defs/gooey.svg#shadowed-goo);
   -webkit-filter: url("#shadowed-goo");
+  position: absolute;
 }
 
-.filter-container-y {
-  height: $l-ball-ht*3;
-  width: $l-ball-ht;
-}
+.filter-container-y,
 .filter-container-x {
-  width: $l-ball-ht*3;
-  height: $l-ball-ht;
+  @extend %goo;
 }
 
 // Hide input
@@ -45,118 +32,168 @@ $l-ball-ht: 50px;
   display: none;
 }
 
-.filter-container-x, .filter-container-y {
-
-  @extend %goo;
-
-  display: block;
-  position: absolute;
-
-}
-
-// The nav element
-.controls {
-  font-size: $l-ball-ht/2;
-  text-align: left;
-
-  &__icon {
-    // @extend %ball;
-    position: absolute;
-    fill: $near-white;
-    height: $l-ball-ht*.70;
-    top: 50%;
-    width: $l-ball-ht*.70;
-  }
-
-}
-
-
-.controls__menu-item {
-
-  @extend %ball;
-
-  &:hover {
-    background: $near-white;
-    color: $c-fg;
-  }
-
-  @for $i from 1 through $menu-items {
-    &:nth-of-type(#{$i}) {
-      transition-duration: 180ms;
-    }
-  }
-
-}
-
+// The hamburger container
 .controls__label {
+
   @extend %ball;
+
+  $l-size: $l-ball-ht * .95;
+
+  box-shadow: 2px 2px 5px $c-icon-hover;
   cursor: pointer;
-  transform: scale(1.1, 1.1) translate3d(0, 0, 0);
-  transition-duration: 400ms;
-  transition-timing-function: cubic-bezier(.175, .885, .320, 1.275);
+  height: $l-size;
+  text-align: center;
+  transition: transform 200ms cubic-bezier(.175, .885, .320, 1.275);
+  width: $l-size;
   z-index: 2;
 
   &:hover {
-    transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+    @include mq($until: tablet) {
+      // transform: scale(1.2, 1.2);// translate3d(0, 0, 0);
+    }
+  }
+
+
+  // The tools icon
+  .controls__icon {
+    $l-spacing: $l-ball-ht/10;
+    // display: none;
+    height: floor($l-ball-ht * .75);
+    left: $l-spacing;
+    margin-top: 10%;
+    padding: 2px;
+    pointer-events: none;
+    transition: $a-trans-tools;
+    visibility: visible;
+    width: floor($l-ball-ht * .75);
+
+    &:hover {
+      fill: $near-white;
+    }
+
   }
 
 }
 
+// Hamburg container when checked
 .controls__checkbox:checked + .controls__label {
+
+  $l-size: $l-ball-ht;
+  background-color: $near-white;
+  height: $l-size;
   transform: scale(.9, .9) translate3d(0, 0, 0);
-  transition-duration: 200ms;
-  transition-timing-function: linear;
+  transition: transform 200ms linear;
+  width: $l-size;
+
+  .controls__icon {
+    transform: scale(.9, .9) translate3d(0, 0, 0);
+    transition: transform 200ms linear;
+  }
+
 }
 
+// Individual balls
+.controls__menu-item {
+
+  @extend %ball;
+  transition-duration: 280ms;
+  visibility: hidden;
+}
+
+// Y axis backgrounds when checked
 .controls__checkbox:checked ~ .filter-container-y > .controls__menu-item {
 
-  transition-timing-function: cubic-bezier(.165, .840, .440, 1);
+  visibility: visible;
 
   @for $i from 1 through 3 {
 
     &:nth-of-type(#{$i}) {
-      transform: translate3d(0, round($l-ball-ht*($i)), 0);
-      transition-duration: 90ms+(80ms*$i);
+      transform: translate3d(0, round($l-ball-ht * $i), 0);
+      transition-duration: 90ms + (80ms * $i);
     }
   }
 
 }
 
+// X axis backgrounds when checked
 .controls__checkbox:checked ~ .filter-container-x > .controls__menu-item {
 
-  transition-timing-function: cubic-bezier(.165, .840, .440, 1);
+  visibility: visible;
 
-  @for $i from 1 through 3 {
+  @for $i from 1 through 4 {
 
     &:nth-of-type(#{$i}) {
-      transform: translate3d(round($l-ball-ht*($i)), 0, 0);
-      transition-duration: 90ms+(80ms*$i);
+      transform: translate3d(round($l-ball-ht * $i), 0, 0);
+      transition-duration: 90ms + (80ms * $i);
     }
   }
 
 }
 
-.controls__checkbox:checked ~ .controls__icon {
 
-  transition-timing-function: cubic-bezier(.165, .840, .440, 1);
+// SVG ICONS (except tools)
+.controls__icon {
+  cursor: pointer;
+  fill: $near-white;
+  height: 50px;
+  padding: 9px;
+  position: absolute;
+  display: block;
+  visibility: hidden;
+  width: 50px;
 
-
-  // Horizontal axis
-  @for $i from 1 through 3 {
-
-    &:nth-of-type(#{$i}) {
-      transform: translate3d($l-ball-ht/10, round($l-ball-ht*($i))+10px, 0);
-      transition-duration: 90ms+(80ms*$i);
+  &:hover {
+    @include mq($from: desktop) {
+      fill: $c-icon-hover;
     }
   }
 
-  // Vertical axis
-  @for $i from 4 through 6 {
+}
+
+// Show filter containers once checked
+.controls__checkbox:checked ~ .filter-container-x {
+  height: $l-ball-ht;
+  width: $l-ball-ht*5;
+  display: block;
+  transition: height 300ms ease;
+}
+
+.controls__checkbox:checked ~ .filter-container-y {
+  height: $l-ball-ht*5;
+  width: $l-ball-ht;
+  display: block;
+  transition: width 300ms ease;
+}
+
+// Non-toolbox icons when checked
+.controls__checkbox:checked ~ .controls__icon {
+
+  transition-timing-function: $a-trans-timing-items;
+  visibility: visible;
+  $l-offset: round(($l-ball-ht - $l-ball-ht*.68)/2);
+
+  // Vert axis
+  @for $i from 1 through 3 {
+
+    &:nth-of-type(#{$i}) {
+      $y: round($l-ball-ht * $i);
+      transform: translate3d(0, $y, 0);
+      transition: transform 90ms+(80ms*$i) $a-trans-timing-items, $a-trans-fill;
+    }
+  }
+
+  // Horiz axis
+  @for $i from 4 through 7 {
 
     &:nth-of-type(#{$i}) {
       $o: $i - 3;
-      transform: translate3d(round($l-ball-ht*($o+.2))+10px, $l-ball-ht/10, 0);
-      transition-duration: 90ms+(80ms*$i);
+      $x: 24px * $o;
+      $x: round($l-ball-ht * $o);
+      $dur: 90ms + (80ms * $i);
+
+      // top: 8px;
+      transform: translate3d($x, 0, 0);
+      transition: transform $dur $a-trans-timing-items, $a-trans-fill;
     }
   }
 
@@ -164,19 +201,25 @@ $l-ball-ht: 50px;
 
 
 // The burga
-.hamburger {
-  $width: $l-ball-ht/2;
-  $height: 2px;
-  background: $near-white;
+%hamburger {
+  $width: 80%;
+  $l-spacing-y: 2px;
+  background-color: $near-white;
   display: block;
-  height: $height;
+  height: $l-spacing-y;
   left: 50%;
   margin-left: -$width/2;
-  margin-top: -$height/2;
+  margin-top: -$l-spacing-y/2;
   position: absolute;
   top: 50%;
-  transition: transform 200ms;
+  transition: transform 200ms, background-color 200ms;
   width: $width;
+}
+
+.hamburger {
+
+  @extend %hamburger;
+
 }
 
 $hamburger-spacing: 6px;
@@ -194,6 +237,28 @@ $hamburger-spacing: 6px;
 }
 
 .controls__checkbox:checked + .controls__label {
+
+  .controls__icon {
+    fill: $c-ball-color;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+    transition: $a-trans-tools;
+    // -webkit-transform: translateZ(0);
+
+    &:hover {
+      fill: $c-icon-hover;
+      transition: $a-trans-tools, $a-trans-fill;
+    }
+
+  }
+
+  .hamburger {
+    background-color: $near-white;
+  }
 
   .hamburger-1 {
     transform: translate3d(0, 0, 0) rotate(45deg);

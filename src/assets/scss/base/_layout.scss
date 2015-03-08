@@ -8,12 +8,19 @@ $gutter: 16px;
 
 // MAP WRAP
 .map-wrapper {
+  box-shadow: 0 0 45px 10px $c-map-wrap-box-shadow;
   display: flex;
   flex-direction: column;
   height: 450px;
   left: $theme-padding*-.5;
   position: relative;
   width: calc(100% + #{$theme-padding});
+
+  @include mq($from: tablet) {
+    height: 650px;
+    left: 0;
+    width: 100%;
+  }
 
   * {
     box-sizing: border-box;
@@ -22,12 +29,6 @@ $gutter: 16px;
 
   input {
     display: none;
-  }
-
-  @include mq($from: tablet) {
-    height: 550px;
-    left: 0;
-    width: 100%;
   }
 
 }
@@ -57,7 +58,6 @@ $panel-inner-padding: 1em;
 
 // PANELS
 .panel {
-  background: url('../../../../../themes/sleepingbear/images/background.jpg') center;
   bottom: $panel-toggle-ht - $panel-toggle-padding;
   position: absolute;
   width: 100%;
@@ -86,10 +86,11 @@ $panel-inner-padding: 1em;
 // POPUPS
 .popup {
   box-shadow: 2px 2px 5px #808080;
-  height: 250px;
+  // height: 250px; // trans background on these looks cool
   position: absolute;
   right: $container-spacing/2;
   top: $container-spacing/2;
+  z-index: 2; // gets above controls
 
   @include mq($from: tablet) {
     width: 320px;

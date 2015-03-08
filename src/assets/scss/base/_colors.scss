@@ -9,6 +9,8 @@ $lt-purple-blue: #a8b4c6;
 $med-dull-blue: #5c7797;
 $pink: #d69c87;
 
+$c-nav-menu: #a7dcec;
+
 // From the logo \\
 $sky-blue: rgb(134, 201, 233);
 // $paleblue: rgb(192, 229, 238);
@@ -25,8 +27,19 @@ $primary-color: $pale-blue;
 // My colors \\
 $near-white: #f9f9f9;
 
+// Map wrapper
+$c-map-wrap-box-shadow: desaturate($steely-blue, 14%);
+
+// Controls
+$c-ball-color: lighten($med-blue, 14%);
+$c-icon-hover: darken($c-ball-color, 15%);
+
+// Panel toggles
+$c-panel-toggle: $c-ball-color;
+$c-panel-checked-fill: lighten($steely-blue, 25%);
+
 // Seasons
-$spring: #619E47;
-$summer: #F4F286;
+$spring: #619e47;
+$summer: #f4f286;
 $winter: $near-white;
-$fall: #BB2D2D;
+$fall: #bb2d2d;

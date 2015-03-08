@@ -1,37 +1,63 @@
-$baselayer-primary: $med-blue;
-$c-panel-checked-fill: lighten($steely-blue, 25%);
-
 $big-radio-size: 75px;
+
+%panel__label {
+  border-radius: 10px;
+  cursor: pointer;
+  display: block;
+  float: left;
+  padding: 6px;
+  text-align: center;
+}
+
+// SVG
+%panel__icon {
+  display: block;
+  fill: darken($med-dull-blue, 5%);
+  width: 100%;
+}
+
+%panel__header {
+  background-color: lighten($green, 20%);
+  color: $near-white;
+  font-size: 24px;
+  margin: 0;
+  padding: $gutter * .5 $gutter;
+}
+
+%panel__inner {
+  background: url('../../../../../themes/sleepingbear/images/background.jpg') center;
+  font-size: 1em;
+  padding: $gutter;
+}
+
+%panel__close {
+  color: $near-white;
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  margin-right: -5px;
+  margin-top: 5px;
+
+  svg {
+    fill: $near-white;
+    height: 25px;
+    width: 25px;
+  }
+}
 
 .panel {
 
   // Panel header (descendent to override theme)
-  &__header {
-    background-color: lighten($baby-puke, 20%);
-    color: $near-white;
-    font-size: 24px;
-    margin: 0;
-    padding: $gutter*.25 $gutter;
+  .panel__header {
+    @extend %panel__header;
   }
 
   &__close {
-    color: $near-white;
-    cursor: pointer;
-    display: inline-block;
-    float: right;
-    margin-top: 5px;
-
-    svg {
-      fill: $near-white;
-      height: 25px;
-      width: 25px;
-    }
-
+    @extend %panel__close;
   }
 
   &__inner {
-    font-size: 1em;
-    padding: $gutter;
+    @extend %panel__inner;
   }
 
 }
@@ -43,10 +69,15 @@ $big-radio-size: 75px;
   padding: 0 $gutter*.25 $gutter;
 }
 
+.panel__toggles {
+  background-color: $c-panel-toggle;
+  box-shadow: 0 -2px 15px 0px;
+  position: relative;
+}
 
 .panel__toggle {
-  background-color: $med-blue;
-  border-left: solid darken($med-blue, 10%) 1px;
+  background-color: $c-panel-toggle;
+  border-left: solid darken($c-panel-toggle, 10%) 1px;
   color: $near-white;
   display: flex;
   flex-direction: column;
@@ -56,7 +87,7 @@ $big-radio-size: 75px;
   text-align: center;
   text-decoration: none;
   text-shadow: 1px 1px 5px #222;
-  width: 33.33333%;
+  width: 33.333333333333%;
 
   &:first-of-type {
     border-left: 0;
@@ -86,28 +117,12 @@ $big-radio-size: 75px;
     width: $panel-toggle-content-ht * .75;
 
     @include mq($from: tablet) {
-      fill: darken($med-blue, 30%);
+      fill: darken($c-panel-toggle, 30%);
       height: $panel-toggle-content-ht;
       width: $panel-toggle-content-ht;
     }
   }
 
-}
-
-%panel__label {
-  border-radius: 10px;
-  cursor: pointer;
-  display: block;
-  float: left;
-  padding: 6px;
-  text-align: center;
-}
-
-// SVG
-%panel__icon {
-  display: block;
-  fill: darken($med-dull-blue, 5%);
-  width: 100%;
 }
 
 .panel__descrip {

@@ -16,15 +16,15 @@
                     url: '/',
                     template: '<div ui-view></div>',
                 })
-                .state('home.comm-poi', {
-                    url: 'comm-poi/:id/:mile',
+                .state('home.commercial', {
+                    url: 'commercial/:id/:mile',
                     templateUrl: basePath.url('app/popups/templates/comm-poi-template.html'),
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
                         features: ['$http', '$stateParams', function($http, $stateParams) {
 
-                            var columns = 'cartodb_id, type, name, audio, video FROM comm_poi_master ',
+                            var columns = 'cartodb_id, type, name, audio, video FROM commercial ',
                                 query = queryPrefix + columns + midString + $stateParams.id;
 
                             return $http.get(query).then(function(response){
@@ -34,39 +34,21 @@
                         }],
                     }
                 })
-                .state('home.nps-poi', {
-                    url: 'nps-poi/:id/:mile',
+                .state('home.features', {
+                    url: 'features/:id/:mile',
                     templateUrl: basePath.url('app/popups/templates/nps-poi-template.html'),
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
                         features: ['$http', '$stateParams', function($http, $stateParams) {
 
-                            var columns = 'cartodb_id, type, name FROM nps_poi_giscloud ',
+                            var columns = 'cartodb_id, type, name FROM features ',
                                 query = queryPrefix + columns + midString + $stateParams.id;
 
                             return $http.get(query).then(function(response){
                                 return response.data;
                             });
 
-
-                        }],
-                    }
-                })
-                .state('home.sbht-poi', {
-                    url: 'sbht-poi/:id/:mile',
-                    templateUrl: basePath.url('app/popups/templates/sbht-poi-template.html'),
-                    controller: 'PopupCtrl',
-                    controllerAs: 'vm',
-                    resolve: {
-                        features: ['$http', function($http, $stateParams) {
-
-                            var columns = 'cartodb_id, type, name FROM sbht_poi_digitize ',
-                                query = queryPrefix + columns + midString + $stateParams.id;
-
-                            return $http.get(query).then(function(response){
-                                return response.data;
-                            });
 
                         }],
                     }

@@ -2,7 +2,7 @@ module.exports = {
 
     dev: {
         options: {
-            sourceMap: true,
+            sourceMap: 'auto',
             omitSourceMapUrl: false,
             includePaths: [
               // 'bower_components/foundation/scss'//,

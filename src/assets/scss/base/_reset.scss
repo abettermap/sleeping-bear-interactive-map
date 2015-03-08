@@ -17,6 +17,7 @@ body {
 // Even the header goes
 #header,
 .header,
+.article-header,
 #rightcol,
 .article-meta,
 .never-show {
@@ -25,7 +26,7 @@ body {
 
 // Full-width main content
 #content-wide {
-  background: #fff;
+  background: none;
   max-width: 918px;
   outline: none;
   padding: 30px;
@@ -45,6 +46,25 @@ body {
   width: 190px;
 }
 
+// Make room for panel toggles' box shadow
+.leaflet-bottom {
+  bottom: 7px;
+}
+
 *:focus {
   outline: none;
 }
+
+// Clearfix (included in desktop theme, not mobile)
+.clearfix:after {
+  clear: both;
+  content: " ";
+  display: block;
+  font-size: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+* html .clearfix             { zoom: 1; } /* IE6 */
+
+*:first-child + html .clearfix { zoom: 1; } /* IE7 */
