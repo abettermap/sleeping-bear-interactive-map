@@ -8,19 +8,11 @@ $gutter: 16px;
 
 // MAP WRAP
 .map-wrapper {
-  box-shadow: 0 0 45px 10px $c-map-wrap-box-shadow;
   display: flex;
   flex-direction: column;
-  height: 450px;
-  left: $theme-padding*-.5;
+  height: 100%;
   position: relative;
-  width: calc(100% + #{$theme-padding});
-
-  @include mq($from: tablet) {
-    height: 650px;
-    left: 0;
-    width: 100%;
-  }
+  width: 100%;
 
   * {
     box-sizing: border-box;
@@ -33,14 +25,14 @@ $gutter: 16px;
 
 }
 
-.map-wrapper.fullscreen {
-  height: 100%;
-  left: 0;
-  margin: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
+// .map-wrapper.fullscreen {
+//   height: 100%;
+//   left: 0;
+//   margin: 0;
+//   position: fixed;
+//   top: 0;
+//   width: 100%;
+// }
 
 .controls {
   left: $container-spacing;
@@ -52,7 +44,7 @@ $panel-toggle-padding: 10px;
 $panel-toggle-content-ht: 40px;
 $panel-toggle-ht: $panel-toggle-padding*2 + $panel-toggle-content-ht;
 
-$panel-width: 33.3333333%;
+$panel-width: 25%;
 $panel-inner-padding: 1em;
 
 
@@ -66,11 +58,15 @@ $panel-inner-padding: 1em;
   @include mq($from: tablet) {
 
     bottom: $panel-toggle-ht;
-    left: 33.33333333%;
+    left: 0;
     width: $panel-width;
 
-    &:first-of-type {
-      left: 0;
+    &:nth-of-type(2) {
+      left: 25%;
+    }
+
+    &:nth-of-type(3) {
+      left: 50%;
     }
 
     &:last-of-type {

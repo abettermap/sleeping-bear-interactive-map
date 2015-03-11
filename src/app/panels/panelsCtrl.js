@@ -12,7 +12,7 @@
 
     	var vm = this;
         vm.season = 'summer';
-        vm.changeTiles = panelsFactory.changeTiles;
+        // vm.changeTiles = panelsFactory.changeTiles;
         vm.panel = '';
         vm.currentBase = {
             name: 'terrain'

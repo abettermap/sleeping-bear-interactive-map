@@ -33,3 +33,4 @@ src/assets/img/svg/QGIS-default
 # Grunt #
 ##########
 .sublime-grunt-cache
+src/assets/img/raster/src-junk

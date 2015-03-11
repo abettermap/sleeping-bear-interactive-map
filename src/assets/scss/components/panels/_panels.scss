@@ -87,7 +87,7 @@ $big-radio-size: 75px;
   text-align: center;
   text-decoration: none;
   text-shadow: 1px 1px 5px #222;
-  width: 33.333333333333%;
+  width: 25%;
 
   &:first-of-type {
     border-left: 0;
@@ -113,6 +113,7 @@ $big-radio-size: 75px;
     display: inline-block;
     fill: $near-white;
     height: $panel-toggle-content-ht * .75;
+    margin-right: 5px;
     vertical-align: middle;
     width: $panel-toggle-content-ht * .75;
 

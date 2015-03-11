@@ -1,35 +1,60 @@
 // Override theme's defaults
 
+// @include rem-fallback(margin, 10, 20, 30, 40);
+
 // For fuller fullscreen?
 html {
+  font-size: 15px;
   height: 100%;
   margin: 0;
+  overflow: hidden;
   width: 100%;
+
+  @include mq(tablet) {
+    font-size: 16px;
+  }
+
+  @include mq(desktop) {
+    font-size: 18px;
+  }
+
 }
 
 // Overflow on body
 body {
   -webkit-backface-visibility: hidden;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 
 // Even the header goes
 #header,
 .header,
+#access,
 .article-header,
 #rightcol,
 .article-meta,
-.never-show {
+.mnav,
+.never-show,
+.post > h1 {
   display: none;
 }
 
-// Full-width main content
-#content-wide {
-  background: none;
-  max-width: 918px;
-  outline: none;
-  padding: 30px;
+// Fill it up
+body,
+.container,
+#content-wide,
+#main,
+#body-area,
+.fulltext,
+#container,
+.content,
+.post,
+.content .post,
+.entry {
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 0;
   width: 100%;
 }
 

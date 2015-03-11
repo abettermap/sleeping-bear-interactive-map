@@ -9,9 +9,7 @@ $a-trans-fill: fill 250ms ease;
 %ball {
   background: $c-ball-color;
   border-radius: 100%;
-  height: $l-ball-ht;
   position: absolute;
-  width: $l-ball-ht;
 }
 
 
@@ -22,82 +20,27 @@ $a-trans-fill: fill 250ms ease;
   position: absolute;
 }
 
-.filter-container-y,
-.filter-container-x {
-  @extend %goo;
-}
-
 // Hide input
 .controls__checkbox {
   display: none;
 }
 
-// The hamburger container
-.controls__label {
 
-  @extend %ball;
-
-  $l-size: $l-ball-ht * .95;
-
-  box-shadow: 2px 2px 5px $c-icon-hover;
-  cursor: pointer;
-  height: $l-size;
-  text-align: center;
-  transition: transform 200ms cubic-bezier(.175, .885, .320, 1.275);
-  width: $l-size;
-  z-index: 2;
-
-  &:hover {
-    @include mq($until: tablet) {
-      // transform: scale(1.2, 1.2);// translate3d(0, 0, 0);
-    }
-  }
-
-
-  // The tools icon
-  .controls__icon {
-    $l-spacing: $l-ball-ht/10;
-    // display: none;
-    height: floor($l-ball-ht * .75);
-    left: $l-spacing;
-    margin-top: 10%;
-    padding: 2px;
-    pointer-events: none;
-    transition: $a-trans-tools;
-    visibility: visible;
-    width: floor($l-ball-ht * .75);
-
-    &:hover {
-      fill: $near-white;
-    }
-
-  }
-
+//////////// FILTER CONTAINERS \\\\\\\\\\\\\\
+.filter-container-y,
+.filter-container-x {
+  @extend %goo;
 }
 
-// Hamburg container when checked
-.controls__checkbox:checked + .controls__label {
-
-  $l-size: $l-ball-ht;
-  background-color: $near-white;
-  height: $l-size;
-  transform: scale(.9, .9) translate3d(0, 0, 0);
-  transition: transform 200ms linear;
-  width: $l-size;
-
-  .controls__icon {
-    transform: scale(.9, .9) translate3d(0, 0, 0);
-    transition: transform 200ms linear;
-  }
-
+// Show filter containers once checked
+.controls__checkbox:checked ~ .filter-container-x {
+  height: $l-ball-ht;
+  width: $l-ball-ht * 5;
 }
 
-// Individual balls
-.controls__menu-item {
-
-  @extend %ball;
-  transition-duration: 280ms;
-  visibility: hidden;
+.controls__checkbox:checked ~ .filter-container-y {
+  height: $l-ball-ht * 5;
+  width: $l-ball-ht;
 }
 
 // Y axis backgrounds when checked
@@ -131,6 +74,102 @@ $a-trans-fill: fill 250ms ease;
 }
 
 
+
+//////////// HAMBURGER CONTAINER & TOOLS ICON \\\\\\\\\\\\\\
+.controls__label {
+
+  @extend %ball;
+
+  $l-size: $l-ball-ht * .95;
+
+  box-shadow: 2px 2px 5px $c-icon-hover;
+  cursor: pointer;
+  height: $l-size;
+  text-align: center;
+  transition: transform 200ms cubic-bezier(.175, .885, .320, 1.275);
+  width: $l-size;
+  z-index: 2;
+
+  &:hover {
+
+    transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+
+    .controls__icon {
+      transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+    }
+
+  }
+
+
+  // The tools icon
+  .controls__icon {
+    $l-spacing: $l-ball-ht/10;
+
+    height: round($l-ball-ht * .75);
+    left: $l-spacing;
+    margin-top: 10%;
+    padding: 2px;
+    pointer-events: none;
+    transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+    transition: $a-trans-tools;
+    visibility: visible;
+    width: round($l-ball-ht * .75);
+
+  }
+
+}
+
+// Hamburg container when checked
+.controls__checkbox:checked + .controls__label {
+
+  $l-size: $l-ball-ht;
+  background-color: $near-white;
+  height: $l-size;
+  transform: scale(.9, .9) translate3d(0, 0, 0);
+  transition: transform 200ms linear;
+  width: $l-size;
+
+  &:hover {
+
+    transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+
+    .controls__icon {
+      fill: $c-icon-hover;
+      transition: transform 200ms linear, $a-trans-fill;
+    }
+
+  }
+
+  .controls__icon {
+
+    fill: $c-ball-color;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+    transition: transform 200ms linear, $a-trans-fill, $a-trans-tools;
+
+  }
+
+}
+
+// Individual balls
+.controls__menu-item {
+
+  @extend %ball;
+
+  height: $l-ball-ht;
+  transition-duration: 280ms;
+  visibility: hidden;
+  width: $l-ball-ht;
+
+}
+
+
+//////////// SVG ICONS \\\\\\\\\\\\\\
+
 // SVG ICONS (except tools)
 .controls__icon {
   cursor: pointer;
@@ -138,7 +177,6 @@ $a-trans-fill: fill 250ms ease;
   height: 50px;
   padding: 9px;
   position: absolute;
-  display: block;
   visibility: hidden;
   width: 50px;
 
@@ -150,125 +188,36 @@ $a-trans-fill: fill 250ms ease;
 
 }
 
-// Show filter containers once checked
-.controls__checkbox:checked ~ .filter-container-x {
-  height: $l-ball-ht;
-  width: $l-ball-ht*5;
-  display: block;
-  transition: height 300ms ease;
-}
-
-.controls__checkbox:checked ~ .filter-container-y {
-  height: $l-ball-ht*5;
-  width: $l-ball-ht;
-  display: block;
-  transition: width 300ms ease;
-}
-
 // Non-toolbox icons when checked
 .controls__checkbox:checked ~ .controls__icon {
 
   transition-timing-function: $a-trans-timing-items;
   visibility: visible;
-  $l-offset: round(($l-ball-ht - $l-ball-ht*.68)/2);
+  $l-offset: round(($l-ball-ht - $l-ball-ht * .68)/2);
 
   // Vert axis
   @for $i from 1 through 3 {
 
     &:nth-of-type(#{$i}) {
       $y: round($l-ball-ht * $i);
+
+      padding: 8px; // Vert looked smaller for some reason
       transform: translate3d(0, $y, 0);
       transition: transform 90ms+(80ms*$i) $a-trans-timing-items, $a-trans-fill;
     }
   }
 
   // Horiz axis
-  @for $i from 4 through 7 {
+  @for $i from 4 through 6 {
 
     &:nth-of-type(#{$i}) {
       $o: $i - 3;
-      $x: 24px * $o;
       $x: round($l-ball-ht * $o);
       $dur: 90ms + (80ms * $i);
-
-      // top: 8px;
+      @warn $o;
       transform: translate3d($x, 0, 0);
       transition: transform $dur $a-trans-timing-items, $a-trans-fill;
     }
   }
 
-}
-
-
-// The burga
-%hamburger {
-  $width: 80%;
-  $l-spacing-y: 2px;
-  background-color: $near-white;
-  display: block;
-  height: $l-spacing-y;
-  left: 50%;
-  margin-left: -$width/2;
-  margin-top: -$l-spacing-y/2;
-  position: absolute;
-  top: 50%;
-  transition: transform 200ms, background-color 200ms;
-  width: $width;
-}
-
-.hamburger {
-
-  @extend %hamburger;
-
-}
-
-$hamburger-spacing: 6px;
-
-.hamburger-1 {
-  transform: translate3d(0, -$hamburger-spacing, 0);
-}
-
-.hamburger-2 {
-  transform: translate3d(0, 0, 0);
-}
-
-.hamburger-3 {
-  transform: translate3d(0, $hamburger-spacing, 0);
-}
-
-.controls__checkbox:checked + .controls__label {
-
-  .controls__icon {
-    fill: $c-ball-color;
-    -moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    filter: FlipH;
-    -ms-filter: "FlipH";
-    transition: $a-trans-tools;
-    // -webkit-transform: translateZ(0);
-
-    &:hover {
-      fill: $c-icon-hover;
-      transition: $a-trans-tools, $a-trans-fill;
-    }
-
-  }
-
-  .hamburger {
-    background-color: $near-white;
-  }
-
-  .hamburger-1 {
-    transform: translate3d(0, 0, 0) rotate(45deg);
-  }
-
-  .hamburger-2 {
-    transform: translate3d(0, 0, 0) scale(.1, 1);
-  }
-
-  .hamburger-3 {
-    transform: translate3d(0, 0, 0) rotate(-45deg);
-  }
 }

@@ -1,16 +1,5 @@
-<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="361.789" height="392.267" id="svg2" version="1.1" inkscape:version="0.91pre2+osxmenu r12825" viewBox="0 0 361.789 392.267" sodipodi:docname="grass.svg">
-    <defs id="defs4" />
-    <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="1.15228" inkscape:cx="180.027" inkscape:cy="196.133" inkscape:document-units="px" inkscape:current-layer="layer1" showgrid="false" fit-margin-top="0" fit-margin-left="0" fit-margin-right="0" fit-margin-bottom="0" inkscape:window-width="1920" inkscape:window-height="1031" inkscape:window-x="1920" inkscape:window-y="23" inkscape:window-maximized="0" />
-    <metadata id="metadata7">
-        <rdf:RDF>
-            <cc:Work rdf:about="">
-                <dc:format>image/svg+xml</dc:format>
-                <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-                <dc:title></dc:title>
-            </cc:Work>
-        </rdf:RDF>
-    </metadata>
-    <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" transform="translate(-6.004,-1.012)">
-        <path d="m 46.243,1.012 c 1.399,83.286 35.3,182.25 47.083,291.929 C 65.459,215.975 23.185,136.924 6.004,115.523 c 9.458,80.907 54.295,163.307 60.215,277.578 67.008,0.332 124.025,-0.328 189.301,0.178 C 281.847,304.648 325.415,213.52 367.793,129.881 324.019,183.432 287.642,231.132 259.328,272.459 284.681,205.215 310.754,147.553 332.38,89.588 302.943,114.939 260.973,190.645 225.092,268.26 233.789,186.473 250.391,112.254 251.46,48.5 237.606,72.273 210.025,141.216 187.852,216.098 183.38,126.15 175.906,40.071 164.973,8.168 166.451,79.56 162.762,158.381 157.53,246.793 144.824,196.913 125.612,139.2 98.299,74.162 c 10.842,76.146 29.653,157.25 36.023,237.996 C 116.662,191.9 69.482,40.832 46.243,1.012 Z" id="path3646" inkscape:connector-curvature="0" sodipodi:nodetypes="cccccccccccccccc" />
-    </g>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <g transform="translate(-6.004 118.7)">
+  <path d="m114.8-28.24c1.5 89.08 34.5 146.8 47.1 264.1-29.8-82.4-75-166.9-93.38-189.8 10.12 86.5 82.78 174.9 89.18 297.1 71.67.356 127.2-.541 197 0 28.1-94.8 55.5-192.3 100.8-281.7-46.8 57.2-85.7 108.3-116 152.5 27.1-72 55-133.6 78.1-195.6-31.5 27.08-76.4 108.1-114.7 191.1 9.3-87.5 27-166.9 28.2-235.1-14.9 25.45-44.4 99.19-68.1 179.3-4.8-96.23-12.8-188.3-24.4-222.4 1.5 76.34-2.4 160.6-8 255.2-13.6-53.3-34.1-115.1-63.4-184.6 11.6 81.41 31.8 168.2 38.6 254.5-18.9-128.6-66.2-242-91-284.6z"/>
+ </g>
 </svg>

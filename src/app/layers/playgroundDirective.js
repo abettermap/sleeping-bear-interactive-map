@@ -2,40 +2,35 @@
 
     'use strict';
 
-    var playground = function(mapFactory, $rootScope, layersFactory){
+    var playground = function(){
 
         return {
             restrict: 'E',
             templateUrl: '../../wp-content/plugins/wp-fosb-map/src/app/layers/templates/layersTemplate.html',
             replace: true,
             // CAREFUL WITH MINIFICATION HERE, NOT SURE HOW THIS WORKS W/INTERNAL CTRLER!
-            controller: function($scope, layersFactory){
-            // controller: function($scope, layersFactory){
-				            	
-                // $scope.tableName = '';
-                // $scope.customers = [];
+            controller: function($scope, layersFactory, $http){
 
-                // function init() {
-                //     layersFactory.getWeather()
-                //         .success(function(customers) {
-                //             $scope.customers = customers.rows;
-                //         })
-                //         .error(function(data, status, headers, config) {
-                //             $log.log(data.error + ' ' + status);
-                //         });
-                // }
-                
-                // init();
+                var layer = 'poi\/',
+                    mile = 'n00\/',
+                    type = 'features\/',
+                    id = 'dc_trailhead\/',
+                    level = 'secondary';
 
-                // $scope.$on('feature updated', function(event, e, pos, latlng, data, tableName, i) {
-                   
-                //    $scope.tableName = tableName[i].name;
+                var subpath = layer + mile + type + id + level;
 
-                // });
+                var fullPath = "http://wpmulti.dev/fosb/wp-content/plugins/wp-fosb-map/get-images.php?dir=" + subpath;
+
+                $http.get(fullPath, {})
+                .success(function(data) {
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        console.log(data[i]);
+                    }
+                });
 
             }
         };
-        
+
     };
 
     playground.$inject = ['mapFactory', '$rootScope', 'layersFactory'];

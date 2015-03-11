@@ -2,6 +2,9 @@
 @import 'vendor/vendors';
 
 // BASE \\
+@import 'helpers/mixins';
+
+// BASE \\
 @import 'base/animations';
 @import 'base/breakpoints';
 @import 'base/colors';

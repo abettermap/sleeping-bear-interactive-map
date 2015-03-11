@@ -11,12 +11,15 @@
     ctrlsFactory.$inject = ['mapFactory'];
 
     function ctrlsFactory(mapFactory){
-        
+
         var map = mapFactory.map;
 
         var ctrlsFactory = {
+            // changeTiles: changeTiles,
             fullScreen: fullScreen,
             locate: locate,
+            map: map,
+            tileLayers: mapFactory.tileLayers,
             zoomHome: zoomHome,
             zoomIn: zoomIn,
             zoomOut: zoomOut,
@@ -52,6 +55,29 @@
             map.invalidateSize();
             $('#map-wrapper')[0].scrollIntoView(true);
         }
+
+        // function changeTiles(current) {
+        // function changeTiles() {
+
+
+
+        //     var layerName = current.toString(),
+        //         newLayer = '',
+        //         currentLayer = '';
+
+        //     for (var key in tileLayers) {
+        //         if (key === layerName){
+        //             newLayer = key;
+        //         } else {
+        //             currentLayer = key;
+        //         }
+        //     }
+
+        //     map.removeLayer(tileLayers[currentLayer]);
+        //     map.addLayer(tileLayers[newLayer]);
+        //     tileLayers[newLayer].bringToBack();
+
+        // };
 
         // ctrlsFactory.executeFunctionByName = function(functionName, context /*, args */) {
         //     var args = [].slice.call(arguments).splice(2);

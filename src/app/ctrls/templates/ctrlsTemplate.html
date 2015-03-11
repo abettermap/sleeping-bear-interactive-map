@@ -10,31 +10,33 @@
         <a class="controls__menu-item" href="javascript:;"></a>
         <a class="controls__menu-item" href="javascript:;"></a>
     </div>
+    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.zoomHome()">
+        <title>Zoom to initial extent</title>
+        <use xlink:href="#icon-zoom-home"></use>
+    </svg>
     <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.zoomIn()">
+        <title>Zoom in</title>
         <use xlink:href="#icon-zoom-in"></use>
     </svg>
     <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.zoomOut()">
+        <title>Zoom out</title>
         <use xlink:href="#icon-zoom-out"></use>
-    </svg>
-    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.zoomHome()">
-        <use xlink:href="#icon-zoom-home"></use>
     </svg>
     <div class="filter-container-x">
         <a class="controls__menu-item" href="javascript:;"></a>
         <a class="controls__menu-item" href="javascript:;"></a>
         <a class="controls__menu-item" href="javascript:;"></a>
-        <a class="controls__menu-item" href="javascript:;"></a>
     </div>
+    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.changeTiles()">
+        <title>Zoom to previous extent</title>
+        <use xlink:href="#icon-back"></use>
+    </svg>
     <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.locate()">
+        <title>Zoom to current location via GPS</title>
         <use xlink:href="#icon-locate"></use>
     </svg>
-    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.fullScreen()">
-        <use xlink:href="#icon-enable-full"></use>
-    </svg>
     <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.changeTiles()">
-        <use xlink:href="#icon-camera"></use>
-    </svg>
-    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.changeTiles()">
-        <use xlink:href="#icon-back"></use>
+        <title>Change background</title>
+        <use ng-attr-xlink:href="{{vm.bgId}}" xlink:href=""></use>
     </svg>
 </nav>
