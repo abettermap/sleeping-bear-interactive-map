@@ -1,34 +1,17 @@
 $l-spacing-x: 6%;
-$l-spacing-y: .65em;
+$l-spacing-y: .85em;
 
 .panel__label--seasons {
 
-  @extend %panel__label;
+  border-radius: 10px;
 
-  margin-right: 2%;
-  width: 23.5%;
-
-  @include mq($from: desktop) {
-
-    &:hover {
-      background-color: $c-panel-checked-fill;
-      border-radius: 10px;
-      transition: $hover-transition;
-    }
-
-  }
-
-  &:last-of-type {
-    margin-bottom: $l-spacing-y*.75;
-    margin-right: 0;
+  &:hover {
+    border-radius: 10px;
   }
 
 }
 
 .panel__radio:checked + .panel__label--seasons {
-  background-color: $c-panel-checked-fill;
-  border: solid 1px darken($c-panel-checked-fill, 5%);
-  border-radius: 10px;
 
   .spring {
     fill: $spring;
@@ -50,6 +33,17 @@ $l-spacing-y: .65em;
 
 .panel__icon {
 
-  @extend %panel__icon;
+  border-radius: 10px;
+  display: block;
+  fill: $c-panel-icon;
+  height: 100%;
+  padding: 5px;
+  pointer-events: none;
+  width: 100%;
 
+}
+
+// The keeper of the seasons
+.seasons-container {
+  display: flex;
 }

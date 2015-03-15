@@ -20,7 +20,11 @@
 
         vm.svgPath = basePath.url;
 
-        // vm.fullScreen = ctrlsFactory.fullScreen;
+        // vm.fullScreen = function(){
+        //             window.scrollTo(0, 172);
+        //             // alert("anythang?");
+
+        // };
 
         vm.locate = ctrlsFactory.locate;
 

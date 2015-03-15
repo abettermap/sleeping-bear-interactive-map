@@ -23,6 +23,17 @@
 
                 init();
 
+                // window.onload = function(){
+                    // if (navigator.userAgent.match(/iPhone/i)){
+
+                    //     var theDoc = document.getElementsByTagName('html')[0];
+                    //     theDoc.style.height = "calc(100% + 72px)";
+
+                    // }
+
+                // };
+
+
             }
         };
 

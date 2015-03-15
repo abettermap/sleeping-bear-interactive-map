@@ -55,6 +55,14 @@ module.exports = {
         // 'src/assets/js/vendor/bower_components/angular-fullscreen/src/angular-fullscreen.js',
         // // Multiline (need this or no?)
         // 'src/assets/js/vendor/bower_components/multiline/browser.js'
+        // // Scream (for Brim)
+        // 'src/assets/js/vendor/bower_components/scream/dist/scream.js',
+        // // Brim (fullscreen iOS)
+        // 'src/assets/js/vendor/bower_components/brim/dist/brim.js',
+        // iScroll
+        // 'src/assets/js/vendor/bower_components/iscroll/build/iscroll-lite.js',
+        // HammerJS
+        // 'src/assets/js/vendor/bower_components/hammer.js/hammer.js',
       ],
       dest: 'src/assets/js/vendor/map-vendors.js'
     }

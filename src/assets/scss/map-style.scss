@@ -1,8 +1,9 @@
 // VENDORS \\
 @import 'vendor/vendors';
 
-// BASE \\
+// MIXINS \\
 @import 'helpers/mixins';
+@import 'helpers/missing-animations';
 
 // BASE \\
 @import 'base/animations';
@@ -10,7 +11,10 @@
 @import 'base/colors';
 @import 'base/layout';
 @import 'base/reset';
-@import 'base/transitions';
+@import 'base/typography';
+
+// SHARED CLASSES \\
+@import 'helpers/shared-classes';
 
 // COMPONENTS \\
 @import 'components/components';

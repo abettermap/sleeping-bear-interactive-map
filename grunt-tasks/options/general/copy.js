@@ -7,6 +7,13 @@ module.exports = {
         dest: 'build'
         // filter: 'isFile'
     },
+    getImages: {
+        expand: true,
+        // flatten: true,
+        src: 'get-images.php',
+        dest: 'build'
+        // filter: 'isFile'
+    },
     license: {
         expand: true,
         // flatten: true,
@@ -38,8 +45,8 @@ module.exports = {
         dest: 'build/src/assets/img/svg/project/defs/'
     }//,
     // fastclick: {
-    //     src: 'src/assets/js/vendor/fastclick.js',        
-    //     dest: 'build/src/assets/js/vendor/fastclick.js'        
+    //     src: 'src/assets/js/vendor/fastclick.js',
+    //     dest: 'build/src/assets/js/vendor/fastclick.js'
     // }
     // svgToPhp: {
     //   files: [

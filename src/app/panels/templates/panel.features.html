@@ -1,10 +1,98 @@
-<div class="panel" ng-show="vm.panel == 'features'">
-	<h2 class="panel__header">Features
+<div class="panel" ng-show="vm.activePanel == 'features'">
+	<h2 class="panel__header">{{vm.poiTogglesActiveView.heading}}
 		<a href="javascript:;" class="panel__close" ng-click="vm.changePanel('')">
 			<svg viewBox="0 0 100 100">
     			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
 			</svg>
 		</a>
 	</h2>
-	<div class="panel__inner">TEST Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis nesciunt, deleniti sit fugit quis temporibus aspernatur facere dolorum reiciendis sint tempora ad ipsum. Dolorem explicabo ab molestias saepe, animi. Veniam.</div>
+	<div class="poi-toggles-view-cont" ng-switch on="vm.poiTogglesActiveView.id">
+		<!-- HOME PANEL -->
+		<div class="panel__inner poi-toggle-view--nav" ng-switch-default>
+			<p>The Sleeping Bear area is home to a variety of unique shops, historic landmarks, and trail-friendly amenities for visitors and locals alike. Choose one of the two categories below to show or hide individual feature types.</p>
+		 		<p>NOTE: To minimize crowding in the map, features are not displayed at all zoom levels. To see more detail, simply zoom in further.</p>
+		 		<hr />
+			<div class="flex poi-toggles-nav__link" ng-click="vm.poiTogglesActiveView = vm.poiTogglesViews[1]">
+				<svg class="poi-toggles-nav__icon-feat" viewBox="0 0 100 100">
+				    <use xlink:href="#icon-restroom"></use>
+				</svg>
+				<div>
+					<h3 class="poi-toggles-nav__header">Features</h3>
+					<p>Hiking trails, parking, restrooms...</p>
+				</div>
+				<span class="icon-next--feat">></span>
+			</div>
+			<div class="flex poi-toggles-nav__link" ng-click="vm.poiTogglesActiveView = vm.poiTogglesViews[2]">
+				<svg class="poi-toggles-nav__icon-comm" viewBox="0 0 100 100">
+				    <use xlink:href="#icon-food"></use>
+				</svg>
+				<div>
+					<h3 class="poi-toggles-nav__header">Businesses</h3>
+					<p>Lodging, restaurants, shopping...</p>
+				</div>
+				<span class="icon-next--comm">></span>
+			</div>
+		</div>
+		<!-- FEATURES PANEL -->
+		<div class="panel__inner poi-toggle-view--page" ng-switch-when="feat">
+			<a href="javascript:;" ng-click="vm.poiTogglesActiveView = vm.poiTogglesViews[0]"><< Back</a>
+			<div class="flex">
+				<div class="column-50">
+					<input ng-repeat-start="feat in vm.featToggles.slice(0,7)"
+						ng-checked="{{feat.checked}}"
+						id="{{::feat.id}}" />
+					<label for="{{::feat.id}}" class="poi-toggle__label">
+						<svg class="poi-toggle--feat__icon" viewBox="0 0 100 100">
+						    <use ng-attr-xlink:href="{{::feat.id}}" xlink:href=""></use>
+						</svg>
+						{{::feat.text}}
+					</label>
+					<span ng-repeat-end></span>
+				</div>
+				<div class="column-50">
+					<input ng-repeat-start="feat in vm.featToggles.slice(7,14)"
+						ng-checked="{{feat.checked}}"
+						id="{{::feat.id}}" />
+					<label for="{{::feat.id}}" class="poi-toggle__label">
+						<svg class="poi-toggle--feat__icon" viewBox="0 0 100 100">
+						    <use ng-attr-xlink:href="{{::feat.id}}" xlink:href=""></use>
+						</svg>
+						{{::feat.text}}
+					</label>
+					<span ng-repeat-end></span>
+				</div>
+			</div>
+		</div>
+		<!-- COMMERCIAL PANEL -->
+		<div class="panel__inner poi-toggle-view--page" ng-switch-when="comm">
+			<a href="javascript:;" ng-click="vm.poiTogglesActiveView = vm.poiTogglesViews[0]"><< Back</a>
+			<p>This map was made possible in part by the generous donations of local businesses. Please show your support by exploring the abundant options the Sleeping Bear area has to offer!</p>
+			<div class="flex">
+				<div class="column-50">
+					<input ng-repeat-start="feat in vm.commToggles.slice(0,3)"
+						ng-checked="{{feat.checked}}"
+						id="{{::feat.id}}" />
+					<label for="{{::feat.id}}" class="poi-toggle__label">
+						<svg class="poi-toggle--comm__icon" viewBox="0 0 100 100">
+						    <use ng-attr-xlink:href="{{::feat.id}}" xlink:href=""></use>
+						</svg>
+						{{::feat.text}}
+					</label>
+					<span ng-repeat-end></span>
+				</div>
+				<div class="column-50">
+					<input ng-repeat-start="feat in vm.commToggles.slice(3,6)"
+						ng-checked="{{feat.checked}}"
+						id="{{::feat.id}}" />
+					<label for="{{::feat.id}}" class="poi-toggle__label">
+						<svg class="poi-toggle--comm__icon" viewBox="0 0 100 100">
+						    <use ng-attr-xlink:href="{{::feat.id}}" xlink:href=""></use>
+						</svg>
+						{{::feat.text}}
+					</label>
+					<span ng-repeat-end></span>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

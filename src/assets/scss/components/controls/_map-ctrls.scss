@@ -63,7 +63,7 @@ $a-trans-fill: fill 250ms ease;
 
   visibility: visible;
 
-  @for $i from 1 through 4 {
+  @for $i from 1 through 3 {
 
     &:nth-of-type(#{$i}) {
       transform: translate3d(round($l-ball-ht * $i), 0, 0);
@@ -82,8 +82,6 @@ $a-trans-fill: fill 250ms ease;
 
   $l-size: $l-ball-ht * .95;
 
-  box-shadow: 2px 2px 5px $c-icon-hover;
-  cursor: pointer;
   height: $l-size;
   text-align: center;
   transition: transform 200ms cubic-bezier(.175, .885, .320, 1.275);
@@ -160,6 +158,7 @@ $a-trans-fill: fill 250ms ease;
 
   @extend %ball;
 
+  // box-shadow: 2px 2px 5px $gray;
   height: $l-ball-ht;
   transition-duration: 280ms;
   visibility: hidden;
@@ -208,13 +207,12 @@ $a-trans-fill: fill 250ms ease;
   }
 
   // Horiz axis
-  @for $i from 4 through 6 {
+  @for $i from 4 through 7 {
 
     &:nth-of-type(#{$i}) {
       $o: $i - 3;
       $x: round($l-ball-ht * $o);
       $dur: 90ms + (80ms * $i);
-      @warn $o;
       transform: translate3d($x, 0, 0);
       transition: transform $dur $a-trans-timing-items, $a-trans-fill;
     }

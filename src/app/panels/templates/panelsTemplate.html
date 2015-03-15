@@ -2,39 +2,31 @@
 	<panel-seasons></panel-seasons>
 	<panel-features></panel-features>
 	<panel-trail></panel-trail>
-	<panel-about></panel-about>
-	<div class="panel__toggles clearfix">
+	<panel-help></panel-help>
+	<div class="panel__toggles clearfix" id="panel-toggles">
 		<a href="javascript:;" ng-click="vm.changePanel('seasons')" class="panel__toggle">
-			<span>
 				<svg viewBox="0 0 100 100" class="panel__toggle__icon">
 					<use xlink:href="#icon-sun"></use>
 				</svg>
 				<span class="panel__toggle__label">Seasons</span>
-			</span>
 		</a>
 		<a href="javascript:;" ng-click="vm.changePanel('features')" class="panel__toggle">
-			<span>
 				<svg viewBox="0 0 100 100" class="panel__toggle__icon">
 					<use xlink:href="#icon-map-pin"></use>
 				</svg>
 				<span class="panel__toggle__label">Features</span>
-			</span>
 		</a>
 		<a href="javascript:;" ng-click="vm.changePanel('trail')" class="panel__toggle">
-			<span>
 				<svg viewBox="0 0 100 100" class="panel__toggle__icon">
-					<use xlink:href="#icon-hiker"></use>
+					<use xlink:href="#icon-trail"></use>
 				</svg>
 				<span class="panel__toggle__label">SBHTrail</span>
-			</span>
 		</a>
-		<a href="javascript:;" ng-click="vm.changePanel('about')" class="panel__toggle">
-			<span>
+		<a href="javascript:;" ng-click="vm.changePanel('help')" class="panel__toggle">
 				<svg viewBox="0 0 100 100" class="panel__toggle__icon">
 					<use xlink:href="#icon-info"></use>
 				</svg>
-				<span class="panel__toggle__label">About</span>
-			</span>
+				<span class="panel__toggle__label">Help</span>
 		</a>
 	</div>
 </div>

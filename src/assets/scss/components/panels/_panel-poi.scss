@@ -1,0 +1,98 @@
+//// THE NAV VIEW \\\\
+$l-nav-icon-size: 3.5;
+
+%poi-toggles-nav__icon {
+  @include rem-fall(height, $l-nav-icon-size);
+  @include rem-fall(width, $l-nav-icon-size);
+  border-radius: 100%;
+  fill: $near-white;
+  padding: 5px;
+}
+
+.poi-toggles-nav {
+
+  // Features nav icon
+  &__icon-feat {
+    @extend %poi-toggles-nav__icon;
+    @extend %c-poi-toggles-icon--feat;
+  }
+
+  // Comm nav icon
+  &__icon-comm {
+    @extend %poi-toggles-nav__icon;
+    @extend %c-poi-toggles-icon--comm;
+  }
+
+  &__header {
+    color: $c-feat-pin-stroke;
+  }
+
+  &__link {
+
+    @include rem-fall(padding, .75, 0, .5);
+    cursor: pointer;
+    @extend %input-hover;
+
+  }
+
+}
+
+// The next arrows
+%icon-next {
+  @include rem-fall(font-size, $l-nav-icon-size * .75);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.icon-next-- {
+
+  &feat {
+    @extend %icon-next;
+    // color: desaturate(lighten($c-feat-pin-stroke, 25%), 15%);
+  }
+
+  &comm {
+    @extend %icon-next;
+    // color: desaturate(lighten($c-comm-pin-stroke, 25%), 15%);
+  }
+}
+
+//// THE TOGGLES \\\\
+$l-poi-toggle-icon-size: 2;
+
+%poi-toggle--icon {
+  @include rem-fall(height, $l-poi-toggle-icon-size);
+  @include rem-fall(width, $l-poi-toggle-icon-size);
+  border-radius: 100%;
+  fill: $near-white;
+}
+
+// Features
+%c-poi-toggles-icon--feat {
+  background-color: $c-feat-pin-bg;
+  border: solid 2px $c-feat-pin-stroke;
+}
+
+// Commercial
+%c-poi-toggles-icon--comm {
+  background-color: $c-comm-pin-bg;
+  border: solid 2px $c-comm-pin-stroke;
+}
+
+.poi-toggle {
+
+  &--feat {
+    &__icon {
+      @extend %poi-toggle--icon;
+      @extend %c-poi-toggles-icon--feat;
+    }
+  }
+
+  &--comm {
+    &__icon {
+      @extend %poi-toggle--icon;
+      @extend %c-poi-toggles-icon--comm;
+    }
+  }
+
+}

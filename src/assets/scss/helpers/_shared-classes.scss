@@ -1,0 +1,17 @@
+%input-hover {
+  background-color: transparent;
+  cursor: pointer;
+  transition: $a-bg-hover-transition;
+
+  &:hover {
+    background-color: $c-feat-toggle-nav-hover;
+  }
+}
+
+input + label {
+  @extend %input-hover;
+}
+
+input:checked + label {
+  background-color: $c-panel-checked-fill;
+}

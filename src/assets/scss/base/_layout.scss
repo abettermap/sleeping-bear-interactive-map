@@ -2,6 +2,8 @@ $container-spacing: 20px;
 $theme-padding: 30px;
 $gutter: 16px;
 
+$bg-pttn-url: '../../../../../themes/sleepingbear/images/background.jpg';
+
 .map {
   flex: 1;
 }
@@ -11,67 +13,60 @@ $gutter: 16px;
   display: flex;
   flex-direction: column;
   height: 100%;
-  position: relative;
+  left: 0;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
   width: 100%;
-
-  * {
-    box-sizing: border-box;
-    font-family: 'Average Sans', sans-serif;
-  }
-
-  input {
-    display: none;
-  }
-
 }
 
-// .map-wrapper.fullscreen {
-//   height: 100%;
-//   left: 0;
-//   margin: 0;
-//   position: fixed;
-//   top: 0;
-//   width: 100%;
-// }
-
 .controls {
+  box-shadow: 2px 2px 5px #808080;
   left: $container-spacing;
   position: absolute;
   top: $container-spacing;
 }
 
-$panel-toggle-padding: 10px;
-$panel-toggle-content-ht: 40px;
+$panel-toggle-padding: 0.8;
+$panel-toggle-content-ht: 2.8;
 $panel-toggle-ht: $panel-toggle-padding*2 + $panel-toggle-content-ht;
 
-$panel-width: 25%;
-$panel-inner-padding: 1em;
+$panel-width: 35%;
+$panel-inner-padding: 1;
 
 
 // PANELS
 .panel {
-  bottom: $panel-toggle-ht - $panel-toggle-padding;
+  $bottom: $panel-toggle-ht - $panel-toggle-padding;
+  @include rem-fall(bottom, $bottom);
+  background: url($bg-pttn-url);
+  box-shadow: 0 -5px 25px 0 $dark-gray;
   position: absolute;
   width: 100%;
   z-index: 1000001;
 
   @include mq($from: tablet) {
 
-    bottom: $panel-toggle-ht;
-    left: 0;
+    $bottom: $panel-toggle-content-ht + $panel-toggle-padding;
+    @include rem-fall(bottom, $bottom);
+    max-width: 400px; // looks silly in iPad portrait
+    min-width: 320px; // looks silly in iPad portrait
     width: $panel-width;
 
+    &:first-of-type {
+      left: 1%;
+    }
+
     &:nth-of-type(2) {
-      left: 25%;
+      left: 20%;
     }
 
     &:nth-of-type(3) {
-      left: 50%;
+      left: 45%;
     }
 
-    &:last-of-type {
-      left: auto;
-      right: 0;
+    &:nth-of-type(4) {
+      right: 1%;
     }
 
   }
@@ -81,6 +76,7 @@ $panel-inner-padding: 1em;
 
 // POPUPS
 .popup {
+  background: url($bg-pttn-url);
   box-shadow: 2px 2px 5px #808080;
   // height: 250px; // trans background on these looks cool
   position: absolute;
@@ -101,4 +97,13 @@ $panel-inner-padding: 1em;
     width: auto;
   }
 
+}
+
+.column-50 {
+  width: 50%;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
 }

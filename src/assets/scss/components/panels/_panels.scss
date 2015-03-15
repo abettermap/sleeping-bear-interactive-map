@@ -2,7 +2,6 @@ $big-radio-size: 75px;
 
 %panel__label {
   border-radius: 10px;
-  cursor: pointer;
   display: block;
   float: left;
   padding: 6px;
@@ -12,20 +11,20 @@ $big-radio-size: 75px;
 // SVG
 %panel__icon {
   display: block;
-  fill: darken($med-dull-blue, 5%);
+  fill: $c-panel-icon;
   width: 100%;
 }
 
 %panel__header {
-  background-color: lighten($green, 20%);
+  background-color: desaturate(lighten($green, 20%), 10%);
   color: $near-white;
-  font-size: 24px;
+  @include rem-fall(font-size, 1.5);
   margin: 0;
   padding: $gutter * .5 $gutter;
 }
 
 %panel__inner {
-  background: url('../../../../../themes/sleepingbear/images/background.jpg') center;
+  // background: url('../../../../../themes/sleepingbear/images/background.jpg') center;
   font-size: 1em;
   padding: $gutter;
 }
@@ -46,8 +45,6 @@ $big-radio-size: 75px;
 }
 
 .panel {
-
-  // Panel header (descendent to override theme)
   .panel__header {
     @extend %panel__header;
   }
@@ -66,37 +63,50 @@ $big-radio-size: 75px;
 .panel__inner .panel__descrip {
   clear: both;
   line-height: 1.65;
-  padding: 0 $gutter*.25 $gutter;
+  padding: 0 $gutter*.25;// $gutter;
 }
 
 .panel__toggles {
   background-color: $c-panel-toggle;
   box-shadow: 0 -2px 15px 0px;
+  display: flex;
   position: relative;
+}
+
+// Stupid override
+// a.panel__toggle {
+.panel__toggle {
+  color: $near-white;
 }
 
 .panel__toggle {
   background-color: $c-panel-toggle;
   border-left: solid darken($c-panel-toggle, 10%) 1px;
-  color: $near-white;
-  display: flex;
-  flex-direction: column;
-  float: left;
-  font-size: 1.6em;
-  padding: $panel-toggle-padding 0;
   text-align: center;
   text-decoration: none;
   text-shadow: 1px 1px 5px #222;
   width: 25%;
+
+  @include rem-fall(font-size, 1.3);
+  @include rem-fall(padding, $panel-toggle-padding, 0, $panel-toggle-padding, 0);
+
+  @include mq($from: tablet) {
+
+    $p: $panel-toggle-padding*.5;
+    // Less padding on bigger screens
+    @include rem-fall(padding, $p, 0, $p, 0);
+
+  }
+
 
   &:first-of-type {
     border-left: 0;
   }
 
   &:hover {
-    background-color: $primary-color;
+    background-color: $c-panel-toggle-hover;
     color: $near-white;
-    transition: $hover-transition;
+    transition: $a-bg-hover-transition;
   }
 
   &__label {
@@ -110,22 +120,33 @@ $big-radio-size: 75px;
   }
 
   &__icon {
+
+    $l-icon-size: $panel-toggle-content-ht * .75;
+
+    @include rem-fall(height, $l-icon-size);
+
+    @include rem-fall(width, $l-icon-size);
+
     display: inline-block;
     fill: $near-white;
-    height: $panel-toggle-content-ht * .75;
     margin-right: 5px;
     vertical-align: middle;
-    width: $panel-toggle-content-ht * .75;
 
     @include mq($from: tablet) {
+
+      $l-icon-p: .25;
+
+      @include rem-fall(padding, $l-icon-p, 0);
+
+      $l-icon-size-big: $panel-toggle-content-ht;
+
+      @include rem-fall(height, $l-icon-size-big);
+
+      @include rem-fall(width, $l-icon-size-big);
+
       fill: darken($c-panel-toggle, 30%);
-      height: $panel-toggle-content-ht;
-      width: $panel-toggle-content-ht;
+
     }
   }
 
-}
-
-.panel__descrip {
-  font-size: 1em;
 }

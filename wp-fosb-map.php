@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Sleeping Bear Heritage Trail Interactive Map
+Plugin Name: SBHT Interactive Map
 Plugin URI: http://abettermap.com/contact
 Description: An interactive map of the Sleeping Bear Heritage Trail, powered by Leaflet, CartoDB, and AngularJS.
 Version: 0.7.0
@@ -24,6 +24,13 @@ License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+    function remove_theme_switcher() {
+
+        remove_action('plugins_loaded', 'amts_start', 1);
+
+    }
+
+    add_action('wp_head', 'remove_theme_switcher', 1);
 
     function customfield_scripts_styles(){
 

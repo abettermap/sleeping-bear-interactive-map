@@ -16,4 +16,4 @@ module.exports = {
         tasks: ['concat:ng']
     }
 
-}
+};

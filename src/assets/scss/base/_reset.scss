@@ -1,33 +1,31 @@
 // Override theme's defaults
 
-// @include rem-fallback(margin, 10, 20, 30, 40);
+// @include rem-fall(margin, 10, 20, 30, 40);
 
 // For fuller fullscreen?
-html {
-  font-size: 15px;
+
+%full {
   height: 100%;
-  margin: 0;
-  overflow: hidden;
   width: 100%;
-
-  @include mq(tablet) {
-    font-size: 16px;
-  }
-
-  @include mq(desktop) {
-    font-size: 18px;
-  }
-
+}
+html {
+  @extend %full;
+  // height: calc(100% + 72px);
+  // overflow: hidden;
 }
 
 // Overflow on body
 body {
   -webkit-backface-visibility: hidden;
+  @extend %full;
+
 }
 
 // Even the header goes
+input,
 #header,
 .header,
+.footer,
 #access,
 .article-header,
 #rightcol,
@@ -60,7 +58,37 @@ body,
 
 // Hidden by default
 .entry {
-  overflow: visible;
+  // overflow: visible;
+}
+
+h1, h2, h3, h4, p {
+  @include rem-fall(margin, 0, 0, 1, 0);
+  padding: 0;
+}
+
+h3 {
+  @include rem-fall(margin, 0, 0, .3, 0);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+hr {
+  border: solid #aaa 1px;
+  border-width: 1px 0 0 0;
+  @include rem-fall(margin, .75, 0, 0);
+}
+
+label {
+  display: block;
+}
+
+p {
+  @include rem-fall(font-size, .75);
+  @include rem-fall(margin-bottom, .35);
+  line-height: 1.5;
 }
 
 // Attribution
@@ -76,8 +104,13 @@ body,
   bottom: 7px;
 }
 
-*:focus {
-  outline: none;
+* {
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+
 }
 
 // Clearfix (included in desktop theme, not mobile)

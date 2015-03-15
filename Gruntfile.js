@@ -57,6 +57,7 @@ module.exports = function(grunt) {
     // BUILD
     grunt.registerTask('build', [
         'copy',
+        // HTML MINIFY
         // 'concat:kioskScript',
         'uglify',
         // 'concat:kioskStyle',

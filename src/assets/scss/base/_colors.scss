@@ -14,18 +14,24 @@ $c-nav-menu: #a7dcec;
 // From the logo \\
 $sky-blue: rgb(134, 201, 233);
 // $paleblue: rgb(192, 229, 238);
-$near-black: rgb(15, 15, 16);
+// $near-black: rgb(15, 15, 16);
 $deep-blue: rgb(30, 60, 142);
 $green: rgb(62, 106, 43);
 $peach: rgb(252, 202, 138);
 $med-blue: rgb(70, 135, 195);
 $baby-puke: rgb(134, 128, 47);
 
+// Regular ol' colors \\
+$dark-gray: #808080;
+$gray: #808080;
+$near-black: #333;
+$near-white: #f9f9f9;
+
 // Primary colors \\
 $primary-color: $pale-blue;
+$c-font: $near-black;
 
 // My colors \\
-$near-white: #f9f9f9;
 
 // Map wrapper
 $c-map-wrap-box-shadow: desaturate($steely-blue, 14%);
@@ -34,12 +40,30 @@ $c-map-wrap-box-shadow: desaturate($steely-blue, 14%);
 $c-ball-color: lighten($med-blue, 14%);
 $c-icon-hover: darken($c-ball-color, 15%);
 
+///// PANELS \\\\\
+
 // Panel toggles
 $c-panel-toggle: $c-ball-color;
-$c-panel-checked-fill: lighten($steely-blue, 25%);
+$c-panel-icon: darken($med-dull-blue, 5%);
+$c-panel-toggle-hover: $primary-color;
+
+// Panel checked
+$c-panel-checked-fill: lighten($steely-blue, 30%);
 
 // Seasons
-$spring: #619e47;
+$spring: #5cb04f;
 $summer: #f4f286;
-$winter: $near-white;
-$fall: #bb2d2d;
+$winter: #59cce3;
+$fall: #d21414;
+
+// Features toggles -- map pins
+$c-feat-toggle-nav-arrow: $c-panel-icon;
+$c-features-icon: $green;
+$c-feat-toggle-nav-hover: $c-panel-checked-fill;
+
+// Features toggles -- map pins
+$c-feat-pin-bg: #934e7d;
+$c-comm-pin-bg: #fa981b;
+$c-feat-pin-stroke: darken($c-feat-pin-bg, 25%);
+$c-comm-pin-stroke: darken($c-comm-pin-bg, 25%);
+

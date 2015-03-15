@@ -1,24 +1,94 @@
+$a-bg-hover-transition: background-color 300ms ease;
+
 // READY THE ANIMATION LIBRARY! \\
-
 body {
-    -webkit-backface-visibility: hidden; // Addresses a small issue in webkit: http://bit.ly/NEdoDq
+  -webkit-backface-visibility: hidden; // Addresses a small issue in webkit: http://bit.ly/NEdoDq
 }
+
 .animated {
-    @include animate-prefixer(animation-duration, $base-duration);
-    @include animate-prefixer(animation-fill-mode, both);
+  @include animate-prefixer(animation-duration, $base-duration);
+  @include animate-prefixer(animation-fill-mode, both);
 
-    &.hinge {
-        @include animate-prefixer(animation-duration, $base-duration * 2);
+  &.hinge {
+    @include animate-prefixer(animation-duration, $base-duration * 2);
+  }
+}
+
+// PANELS - VERT \\
+.panel.ng-hide- {
+
+  &remove {
+    animation: .5s fadeInUp ease;
+  }
+
+  &add {
+    animation: .35s fadeOutDown ease;
+  }
+
+}
+
+.poi-toggles-view-cont {
+  @include rem-fall(height, 20);
+  overflow: hidden;
+  position: relative;
+}
+
+%l-poi-view-pos {
+  // height: 100%;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+$a-poi-trans-dur: .75s;
+
+.poi-toggle-view-- {
+
+  &nav {
+
+    // @include rem-fall(height, 20);
+    @extend %l-poi-view-pos;
+    // &.ng-animate {
+    //   @include rem-fall(height, 20);
+    //   // height: 100%;
+    //   position: absolute;
+    // }
+
+    // Coming in from the left: nav view
+    &.ng-enter {
+      animation: $a-poi-trans-dur slideInLeft ease;
     }
-}
 
-// PANELS \\
-.ng-hide-remove {
-  animation: .5s fadeInUp ease;
-}
+    // Nav view as it's leaving
+    &.ng-leave {
+      animation: $a-poi-trans-dur slideOutLeft ease;
+    }
 
-.ng-hide-add {
-  animation: .5s fadeOutDown ease;
-}
+  }
 
-// http://yearofmoo-articles.github.io/angularjs-animation-article/app/#/ng-show-hide
+  &page {
+    @extend %l-poi-view-pos;
+    // @include rem-fall(height, 20);
+    // // height: 100%;
+
+    // &.ng-animate {
+    //   // height: 100%;
+    //   @include rem-fall(height, 20);
+    //   position: absolute;
+    // }
+
+    // Coming in from the right: non-nav views
+    &.ng-enter {
+      animation: $a-poi-trans-dur slideInRight ease;
+    }
+
+    // Page view as it's leaving
+    &.ng-leave {
+      animation: $a-poi-trans-dur slideOutRight ease;
+    }
+
+  }
+
+}
