@@ -36,13 +36,29 @@ module.exports = {
     //     src: 'src/app/popups/templates/mapPopup.html',
     //     dest: 'build/src/app/popups/templates/mapPopup.html'
     // },
-    svg: {
+    mss: {
         cwd: 'src/',
         filter: 'isFile',
         flatten: true,
-        src: ['assets/img/svg/project/defs/fosb-svg-defs.svg'],
+        src: ['assets/spatial/carto-css/*.mss'],
+        expand: true,
+        dest: 'build/src/assets/spatial/carto-css/'
+    },
+    svgDefs: {
+        cwd: 'src/',
+        filter: 'isFile',
+        flatten: true,
+        src: ['assets/img/svg/project/defs/*.svg'],
         expand: true,
         dest: 'build/src/assets/img/svg/project/defs/'
+    },
+    svgMin: {
+        cwd: 'src/',
+        filter: 'isFile',
+        flatten: true,
+        src: ['assets/img/svg/project/min/*.svg'],
+        expand: true,
+        dest: 'build/src/assets/img/svg/project/min/'
     }//,
     // fastclick: {
     //     src: 'src/assets/js/vendor/fastclick.js',

@@ -6,9 +6,11 @@
         .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
-    PanelsCtrl.$inject = ['panelsFactory'];
+    PanelsCtrl.$inject = ['panelsFactory', '$scope'];
+    // PanelsCtrl.$inject = ['panelsFactory'];
 
-    function PanelsCtrl(panelsFactory){
+    function PanelsCtrl(panelsFactory, $scope){
+    // function PanelsCtrl(panelsFactory){
 
     	var vm = this;
 
@@ -18,8 +20,8 @@
         //////// PANELS \\\\\\\\
 
         // The active panel
-        vm.activePanel = 'features';
-        // vm.panel = ''; PUT BACK AFTER TESTING
+        vm.activePanel = '';
+        // vm.activePanel = 'features';
 
         vm.changePanel = function(panel){
 
@@ -37,18 +39,16 @@
 
         // Close Seasons panel when season is clicked
         vm.changeSeason = function(season){
-            vm.panel = '';
+            vm.activePanel   = '';
         };
 
         //////// POI VIEWS \\\\\\\\
         vm.poiTogglesViews = [
-            {id: 'nav', heading: 'Points of Interest'},
-            {id: 'feat', heading: 'Features'},
-            {id: 'comm', heading: 'Businesses'}
+            {classNm: 'never-show', id: 'nav', heading: 'Points of Interest'},
+            {classNm: 'panel__back', id: 'feat', heading: 'Features'},
+            {classNm: 'panel__back', id: 'comm', heading: 'Businesses'}
         ];
         vm.poiTogglesActiveView = vm.poiTogglesViews[0];
-        vm.poiTogglesHeader = 'Points of Interest';
-        // vm.poiTogglesActiveView = 'nav';
 
         // Change POI toggle view
         vm.changePoiView = function(view){

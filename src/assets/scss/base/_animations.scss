@@ -1,4 +1,5 @@
 $a-bg-hover-transition: background-color 300ms ease;
+$a-icon-fill-trans: fill 300ms ease;
 
 // READY THE ANIMATION LIBRARY! \\
 body {
@@ -29,12 +30,14 @@ body {
 
 .poi-toggles-view-cont {
   @include rem-fall(height, 20);
+  @include mq($from: tablet) {
+    height: 22rem;
+  }
   overflow: hidden;
   position: relative;
 }
 
 %l-poi-view-pos {
-  // height: 100%;
   bottom: 0;
   left: 0;
   position: absolute;
@@ -48,13 +51,8 @@ $a-poi-trans-dur: .75s;
 
   &nav {
 
-    // @include rem-fall(height, 20);
     @extend %l-poi-view-pos;
-    // &.ng-animate {
-    //   @include rem-fall(height, 20);
-    //   // height: 100%;
-    //   position: absolute;
-    // }
+    @extend %l-flex-column;
 
     // Coming in from the left: nav view
     &.ng-enter {
@@ -69,15 +67,8 @@ $a-poi-trans-dur: .75s;
   }
 
   &page {
-    @extend %l-poi-view-pos;
-    // @include rem-fall(height, 20);
-    // // height: 100%;
 
-    // &.ng-animate {
-    //   // height: 100%;
-    //   @include rem-fall(height, 20);
-    //   position: absolute;
-    // }
+    @extend %l-poi-view-pos;
 
     // Coming in from the right: non-nav views
     &.ng-enter {

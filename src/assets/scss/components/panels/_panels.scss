@@ -16,41 +16,47 @@ $big-radio-size: 75px;
 }
 
 %panel__header {
-  background-color: desaturate(lighten($green, 20%), 10%);
-  color: $near-white;
   @include rem-fall(font-size, 1.5);
+  background-color: $c-panel-header;
+  color: $near-white;
+  display: flex;
+  justify-content: space-between;
   margin: 0;
   padding: $gutter * .5 $gutter;
+  a {
+    line-height: 1em;
+    &:hover {
+      svg {
+        fill: darken($c-panel-header, 25%);
+        // pointer-events: none;
+      }
+    }
+  }
+  svg {
+    fill: $near-white;
+    height: 1em;
+    width: 1em;
+    vertical-align: middle;
+  }
 }
 
 %panel__inner {
-  // background: url('../../../../../themes/sleepingbear/images/background.jpg') center;
-  font-size: 1em;
+  @include rem-fall(font-size, 1);
   padding: $gutter;
 }
 
-%panel__close {
-  color: $near-white;
-  cursor: pointer;
-  display: inline-block;
-  float: right;
-  margin-right: -5px;
-  margin-top: 5px;
-
-  svg {
-    fill: $near-white;
-    height: 25px;
-    width: 25px;
-  }
-}
 
 .panel {
   .panel__header {
     @extend %panel__header;
   }
 
+  &__back {
+    margin-left: -5px;
+  }
+
   &__close {
-    @extend %panel__close;
+    margin-right: -5px;
   }
 
   &__inner {
@@ -68,7 +74,7 @@ $big-radio-size: 75px;
 
 .panel__toggles {
   background-color: $c-panel-toggle;
-  box-shadow: 0 -2px 15px 0px;
+  box-shadow: 0 -2px 15px 0;
   display: flex;
   position: relative;
 }

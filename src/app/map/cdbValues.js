@@ -2,6 +2,13 @@
 
     'use strict';
 
+    function getMss(css){
+        var elem = '#mss-' + css,
+            mss = $(elem).text();
+        return mss;
+    }
+
+
     angular
         .module('mapApp')
         .value('cdbValues',{
@@ -33,19 +40,19 @@
                     cartocss: "#sbht_caution{line-color:#F11810;line-width:3;}",
                     route: ''
                 },
-                {   // FEATURES
-                    sql: "SELECT the_geom_webmercator, cartodb_id FROM features",
-                    cartocss: "#nps_poi_giscloud{marker-fill:#A6CEE3;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
-                    interactivity: 'cartodb_id',
-                    route: 'features',
-                    table: 'nps_poi_giscloud'
-                },
                 {   // COMMERCIAL
                     sql: "SELECT the_geom_webmercator, cartodb_id FROM commercial",
                     cartocss: "#trail_pix_digitize{marker-fill:orange;marker-placement:point;marker-type:ellipse;marker-width:17.5;marker-allow-overlap:true;}",
                     interactivity: 'cartodb_id',
                     route: 'commercial',
                     table: 'commercial'
+                },
+                {   // FEATURES
+                    sql: "SELECT the_geom_webmercator, name, cartodb_id, type FROM features",
+                    cartocss: getMss('feat'),
+                    interactivity: 'cartodb_id',
+                    route: 'features',
+                    table: 'nps_poi_giscloud'
                 },
             ]
 

@@ -23,10 +23,6 @@ $l-nav-icon-size: 3.5;
     @extend %c-poi-toggles-icon--comm;
   }
 
-  &__header {
-    color: $c-feat-pin-stroke;
-  }
-
   &__link {
 
     @include rem-fall(padding, .75, 0, .5);
@@ -63,8 +59,12 @@ $l-poi-toggle-icon-size: 2;
 %poi-toggle--icon {
   @include rem-fall(height, $l-poi-toggle-icon-size);
   @include rem-fall(width, $l-poi-toggle-icon-size);
+  @include rem-fall(padding, .2);
   border-radius: 100%;
   fill: $near-white;
+  margin-right: 5px;
+  // margin-bottom: 3px;
+
 }
 
 // Features
@@ -95,4 +95,11 @@ $l-poi-toggle-icon-size: 2;
     }
   }
 
+  &__label {
+    display: flex;
+    @include rem-fall(padding, .25);
+    span {
+      @include rem-fall(margin-top, .4);
+    }
+  }
 }

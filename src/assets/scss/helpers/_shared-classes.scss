@@ -15,3 +15,43 @@ input + label {
 input:checked + label {
   background-color: $c-panel-checked-fill;
 }
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-around;
+}
+
+.flex-vert {
+  display: flex;
+  flex-direction: column;
+}
+
+%l-flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+%icon-sm--white {
+  @include rem-fall(height, 1.8);
+  @include rem-fall(width, 1.8);
+  fill: $near-white;
+  transition: $a-icon-fill-trans;
+  vertical-align: text-bottom;
+}
+
+// .vert-align {
+//   // transform-style: preserve-3d;
+// }
+
+// .vert-align  {
+//   position: relative;
+//   top: 50%;
+//   transform: translateY(-50%);
+// }
+

@@ -42,6 +42,9 @@ $c-icon-hover: darken($c-ball-color, 15%);
 
 ///// PANELS \\\\\
 
+// Panel header
+$c-panel-header: desaturate(lighten($green, 20%), 10%);
+
 // Panel toggles
 $c-panel-toggle: $c-ball-color;
 $c-panel-icon: darken($med-dull-blue, 5%);

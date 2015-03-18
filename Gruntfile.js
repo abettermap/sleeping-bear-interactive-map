@@ -56,6 +56,7 @@ module.exports = function(grunt) {
 
     // BUILD
     grunt.registerTask('build', [
+        'combine-svg',
         'copy',
         // HTML MINIFY
         // 'concat:kioskScript',

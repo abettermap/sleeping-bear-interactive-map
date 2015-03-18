@@ -21,13 +21,13 @@
         };
 
         var leafletDefaults = {
-            
+
             attribution: false,
-            center: [44.88652,-86.00544],
+            // center: [44.88652,-86.00544],
             zoom: 12,
             zoomControl: false,
             layers: tileLayers.terrain
-            
+
         };
 
         var mapFactory = {
@@ -35,10 +35,21 @@
             map: map,
             leafletDefaults: leafletDefaults,
             tileLayers: tileLayers,
+            zoomHome: zoomHome,
         };
+
+        function zoomHome(map){
+            var empireBeach = L.latLng(44.8123, -86.0681),
+                portOneida = L.latLng(44.9394, -85.9374);
+            map.fitBounds([
+                [empireBeach],
+                [portOneida]
+            ]);
+        }
 
         function createMap(){
             mapFactory.map = L.map('map', leafletDefaults);
+            mapFactory.zoomHome(mapFactory.map);
             return mapFactory.map;
         }
 

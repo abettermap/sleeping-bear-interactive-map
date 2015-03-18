@@ -180,9 +180,7 @@ $a-trans-fill: fill 250ms ease;
   width: 50px;
 
   &:hover {
-    @include mq($from: desktop) {
-      fill: $c-icon-hover;
-    }
+    fill: $c-icon-hover;
   }
 
 }

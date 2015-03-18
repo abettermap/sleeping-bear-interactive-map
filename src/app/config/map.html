@@ -1,5 +1,11 @@
 <div ng-app="mapApp" class="map-wrapper">
-	<div class="never-show" ng-include="vm.svgPath('assets/img/svg/project/defs/fosb-svg-defs.svg')"></div>
+  <span id="mss-feat" class="never-show">
+      <?php
+        $contents = file_get_contents( plugins_url() . '/wp-fosb-map/src/assets/spatial/carto-css/sbht-features.mss');
+        echo $contents;
+      ?>
+  </span>
+  <div class="never-show" ng-include="vm.svgPath('assets/img/svg/project/defs/fosb-svg-defs.svg')"></div>
 	<!-- <div class="map-wrapper" id="map-wrapper"> -->
     <interactive-map></interactive-map>
     <panels></panels>

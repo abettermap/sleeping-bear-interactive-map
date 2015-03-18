@@ -34,6 +34,13 @@
 
         vm.zoomOut = ctrlsFactory.zoomOut;
 
+        vm.currentZoom = ctrlsFactory.getZoom();
+        vm.getZoom = function(){
+            vm.currentZoom = ctrlsFactory.getZoom();
+        }
+
+
+
         // vm.changeTiles = ctrlsFactory.changeTiles;
         vm.changeTiles = function(){
 
@@ -44,13 +51,11 @@
             vm.showAerial = !vm.showAerial;
 
             if (vm.showAerial) {
-                console.log("showAerial true");
                 vm.bgId = '#icon-mountain';
                 map.removeLayer(tileLayers.terrain);
                 map.addLayer(tileLayers.aerial);
                 tileLayers.aerial.bringToBack();
             } else {
-                console.log("showAerial false");
                 vm.bgId = '#icon-tree';
                 map.removeLayer(tileLayers.aerial);
                 map.addLayer(tileLayers.terrain);

@@ -15,7 +15,7 @@
         var map = mapFactory.map;
 
         var ctrlsFactory = {
-            // changeTiles: changeTiles,
+            getZoom: getZoom,
             fullScreen: fullScreen,
             locate: locate,
             map: map,
@@ -24,6 +24,10 @@
             zoomIn: zoomIn,
             zoomOut: zoomOut,
         };
+
+        function getZoom(){
+            return mapFactory.map.getZoom();
+        }
 
         function zoomIn(){
             map.zoomIn();
@@ -34,13 +38,7 @@
         }
 
         function zoomHome(){
-            var southWest = L.latLng(44.82641, -86.07977),
-                northEast = L.latLng(44.94245, -85.93695),
-                bounds = L.latLngBounds(southWest, northEast);
-            map.fitBounds([
-                [southWest],
-                [northEast]
-            ]);
+            mapFactory.zoomHome(map);
         }
 
         function locate(){
