@@ -1,3 +1,4 @@
+/* INPUTS */
 %input-hover {
   background-color: transparent;
   cursor: pointer;
@@ -14,8 +15,10 @@ input + label {
 
 input:checked + label {
   background-color: $c-panel-checked-fill;
+  border-radius: 10px;
 }
 
+/* FLEXEH */
 .flex {
   display: flex;
   justify-content: space-around;
@@ -37,6 +40,7 @@ input:checked + label {
   justify-content: space-around;
 }
 
+/* SVG ICONS */
 %icon-sm--white {
   @include rem-fall(height, 1.8);
   @include rem-fall(width, 1.8);
@@ -45,13 +49,63 @@ input:checked + label {
   vertical-align: text-bottom;
 }
 
-// .vert-align {
-//   // transform-style: preserve-3d;
-// }
 
-// .vert-align  {
-//   position: relative;
-//   top: 50%;
-//   transform: translateY(-50%);
-// }
+/* HALF-WIDTH COLUMNS */
+.column-50 {
+  float: left;
+  width: 49%;
 
+  &:first-of-type {
+    margin-right: 2%;
+  }
+}
+
+/* PANELS/POPUPS */
+%panel__label {
+  border-radius: 10px;
+  display: block;
+  float: left;
+  padding: 6px;
+  text-align: center;
+}
+
+// SVG
+%panel__icon {
+  display: block;
+  fill: $c-panel-icon;
+  width: 100%;
+}
+
+%panel__header {
+  $l-panel-header-ht: 1.5rem;
+  color: $near-white;
+  font-size: $l-panel-header-ht;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+  padding: .5rem 1rem;
+
+  a {
+    font-size: inherit;
+    // &:hover {
+      // svg:first-of-type {
+      //   // fill: darken($c-panel-header, 25%);
+      //   pointer-events: none;
+      // }
+    // }
+  }
+  svg {
+    fill: $near-white;
+    height: $l-panel-header-ht + .2rem;
+    width: $l-panel-header-ht + .2rem;
+    transition: $a-icon-fill-trans;
+    vertical-align: bottom;
+  }
+}
+
+%panel__inner {
+  font-size: 1rem;
+  padding: $gutter;
+}

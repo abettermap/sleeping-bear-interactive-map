@@ -54,17 +54,16 @@ $l-nav-icon-size: 3.5;
 }
 
 //// THE TOGGLES \\\\
-$l-poi-toggle-icon-size: 2;
+$l-poi-toggle-icon-size: 2rem;
 
 %poi-toggle--icon {
-  @include rem-fall(height, $l-poi-toggle-icon-size);
-  @include rem-fall(width, $l-poi-toggle-icon-size);
-  @include rem-fall(padding, .2);
-  border-radius: 100%;
+  // height: $l-poi-toggle-icon-size;
+  height: 100%;
+  // width: $l-poi-toggle-icon-size;
+  padding: .2rem;
+  border-radius: 25px;
   fill: $near-white;
-  margin-right: 5px;
-  // margin-bottom: 3px;
-
+  margin-right: 10px;
 }
 
 // Features
@@ -95,11 +94,22 @@ $l-poi-toggle-icon-size: 2;
     }
   }
 
+  $l-label-padding: .3rem;
+  $l-label-ht: $l-poi-toggle-icon-size + $l-label-padding*2;
+
   &__label {
+    align-items: center;
     display: flex;
-    @include rem-fall(padding, .25);
+    flex-direction: row;
+    font-size: .95rem;
+    height: $l-label-ht;
+    justify-content: flex-start;
+    line-height: 1;
+    margin-bottom: .4rem;
+    padding: $l-label-padding .4rem;
+
     span {
-      @include rem-fall(margin-top, .4);
+      width: 60%;
     }
   }
 }

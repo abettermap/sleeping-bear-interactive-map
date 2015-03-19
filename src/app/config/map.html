@@ -1,7 +1,13 @@
 <div ng-app="mapApp" class="map-wrapper">
-  <span id="mss-feat" class="never-show">
+  <span id="mss-features" class="never-show">
       <?php
         $contents = file_get_contents( plugins_url() . '/wp-fosb-map/src/assets/spatial/carto-css/sbht-features.mss');
+        echo $contents;
+      ?>
+  </span>
+  <span id="mss-lines" class="never-show">
+      <?php
+        $contents = file_get_contents( plugins_url() . '/wp-fosb-map/src/assets/spatial/carto-css/sbht-lines.mss');
         echo $contents;
       ?>
   </span>

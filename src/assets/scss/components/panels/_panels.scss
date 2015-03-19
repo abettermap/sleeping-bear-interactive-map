@@ -1,54 +1,7 @@
-$big-radio-size: 75px;
-
-%panel__label {
-  border-radius: 10px;
-  display: block;
-  float: left;
-  padding: 6px;
-  text-align: center;
-}
-
-// SVG
-%panel__icon {
-  display: block;
-  fill: $c-panel-icon;
-  width: 100%;
-}
-
-%panel__header {
-  @include rem-fall(font-size, 1.5);
-  background-color: $c-panel-header;
-  color: $near-white;
-  display: flex;
-  justify-content: space-between;
-  margin: 0;
-  padding: $gutter * .5 $gutter;
-  a {
-    line-height: 1em;
-    &:hover {
-      svg {
-        fill: darken($c-panel-header, 25%);
-        // pointer-events: none;
-      }
-    }
-  }
-  svg {
-    fill: $near-white;
-    height: 1em;
-    width: 1em;
-    vertical-align: middle;
-  }
-}
-
-%panel__inner {
-  @include rem-fall(font-size, 1);
-  padding: $gutter;
-}
-
-
 .panel {
   .panel__header {
     @extend %panel__header;
+    background-color: $c-panel-header;
   }
 
   &__back {

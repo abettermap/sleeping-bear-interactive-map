@@ -6,11 +6,9 @@
         .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
-    PanelsCtrl.$inject = ['panelsFactory', '$scope'];
-    // PanelsCtrl.$inject = ['panelsFactory'];
+    PanelsCtrl.$inject = ['panelsFactory'];
 
-    function PanelsCtrl(panelsFactory, $scope){
-    // function PanelsCtrl(panelsFactory){
+    function PanelsCtrl(panelsFactory){
 
     	var vm = this;
 
@@ -44,9 +42,9 @@
 
         //////// POI VIEWS \\\\\\\\
         vm.poiTogglesViews = [
-            {classNm: 'never-show', id: 'nav', heading: 'Points of Interest'},
-            {classNm: 'panel__back', id: 'feat', heading: 'Features'},
-            {classNm: 'panel__back', id: 'comm', heading: 'Businesses'}
+            {icon: '#icon-map-pin', id: 'nav', heading: 'Points of Interest'},
+            {icon: '#icon-back', id: 'feat', heading: 'Features'},
+            {icon: '#icon-back', id: 'comm', heading: 'Businesses'}
         ];
         vm.poiTogglesActiveView = vm.poiTogglesViews[0];
 

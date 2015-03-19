@@ -4,7 +4,7 @@ $l-spacing-y: .85em;
 .panel__label--seasons {
 
   border-radius: 10px;
-
+  width: 23%;
   &:hover {
     border-radius: 10px;
   }
@@ -46,4 +46,6 @@ $l-spacing-y: .85em;
 // The keeper of the seasons
 .seasons-container {
   display: flex;
+  justify-content: space-between;
+  margin: 1.5rem 0 4rem;
 }

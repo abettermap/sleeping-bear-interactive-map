@@ -1,6 +1,3 @@
-$a-bg-hover-transition: background-color 300ms ease;
-$a-icon-fill-trans: fill 300ms ease;
-
 // READY THE ANIMATION LIBRARY! \\
 body {
   -webkit-backface-visibility: hidden; // Addresses a small issue in webkit: http://bit.ly/NEdoDq
@@ -31,7 +28,7 @@ body {
 .poi-toggles-view-cont {
   @include rem-fall(height, 20);
   @include mq($from: tablet) {
-    height: 22rem;
+    height: 25rem;
   }
   overflow: hidden;
   position: relative;
@@ -52,7 +49,6 @@ $a-poi-trans-dur: .75s;
   &nav {
 
     @extend %l-poi-view-pos;
-    @extend %l-flex-column;
 
     // Coming in from the left: nav view
     &.ng-enter {

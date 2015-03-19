@@ -5,16 +5,18 @@
 @import 'helpers/mixins';
 @import 'helpers/missing-animations';
 
+// SHARED \\
+@import 'base/colors';
+@import 'helpers/layout-variables';
+@import 'helpers/animation-variables';
+@import 'helpers/shared-classes';
+
 // BASE \\
 @import 'base/animations';
 @import 'base/breakpoints';
-@import 'base/colors';
 @import 'base/layout';
 @import 'base/reset';
 @import 'base/typography';
-
-// SHARED CLASSES \\
-@import 'helpers/shared-classes';
 
 // COMPONENTS \\
 @import 'components/components';

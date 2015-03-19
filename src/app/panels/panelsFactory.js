@@ -20,10 +20,10 @@
             {checked: true, id: '#icon-historic', text: 'Historic Areas'},
             {checked: true, id: '#icon-bench', text: 'Benches & Tables'},
             {checked: true, id: '#icon-beach', text: 'Beaches'},
-            {checked: true, id: '#icon-trail', text: 'Hiking Trails'},
-            {checked: true, id: '#icon-comm-svc', text: 'Community Services'},
+            {checked: true, id: '#icon-trail', text: 'Hiking\nTrails'},
+            {checked: true, id: '#icon-comm-svc', text: 'Community\nServices'},
             {checked: true, id: '#icon-sign', text: 'Signs & Mileposts'},
-            {checked: true, id: '#icon-bike-park', text: 'Bicycle Parking'},
+            {checked: true, id: '#icon-bike-park', text: 'Bicycle\nParking'},
             {checked: true, id: '#icon-other-feat', text: 'Other'}
         ];
 

@@ -16,7 +16,11 @@
   .popup__header {
 
     @extend %panel__header;
-
+    // no cursor over first icon
+    padding: .5rem;
+    a:first-of-type {
+      pointer-events: none;
+    }
     background-color: darken($pink, 20%);
 
   }
@@ -29,6 +33,11 @@
 
   &__inner {
 
+    h2 {
+      color: $c-panel-icon;
+      border-bottom: dashed $c-panel-icon 1px;
+      padding-bottom: .5rem;
+    }
     @extend %panel__inner;
 
   }

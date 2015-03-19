@@ -36,13 +36,13 @@
                 })
                 .state('home.features', {
                     url: 'features/:id/:mile',
-                    templateUrl: basePath.url('app/popups/templates/nps-poi-template.html'),
+                    templateUrl: basePath.url('app/popups/templates/popup.poi.html'),
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
                         features: ['$http', '$stateParams', function($http, $stateParams) {
 
-                            var columns = 'cartodb_id, type, name FROM features ',
+                            var columns = 'cartodb_id, type, mile, name FROM features ',
                                 query = queryPrefix + columns + midString + $stateParams.id;
 
                             return $http.get(query).then(function(response){

@@ -81,14 +81,22 @@ hr {
   @include rem-fall(margin, .75, 0, 0);
 }
 
+img {
+  max-width: 100%;
+}
+
 label {
   display: block;
 }
 
 p {
-  @include rem-fall(font-size, .75);
-  @include rem-fall(margin-bottom, .35);
+  font-size: 0.85rem;
   line-height: 1.5;
+  margin-bottom: .5rem;
+}
+
+small {
+  font-size: .7rem;
 }
 
 // Attribution

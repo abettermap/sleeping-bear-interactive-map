@@ -6,17 +6,22 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$scope', '$stateParams', 'features'];
+    PopupCtrl.$inject = ['$scope', '$stateParams', 'features', 'basePath', 'popupFactory'];
 
-    function PopupCtrl($scope, $stateParams, features){
+    function PopupCtrl($scope, $stateParams, features, basePath, popupFactory){
 
         var vm = this;
 
         vm.id = $stateParams.id;
         vm.mile = $stateParams.mile;
-
+        vm.svgPath = basePath.url;
         vm.features = features.rows[0];
+        console.log(vm.features);
+        vm.imgSrc = vm.svgPath('assets/img/raster/SBHT_6077.JPG');
         vm.tableName = null;
+        vm.featTypes = popupFactory.featTypes;
+        vm.currentUrl = window.location.href;
+        console.log(vm.featTypes);
 
     }
 
