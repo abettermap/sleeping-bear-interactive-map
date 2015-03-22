@@ -1,21 +1,72 @@
 /* INPUTS */
 %input-hover {
-  background-color: transparent;
-  cursor: pointer;
-  transition: $a-bg-hover-transition;
+  // background-color: transparent;
+  transition: $a-all-hover-transition;
 
   &:hover {
     background-color: $c-feat-toggle-nav-hover;
+    color: $near-black;
   }
 }
 
-input + label {
-  @extend %input-hover;
+/* PANEL & POPUP INPUTS */
+%panel-popup {
+  background: url($bg-pttn-url);
+  box-shadow: 0 -5px 25px 0 $dark-gray;
+  position: absolute;
+  width: 100%;
+  z-index: 1000001;
 }
 
-input:checked + label {
-  background-color: $c-panel-checked-fill;
-  border-radius: 10px;
+.panel, .popup {
+
+  @extend %panel-popup;
+
+  /* Unchecked labels */
+  input + label {
+    background-color: $c-panel-unchecked-fill;
+    border-radius: 10px;
+    border: solid $c-panel-unchecked-border 1px;
+    color: $c-panel-unchecked-text;
+    @extend %input-hover;
+  }
+
+  /* Checked labels */
+  input:checked + label {
+    background-color: $c-panel-checked-fill;
+    border: solid $c-panel-checked-border 1px;
+    border-radius: 10px;
+    color: $c-panel-checked-text;
+  }
+
+}
+
+.btn {
+  align-items: center;
+  // display: block;
+  box-shadow: 1px 1px 5px $gray;
+  justify-content: center;
+  background-color: $med-blue;
+  border-radius: 8px;
+  // clear: both;
+  // flex-grow: 2;
+  display: flex;
+  padding: $l-btn-padding;
+  margin: .4rem auto 0;
+  // text-align: center;
+  color: $near-white;
+  font-size: 1rem;
+  text-transform: uppercase;
+  // max-width: 285px;
+  transition: $a-all-hover-transition;
+  width: 50%;
+  &:hover {
+    background-color: darken($med-blue, 12%);
+  }
+  svg {
+    @extend %icon-sm--white;
+    margin-right: .5rem;
+  }
 }
 
 /* FLEXEH */
@@ -76,8 +127,9 @@ input:checked + label {
   width: 100%;
 }
 
+
+
 %panel__header {
-  $l-panel-header-ht: 1.5rem;
   color: $near-white;
   font-size: $l-panel-header-ht;
   align-items: center;
@@ -107,5 +159,5 @@ input:checked + label {
 
 %panel__inner {
   font-size: 1rem;
-  padding: $gutter;
+  padding: $l-panel-inner-padding;
 }

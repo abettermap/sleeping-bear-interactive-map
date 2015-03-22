@@ -1,17 +1,75 @@
 .map {
-  flex: 1;
+  height: calc(100% - #{$panel-toggle-ht} + .1rem);
 }
 
 // MAP WRAP
 .map-wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  overflow: hidden;
+  box-shadow: 0 0 25px $gray;
+  // height: 100vh;
+  position: fixed;
   top: 0;
+  bottom: 0;
   width: 100%;
+  // display: flex;
+  // flex-direction: column;
+  // left: 25px;
+  // right: 25px;
+  // transition: all 300ms ease;
+
+  /* iPads (portrait) ----------- */
+  @media all and (device-width: 768px) and (device-height: 1024px) and (orientation: portrait) {
+    &.ipad {
+      height: 958px;
+    }
+  }
+
+  /* iPads (landscape) ----------- */
+  @media all and (device-width: 768px) and (device-height: 1024px) and (orientation: landscape) {
+    &.ipad {
+      height: 702px;
+    }
+  }
+
+  /** iPhone 4 */
+  @media all and (device-width: 320px) and (device-height: 480px) { //and (orientation:portrait){
+    &.iphone {
+      height: 374px;
+    }
+  }
+
+  /** iPhone 5 */
+  @media all and (device-width: 320px) and (device-height: 568px) { // and (orientation:portrait){
+    &.iphone {
+      height: 460px;
+    }
+  }
+
+  /** iPhone 6 */
+  @media all and (device-width: 375px) and (device-height: 667px) { // and (orientation:portrait){
+    &.iphone {
+      height: 559px;
+    }
+  }
+
+  /** iPhone 6 Plus */
+  @media all and (device-width: 414px) and (device-height: 736px) { // and (orientation:portrait){
+    &.iphone {
+      height: 628px;
+    }
+  }
+
+}
+
+.page-header {
+  text-align: center;
+  h1 {
+    // margin-bottom: 0;
+  }
+  p {
+    color: $gray;
+    font-size: 1.4rem;
+    margin: .5rem 0;
+  }
 }
 
 .controls {
@@ -23,13 +81,18 @@
 
 // PANELS
 .panel {
-  @extend %panel-popup;
-  $bottom: $panel-toggle-ht - $panel-toggle-padding;
-  bottom: $bottom*1rem;
-  @include mq($from: big-mobile) {
+  $bottom: 3.3rem;//$panel-toggle-content-ht + .1rem;//$l-panel-bottom - $panel-toggle-padding;
+  bottom: $bottom;
+  // height: calc(100% - #{$bottom});
+  top: 0;
 
-    $bottom: $panel-toggle-content-ht + $panel-toggle-padding;
-    bottom: $bottom;
+  @include mq($from: tablet) {
+
+    // $bottom: $panel-toggle-content-ht + $panel-toggle-padding;
+    // $bottom: $panel-toggle-content-ht + $panel-toggle-padding;
+    // bottom: $bottom;
+    height: $l-panel-ht;
+    top: auto;
     width: 375px;
 
     &:first-of-type {
@@ -55,7 +118,6 @@
 
 // POPUPS
 .popup {
-  @extend %panel-popup;
   // height: 250px; // trans background on these looks cool
   right: $container-spacing;
   top: $container-spacing;

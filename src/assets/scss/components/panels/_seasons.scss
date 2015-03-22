@@ -1,17 +1,108 @@
-$l-spacing-x: 6%;
-$l-spacing-y: .85em;
+/* SEASONS LABELS */
 
-.panel__label--seasons {
+/* Inner seasons panel (delete class if doing flex on all panel__inner's) */
+
+.panel__inner--seasons {
+  // justify-content: stretch;
+  // align-items: flex-start;
+  display: flex;
+  align-content: space-between;
+  // flex-direction: column;
+  // flex-wrap: wrap;
+  flex-flow: row wrap;
+  // height: 100%;
+  p {
+    // flex: 1 30%;
+    // margin-bottom: 0;
+  }
+  small {
+    align-self: flex-end;
+  }
+  bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 2.8rem;
+    // top: $l-panel-header-ht + $l-panel-inner-padding + 1rem; //1 rem = 2x padding in %panel__header
+}
+
+// The keeper of the seasons
+.seasons-container {
+  // flex-wrap: wrap;
+  display: flex;
+  flex-flow: row wrap;
+  // flex: auto 70%;
+  // flex-direction: column;
+  // align-content: space-between;
+  // margin: 1.5rem 0 4rem;
+}
+
+/* All labels */
+.label--seasons {
 
   border-radius: 10px;
-  width: 23%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  // width: 2;
+  // flex-grow: 2;
+  // float: left;
+  // order: 1  ;
+  // flex: 1 0 0; // so close!
+  flex: auto;
+  margin: 0 .7rem;
+  // height: 75px;
+  // width: 30px;
   &:hover {
     border-radius: 10px;
+
+    .spring {
+      fill: $spring;
+    }
+
+    .summer {
+      fill: $summer;
+    }
+
+    .fall {
+      fill: $fall;
+    }
+
+    .winter {
+      fill: $winter;
+    }
+
+  }
+  svg {
+    // display: none;
+    pointer-events: none;
+    fill: $c-panel-icon;
+    transition: $a-icon-fill-trans;
+    // height: 30px;
+    height: 3.4rem;
+    width: 3.4rem;
   }
 
 }
 
-.panel__radio:checked + .panel__label--seasons {
+/* Individual */
+input:checked + .label--seasons {
+
+  flex: 1 100%;
+  // width: 100%;
+  flex-flow: row nowrap;
+  margin-top: .7rem;
+  order: 4;
+    font-size: 2rem;
+
+  svg {
+    fill: $c-panel-icon;
+    height: 4rem;
+    width: 4rem;
+    margin-right: 0.5rem;
+    // width: 20%;
+  }
 
   .spring {
     fill: $spring;
@@ -34,18 +125,11 @@ $l-spacing-y: .85em;
 .panel__icon {
 
   border-radius: 10px;
-  display: block;
-  fill: $c-panel-icon;
-  height: 100%;
-  padding: 5px;
+  // display: block;
+  // height: 100%;
+  // padding: 5px;
   pointer-events: none;
-  width: 100%;
+  // width: 100%;
 
 }
 
-// The keeper of the seasons
-.seasons-container {
-  display: flex;
-  justify-content: space-between;
-  margin: 1.5rem 0 4rem;
-}

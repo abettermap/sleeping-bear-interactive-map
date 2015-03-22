@@ -10,16 +10,22 @@
         <a class="controls__menu-item" href="javascript:;"></a>
         <a class="controls__menu-item" href="javascript:;"></a>
     </div>
-    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.zoomHome()">
-        <title>Zoom to initial extent</title>
+    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.zoomHome()">
+        <span>Zoom to initial extent</span>
+    </a>
+    <svg class="controls__icon" viewBox="0 0 100 100">
         <use xlink:href="#icon-zoom-home"></use>
     </svg>
-    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.zoomIn()">
-        <title>Zoom in</title>
+    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.zoomIn()">
+        <span>Zoom in</span>
+    </a>
+    <svg class="controls__icon" viewBox="0 0 100 100">
         <use xlink:href="#icon-zoom-in"></use>
     </svg>
-    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.zoomOut()">
-        <title>Zoom out</title>
+    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.zoomOut()">
+        <span>Zoom out</span>
+    </a>
+    <svg class="controls__icon" viewBox="0 0 100 100">
         <use xlink:href="#icon-zoom-out"></use>
     </svg>
     <div class="filter-container-x">
@@ -27,16 +33,22 @@
         <a class="controls__menu-item" href="javascript:;"></a>
         <a class="controls__menu-item" href="javascript:;"></a>
     </div>
-    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.changeTiles()">
-        <title>Zoom to previous extent</title>
+    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.changeTiles()">
+        <span>Zoom to previous extent</span>
+    </a>
+    <svg class="controls__icon" viewBox="0 0 100 100">
         <use xlink:href="#icon-back"></use>
     </svg>
-    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.locate()">
-        <title>Zoom to current location via GPS</title>
+    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.locate()">
+        <span>Zoom to current location via GPS</span>
+    </a>
+    <svg class="controls__icon" viewBox="0 0 100 100">
         <use xlink:href="#icon-locate"></use>
     </svg>
-    <svg class="controls__icon" viewBox="0 0 100 100" ng-click="vm.changeTiles()">
-        <title>Change background</title>
+    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.changeTiles()">
+        <span>Change background</span>
+    </a>
+    <svg class="controls__icon" viewBox="0 0 100 100">
         <use ng-attr-xlink:href="{{vm.bgId}}" xlink:href=""></use>
     </svg>
     <!-- <p style="position: absolute; left: 50px; font-size: 32px;" ng-click="vm.getZoom()">{{vm.currentZoom}}</p> -->

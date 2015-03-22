@@ -24,7 +24,7 @@
 
             attribution: false,
             // center: [44.88652,-86.00544],
-            zoom: 12,
+            // zoom: 12,
             zoomControl: false,
             layers: tileLayers.terrain
 
@@ -40,14 +40,37 @@
 
         function zoomHome(map){
             var empireBeach = L.latLng(44.8123, -86.0681),
-                portOneida = L.latLng(44.9394, -85.9374);
+                portOneida = L.latLng(44.9394, -85.9374),
+                center = L.latLng(44.87585, -86.00275);
             map.fitBounds([
                 [empireBeach],
                 [portOneida]
             ]);
+            // map.panTo(center);
         }
 
         function createMap(){
+
+
+            // Height of map-wrapper = screen height
+            var screenHt = $(window).height();
+            // alert(screenHt);
+
+            // Unless it's an iPhone...
+            if (navigator.userAgent.match(/iPhone/i)){
+                // screenHt = screenHt + 72;
+                // $('#map-wrapper').css("height",screenHt);
+                // if
+                $('#map-wrapper').addClass('iphone');
+            }
+
+            // iPad
+            if (navigator.userAgent.match(/iPad/i)){
+                // screenHt = screenHt + 72;
+                // $('#map-wrapper').css("height",screenHt);
+                $('#map-wrapper').addClass('ipad');
+            }
+
             mapFactory.map = L.map('map', leafletDefaults);
             mapFactory.zoomHome(mapFactory.map);
             return mapFactory.map;

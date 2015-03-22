@@ -1,4 +1,4 @@
-<div ng-app="mapApp" class="map-wrapper">
+<div ng-app="mapApp">
   <span id="mss-features" class="never-show">
       <?php
         $contents = file_get_contents( plugins_url() . '/wp-fosb-map/src/assets/spatial/carto-css/sbht-features.mss');
@@ -12,12 +12,16 @@
       ?>
   </span>
   <div class="never-show" ng-include="vm.svgPath('assets/img/svg/project/defs/fosb-svg-defs.svg')"></div>
-	<!-- <div class="map-wrapper" id="map-wrapper"> -->
-    <interactive-map></interactive-map>
-    <panels></panels>
-    <div ui-view></div>
-		<map-controls></map-controls>
-	<!-- </div> -->
+<!--     <header id="page-header" class="page-header">
+      <h1>Sleeping Bear Heritage Trail</h1>
+      <p>Interactive Map Explorer</p>
+    </header> -->
+    <div id="map-wrapper" class="map-wrapper">
+      <interactive-map></interactive-map>
+      <panels></panels>
+      <div ui-view></div>
+      <map-controls></map-controls>
+    </div>	<!-- </div> -->
 	<!-- <playground></playground> -->
 </div>
 <svg class="never-show" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -40,22 +44,37 @@
 </svg>
 <script>
 
-  // Set viewport to device width
+  // track width, set to window width
+  var width = $(window).width();
+
+  // fire on window resize
+  $(window).resize(function() {
+      // do nothing if the width is the same
+      if ($(window).width()==width) return;
+      // ... your code
+  });
+
   window.onload = function(){
-    $('meta[name=viewport]').attr('content', 'width=device-width, initial-scale=1');
-    // $('link[href=.css])').remove();
+
+    // Get meta tags right
+    $('meta[name=viewport]').attr('content', 'user-scalable=no, initial-scale=1.0, maximum-scale=1, minimum-scale=1, width=device-width, minimal-ui');
+
+    // // Full-width after scroll
+    // $(window).scroll(function () {
+    //     var clientHeight = document.getElementById('page-header').clientHeight - 55;
+    //     if ($(this).scrollTop() >= clientHeight) {
+    //         $("#map-wrapper").css("left", "0");
+    //         $("#map-wrapper").css("right", "0");
+    //         // $(".page-header").css("display", "none");
+    //         $("body").css("overflow-y", "hidden");
+    //     }
+    //     else {
+    //         // $("#map-wrapper").css("left", "20px");
+    //     }
+    // });
+
   };
+  // Remove theme stylesheet
   document.styleSheets[0].disabled = true;
-// setTimeout(function () {
-//     var theDoc = document.getElementsByTagName('html')[0];
-//     theDoc.style.height = "calc(100% + 72px)";
-//   window.scrollTo(0, 72);
-//   window.scrollTo(0, 0);
-//   window.scrollTo(0, 72);
-// }, 5000);
-// window.onload = function(){
-
-
-// }
 
 </script>

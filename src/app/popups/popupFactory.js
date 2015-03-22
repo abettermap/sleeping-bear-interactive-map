@@ -19,6 +19,38 @@
         };
 
         popupFactory.featTypes = {
+            beach: {
+                name: 'Beaches',
+                icon: '#icon-beach',
+            },
+            bench: {
+                name: 'Benches & Tables',
+                icon: '#icon-bench',
+            },
+            bpark: {
+                name: 'Bicycle Parking',
+                icon: '#icon-bpark',
+            },
+            commserv: {
+                name: 'Community Services',
+                icon: '#icon-commserv',
+            },
+            conc: {
+                name: 'Concessions',
+                icon: '#icon-conc',
+            },
+            historic: {
+                name: 'Historic Areas',
+                icon: '#icon-historic',
+            },
+            other: {
+                name: 'Other',
+                icon: '#icon-other',
+            },
+            parking: {
+                name: 'Parking',
+                icon: '#icon-parking',
+            },
             ranger: {
                 name: 'Ranger Station',
                 icon: '#icon-ranger',
@@ -27,54 +59,22 @@
                 name: 'Restrooms',
                 icon: '#icon-restroom',
             },
-            water: {
-                name: 'Drinking Water',
-                icon: '#icon-water',
-            },
-            conc: {
-                name: 'Concessions',
-                icon: '#icon-conc',
-            },
-            parking: {
-                name: 'Parking',
-                icon: '#icon-parking',
-            },
-            vista: {
-                name: 'Scenic Vistas',
-                icon: '#icon-vista',
-            },
-            historic: {
-                name: 'Historic Areas',
-                icon: '#icon-historic',
-            },
-            bench: {
-                name: 'Benches & Tables',
-                icon: '#icon-bench',
-            },
-            beach: {
-                name: 'Beaches',
-                icon: '#icon-beach',
+            signs: {
+                name: 'Signs & Mileposts',
+                icon: '#icon-signs',
             },
             trails: {
                 name: 'Hiking Trails',
                 icon: '#icon-trails',
             },
-            commserv: {
-                name: 'Community Services',
-                icon: '#icon-commserv',
+            vista: {
+                name: 'Scenic Vistas',
+                icon: '#icon-vista',
             },
-            signs: {
-                name: 'Signs & Mileposts',
-                icon: '#icon-signs',
+            water: {
+                name: 'Drinking Water',
+                icon: '#icon-water',
             },
-            bikepark: {
-                name: 'Bicycle Parking',
-                icon: '#icon-bikepark',
-            },
-            other: {
-                name: 'Other',
-                icon: '#icon-other',
-            }
         };
 
 

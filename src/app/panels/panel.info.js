@@ -4,14 +4,14 @@
 
     angular
         .module('panelsModule')
-        .directive('panelHelp', panelHelp);
+        .directive('panelInfo', panelInfo);
 
-    panelHelp.$inject = ['basePath'];
+    panelInfo.$inject = ['basePath'];
 
-    function panelHelp(basePath){
+    function panelInfo(basePath){
         return {
             restrict: 'E',
-            templateUrl: basePath.url('app/panels/templates/panel.help.html'),
+            templateUrl: basePath.url('app/panels/templates/panel.info.html'),
             controller: 'PanelsCtrl',
             controllerAs: 'vm',
             replace: true

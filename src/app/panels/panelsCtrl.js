@@ -6,9 +6,9 @@
         .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
-    PanelsCtrl.$inject = ['panelsFactory'];
+    PanelsCtrl.$inject = ['panelsFactory', '$rootScope'];
 
-    function PanelsCtrl(panelsFactory){
+    function PanelsCtrl(panelsFactory, $rootScope){
 
     	var vm = this;
 
@@ -18,8 +18,8 @@
         //////// PANELS \\\\\\\\
 
         // The active panel
-        vm.activePanel = '';
-        // vm.activePanel = 'features';
+        // vm.activePanel = '';
+        vm.activePanel = 'seasons';
 
         vm.changePanel = function(panel){
 
@@ -33,11 +33,15 @@
 
         //////// SEASONS PANEL \\\\\\\\
         // The active season
-        vm.season = 'summer';
+        vm.activeSeason = $rootScope.activeSeason;
+
+        vm.activeSeasonIcon = '#icon-summer';
 
         // Close Seasons panel when season is clicked
-        vm.changeSeason = function(season){
+        vm.setSeason = function(season){
             vm.activePanel   = '';
+            vm.activeSeasonIcon = '#icon-' + vm.activeSeason;
+            panelsFactory.setSeason(season);
         };
 
         //////// POI VIEWS \\\\\\\\

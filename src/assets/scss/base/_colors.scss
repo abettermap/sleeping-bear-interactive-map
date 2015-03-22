@@ -31,8 +31,6 @@ $near-white: #f9f9f9;
 $primary-color: $pale-blue;
 $c-font: $near-black;
 
-// My colors \\
-
 // Map wrapper
 $c-map-wrap-box-shadow: desaturate($steely-blue, 14%);
 
@@ -42,16 +40,21 @@ $c-icon-hover: darken($c-ball-color, 15%);
 
 ///// PANELS \\\\\
 
-// Panel header
-$c-panel-header: desaturate(lighten($green, 20%), 10%);
-
 // Panel toggles
 $c-panel-toggle: $c-ball-color;
 $c-panel-icon: darken($med-dull-blue, 5%);
 $c-panel-toggle-hover: $primary-color;
 
+// Panel header
+$c-panel-header: desaturate(lighten($green, 20%), 10%);
+
 // Panel checked
-$c-panel-checked-fill: lighten($steely-blue, 30%);
+$c-panel-checked-fill	: lighten($steely-blue, 30%);
+$c-panel-checked-border	: darken($c-panel-checked-fill, 20%);
+$c-panel-unchecked-fill	: lighten($c-panel-checked-fill, 7%);
+$c-panel-unchecked-border	: $c-panel-checked-fill;
+$c-panel-unchecked-text	: lighten($gray, 10%);
+$c-panel-checked-text	: $near-black;
 
 // Seasons
 $spring: #5cb04f;
@@ -66,7 +69,20 @@ $c-feat-toggle-nav-hover: $c-panel-checked-fill;
 
 // Features toggles -- map pins
 $c-feat-pin-bg: #934e7d;
-$c-comm-pin-bg: #fa981b;
+$c-comm-pin-bg: $green;
 $c-feat-pin-stroke: darken($c-feat-pin-bg, 25%);
 $c-comm-pin-stroke: darken($c-comm-pin-bg, 25%);
+
+// Features
+%c-poi-toggles-icon--feat {
+  background-color: $c-feat-pin-bg;
+  border: solid 2px $c-feat-pin-stroke;
+}
+
+// Commercial
+%c-poi-toggles-icon--comm {
+  background-color: $c-comm-pin-bg;
+  border: solid 2px $c-comm-pin-stroke;
+}
+
 

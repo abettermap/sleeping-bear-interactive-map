@@ -4,7 +4,7 @@ module.exports = {
     bsFiles: {
       src: [
         'src/assets/css/*.css',
-        '**/*.php',
+        '*.php',
         'src/app/**/*.js',
         'src/app/**/*.html'
         // "assets/img/services/*.svg"
@@ -14,7 +14,9 @@ module.exports = {
       watchTask: true,
       proxy: 'wpmulti.dev', // might need full path to map??
       notify: true,
-      open: false
+      open: true,
+      ghostMode: false,
+      startPath: '/fosb/map'
     }
   }
 

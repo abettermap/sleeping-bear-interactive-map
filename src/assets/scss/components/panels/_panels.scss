@@ -16,15 +16,30 @@
     @extend %panel__inner;
   }
 
+  // Animations
+  &.ng-hide- {
+    &remove {
+      animation: .5s fadeInUp ease;
+    }
+
+    &add {
+      animation: .2s fadeOutDown ease;
+    }
+  }
+
+  // Border and padding above small
+  small {
+    border-top: solid $gray 1px;
+    display: block;
+    margin-top: .5rem;
+    padding-top: .3rem;
+  }
+
 }
 
-// Override theme's p's
-.panel__inner .panel__descrip {
-  clear: both;
-  line-height: 1.65;
-  padding: 0 $gutter*.25;// $gutter;
-}
+/* TOGGLES */
 
+// Container
 .panel__toggles {
   background-color: $c-panel-toggle;
   box-shadow: 0 -2px 15px 0;
@@ -32,22 +47,18 @@
   position: relative;
 }
 
-// Stupid override
-// a.panel__toggle {
-.panel__toggle {
-  color: $near-white;
-}
-
+// Individual toggles
 .panel__toggle {
   background-color: $c-panel-toggle;
   border-left: solid darken($c-panel-toggle, 10%) 1px;
+  color: $near-white;
   text-align: center;
   text-decoration: none;
   text-shadow: 1px 1px 5px #222;
   width: 25%;
 
-  @include rem-fall(font-size, 1.3);
-  @include rem-fall(padding, $panel-toggle-padding, 0, $panel-toggle-padding, 0);
+  font-size: 1.3rem;
+  padding: $panel-toggle-padding 0;
 
   @include mq($from: tablet) {
 
@@ -80,11 +91,9 @@
 
   &__icon {
 
-    $l-icon-size: $panel-toggle-content-ht * .75;
+    @include rem-fall(height, $l-panel-toggle-icon-size);
 
-    @include rem-fall(height, $l-icon-size);
-
-    @include rem-fall(width, $l-icon-size);
+    @include rem-fall(width, $l-panel-toggle-icon-size);
 
     display: inline-block;
     fill: $near-white;
@@ -97,11 +106,11 @@
 
       @include rem-fall(padding, $l-icon-p, 0);
 
-      $l-icon-size-big: $panel-toggle-content-ht;
+      $l-panel-toggle-icon-size-big: $panel-toggle-content-ht;
 
-      @include rem-fall(height, $l-icon-size-big);
+      @include rem-fall(height, $l-panel-toggle-icon-size-big);
 
-      @include rem-fall(width, $l-icon-size-big);
+      @include rem-fall(width, $l-panel-toggle-icon-size-big);
 
       fill: darken($c-panel-toggle, 30%);
 

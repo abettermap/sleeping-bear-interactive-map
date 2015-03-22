@@ -175,18 +175,24 @@ $a-trans-fill: fill 250ms ease;
   fill: $near-white;
   height: 50px;
   padding: 9px;
+  // pointer-events: none;
   position: absolute;
   visibility: hidden;
   width: 50px;
 
-  &:hover {
+}
+.controls__checkbox:checked ~ .css-tooltip-right {
+  background: transparent;
+  display: inline-block !important;
+  height: $l-ball-ht;
+  width: $l-ball-ht;
+  &:hover+svg {
     fill: $c-icon-hover;
   }
-
 }
-
 // Non-toolbox icons when checked
-.controls__checkbox:checked ~ .controls__icon {
+.controls__checkbox:checked ~ .controls__icon,
+.controls__checkbox:checked ~ .css-tooltip-right {
 
   transition-timing-function: $a-trans-timing-items;
   visibility: visible;
