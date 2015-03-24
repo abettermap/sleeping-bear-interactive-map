@@ -5,8 +5,9 @@
 .panel__inner--seasons {
   // justify-content: stretch;
   // align-items: flex-start;
+  display: box;
   display: flex;
-  align-content: space-between;
+  align-content: space-around;
   // flex-direction: column;
   // flex-wrap: wrap;
   flex-flow: row wrap;
@@ -29,6 +30,7 @@
 // The keeper of the seasons
 .seasons-container {
   // flex-wrap: wrap;
+  display: box;
   display: flex;
   flex-flow: row wrap;
   // flex: auto 70%;
@@ -41,6 +43,7 @@
 .label--seasons {
 
   border-radius: 10px;
+  display: box;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,7 +90,12 @@
 }
 
 /* Individual */
-input:checked + .label--seasons {
+.panel input:not(:checked) + .label--seasons {
+  &:hover {
+    background-color: $c-seasons-label-fill-checked;
+  }
+}
+.panel input:checked + .label--seasons {
 
   flex: 1 100%;
   // width: 100%;
@@ -95,6 +103,8 @@ input:checked + .label--seasons {
   margin-top: .7rem;
   order: 4;
     font-size: 2rem;
+  background-color: $c-seasons-label-fill-checked;
+
 
   svg {
     fill: $c-panel-icon;

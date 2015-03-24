@@ -24,7 +24,8 @@ $baby-puke: rgb(134, 128, 47);
 // Regular ol' colors \\
 $dark-gray: #808080;
 $gray: #808080;
-$near-black: #333;
+// $near-black: #333;
+$near-black: #4d4d4d;
 $near-white: #f9f9f9;
 
 // Primary colors \\
@@ -38,6 +39,9 @@ $c-map-wrap-box-shadow: desaturate($steely-blue, 14%);
 $c-ball-color: lighten($med-blue, 14%);
 $c-icon-hover: darken($c-ball-color, 15%);
 
+/* ELEMENTS */
+/* Headings */
+$c-h3-color: darken($med-dull-blue, 5%);
 ///// PANELS \\\\\
 
 // Panel toggles
@@ -46,17 +50,22 @@ $c-panel-icon: darken($med-dull-blue, 5%);
 $c-panel-toggle-hover: $primary-color;
 
 // Panel header
-$c-panel-header: desaturate(lighten($green, 20%), 10%);
+// $c-panel-header: desaturate(lighten($green, 20%), 10%);
+$c-panel-header: $c-panel-toggle;
 
 // Panel checked
-$c-panel-checked-fill	: lighten($steely-blue, 30%);
+$c-panel-checked-fill	: $steely-blue;//, 30%);
+$c-panel-checked-fill	: lighten($steely-blue, 20%);
 $c-panel-checked-border	: darken($c-panel-checked-fill, 20%);
-$c-panel-unchecked-fill	: lighten($c-panel-checked-fill, 7%);
+$c-panel-unchecked-fill	: lighten($c-panel-checked-fill, 15%);
 $c-panel-unchecked-border	: $c-panel-checked-fill;
-$c-panel-unchecked-text	: lighten($gray, 10%);
-$c-panel-checked-text	: $near-black;
+$c-panel-unchecked-text	: lighten($gray, 12%);
+$c-panel-checked-text	: $near-white;
 
 // Seasons
+$c-seasons-label-fill-checked: lighten($c-panel-checked-fill, 6%);
+$c-seasons-label-fill-unchecked: lighten($c-panel-unchecked-fill, 3%);
+
 $spring: #5cb04f;
 $summer: #F9F766;
 $winter: #59cce3;
@@ -65,11 +74,11 @@ $fall: #d21414;
 // Features toggles -- map pins
 $c-feat-toggle-nav-arrow: $c-panel-icon;
 $c-features-icon: $green;
-$c-feat-toggle-nav-hover: $c-panel-checked-fill;
+$c-feat-toggle-nav-hover: darken($c-panel-checked-fill,15%);
 
 // Features toggles -- map pins
-$c-feat-pin-bg: #934e7d;
-$c-comm-pin-bg: $green;
+$c-feat-pin-bg: #a7588e;
+$c-comm-pin-bg: #f7892e;
 $c-feat-pin-stroke: darken($c-feat-pin-bg, 25%);
 $c-comm-pin-stroke: darken($c-comm-pin-bg, 25%);
 
@@ -85,4 +94,7 @@ $c-comm-pin-stroke: darken($c-comm-pin-bg, 25%);
   border: solid 2px $c-comm-pin-stroke;
 }
 
-
+/* TRAIL PANEL */
+$c-panel--trail__header: $c-h3-color;
+$c-grade-overlay: red;
+$c-caution-overlay: yellow;

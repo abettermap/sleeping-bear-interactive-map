@@ -1,12 +1,16 @@
 /* INPUTS */
+
+/* Bg, text, and border color for unselected inputs in popups/panels */
 %input-hover {
   // background-color: transparent;
   transition: $a-all-hover-transition;
 
   &:hover {
     background-color: $c-feat-toggle-nav-hover;
-    color: $near-black;
+    border-color: $c-panel-checked-border;
+    color: $near-white;
   }
+
 }
 
 /* PANEL & POPUP INPUTS */
@@ -23,12 +27,20 @@
   @extend %panel-popup;
 
   /* Unchecked labels */
-  input + label {
+  input:not(:checked) + label {
     background-color: $c-panel-unchecked-fill;
     border-radius: 10px;
     border: solid $c-panel-unchecked-border 1px;
     color: $c-panel-unchecked-text;
-    @extend %input-hover;
+    @include mq($from: desktop){
+      transition: $a-all-hover-transition;
+
+      &:hover {
+        background-color: $c-feat-toggle-nav-hover;
+        border-color: $c-panel-checked-border;
+        color: $near-white;
+      }
+    }
   }
 
   /* Checked labels */
@@ -37,6 +49,7 @@
     border: solid $c-panel-checked-border 1px;
     border-radius: 10px;
     color: $c-panel-checked-text;
+    text-shadow: 1px 1px 1px $near-black;
   }
 
 }
@@ -50,6 +63,7 @@
   border-radius: 8px;
   // clear: both;
   // flex-grow: 2;
+  display: box;
   display: flex;
   padding: $l-btn-padding;
   margin: .4rem auto 0;
@@ -71,21 +85,25 @@
 
 /* FLEXEH */
 .flex {
+  display: box;
   display: flex;
   justify-content: space-around;
 }
 
 .flex-between {
+  display: box;
   display: flex;
   justify-content: space-around;
 }
 
 .flex-vert {
+  display: box;
   display: flex;
   flex-direction: column;
 }
 
 %l-flex-column {
+  display: box;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -111,6 +129,11 @@
   }
 }
 
+/* No pointer events or fill changes */
+.no-hover {
+  cursor: move;
+  pointer-events: none;
+}
 /* PANELS/POPUPS */
 %panel__label {
   border-radius: 10px;
@@ -127,33 +150,29 @@
   width: 100%;
 }
 
-
-
 %panel__header {
+  background-color: $c-panel-header;
   color: $near-white;
   font-size: $l-panel-header-ht;
   align-items: center;
+  display: box;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 0;
   padding: .5rem 1rem;
 
-  a {
-    font-size: inherit;
-    // &:hover {
-      // svg:first-of-type {
-      //   // fill: darken($c-panel-header, 25%);
-      //   pointer-events: none;
-      // }
-    // }
-  }
   svg {
     fill: $near-white;
     height: $l-panel-header-ht + .2rem;
     width: $l-panel-header-ht + .2rem;
     transition: $a-icon-fill-trans;
     vertical-align: bottom;
+    @include mq($from: desktop) {
+      &:hover {
+        fill: $c-panel-icon;
+      }
+    }
   }
 }
 

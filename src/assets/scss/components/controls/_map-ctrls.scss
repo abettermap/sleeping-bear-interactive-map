@@ -90,10 +90,12 @@ $a-trans-fill: fill 250ms ease;
 
   &:hover {
 
-    transform: scale(1.1, 1.1) translate3d(0, 0, 0);
-
-    .controls__icon {
+    @include mq($from: desktop) {
       transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+
+      .controls__icon {
+        transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+      }
     }
 
   }
@@ -128,14 +130,14 @@ $a-trans-fill: fill 250ms ease;
   width: $l-size;
 
   &:hover {
+    @include mq($from: desktop) {
+      transform: scale(1.1, 1.1) translate3d(0, 0, 0);
 
-    transform: scale(1.1, 1.1) translate3d(0, 0, 0);
-
-    .controls__icon {
-      fill: $c-icon-hover;
-      transition: transform 200ms linear, $a-trans-fill;
+      .controls__icon {
+        fill: $c-icon-hover;
+        transition: transform 200ms linear, $a-trans-fill;
+      }
     }
-
   }
 
   .controls__icon {
@@ -186,8 +188,10 @@ $a-trans-fill: fill 250ms ease;
   display: inline-block !important;
   height: $l-ball-ht;
   width: $l-ball-ht;
-  &:hover+svg {
-    fill: $c-icon-hover;
+  @include mq($from: desktop) {
+    &:hover+svg {
+      fill: $c-icon-hover;
+    }
   }
 }
 // Non-toolbox icons when checked

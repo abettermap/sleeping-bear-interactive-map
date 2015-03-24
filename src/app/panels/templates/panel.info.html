@@ -1,10 +1,27 @@
-<div class="panel" ng-show="vm.activePanel == 'info'">
-	<h2 class="panel__header">Help & Info
+<div class="panel panel--trail" ng-show="vm.activePanel == 'info'">
+	<h2 class="panel__header">
+		<svg viewBox="0 0 100 100" class="no-hover">
+		    <use xlink:href="#icon-info"></use>
+		</svg>
+		<span>Help & Info</span>
 		<a href="javascript:;" class="panel__close" ng-click="vm.changePanel('')">
 			<svg viewBox="0 0 100 100">
-    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
+    			<use xlink:href="#icon-chevron-down"></use>
 			</svg>
 		</a>
 	</h2>
-	<div class="panel__inner">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet, quibusdam quisquam inventore perspiciatis a, quasi asperiores ipsum minima corrupti veniam repellendus repudiandae ipsa, sequi, laboriosam tenetur blanditiis consequuntur id?</div>
+	<div class="panel__inner" ng-show="vm.activeInfoPg.name == 'home'">
+		<p ng-click="vm.now()">Below is a list of helpful map topics and general trail info. Please email <a href="mailto:info@friendsofsleepingbear.org">info@friendsofsleepingbear.org</a>. Thank you for visiting!</p>
+		<ul class="info-topics-list">
+			<!-- <li ng-model="topic">{{topic}}</li> -->
+			<li ng-repeat="t in helpData"><a href="javascript:;">{{t.subject}}</a></li>
+		</ul>
+	</div>
+<!-- 	<div class="panel__inner" ng-repeat="t in topics">
+		<p>{{t.text}}</p>
+	</div>
+	<div ng-repeat="foo in ['a','b','c']" ng-init="loading=[]">
+	  <p ng-click="loading[$index]=true">Click me! Item Value: {{foo}}<p>
+	  <p ng-show="loading[$index]">Item {{$index}} loading...</p>
+	</div> -->
 </div>

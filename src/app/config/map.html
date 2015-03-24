@@ -74,6 +74,17 @@
     // });
 
   };
+
+  // Detect touch devices
+  // var isTouchDevice = 'ontouchstart' in document.documentElement;
+
+  // Append inline style after map-style to disable pointer events
+  // if (isTouchDevice){
+  //     var noPointer = "<style type=\"text/css\"> \
+  //     svg, .no-touch {pointer-events: none !important;}</style>";
+  //     $('#map_style-css').after(noPointer);
+  // }
+
   // Remove theme stylesheet
   document.styleSheets[0].disabled = true;
 

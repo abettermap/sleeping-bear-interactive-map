@@ -4,16 +4,21 @@
 .poi-toggles-view-cont {
   // display: flex;
   // flex-wrap: wrap;
-  height: calc(100% - #{$panel-toggle-ht});
-  @include mq($from: tablet) {
-  }
+  // height: 100%;
+  // height: calc(100% - #{$panel-toggle-ht});
+  // @include mq($from: tablet) {
+  // }
+  top: 3rem;
+  left: 0;
+  right: 0;
+  bottom: 0;//$panel-toggle-ht;
   overflow: hidden;
-  position: relative;
+  position: absolute;
 }
 
 // Fill the space
 %l-poi-view-pos {
-  bottom: 0;
+  bottom: 0;// $panel-toggle-content-ht;
   left: 0;
   position: absolute;
   right: 0;
@@ -27,6 +32,7 @@
   &nav {
 
     @extend %l-poi-view-pos;
+    display: box;
     display: flex;
     flex-flow: column nowrap;
     // justify-content: space-between;
@@ -48,10 +54,19 @@
   &page {
 
     @extend %l-poi-view-pos;
-    align-content: space-around;
+    &.page--comm {
+      align-content: flex-start;
+    }
+    align-content: stretch;
+    display: box;
     display: flex;
     // flex-direction: column;
     flex-flow: row wrap;
+
+    input:checked + label {
+      text-shadow: 1px 1px 1px $near-black;
+
+    }
     ////* Animations *////
     // Coming in from the right: non-nav views
     &.ng-enter {
@@ -92,9 +107,17 @@
 
   &__link {
 
+    background-color: transparent;
     cursor: pointer;
     padding: .5rem 0;
-    @extend %input-hover;
+    transition: $a-all-hover-transition;
+    &:hover {
+
+        background-color: lighten($c-panel-toggle, 20%);
+      // @include mq($from: desktop) {
+      // }
+    }
+    // @extend %input-hover;
 
   }
 
@@ -123,8 +146,9 @@
 /* FEATURES & COMMERCIAL TOGGLES */
 %poi-toggle--icon {
   // height: 100%;
-  // display: none;
+  // display: block;
   padding: 0.1rem;
+  vertical-align: middle;
   border-radius: 25px;
   fill: $near-white;
   margin-right: 10px;
@@ -154,21 +178,17 @@
 
   &__label {
     align-items: center;
+    display: box;
     display: flex;
-    // flex: none;
-    // flex-basis:
-    // flex-direction: row;
     flex: 1 46%;
-    // flex-grow: 1;
-    font-size: .95rem;
-    // height: $l-label-ht;
-    // justify-content: flex-start;
+    font-size: 1rem;
     line-height: 1;
     margin: .1rem 1%;
-    // margin-bottom: .4rem;
     padding: $l-label-padding .4rem;
-    // width: 50%;
     span {
+      // display: inline;
+      // vertical-align: middle;
+      // height: 1.8rem;
       // width: 60%;
     }
   }

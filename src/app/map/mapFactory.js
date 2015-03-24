@@ -51,9 +51,8 @@
 
         function createMap(){
 
-
             // Height of map-wrapper = screen height
-            var screenHt = $(window).height();
+            // var screenHt = $(window).height();
             // alert(screenHt);
 
             // Unless it's an iPhone...

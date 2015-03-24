@@ -1,6 +1,6 @@
 <div class="panel" ng-show="vm.activePanel == 'features'">
 	<h2 class="panel__header">
-		<a href="javascript:;" ng-click="vm.poiTogglesActiveView = vm.poiTogglesViews[0]">
+		<a ng-class="{'no-hover': !vm.poiTogglesActiveView.hover, '': vm.poiTogglesActiveView}" href="javascript:;" ng-click="vm.poiTogglesActiveView = vm.poiTogglesViews[0]">
 			<svg viewBox="0 0 100 100">
 			    <use ng-attr-xlink:href="{{vm.poiTogglesActiveView.icon}}" xlink:href=""></use>
 			</svg>
@@ -36,68 +36,46 @@
 				</div>
 				<span class="icon-next--comm">></span>
 			</div>
-			<small>To minimize map crowding, features are not displayed at all zoom levels. Zoom in to see more detail.</small>
+			<!-- <em>To minimize map crowding, features are not displayed at all zoom levels. Zoom in to see more detail.</em> -->
 		</div>
 		<!-- FEATURES PANEL -->
 		<div class="panel__inner poi__page--page" ng-switch-when="feat">
-			<!-- <div class="column-50"> -->
-				<input type="checkbox" ng-repeat-start="feat in vm.featToggles"
-					ng-checked="{{feat.checked}}"
-					id="{{::feat.id}}" />
-				<label for="{{::feat.id}}" class="poi-toggle__label">
-					<svg class="poi-toggle--feat__icon" viewBox="0 0 100 100">
-					    <use ng-attr-xlink:href="{{::feat.icon}}" xlink:href=""></use>
-					</svg>
-					<span>{{::feat.text}}</span>
-				</label>
-				<span ng-repeat-end></span>
-<!-- 			</div>
-			<div class="column-50">
-				<input type="checkbox" ng-repeat-start="feat in vm.featToggles.slice(7,14)"
-					ng-checked="{{feat.checked}}"
-					id="{{::feat.id}}" />
-				<label for="{{::feat.id}}" class="poi-toggle__label">
-					<svg class="poi-toggle--feat__icon" viewBox="0 0 100 100">
-					    <use ng-attr-xlink:href="{{::feat.icon}}" xlink:href=""></use>
-					</svg>
-					<span>{{::feat.text}}</span>
-				</label>
-				<span ng-repeat-end></span>
-			</div>
- -->			<a href="javascript:;" class="btn">
-				<svg viewBox="0 0 100 100">
-	    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-x"></use>
+			<input type="checkbox" ng-repeat-start="feat in vm.featToggles"
+				ng-checked="{{feat.checked}}"
+				id="{{::feat.id}}" />
+			<label for="{{::feat.id}}" class="poi-toggle__label">
+				<svg class="poi-toggle--feat__icon" viewBox="0 0 100 100">
+				    <use ng-attr-xlink:href="{{::feat.icon}}" xlink:href=""></use>
 				</svg>
-				<span>Clear all</span>
-			</a>
+				{{::feat.text}}
+			</label>
+			<span ng-repeat-end></span>
+<!-- 			<a href="javascript:;" class="btn">
+				<svg viewBox="0 0 100 100">
+	    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-back"></use>
+				</svg>
+				<span>Back</span>
+			</a> -->
 		</div>
 		<!-- COMMERCIAL PANEL -->
-		<div class="panel__inner poi__page--page" ng-switch-when="comm">
+		<div class="panel__inner poi__page--page page--comm" ng-switch-when="comm">
 			<p>This map was made possible in part by the generous donations of local businesses. Please show your support by exploring the abundant options the Sleeping Bear area has to offer!</p>
-			<div class="column-50">
-				<input type="checkbox" ng-repeat-start="feat in vm.commToggles.slice(0,3)"
-					ng-checked="{{feat.checked}}"
-					id="{{::feat.id}}" />
-				<label for="{{::feat.id}}" class="poi-toggle__label">
-					<svg class="poi-toggle--comm__icon" viewBox="0 0 100 100">
-					    <use ng-attr-xlink:href="{{::feat.icon}}" xlink:href=""></use>
-					</svg>
-					<span>{{::feat.text}}</span>
-				</label>
-				<span ng-repeat-end></span>
-			</div>
-			<div class="column-50">
-				<input type="checkbox" ng-repeat-start="feat in vm.commToggles.slice(3,6)"
-					ng-checked="{{feat.checked}}"
-					id="{{::feat.id}}" />
-				<label for="{{::feat.id}}" class="poi-toggle__label">
-					<svg class="poi-toggle--comm__icon" viewBox="0 0 100 100">
-					    <use ng-attr-xlink:href="{{::feat.icon}}" xlink:href=""></use>
-					</svg>
-					<span>{{::feat.text}}</span>
-				</label>
-				<span ng-repeat-end></span>
-			</div>
+			<input type="checkbox" ng-repeat-start="feat in vm.commToggles"
+				ng-checked="{{feat.checked}}"
+				id="{{::feat.id}}" />
+			<label for="{{::feat.id}}" class="poi-toggle__label">
+				<svg class="poi-toggle--comm__icon" viewBox="0 0 100 100">
+				    <use ng-attr-xlink:href="{{::feat.icon}}" xlink:href=""></use>
+				</svg>
+				{{::feat.text}}
+			</label>
+			<span ng-repeat-end></span>
+<!-- 			<a href="javascript:;" class="btn">
+				<svg viewBox="0 0 100 100">
+	    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-back"></use>
+				</svg>
+				<span>Back</span>
+			</a> -->
 		</div>
 	</div>
 </div>

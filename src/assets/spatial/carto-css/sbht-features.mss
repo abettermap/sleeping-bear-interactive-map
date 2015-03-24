@@ -11,6 +11,7 @@
 @path-historic  :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/historic.svg);
 @path-parking   :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/parking.svg);
 @path-other     :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/other.svg);
+@path-star      :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/star.svg);
 @path-ranger    :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/ranger.svg);
 @path-restroom  :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/restroom.svg);
 @path-signs     :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/signs.svg);
@@ -67,13 +68,14 @@
       bg/marker-transform: translate(0,@pin-shift-y-mid*1.25);
       fg/marker-allow-overlap: true;
       fg/marker-fill: @c-icon-fill;
-      fg/marker-height: @icon-h-mid;
+      fg/marker-width: @icon-h-mid;
       fg/marker-transform: translate(0,@pin-shift-y-mid*1.55);
-      [type="signs"] {fg/marker-file: @path-signs; }
-      [type="historic"] {fg/marker-file: @path-historic; fg/marker-height: @icon-h-mid - 5;}
-      [type="vista"] {fg/marker-file: @path-vista;  fg/marker-height: @icon-h-mid - 3;}
-      [type="trails"] {fg/marker-file: @path-trails; fg/marker-transform: translate(0,@pin-shift-y-mid*1.5);}
-      [type="commserv"]     {fg/marker-file: @path-commserv; }
+      fg/marker-file: @path-star;
+      // [type="signs"] {fg/marker-file: @path-signs; }
+      // [type="historic"] {fg/marker-file: @path-historic; fg/marker-height: @icon-h-mid - 5;}
+      // [type="vista"] {fg/marker-file: @path-vista;  fg/marker-height: @icon-h-mid - 3;}
+      // [type="trails"] {fg/marker-file: @path-trails; fg/marker-transform: translate(0,@pin-shift-y-mid*1.5);}
+      // [type="commserv"]     {fg/marker-file: @path-commserv; }
     }
   }
   [cartodb_id<60][cartodb_id!=6],[cartodb_id>64]{

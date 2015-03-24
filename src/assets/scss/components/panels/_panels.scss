@@ -1,7 +1,7 @@
 .panel {
   .panel__header {
     @extend %panel__header;
-    background-color: $c-panel-header;
+    // background-color: $c-panel-header;
   }
 
   &__back {
@@ -43,6 +43,7 @@
 .panel__toggles {
   background-color: $c-panel-toggle;
   box-shadow: 0 -2px 15px 0;
+  display: box;
   display: flex;
   position: relative;
 }
