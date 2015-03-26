@@ -6,11 +6,31 @@
         .module('panelsModule')
         .factory('panelsFactory', panelsFactory);
 
-    panelsFactory.$inject = ['mapFactory', '$rootScope', '$http'];
+    panelsFactory.$inject = ['mapFactory', '$rootScope', '$http', 'layersFactory', 'popupFactory'];
 
-    function panelsFactory(mapFactory, $rootScope, $http){
+    function panelsFactory(mapFactory, $rootScope, $http, layersFactory, popupFactory){
 
         var hey;
+
+        /******************************/
+        /****** TOGGLE POI TYPES ******/
+        /******************************/
+
+        var sublayers = layersFactory.sublayers;
+
+        function togglePoiLayer(layer){
+
+            if (layer == 'feat') {
+                sublayers.features.setSQL("SELECT * FROM features limit 10");
+            };
+
+        }
+
+        // Commercial \\
+        // function toggleCommLayer(){
+        //     sublayers.features.setSQL("SELECT * FROM features limit 10");
+        // }
+
         var featToggles = [
             {checked: false, id: 'beach', icon: '#icon-beach', text: 'Beaches'},
             {checked: false, id: 'bench', icon: '#icon-bench', text: 'Benches & Tables'},
@@ -39,9 +59,17 @@
 
         /* Will need to be run by router to keep season toggle accurate*/
         function setSeason(season){
-            var newSeason = season;
-            $rootScope.activeSeason = newSeason;
-            console.log($rootScope.activeSeason);
+            var seasonsQueries = {
+                winter: 1,
+                spring: 2,
+                summer: 3,
+                fall: 4,
+            };
+            var newSeason = seasonsQueries[season];
+            var query = "SELECT features.name, features.the_geom_webmercator, features.cartodb_id, features.type, features.mile, features.name_id, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons," + newSeason + ",1) = 'y' AND features.type = 'mainpoints' ORDER BY priority";
+            sublayers.features.setSQL(query);
+            // $rootScope.activeSeason = season;
+
         }
 
         /* Load help data */
@@ -60,6 +88,7 @@
             getHelpData: getHelpData,
             setSeason: setSeason,
             hey: hey,
+            togglePoiLayer: togglePoiLayer,
     	};
 
 		return panelsFactory;

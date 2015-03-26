@@ -6,9 +6,9 @@
         .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
-    PanelsCtrl.$inject = ['panelsFactory', '$rootScope', '$http', '$scope'];
+    PanelsCtrl.$inject = ['panelsFactory', '$rootScope', '$http', '$scope', '$stateParams', '$state', 'layersFactory'];
 
-    function PanelsCtrl(panelsFactory, $rootScope, $http, $scope){
+    function PanelsCtrl(panelsFactory, $rootScope, $http, $scope, $stateParams, $state, layersFactory){
 
     	var vm = this;
 
@@ -45,7 +45,7 @@
 
         // The active panel
         vm.activePanel = '';
-        vm.activePanel = 'info';
+        // vm.activePanel = 'info';
 
         vm.changePanel = function(panel){
 
@@ -60,6 +60,7 @@
         //////// SEASONS PANEL \\\\\\\\
         // The active season
         vm.activeSeason = $rootScope.activeSeason;
+        // vm.activeCode = $stateParams.seasons;
 
         vm.activeSeasonIcon = '#icon-summer';
 
@@ -67,7 +68,14 @@
         vm.setSeason = function(season){
             vm.activePanel   = '';
             vm.activeSeasonIcon = '#icon-' + vm.activeSeason;
+
             panelsFactory.setSeason(season);
+
+            // $state.go('home', {
+            //     seasons: season
+            // },{
+            //     reload: true
+            // });
         };
 
         //////// POI VIEWS \\\\\\\\
@@ -85,17 +93,25 @@
 
         //////// TRAILS PANEL \\\\\\\\
         vm.trailToggleStatus = {
-            caution: true,
-            grade: true,
-            cond: true,
-            pics: true,
+            caution: false,
+            grade: false,
+            cond: false,
+            pics: false,
             faces: false
         };
 
-        //////// HELP PANEL \\\\\\\\
+
+        //////// INFO PANEL \\\\\\\\
         vm.activeInfoPg = {
             name: 'home'
         };
+
+        vm.togglePoiLayer = function(layer){
+            panelsFactory.togglePoiLayer(layer);
+        };
+
+        $scope.helpData = [];
+        $scope.$watch('helpData', get_results, true);
 
         var get_results = function() {
           // if (name) {
@@ -108,14 +124,13 @@
 
           // }
         }
+
         vm.getHelpData = function(){
             get_results();
             // Set info panel active
             vm.changePanel('info');
 
         }
-        $scope.helpData = [];
-        $scope.$watch('helpData', get_results, true);
 
         // $scope.getDetails = function (id) {
         //     var query = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT subject, text, topic_id FROM help';

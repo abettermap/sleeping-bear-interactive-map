@@ -120,20 +120,23 @@
 // POPUPS
 .popup {
   // height: 250px; // trans background on these looks cool
-  right: $container-spacing;
-  top: $container-spacing;
+  // right: $container-spacing;
+  // top: $container-spacing;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
 
   @include mq($from: tablet) {
-    width: 320px;
   }
 
   // fill it up on mobile
-  @include mq($until: tablet) {
-    bottom: $container-spacing/1.7;
-    left: $container-spacing/1.7;
+  @include mq($from: tablet) {
+    height: 600px;
+    width: 500px;
+    left: auto;
     right: $container-spacing/1.7;
     top: $container-spacing/1.7;
-    width: auto;
   }
 
 }

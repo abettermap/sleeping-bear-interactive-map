@@ -12,7 +12,7 @@
         return {
             restrict: 'E',
             scope: {},
-            templateUrl: basePath.url('app/panels/templates/panelsTemplate.html'),
+            templateUrl: basePath.url('src/app/panels/templates/panelsTemplate.html'),
             controller: 'PanelsCtrl',
             controllerAs: 'vm',
             replace: true

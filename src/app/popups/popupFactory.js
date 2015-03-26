@@ -6,89 +6,73 @@
         .module('popupsModule')
         .factory('popupFactory', popupFactory);
 
-    popupFactory.$inject = ['$rootScope'];
+    popupFactory.$inject = ['$rootScope', '$http', 'basePath'];
 
-    function popupFactory($rootScope){
+    function popupFactory($rootScope, $http, basePath){
 
-        popupFactory.getTableInfo = function(table) {
-
-            var thisTable = table;
-
-            $rootScope.$broadcast('feature updated', thisTable);
-
+        var popups = {
+            getPrimary: getPrimary,
+            activeImg: "",
+            // getSecondary: getSecondary,
+            // getTableInfo: getTableInfo,
+            setSeason: setSeason,
+            currentSeason: $rootScope.activeSeason
         };
 
-        popupFactory.featTypes = {
-            beach: {
-                name: 'Beaches',
-                icon: '#icon-beach',
-            },
-            bench: {
-                name: 'Benches & Tables',
-                icon: '#icon-bench',
-            },
-            bpark: {
-                name: 'Bicycle Parking',
-                icon: '#icon-bpark',
-            },
-            commserv: {
-                name: 'Community Services',
-                icon: '#icon-commserv',
-            },
-            conc: {
-                name: 'Concessions',
-                icon: '#icon-conc',
-            },
-            historic: {
-                name: 'Historic Areas',
-                icon: '#icon-historic',
-            },
-            other: {
-                name: 'Other',
-                icon: '#icon-other',
-            },
-            parking: {
-                name: 'Parking',
-                icon: '#icon-parking',
-            },
-            ranger: {
-                name: 'Ranger Station',
-                icon: '#icon-ranger',
-            },
-            restroom: {
-                name: 'Restrooms',
-                icon: '#icon-restroom',
-            },
-            signs: {
-                name: 'Signs & Mileposts',
-                icon: '#icon-signs',
-            },
-            trails: {
-                name: 'Hiking Trails',
-                icon: '#icon-trails',
-            },
-            vista: {
-                name: 'Scenic Vistas',
-                icon: '#icon-vista',
-            },
-            water: {
-                name: 'Drinking Water',
-                icon: '#icon-water',
-            },
-        };
+        function setSeason(query){
+            console.log("popupFactory.setSeason() called");
+            var newSeason = query;
+            lsublayers.features.setSQL(newSeason);
+        }
 
 
-    	return popupFactory;
-    };
+        function getPrimary(data){
+
+            /* Defaults for all hosts */
+            var root = '',
+                hostName = window.location.hostname,
+                origin = window.location.origin,
+                wpContent = '/wp-content/sbht-i-map/img-src/';
+
+            /* Account for fosb folder */
+            if (hostName == 'localhost' || hostName == 'wpmulti.dev'){
+                origin = origin + '\/fosb';
+            } else {
+                origin = origin;
+            }
+
+
+            /*** Create Path ***/
+            var prefix  = '/wp-content/plugins/wp-fosb-map/get-images.php?dir=',
+                layer   = 'poi\/',
+                mile    = data.mile + '\/',
+                type    = 'features\/',
+                id      = data.name_id + '\/';
+
+            var subpath = layer + mile + type + id,
+                imgPath = origin + wpContent + layer + mile + type + id,
+                phpFilePath = origin + prefix,
+                fullQuery = phpFilePath + subpath;
+
+            var defaultImg = basePath.url('src/assets/img/raster/SBHT_6077.jpg');
+            var arr = [];
+            $http.get(fullQuery, {})
+            .success(function(data) {
+                if (typeof data === "object"){
+                    for( var i in data ) {
+                        if (data.hasOwnProperty(i)){
+                           arr.push(imgPath + data[i]);
+                        }
+                    }
+                    popups.activeImg = arr[0];
+                } else {
+                    popups.activeImg = defaultImg;
+                }
+            });
+
+        }
+
+    	return popups;
+    }
 
 })();
-
-
-
-// popupFactory.getFeatureInfo = function() {
-
-//     var prefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM sbht';
-
-//     return $http.get(prefix);
-
-// };

@@ -2,22 +2,17 @@
 	<h2 class="popup__header">
 		<a href="javascript:;">
 			<svg viewBox="0 0 100 100">
-			    <use ng-attr-xlink:href="{{vm.featTypes[vm.features.type].icon}}" xlink:href=""></use>
+			    <use ng-attr-xlink:href="{{vm.icon}}" xlink:href=""></use>
 			</svg>
 		</a>
-		<span>{{vm.featTypes[vm.features.type].name}}</span>
+		<span>{{vm.title}}</span>
 		<a class="popup__close" ui-sref="home" href="javascript:;" ng-click="$state.go('home')">
 			<svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use></svg>
 		</a>
 	</h2>
-	<img ng-src="{{vm.imgSrc}}">
+	<div class="popup__image--primary" ng-style="{'background-image': 'url(' + vm.activeImg + ')'}"></div>
 	<div class="popup__inner">
-		<h2>{{vm.features.name}}</h3>
-		<!-- <h3>Mile: {{vm.features.mile}}</h3> -->
-		<h3>Share this baby!</h3>
-		<p>
-			<a style="text-decoration: underline;" ng-href="{{vm.currentUrl}}">{{vm.currentUrl}}</a>
-		</p>
+		<h3>{{vm.featName}}</h3>
 	</div>
 
 </div>

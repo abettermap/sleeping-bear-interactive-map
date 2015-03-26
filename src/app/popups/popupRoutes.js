@@ -7,7 +7,7 @@
 
             // Make these constants later...
             var queryPrefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT ',
-                midString = 'WHERE cartodb_id = ';
+                midString = ' WHERE cartodb_id = ';
 
             $urlRouterProvider.otherwise('/');
 
@@ -15,35 +15,51 @@
                 .state('home', {
                     url: '/',
                     template: '<div ui-view></div>',
-                })
-                .state('home.commercial', {
-                    url: 'commercial/:id/:mile',
-                    templateUrl: basePath.url('app/popups/templates/comm-poi-template.html'),
-                    controller: 'PopupCtrl',
-                    controllerAs: 'vm',
-                    resolve: {
-                        features: ['$http', '$stateParams', function($http, $stateParams) {
-
-                            var columns = 'cartodb_id, type, name, audio, video FROM commercial ',
-                                query = queryPrefix + columns + midString + $stateParams.id;
-
-                            return $http.get(query).then(function(response){
-                                return response.data;
-                            });
-
-                        }],
+                    params: {
+                        table: ''
                     }
+                    // controller: 'PopupCtrl',
+                    // controllerAs: 'vm',
+                    // resolve: {
+                    //     selFeatData: ['$http', '$stateParams', function($http, $stateParams) {
+
+                    //         var seasonsQueries = {
+                    //             winter: 1,
+                    //             spring: 2,
+                    //             summer: 3,
+                    //             fall: 4,
+                    //         },
+                    //         season = $stateParams.seasons;
+
+                    //         var query = queryPrefix + "features.the_geom_webmercator, features.cartodb_id, features.type, features.seasons, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons," + seasonsQueries[season] + ",1) = 'y'";
+                    //         // var query = "SELECT features.the_geom_webmercator, features.cartodb_id, features.type, features.seasons, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons," + seasonsQueries[season] + ",1) = 'y'";
+                    //         console.log(query);
+                    //         // return query;
+                    //         return $http.get(query).then(function(response){
+                    //             return response.data;
+                    //         });
+                    //     }],
+                    // }
                 })
                 .state('home.features', {
-                    url: 'features/:id/:mile',
-                    templateUrl: basePath.url('app/popups/templates/popup.poi.html'),
+                    url: ':seasons/features/:cdbid/:mile',
+                    templateUrl: basePath.url('src/app/popups/templates/popup.poi.html'),
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
-                        features: ['$http', '$stateParams', function($http, $stateParams) {
+                        selFeatData: ['$http', '$stateParams', function($http, $stateParams) {
 
-                            var columns = 'cartodb_id, type, mile, name FROM features ',
-                                query = queryPrefix + columns + midString + $stateParams.id;
+                            // var columns = 'cartodb_id, name_id, type, mile, name FROM features ',
+                            var columns =   'features.cartodb_id, ' +
+                                            'features.mile, ' +
+                                            'features.name, ' +
+                                            'features.name_id, ' +
+                                            'features.seasons, ' +
+                                            'features.type, ' +
+                                            'feature_types.name AS type_name, ' +
+                                            'feature_types.priority' +
+                                            ' FROM features INNER JOIN feature_types ON features.type=feature_types.type',
+                                            query = queryPrefix + columns + ' WHERE features.cartodb_id = ' + $stateParams.cdbid;
 
                             return $http.get(query).then(function(response){
                                 return response.data;
@@ -53,20 +69,38 @@
                         }],
                     }
                 })
-                .state('home.trail-pix', {
-                    url: 'trail-pix/:id/:mile',
-                    templateUrl: basePath.url('app/popups/templates/trail-pix-template.html'),
+                .state('home.commercial', {
+                    url: 'commercial/:cdbid/:mile',
+                    templateUrl: basePath.url('src/app/popups/templates/popup.comm.html'),
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
-                        features: ['$http', function($http) {
-                            return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM trail_pix_digitize')
-                                .then(function(response){
-                                    return response.data;
-                                });
+                        selFeatData: ['$http', '$stateParams', function($http, $stateParams) {
+
+                            var columns = 'cartodb_id, type, name, audio, video FROM commercial ',
+                                query = queryPrefix + columns + midString + $stateParams.cdbid;
+
+                            return $http.get(query).then(function(response){
+                                return response.data;
+                            });
+
                         }],
                     }
                 });
+                // .state('home.trail-pix', {
+                //     url: 'trail-pix/:cdbid/:mile',
+                //     templateUrl: basePath.url('src/app/popups/templates/trail-pix-template.html'),
+                //     controller: 'PopupCtrl',
+                //     controllerAs: 'vm',
+                //     resolve: {
+                //         selFeatData: ['$http', function($http) {
+                //             return $http.get('https://remcaninch.cartodb.com/api/v2/sql?q=SELECT * FROM trail_pix_digitize')
+                //                 .then(function(response){
+                //                     return response.data;
+                //                 });
+                //         }],
+                //     }
+                // });
 
         }]);
 

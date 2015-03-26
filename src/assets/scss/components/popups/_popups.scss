@@ -1,18 +1,5 @@
 .popup {
 
-  @include mq($from: tablet) {
-    width: 320px;
-  }
-
-  // fill it up on mobile
-  @include mq($until: tablet) {
-    bottom: $container-spacing/1.7;
-    left: $container-spacing/1.7;
-    right: $container-spacing/1.7;
-    top: $container-spacing/1.7;
-    width: auto;
-  }
-
   &__inner {
 
     h2 {
@@ -36,4 +23,14 @@
     pointer-events: none;
   }
 
+}
+
+/* MAIN IMAGE */
+.popup__image--primary {
+  background-size: contain;
+  background-position: center top;
+  background-repeat: no-repeat;
+  height: 60%;
+  width: 100%;
+  // margin: 0 10%;
 }

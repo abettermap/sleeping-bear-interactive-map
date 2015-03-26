@@ -4,20 +4,20 @@
 @path-pin-feat  :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/defs/map-pin-wide-empty.svg);
 
 // ICONS \\
-@path-beach     :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/beach.svg);
-@path-bikepark  :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/bikepark.svg);
-@path-commserv  :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/commserv.svg);
-@path-conc      :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/conc.svg);
-@path-historic  :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/historic.svg);
-@path-parking   :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/parking.svg);
-@path-other     :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/other.svg);
-@path-star      :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/star.svg);
-@path-ranger    :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/ranger.svg);
-@path-restroom  :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/restroom.svg);
-@path-signs     :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/signs.svg);
-@path-trails    :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/trails.svg);
-@path-vista     :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/vista.svg);
-@path-water     :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/water.svg);
+@path-beach       :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/beach.svg);
+@path-bikepark    :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/bikepark.svg);
+@path-commserv    :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/commserv.svg);
+@path-conc        :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/conc.svg);
+@path-historic    :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/historic.svg);
+@path-parking     :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/parking.svg);
+@path-other       :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/other.svg);
+@path-mainpoints  :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/mainpoints.svg);
+@path-ranger      :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/ranger.svg);
+@path-restroom    :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/restroom.svg);
+@path-signs       :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/signs.svg);
+@path-trails      :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/trails.svg);
+@path-vista       :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/vista.svg);
+@path-water       :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/water.svg);
 
 
 ///// COLORS \\\\\
@@ -57,8 +57,8 @@
 
 #features {
   /* "6 Centers" - zooms <14 */
-  [zoom<14]{
-    [cartodb_id>=60][cartodb_id<=64],[cartodb_id=6]{
+  [zoom<14][type="mainpoints"]{
+    /*[cartodb_id>=60][cartodb_id<=64],[cartodb_id=6]{*/
       bg/marker-allow-overlap: true;
       bg/marker-file: @path-pin-feat;
       bg/marker-fill: @c-perm-pin-fill;
@@ -70,20 +70,22 @@
       fg/marker-fill: @c-icon-fill;
       fg/marker-width: @icon-h-mid;
       fg/marker-transform: translate(0,@pin-shift-y-mid*1.55);
-      fg/marker-file: @path-star;
+      fg/marker-file: @path-mainpoints;
       // [type="signs"] {fg/marker-file: @path-signs; }
       // [type="historic"] {fg/marker-file: @path-historic; fg/marker-height: @icon-h-mid - 5;}
       // [type="vista"] {fg/marker-file: @path-vista;  fg/marker-height: @icon-h-mid - 3;}
       // [type="trails"] {fg/marker-file: @path-trails; fg/marker-transform: translate(0,@pin-shift-y-mid*1.5);}
       // [type="commserv"]     {fg/marker-file: @path-commserv; }
-    }
+    //}
   }
-  [cartodb_id<60][cartodb_id!=6],[cartodb_id>64]{
+  [type!="mainpoints"]{
     bg/marker-fill  : @c-feat-pin-fill;
+
     /* Opacity for non-centers */
     [zoom<15]{
       bg/marker-opacity  : .7;
     }
+
     /* "Permanent" types */
     [zoom>=14]{
       [type='ranger'],[type='restroom'],[type='bikepark'],[type='conc'],[type='beach'],[type='water']{

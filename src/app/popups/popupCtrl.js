@@ -6,44 +6,52 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$scope', '$stateParams', 'features', 'basePath', 'popupFactory'];
+    PopupCtrl.$inject = ['$state', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$http'];
 
-    function PopupCtrl($scope, $stateParams, features, basePath, popupFactory){
+    function PopupCtrl($state, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $http){
 
         var vm = this;
 
-        vm.id = $stateParams.id;
-        vm.mile = $stateParams.mile;
-        vm.svgPath = basePath.url;
-        vm.features = features.rows[0];
-        console.log(vm.features);
-        vm.imgSrc = vm.svgPath('assets/img/raster/SBHT_6077.JPG');
-        vm.tableName = null;
-        vm.featTypes = popupFactory.featTypes;
-        vm.currentUrl = window.location.href;
-        console.log(vm.featTypes);
+        vm.currentSeason = $rootScope.activeSeason;
+
+        /******************************/
+        /****** FEATURES POPUPS *******/
+        /******************************/
+
+        /********** DATA FOR SELECTED FEATURE **********/
+
+        /* Only need first row */
+        vm.selFeatData = selFeatData.rows[0];
+
+        $scope.$watch('vm.selFeatData', function(){
+            // console.log('vm.selFeatData updated (PopupCtrl)');
+            popupFactory.getPrimary(vm.selFeatData);
+        });
+
+        $scope.$watch('vm.activeImg', function(){
+            console.log('vm.activeImg updated (PopupCtrl)');
+            console.log(vm.selFeatData);
+            // console.log(vm.activeImg);
+        });
+
+
+        /***** Header *****/
+
+        // Icon
+        vm.icon = '#icon-' + vm.selFeatData.type;
+
+        // Title
+        vm.title = vm.selFeatData.type_name;
+        console.log("selFeatData: ");
+        console.log(vm.selFeatData);
+
+        /***** Images *****/
+        vm.activeImg = popupFactory.activeImg;
+
+        // Name
+        vm.featName = vm.selFeatData.name;
 
     }
 
+
 })();
-
-
-// vm.sublayers = layersFactory.sublayers;
-
-// $scope.$on('feature updated', function(event,data) {
-//     vm.tableName = data;
-// });
-
-// PROMISES, not sure if needed, seems to be fine without
-// function init() {
-//     layersFactory.getFeatureInfo()
-//         .success(function(featureData) {
-//             $stateParams.id = featureData.rows[0].cartodb_id;
-//             $scope.featureData = featureData.rows;
-//         })
-//         .error(function(data, status, headers, config) {
-//             $log.log(data.error + ' ' + status);
-//         });
-// }
-
-// init();

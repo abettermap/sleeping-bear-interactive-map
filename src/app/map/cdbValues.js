@@ -9,6 +9,7 @@
     }
 
 
+
     angular
         .module('mapApp')
         .value('cdbValues',{
@@ -22,43 +23,60 @@
             tiler_port: "443",
             type: 'CartoDB',
             user_name: 'remcaninch',
-            sublayers: [
-                {   // TRAIL
+            baseInfo: {
+                attribution: false,
+                // detectRetina: true,
+                sql_domain: "cartodb.com",
+                sql_port: "443",
+                sql_protocol: "https",
+                tiler_protocol: "https",
+                tiler_domain: "cartodb.com",
+                tiler_port: "443",
+                type: 'CartoDB',
+                user_name: 'remcaninch',
+            },
+            trailSublayer: [ // Use trail as default sublayer
+                {
                     sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht",
                     cartocss: getMss('lines'),
-                    // interactivity: 'cartodb_id',
-                    route: 'trail-pix',
-                    table: 'sbht'
-                },
-                {   // GRADE
-                    // cartocss: getMss('lines'),
-                    cartocss: "#sbht_grade{line-pattern-file: url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/chevro.png);}",
-                    route: '',
-                    sql: "SELECT the_geom_webmercator FROM sbht_grade",
-                    table: '',
-                },
-                {   // CAUTION
-                    // cartocss: getMss('lines'),
-                    cartocss: "#sbht_caution{line-color: yellow; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
-                    route: '',
-                    sql: "SELECT the_geom_webmercator FROM sbht_caution",
-                    table: '',
-                },
-                {   // COMMERCIAL
-                    sql: "SELECT the_geom_webmercator, cartodb_id FROM commercial",
-                    cartocss: "#trail_pix_digitize{marker-fill:orange;marker-placement:point;marker-type:ellipse;marker-width:.1;marker-allow-overlap:true;}",
-                    // interactivity: 'cartodb_id',
-                    route: 'commercial',
-                    table: 'commercial'
-                },
-                {   // FEATURES
-                    sql: "SELECT the_geom_webmercator, name, cartodb_id, type FROM features ORDER BY type ASC",
-                    cartocss: getMss('features'),
                     interactivity: 'cartodb_id',
-                    route: 'features',
-                    table: 'nps_poi_giscloud'
-                },
-            ]
+                    route: 'trail-pix',
+                    name: 'trail',
+                    table: 'sbht'
+                }
+            ],
+            gradeSublayer: { // GRADE
+                cartocss: "#sbht_grade[zoom>=13]{line-color: red; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
+                route: '',
+                sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_grade WHERE cartodb_id = null",
+                name: 'grade',
+                table: '',
+            }, // end GRADE
+            cautionSublayer: { // CAUTION
+                cartocss: "#sbht_caution[zoom>=13]{line-color: yellow; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
+                route: '',
+                sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_caution WHERE cartodb_id = null",
+                name: 'caution',
+                table: '',
+            }, // end CAUTION
+            commSublayer: { // COMMERCIAL
+                sql: "SELECT the_geom_webmercator, cartodb_id FROM commercial",
+                cartocss: "#trail_pix_digitize{marker-fill:orange;marker-placement:point;marker-type:ellipse;marker-width:.1;marker-allow-overlap:true;}",
+                // interactivity: 'cartodb_id',
+                route: 'commercial',
+                name: 'comm',
+                table: 'commercial'
+            }, // end COMMERCIAL
+            featSublayer: { // FEATURES
+                cartocss: getMss('features'),
+                // cartocss: "#features[cartodb_id=2]{marker-width: 14}",
+                interactivity: 'cartodb_id, type, name_id, mile',
+                route: 'features',
+                sql: "SELECT features.the_geom_webmercator, features.cartodb_id, features.type, features.mile, features.name_id, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type ORDER BY priority",
+                // AND features.type = 'mainpoints' (ADD THIS BACK IN LATER)
+                name: 'features',
+                table: 'nps_poi_giscloud'
+            }, // end FEATURES
 
         });
 

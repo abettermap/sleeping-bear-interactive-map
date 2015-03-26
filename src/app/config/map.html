@@ -7,11 +7,11 @@
   </span>
   <span id="mss-lines" class="never-show">
       <?php
-        $contents = file_get_contents( plugins_url() . '/wp-fosb-map/src/assets/spatial/carto-css/sbht-lines.mss');
+        $contents = file_get_contents( plugins_url() . '/wp-fosb-map/src/assets/spatial/carto-css/sbht-trail.mss');
         echo $contents;
       ?>
   </span>
-  <div class="never-show" ng-include="vm.svgPath('assets/img/svg/project/defs/fosb-svg-defs.svg')"></div>
+  <div class="never-show" ng-include="vm.svgPath('src/assets/img/svg/project/defs/fosb-svg-defs.svg')"></div>
 <!--     <header id="page-header" class="page-header">
       <h1>Sleeping Bear Heritage Trail</h1>
       <p>Interactive Map Explorer</p>

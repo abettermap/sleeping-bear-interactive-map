@@ -4,6 +4,7 @@ module.exports = {
     bsFiles: {
       src: [
         'src/assets/css/*.css',
+        'src/assets/spatial/**/*.mss',
         '*.php',
         'src/app/**/*.js',
         'src/app/**/*.html'

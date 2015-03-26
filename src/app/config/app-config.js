@@ -18,9 +18,9 @@
         var path = '';
 
         if (window.host === 'friendsofsleepingbear.org'){
-            path = window.location.origin + '/wp-content/plugins/wp-fosb-map/src/' + suffix;
+            path = window.location.origin + '/wp-content/plugins/wp-fosb-map/' + suffix;
         } else {
-            path = window.location.origin + '/fosb/wp-content/plugins/wp-fosb-map/src/' + suffix;
+            path = window.location.origin + '/fosb/wp-content/plugins/wp-fosb-map/' + suffix;
         }
         return path;
 
@@ -43,9 +43,11 @@
         ])
         .run(['$rootScope', '$state', '$stateParams', '$location',
             function ($rootScope, $state, $stateParams, $location) {
+                $stateParams.seasons = 'summer';
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
                 $rootScope.activeSeason = 'summer';
+                // $rootScope.primaryImg = '';
             }
         ]);
 
