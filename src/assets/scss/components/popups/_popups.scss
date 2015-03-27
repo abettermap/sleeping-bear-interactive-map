@@ -27,10 +27,42 @@
 
 /* MAIN IMAGE */
 .popup__image--primary {
-  background-size: contain;
-  background-position: center top;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-  height: 60%;
+  height: 100%;
+  position: relative;
   width: 100%;
   // margin: 0 10%;
+}
+
+/* THUMBS */
+.thumbs-container {
+  bottom: 0;
+  background-color: $c-panel-header;
+  padding: 5px 3px 2px;
+  width: 100%;
+  // display: flex;
+  text-align: center;
+  // align-items: center;
+  max-width: 1000px;
+  // flex-flow:
+  height: 47px;
+  // overflow-x: scroll;
+  // overflow-y: hidden;
+  position: absolute;
+}
+
+.thumbnail {
+  cursor: pointer;
+  display: inline-block;
+  // float: none;
+  // clear: none;
+  flex: auto 18%;
+  height: 100%;
+  margin: 0 5px;
+  img {
+    display: block;
+    height: 40px;
+  }
 }

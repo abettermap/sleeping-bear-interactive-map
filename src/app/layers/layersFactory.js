@@ -6,9 +6,9 @@
         .module('layersModule')
         .factory('layersFactory', layersFactory);
 
-    layersFactory.$inject = ['cdbValues', '$state', '$stateParams', '$rootScope'];
+    layersFactory.$inject = ['cdbValues', '$state', '$stateParams', '$rootScope', 'popupFactory'];
 
-    function layersFactory(cdbValues, $state, $stateParams, $rootScope){
+    function layersFactory(cdbValues, $state, $stateParams, $rootScope, popupFactory){
 
         // Set empty objects for easy access later
         var sublayers = {
@@ -84,8 +84,10 @@
               sql: cdbValues.featSublayer.sql,
             }).on('featureClick', function(e, pos, latlng, data){
                 var season = $rootScope.activeSeason;
+                popupFactory.setActiveImg(data);
+
                 // console.log("POI - feature clicked; data:");
-                // $rootScope.$broadcast('rootScope:broadcast', 'Broadcast');
+                var s = data.mile;
                 $state.go('home.features', {
                     cdbid: data.cartodb_id,
                     mile: data.mile,
@@ -94,6 +96,7 @@
                 },{
                     reload: true
                 });
+                // $rootScope.$broadcast('rootScope:broadcast', s);
 
             });
 

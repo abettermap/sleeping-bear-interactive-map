@@ -4,7 +4,7 @@
 	include $_SERVER['DOCUMENT_ROOT'].'/wp-load.php';
 
 	// Base path to all images + subpath (via request)
- 	$img_path = WP_CONTENT_DIR . '/sbht-i-map/img-src/' . $_GET['dir'];
+ 	$img_path = WP_CONTENT_DIR . '/sbht-i-map/img-prod/' . $_GET['dir'];
 
  	// Just the pics
 	$img_dir = $img_path . '*.{JPG,jpg,jpeg,PNG,gif,png}';

@@ -133,7 +133,7 @@
   // fill it up on mobile
   @include mq($from: tablet) {
     height: 600px;
-    width: 500px;
+    width: 450px;
     left: auto;
     right: $container-spacing/1.7;
     top: $container-spacing/1.7;

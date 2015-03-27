@@ -10,9 +10,13 @@
 
     function popupFactory($rootScope, $http, basePath){
 
+        var defaultImg = basePath.url('src/assets/img/raster/SBHT_6077.jpg');
+
         var popups = {
-            getPrimary: getPrimary,
-            activeImg: "",
+            setActiveImg: setActiveImg,
+            // activeImg: defaultImg,
+            activeImg: '',
+            selFeatThumbs: [],
             // getSecondary: getSecondary,
             // getTableInfo: getTableInfo,
             setSeason: setSeason,
@@ -26,16 +30,16 @@
         }
 
 
-        function getPrimary(data){
+        function setActiveImg(data){
 
             /* Defaults for all hosts */
             var root = '',
                 hostName = window.location.hostname,
                 origin = window.location.origin,
-                wpContent = '/wp-content/sbht-i-map/img-src/';
+                wpContent = '/wp-content/sbht-i-map/img-prod/';
 
             /* Account for fosb folder */
-            if (hostName == 'localhost' || hostName == 'wpmulti.dev'){
+            if (hostName == 'localhost' || hostName == 'wpmulti.dev' || hostName == 'abettermap.com'){
                 origin = origin + '\/fosb';
             } else {
                 origin = origin;
@@ -43,30 +47,53 @@
 
 
             /*** Create Path ***/
-            var prefix  = '/wp-content/plugins/wp-fosb-map/get-images.php?dir=',
-                layer   = 'poi\/',
+            var phpPrefix  = '/wp-content/plugins/wp-fosb-map/get-images.php?dir=',
+                layer   = 'features',
+                midSize = '\/mid_size\/',
+                thumb = '\/thumbnail\/',
                 mile    = data.mile + '\/',
-                type    = 'features\/',
-                id      = data.name_id + '\/';
+                id      = data.name_id;
+                // type    = 'features\/',
 
-            var subpath = layer + mile + type + id,
-                imgPath = origin + wpContent + layer + mile + type + id,
-                phpFilePath = origin + prefix,
-                fullQuery = phpFilePath + subpath;
+            // var subpath = layer + mile + type + id,
+            var imgPath = origin + wpContent + 'features\/thumbnail\/' + mile + id + '\/';
+            var thumbrt = origin + wpContent + 'features\/mid_size\/' + mile + id + '\/';
+            // console.log(imgPath);
+            var phpFilePath = origin + phpPrefix,
+            // fullQuery = phpFilePath + subpath;
+            activePath = origin + wpContent + layer + midSize + mile + id + '\/img00001.jpg',
+            thumbsPath = 'features\/thumbnail\/' + mile + id + '\/',
+            thumbsQuery = phpFilePath + thumbsPath;
 
-            var defaultImg = basePath.url('src/assets/img/raster/SBHT_6077.jpg');
-            var arr = [];
-            $http.get(fullQuery, {})
+            setSecondaryThumbs(thumbsQuery, imgPath, data, thumbrt);
+        }
+
+        function setSecondaryThumbs(thumbsQuery, imgPath, data, thumbrt){
+            // Thumbs
+            $http.get(thumbsQuery, {})
             .success(function(data) {
                 if (typeof data === "object"){
+
+                    var thumbs = [];
                     for( var i in data ) {
+                        // Convert returned object to array & skip first one
                         if (data.hasOwnProperty(i)){
-                           arr.push(imgPath + data[i]);
+                            if (data[i]!=='img00001.jpg'){
+                                console.log('imgPath: ' + imgPath);
+                                console.log('data[i]: ' + data[i]);
+                                thumbs.push({
+                                    thumb: imgPath + data[i],
+                                    base: thumbrt + data[i]
+                                });
+                            }
                         }
                     }
-                    popups.activeImg = arr[0];
+                        console.log(thumbs);
+                    popups.secondaryThumbs = thumbs;
+                    // debugger;
+                    $rootScope.$broadcast('rootScope:secondaryThumbsSet', popups.secondaryThumbs);
                 } else {
-                    popups.activeImg = defaultImg;
+                    // $rootScope.$broadcast('rootScope:secondaryThumbsSet', []);
                 }
             });
 

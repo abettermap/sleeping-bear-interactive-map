@@ -17,7 +17,7 @@
 
         var path = '';
 
-        if (window.host === 'friendsofsleepingbear.org'){
+        if (window.location.host === 'friendsofsleepingbear.org'){
             path = window.location.origin + '/wp-content/plugins/wp-fosb-map/' + suffix;
         } else {
             path = window.location.origin + '/fosb/wp-content/plugins/wp-fosb-map/' + suffix;
