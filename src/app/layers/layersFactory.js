@@ -6,9 +6,9 @@
         .module('layersModule')
         .factory('layersFactory', layersFactory);
 
-    layersFactory.$inject = ['cdbValues', '$state', '$stateParams', '$rootScope', 'popupFactory'];
+    layersFactory.$inject = ['cdbValues', '$state', '$stateParams', '$rootScope', 'popupFactory', '$timeout'];
 
-    function layersFactory(cdbValues, $state, $stateParams, $rootScope, popupFactory){
+    function layersFactory(cdbValues, $state, $stateParams, $rootScope, popupFactory, $timeout){
 
         // Set empty objects for easy access later
         var sublayers = {
@@ -84,19 +84,21 @@
               sql: cdbValues.featSublayer.sql,
             }).on('featureClick', function(e, pos, latlng, data){
                 var season = $rootScope.activeSeason;
-                popupFactory.setActiveImg(data);
-
-                // console.log("POI - feature clicked; data:");
+                $timeout(function() { $rootScope.$emit('rootScope:featureClicked', info);},1200);
+                popupFactory.setActiveImages(data, 'features');
+                var info = [data, 'features'];
                 var s = data.mile;
-                $state.go('home.features', {
-                    cdbid: data.cartodb_id,
-                    mile: data.mile,
-                    seasons: season,
-                    table: 'features'
-                },{
-                    reload: true
-                });
-                // $rootScope.$broadcast('rootScope:broadcast', s);
+
+                $timeout(function() {
+                    $state.go('layer.features', {
+                        cdbid: data.cartodb_id,
+                        mile: data.mile,
+                        seasons: season,
+                        table: 'features'
+                    },{
+                        reload: true
+                    });
+                },100);
 
             });
 

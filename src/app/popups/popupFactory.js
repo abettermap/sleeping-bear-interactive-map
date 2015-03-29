@@ -6,19 +6,16 @@
         .module('popupsModule')
         .factory('popupFactory', popupFactory);
 
-    popupFactory.$inject = ['$rootScope', '$http', 'basePath'];
+    popupFactory.$inject = ['$rootScope', '$http', 'basePath', '$timeout'];
 
-    function popupFactory($rootScope, $http, basePath){
+    function popupFactory($rootScope, $http, basePath, $timeout){
 
-        var defaultImg = basePath.url('src/assets/img/raster/SBHT_6077.jpg');
+        // var defaultImg = 'src/assets/img/raster/SBHT_6077.jpg';
+        var defaultImg = 'http://friendsofsleepingbear.org/wp-content/sbht-i-map/img-prod/features/mid_size/n00/wdune-climb/img00009.jpg';
 
         var popups = {
-            setActiveImg: setActiveImg,
-            // activeImg: defaultImg,
+            setActiveImages: setActiveImages,
             activeImg: '',
-            selFeatThumbs: [],
-            // getSecondary: getSecondary,
-            // getTableInfo: getTableInfo,
             setSeason: setSeason,
             currentSeason: $rootScope.activeSeason
         };
@@ -30,13 +27,12 @@
         }
 
 
-        function setActiveImg(data){
+        function setActiveImages(data, layer){
 
             /* Defaults for all hosts */
-            var root = '',
-                hostName = window.location.hostname,
+            var hostName = window.location.hostname,
                 origin = window.location.origin,
-                wpContent = '/wp-content/sbht-i-map/img-prod/';
+                commonPath = '/wp-content/sbht-i-map/img-prod/';
 
             /* Account for fosb folder */
             if (hostName == 'localhost' || hostName == 'wpmulti.dev' || hostName == 'abettermap.com'){
@@ -47,53 +43,27 @@
 
 
             /*** Create Path ***/
-            var phpPrefix  = '/wp-content/plugins/wp-fosb-map/get-images.php?dir=',
-                layer   = 'features',
-                midSize = '\/mid_size\/',
-                thumb = '\/thumbnail\/',
-                mile    = data.mile + '\/',
-                id      = data.name_id;
-                // type    = 'features\/',
+            var suffix = layer + '\/mid_size\/' + data.mile + '\/' + data.name_id + '\/',
+                phpQuery = 'get-images.php?dir=' + suffix;
 
-            // var subpath = layer + mile + type + id,
-            var imgPath = origin + wpContent + 'features\/thumbnail\/' + mile + id + '\/';
-            var thumbrt = origin + wpContent + 'features\/mid_size\/' + mile + id + '\/';
-            // console.log(imgPath);
-            var phpFilePath = origin + phpPrefix,
-            // fullQuery = phpFilePath + subpath;
-            activePath = origin + wpContent + layer + midSize + mile + id + '\/img00001.jpg',
-            thumbsPath = 'features\/thumbnail\/' + mile + id + '\/',
-            thumbsQuery = phpFilePath + thumbsPath;
-
-            setSecondaryThumbs(thumbsQuery, imgPath, data, thumbrt);
-        }
-
-        function setSecondaryThumbs(thumbsQuery, imgPath, data, thumbrt){
             // Thumbs
-            $http.get(thumbsQuery, {})
+            $http.get(phpQuery, {})
             .success(function(data) {
+
                 if (typeof data === "object"){
 
-                    var thumbs = [];
+                    var activeImages = [];
+
                     for( var i in data ) {
-                        // Convert returned object to array & skip first one
+                        // Convert returned object to array
                         if (data.hasOwnProperty(i)){
-                            if (data[i]!=='img00001.jpg'){
-                                console.log('imgPath: ' + imgPath);
-                                console.log('data[i]: ' + data[i]);
-                                thumbs.push({
-                                    thumb: imgPath + data[i],
-                                    base: thumbrt + data[i]
-                                });
-                            }
+                            activeImages.push(origin + commonPath + suffix + data[i]);
                         }
                     }
-                        console.log(thumbs);
-                    popups.secondaryThumbs = thumbs;
-                    // debugger;
-                    $rootScope.$broadcast('rootScope:secondaryThumbsSet', popups.secondaryThumbs);
+                    console.log(activeImages);
+                    $timeout(function() { $rootScope.$broadcast('rootScope:activeImagesSet', activeImages);},100);
                 } else {
-                    // $rootScope.$broadcast('rootScope:secondaryThumbsSet', []);
+                    $rootScope.$broadcast('rootScope:activeImagesSet', [defaultImg]);
                 }
             });
 

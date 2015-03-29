@@ -32,7 +32,7 @@ module.exports = {
         'src/app/popups/*js',
         'src/app/ctrls/*.js',
         'src/app/panels/*.js',
-        // 'src/app/popups/popupRoutes.js'
+        'src/app/vendor/dirPagination.js'
       ],
       dest: 'src/app/map-app.js'
     },
@@ -42,7 +42,7 @@ module.exports = {
         // 'src/assets/js/vendor/bower_components/cartodb.js/dist/cartodb.js',
         // 'src/assets/js/vendor/bower_components/cartodb.js/dist/_cartodb_nojquery.js',
         // Picturefill
-        'src/assets/js/vendor/bower_components/picturefill/dist/picturefill.js',
+        // 'src/assets/js/vendor/bower_components/picturefill/dist/picturefill.js',
         // Lightbox
         // 'src/assets/js/vendor/bower_components/lightbox2/js/lightbox.js',
         // SVG4Everybody

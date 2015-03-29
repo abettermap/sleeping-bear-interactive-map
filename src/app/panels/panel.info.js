@@ -11,7 +11,7 @@
     function panelInfo(basePath){
         return {
             restrict: 'E',
-            templateUrl: basePath.url('src/app/panels/templates/panel.info.html'),
+            templateUrl: 'src/app/panels/templates/panel.info.html',
             controller: 'PanelsCtrl',
             controllerAs: 'vm',
             replace: true

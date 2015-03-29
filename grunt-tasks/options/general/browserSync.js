@@ -14,10 +14,10 @@ module.exports = {
     options: {
       watchTask: true,
       proxy: 'wpmulti.dev', // might need full path to map??
-      notify: true,
+      notify: false,
       open: true,
       ghostMode: false,
-      startPath: '/fosb/map'
+      startPath: '/fosb/wp-content/sbht-i-map'
     }
   }
 

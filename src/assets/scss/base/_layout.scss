@@ -75,9 +75,9 @@
 
 .controls {
   box-shadow: 2px 2px 5px #808080;
-  left: $container-spacing;
+  left: $container-spacing/1.5;
   position: absolute;
-  top: $container-spacing;
+  top: $container-spacing/1.5;
 }
 
 // PANELS
@@ -118,24 +118,27 @@
 
 
 // POPUPS
+
+
 .popup {
   // height: 250px; // trans background on these looks cool
   // right: $container-spacing;
   // top: $container-spacing;
-  bottom: 0;
+  // bottom: inherit;
+  // display: flex;
+  flex-flow: column nowrap;
   left: 0;
   right: 0;
   top: 0;
-
-  @include mq($from: tablet) {
-  }
+  bottom: 0;//2.3rem;
 
   // fill it up on mobile
   @include mq($from: tablet) {
-    height: 600px;
-    width: 450px;
+    // max-height: 500px;
+    width: 366px;
+    bottom: auto;
     left: auto;
-    right: $container-spacing/1.7;
+    right: $container-spacing/1.5;
     top: $container-spacing/1.7;
   }
 

@@ -1,7 +1,8 @@
 .panel {
+  background-color: $c-panel-bg;
+
   .panel__header {
     @extend %panel__header;
-    // background-color: $c-panel-header;
   }
 
   &__back {

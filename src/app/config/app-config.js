@@ -39,6 +39,7 @@
             'popupsModule',
             'layersModule',
             'ngAnimate',
+            'angularUtils.directives.dirPagination',
             'ui.router',
         ])
         .run(['$rootScope', '$state', '$stateParams', '$location',

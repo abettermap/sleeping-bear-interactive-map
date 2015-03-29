@@ -3,7 +3,8 @@ module.exports = {
     plugin: {
         expand: true,
         // flatten: true,
-        src: 'wp-fosb-map.php',
+        // src: 'wp-fosb-map.php',
+        src: 'index.php',
         dest: 'build'
         // filter: 'isFile'
     },

@@ -11,7 +11,7 @@
     function panelSeasons(basePath){
         return {
             restrict: 'E',
-            templateUrl: basePath.url('src/app/panels/templates/panel.seasons.html'),
+            templateUrl: 'src/app/panels/templates/panel.seasons.html',
             controller: 'PanelsCtrl',
             controllerAs: 'vm',
             replace: true

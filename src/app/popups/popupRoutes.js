@@ -3,7 +3,11 @@
     'use strict';
 
     angular.module('mapApp')
-        .config(['$stateProvider', '$urlRouterProvider', 'basePath', function($stateProvider, $urlRouterProvider, basePath) {
+        .config(['paginationTemplateProvider', '$stateProvider', '$urlRouterProvider', 'basePath', function(paginationTemplateProvider, $stateProvider, $urlRouterProvider, basePath) {
+
+            // Nothing to do w/routes, but set pagination template:
+            var pagPath = 'src/app/vendor/dirPagination.tpl.html';
+            paginationTemplateProvider.setPath(pagPath);
 
             // Make these constants later...
             var queryPrefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT ',
@@ -14,11 +18,13 @@
             $stateProvider
                 .state('home', {
                     url: '/',
-                    template: '<div ui-view></div>',
+                    // template: '<div ui-view></div>',
                     params: {
                         table: ''
-                    }
-                    // controller: 'PopupCtrl',
+                    },
+                    controller: function(){
+                        $('.leaflet-tile-container.leaflet-zoom-animated').click();
+                    },
                     // controllerAs: 'vm',
                     // resolve: {
                     //     selFeatData: ['$http', '$stateParams', function($http, $stateParams) {
@@ -41,9 +47,13 @@
                     //     }],
                     // }
                 })
-                .state('home.features', {
+                .state('layer', {
+                    url: 'layer/',
+                    template: '<div ui-view></div>'
+                })
+                .state('layer.features', {
                     url: ':seasons/features/:cdbid/:mile',
-                    templateUrl: basePath.url('src/app/popups/templates/popup.poi.html'),
+                    templateUrl: 'src/app/popups/templates/popup.features.html',
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
@@ -71,7 +81,7 @@
                 })
                 .state('home.commercial', {
                     url: 'commercial/:cdbid/:mile',
-                    templateUrl: basePath.url('src/app/popups/templates/popup.comm.html'),
+                    templateUrl: 'src/app/popups/templates/popup.comm.html',
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     resolve: {
@@ -89,7 +99,7 @@
                 });
                 // .state('home.trail-pix', {
                 //     url: 'trail-pix/:cdbid/:mile',
-                //     templateUrl: basePath.url('src/app/popups/templates/trail-pix-template.html'),
+                //     templateUrl: 'src/app/popups/templates/trail-pix-template.html',
                 //     controller: 'PopupCtrl',
                 //     controllerAs: 'vm',
                 //     resolve: {

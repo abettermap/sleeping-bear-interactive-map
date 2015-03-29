@@ -12,40 +12,11 @@
 
     	var vm = this;
 
-        // vm.featToggles = panelsFactory.featToggles;
-        vm.featToggles = [
-            {checked: false, id: 'beach', icon: '#icon-beach', text: 'Beaches'},
-            {checked: false, id: 'bench', icon: '#icon-bench', text: 'Benches & Tables'},
-            {checked: false, id: 'bpark', icon: '#icon-bpark', text: 'Bicycle Parking'},
-            {checked: false, id: 'commserv', icon: '#icon-commserv', text: 'Community Services'},
-            {checked: false, id: 'concession', icon: '#icon-concession', text: 'Concessions'},
-            {checked: false, id: 'historic', icon: '#icon-historic', text: 'Historic Areas'},
-            {checked: false, id: 'other-feat', icon: '#icon-other', text: 'Other'},
-            {checked: false, id: 'parking', icon: '#icon-parking', text: 'Parking'},
-            {checked: false, id: 'ranger', icon: '#icon-ranger', text: 'Ranger Station'},
-            {checked: false, id: 'restroom', icon: '#icon-restroom', text: 'Restrooms'},
-            {checked: false, id: 'sign', icon: '#icon-sign', text: 'Signs & Mileposts'},
-            {checked: false, id: 'trail', icon: '#icon-trail', text: 'Hiking Trails'},
-            {checked: false, id: 'vista', icon: '#icon-vista', text: 'Scenic Vistas'},
-            {checked: false, id: 'water', icon: '#icon-water', text: 'Drinking Water'},
-        ];
-
-        vm.commToggles = [
-            {checked: false, id: 'lodging', icon: '#icon-lodging', text: 'Lodging'},
-            {checked: false, id: 'food', icon: '#icon-food', text: 'Food & Drink'},
-            {checked: false, id: 'shopping', icon: '#icon-shopping', text: 'Shopping'},
-            {checked: false, id: 'services', icon: '#icon-services', text: 'Services'},
-            {checked: false, id: 'activities', icon: '#icon-activities', text: 'Activities'},
-            {checked: false, id: 'other-comm', icon: '#icon-other', text: 'Other'}
-        ];
-
-        // vm.commToggles = panelsFactory.commToggles;
-
         //////// PANELS \\\\\\\\
 
         // The active panel
         vm.activePanel = '';
-        // vm.activePanel = 'info';
+        // vm.activePanel = 'features';
 
         vm.changePanel = function(panel){
 
@@ -55,12 +26,17 @@
                 vm.activePanel = panel;
             }
 
+            // Close popup
+            $state.go('home', {
+            },{
+                reload: true
+            });
+
         };
 
         //////// SEASONS PANEL \\\\\\\\
         // The active season
         vm.activeSeason = $rootScope.activeSeason;
-        // vm.activeCode = $stateParams.seasons;
 
         vm.activeSeasonIcon = '#icon-summer';
 
@@ -71,25 +47,47 @@
 
             panelsFactory.setSeason(season);
 
-            // $state.go('home', {
-            //     seasons: season
-            // },{
-            //     reload: true
-            // });
         };
 
         //////// POI VIEWS \\\\\\\\
-        vm.poiTogglesViews = [
-            {hover: false, icon: '#icon-map-pin', id: 'nav', heading: 'Points of Interest'},
-            {hover: true, icon: '#icon-back', id: 'feat', heading: 'Features'},
-            {hover: true, icon: '#icon-back', id: 'comm', heading: 'Businesses'}
-        ];
-        vm.poiTogglesActiveView = vm.poiTogglesViews[0];
+
+        // Pages/views
+        vm.poiPages = {
+            nav: {hover: false, icon: '#icon-map-pin', id: 'nav', heading: 'Points of Interest'},
+            feat: {hover: true, icon: '#icon-back', id: 'feat', heading: 'Features'},
+            comm: {hover: true, icon: '#icon-back', id: 'comm', heading: 'Businesses'}
+        };
+        vm.activePoiPg = vm.poiPages.nav;
 
         // Change POI toggle view
-        vm.changePoiView = function(view){
-            vm.poiTogglesActiveView = view;
+        vm.setPoiPg = function(page){
+            vm.activePoiPg = vm.poiPages[page];
         };
+
+        // Same as factory
+        vm.featToggles = panelsFactory.featToggles;
+        vm.commToggles = panelsFactory.commToggles;
+
+        vm.selectedTypes = [];
+
+        // Set query
+        vm.toggleFeatures = function(type){
+
+            var withCommas = "'" + type + "'";
+            var idx = vm.selectedTypes.indexOf(withCommas);
+
+            // is currently selected
+            if (idx > -1) {
+                vm.selectedTypes.splice(idx, 1);
+            }
+
+            // is newly selected
+            else {
+                vm.selectedTypes.push("'" + type + "'");
+            }
+
+            panelsFactory.toggleFeatures(vm.selectedTypes);
+        }
 
         //////// TRAILS PANEL \\\\\\\\
         vm.trailToggleStatus = {
@@ -106,8 +104,8 @@
             name: 'home'
         };
 
-        vm.togglePoiLayer = function(layer){
-            panelsFactory.togglePoiLayer(layer);
+        vm.toggleFeaturesLayer = function(layer){
+            panelsFactory.toggleFeaturesLayer(layer);
         };
 
         $scope.helpData = [];

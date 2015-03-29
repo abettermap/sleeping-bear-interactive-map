@@ -26,6 +26,7 @@ src/assets/spatial/qgis
 
 # Images #
 ##########
+img-prod
 src/assets/img/svg/shared
 src/assets/img/svg/project/icons/min
 src/assets/img/svg/QGIS-default

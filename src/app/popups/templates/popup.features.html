@@ -1,35 +1,26 @@
 <div class="popup">
-
-
-	COPIED THIS FROM POI (AKA FEATURES), NOT READY
-
-
 	<h2 class="popup__header">
-		<a class="popup-pg-nav" href="javascript:;" ng-click="vm.setPopupPg()">
-			<span href="javascript:;" class="tooltip-container css-tooltip-right color-blue">
-			    <span>{{vm.popupNavTooltip}}</span>
-			</span>
-			<svg viewBox="0 0 100 100">
-			    <use ng-attr-xlink:href="{{vm.popupNavIcon}}" xlink:href=""></use>
-			</svg>
-		</a>
-		<span>
+		<a class="no-hover" href="javascript:;" ng-click="vm.setPopupPg()">
 			<svg class="popup-icon--type no-hover" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
 			    <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
 			</svg>
+		</a>
+		<span>
 			{{vm.title}}
 		</span>
 		<a class="popup__close" ui-sref="home" href="javascript:;" ng-click="$state.go('home')">
 			<svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use></svg>
 		</a>
 	</h2>
-	<div class="popup__page popup__page--pics"
-		ng-style="{'background-image': 'url(' + vm.activeImg + ')'}"
-		ng-show="vm.showPopupInfo">
+	<div class="active-img-container">
+		<div class="active-img"
+			dir-paginate="img in vm.activeImages | itemsPerPage: 1"
+			ng-style="{'background-image': 'url(' + img + ')'}"
+			pagination-id="mainImg">
+		</div>
 		<dir-pagination-controls pagination-id="mainImg"></dir-pagination-controls>
 	</div>
 	<div class="thumbs-container">
-		<dir-pagination-controls pagination-id="thumbs"></dir-pagination-controls>
 		<ul class="thumbnail-list">
 		    <li dir-paginate="img in vm.secondaryThumbs | itemsPerPage: 5" pagination-id="thumbs">
 		    	<a class="thumbnail" ng-click="vm.activeImg = img.base" alt="">
@@ -37,10 +28,6 @@
 		    	</a>
 		    </li>
 		</ul>
-	</div>
-	<div class="popup__inner popup__page popup__page--info" ng-show="!vm.showPopupInfo">
-		<h3>Contact Info</h3>
-		<h3>Share this:</h3>
-		<h3>Media</h3>
+		<dir-pagination-controls pagination-id="thumbs"></dir-pagination-controls>
 	</div>
 </div>

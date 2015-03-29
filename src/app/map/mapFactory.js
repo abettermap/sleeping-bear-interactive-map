@@ -60,14 +60,14 @@
                 // screenHt = screenHt + 72;
                 // $('#map-wrapper').css("height",screenHt);
                 // if
-                $('#map-wrapper').addClass('iphone');
+                // $('#map-wrapper').addClass('iphone');
             }
 
             // iPad
             if (navigator.userAgent.match(/iPad/i)){
                 // screenHt = screenHt + 72;
                 // $('#map-wrapper').css("height",screenHt);
-                $('#map-wrapper').addClass('ipad');
+                // $('#map-wrapper').addClass('ipad');
             }
 
             mapFactory.map = L.map('map', leafletDefaults);

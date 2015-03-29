@@ -11,7 +11,7 @@
     function panelFeatures(basePath){
         return {
             restrict: 'E',
-            templateUrl: basePath.url('src/app/panels/templates/panel.features.html'),
+            templateUrl: 'src/app/panels/templates/panel.features.html',
             controller: 'PanelsCtrl',
             controllerAs: 'vm',
             replace: true

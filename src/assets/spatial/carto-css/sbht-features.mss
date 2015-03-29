@@ -58,7 +58,6 @@
 #features {
   /* "6 Centers" - zooms <14 */
   [zoom<14][type="mainpoints"]{
-    /*[cartodb_id>=60][cartodb_id<=64],[cartodb_id=6]{*/
       bg/marker-allow-overlap: true;
       bg/marker-file: @path-pin-feat;
       bg/marker-fill: @c-perm-pin-fill;
@@ -71,53 +70,34 @@
       fg/marker-width: @icon-h-mid;
       fg/marker-transform: translate(0,@pin-shift-y-mid*1.55);
       fg/marker-file: @path-mainpoints;
-      // [type="signs"] {fg/marker-file: @path-signs; }
-      // [type="historic"] {fg/marker-file: @path-historic; fg/marker-height: @icon-h-mid - 5;}
-      // [type="vista"] {fg/marker-file: @path-vista;  fg/marker-height: @icon-h-mid - 3;}
-      // [type="trails"] {fg/marker-file: @path-trails; fg/marker-transform: translate(0,@pin-shift-y-mid*1.5);}
-      // [type="commserv"]     {fg/marker-file: @path-commserv; }
-    //}
   }
   [type!="mainpoints"]{
     bg/marker-fill  : @c-feat-pin-fill;
 
     /* Opacity for non-centers */
-    [zoom<15]{
-      bg/marker-opacity  : .7;
-    }
+    // [zoom<15]{
+    //   bg/marker-opacity  : .7;
+    // }
 
     /* "Permanent" types */
-    [zoom>=14]{
-      [type='ranger'],[type='restroom'],[type='bikepark'],[type='conc'],[type='beach'],[type='water']{
-        bg/marker-opacity  : .9;
-        bg/marker-allow-overlap: true;
-        bg/marker-file: @path-pin-feat;
-        bg/marker-line-color: @c-feat-pin-stroke;
-        bg/marker-line-width: @pin-line-w-mid;
-        bg/marker-height: @pin-h-mid;
-        bg/marker-transform: translate(0,@pin-shift-y-mid);
-        fg/marker-allow-overlap: true;
-        fg/marker-fill: @c-icon-fill;
-        fg/marker-height: @icon-h-mid;
-        fg/marker-transform: translate(0,@pin-shift-y-mid*1.25);
-        [type="beach"]    {fg/marker-file: @path-beach; fg/marker-height: @icon-h-mid*.5;}
-        [type="bikepark"] {fg/marker-file: @path-bikepark; }
-        [type="conc"]     {fg/marker-file: @path-conc; fg/marker-height: 13; fg/marker-transform: translate(0,@pin-shift-y-mid - 6);}
-        [type="ranger"]   {fg/marker-file: @path-ranger; }
-        [type="restroom"] {fg/marker-file: @path-restroom; fg/marker-height: 13;}
-        [type="water"]    {fg/marker-file: @path-water;}
-      }
-    }
-    /* Remaining types & mid-close zoom */
-    [zoom>=15]{
+    // [zoom>=14]{
       bg/marker-opacity  : .9;
       bg/marker-allow-overlap: true;
       bg/marker-file: @path-pin-feat;
       bg/marker-line-color: @c-feat-pin-stroke;
-      bg/marker-line-width: @pin-line-w-close;
+      bg/marker-line-width: @pin-line-w-mid;
+      bg/marker-height: @pin-h-mid;
+      bg/marker-transform: translate(0,@pin-shift-y-mid);
       fg/marker-allow-overlap: true;
       fg/marker-fill: @c-icon-fill;
-      /* Set file paths from here on out for these */
+      fg/marker-height: @icon-h-mid;
+      fg/marker-transform: translate(0,@pin-shift-y-mid*1.25);
+      [type="beach"]    {fg/marker-file: @path-beach; fg/marker-height: @icon-h-mid*.25;}
+      [type="bikepark"] {fg/marker-file: @path-bikepark; }
+      [type="conc"]     {fg/marker-file: @path-conc; fg/marker-height: 13; fg/marker-transform: translate(0,@pin-shift-y-mid - 6);}
+      [type="ranger"]   {fg/marker-file: @path-ranger; }
+      [type="restroom"] {fg/marker-file: @path-restroom; fg/marker-height: 13;}
+      [type="water"]    {fg/marker-file: @path-water;}
       [type="beach"]    {fg/marker-height: @icon-h-mid*.5;}
       [type="commserv"] {fg/marker-file: @path-commserv;}
       [type="historic"] {fg/marker-file: @path-historic;}
@@ -127,6 +107,16 @@
       [type="signs"]    {fg/marker-file: @path-signs;}
       [type="trails"]   {fg/marker-file: @path-trails;}
       [type="vista"]    {fg/marker-file: @path-vista; fg/marker-height: @icon-h-close*.9; fg/marker-transform: translate(0,@pin-shift-y-mid - 6);}
+    // }
+    /* Remaining types & mid-close zoom */
+    [zoom>=15]{
+      bg/marker-opacity  : .9;
+      bg/marker-allow-overlap: true;
+      bg/marker-file: @path-pin-feat;
+      bg/marker-line-color: @c-feat-pin-stroke;
+      bg/marker-line-width: @pin-line-w-close;
+      fg/marker-allow-overlap: true;
+      fg/marker-fill: @c-icon-fill;
     }
     /* Second-to-closest zoom level group; set sizes only */
     [zoom>=15][zoom<17]{

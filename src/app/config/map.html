@@ -11,7 +11,7 @@
         echo $contents;
       ?>
   </span>
-  <div class="never-show" ng-include="vm.svgPath('src/assets/img/svg/project/defs/fosb-svg-defs.svg')"></div>
+  <div class="never-show" ng-include="src/assets/img/svg/project/defs/fosb-svg-defs.svg"></div>
 <!--     <header id="page-header" class="page-header">
       <h1>Sleeping Bear Heritage Trail</h1>
       <p>Interactive Map Explorer</p>
@@ -48,14 +48,21 @@
   var width = $(window).width();
 
   // fire on window resize
-  $(window).resize(function() {
-      // do nothing if the width is the same
-      if ($(window).width()==width) return;
-      // ... your code
-  });
+  // $(window).resize(function() {
+  //     // do nothing if the width is the same
+  //     if ($(window).width()==width) return;
+  //     // ... your code
+  // });
 
   window.onload = function(){
-
+      // $('#map').focus();
+      // $('.map-wrapper *').click(function() {
+      //   var $input = $( this );
+      // // alert($input.prop('class'));
+      // });
+    // $('.popup__close, .panel__close').click(function() {
+    //   $('#map').focus();
+    // });
     // Get meta tags right
     $('meta[name=viewport]').attr('content', 'user-scalable=no, initial-scale=1.0, maximum-scale=1, minimum-scale=1, width=device-width, minimal-ui');
 

@@ -17,7 +17,8 @@ html {
 // Overflow on body
 body {
   @extend %full;
-  background: url($bg-pttn-url);
+  // background: url($bg-pttn-url);
+  background-color: $c-panel-bg;
   margin: 0;
   padding: 0;
 }

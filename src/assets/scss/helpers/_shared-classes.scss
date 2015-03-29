@@ -15,7 +15,8 @@
 
 /* PANEL & POPUP INPUTS */
 %panel-popup {
-  background: url($bg-pttn-url);
+  // background: url(background.jpg);
+  background-color: $c-panel-bg;
   box-shadow: 0 -5px 25px 0 $dark-gray;
   position: absolute;
   width: 100%;
@@ -36,7 +37,7 @@
       transition: $a-all-hover-transition;
 
       &:hover {
-        background-color: $c-feat-toggle-nav-hover;
+        background-color: $c-seasons-label-fill-checked;
         border-color: $c-panel-checked-border;
         color: $near-white;
       }
