@@ -15,8 +15,12 @@
         //////// PANELS \\\\\\\\
 
         // The active panel
+        vm.activePanel = 'features';
         vm.activePanel = '';
-        // vm.activePanel = 'features';
+
+        $rootScope.$on('rootScope:activeImagesSet', function (event, data) {
+            vm.activePanel = '';
+        });
 
         vm.changePanel = function(panel){
 
@@ -59,18 +63,76 @@
         };
         vm.activePoiPg = vm.poiPages.nav;
 
+        vm.featSubGroups = null;
+        vm.commSubGroups = null;
+        vm.allFeatTypes = null;
+        vm.allCommTypes = null;
+
+        panelsFactory.getSubGroups('feat').then(function(dataResponse) {
+
+            var subGroups = dataResponse.data.rows;
+
+            getPoiTypes(subGroups, 'feat');
+
+        });
+
+        panelsFactory.getSubGroups('comm').then(function(dataResponse) {
+
+            var subGroups = dataResponse.data.rows;
+
+            getPoiTypes(subGroups, 'comm');
+
+        });
+
+        function getPoiTypes(subGroups, table){
+
+            var sg = subGroups;
+
+            panelsFactory.getPoiPages(table).then(function(dataResponse) {
+
+                var types = dataResponse.data.rows;
+
+                for (var i = 0; i < sg.length; i++) {
+                    sg[i].types = [];
+                }
+
+                for (var i = 0; i < sg.length; i++) {
+                    for (var n = 0; n < types.length; n++) {
+                        if (sg[i].sub_group == types[n].sub_group){
+                            sg[i].types.push(types[n]);
+
+                        }
+                    }
+                }
+                if (table == 'feat'){
+                    vm.featSubGroups = sg;
+                } else {
+                    vm.commSubGroups = sg;
+                }
+            });
+
+        }
+
+
         // Change POI toggle view
-        vm.setPoiPg = function(page){
-            vm.activePoiPg = vm.poiPages[page];
+        vm.activePoiPage = 'Home';
+        vm.activePoiPageIcon = '#icon-map-pin';
+
+        vm.setActivePoiPage = function(page){
+            console.log(page);
+            vm.activePoiPage = page;
+            if (page !== 'Home'){
+                vm.activePoiPageIcon = '#icon-back';
+            }
         };
 
         // Same as factory
         vm.featToggles = panelsFactory.featToggles;
         vm.commToggles = panelsFactory.commToggles;
 
+        // Update SQL when feature toggled
         vm.selectedTypes = [];
 
-        // Set query
         vm.toggleFeatures = function(type){
 
             var withCommas = "'" + type + "'";
@@ -101,7 +163,7 @@
 
         //////// INFO PANEL \\\\\\\\
         vm.activeInfoPg = {
-            name: 'home'
+            name: 'Home'
         };
 
         vm.toggleFeaturesLayer = function(layer){
@@ -120,7 +182,6 @@
                 // $scope.topic = data.rows[0].subject;
               });
 
-          // }
         }
 
         vm.getHelpData = function(){
@@ -130,13 +191,7 @@
 
         }
 
-        // $scope.getDetails = function (id) {
-        //     var query = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT subject, text, topic_id FROM help';
-        //       $http.get(query).
-        //         success(function(data) {
-        //             $scope.artist = data;
-        //         });
-        // }
+
     }
 
 })();

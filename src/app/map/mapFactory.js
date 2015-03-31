@@ -71,6 +71,7 @@
             }
 
             mapFactory.map = L.map('map', leafletDefaults);
+
             mapFactory.zoomHome(mapFactory.map);
             return mapFactory.map;
         }

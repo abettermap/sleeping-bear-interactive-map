@@ -11,19 +11,19 @@
         <a class="controls__menu-item" href="javascript:;"></a>
     </div>
     <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.zoomHome()">
-        <span>Zoom to initial extent</span>
+        <span class="tooltip">Zoom to initial extent</span>
     </a>
     <svg class="controls__icon" viewBox="0 0 100 100">
         <use xlink:href="#icon-zoom-home"></use>
     </svg>
     <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.zoomIn()">
-        <span>Zoom in</span>
+        <span class="tooltip">Zoom in</span>
     </a>
     <svg class="controls__icon" viewBox="0 0 100 100">
         <use xlink:href="#icon-zoom-in"></use>
     </svg>
     <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.zoomOut()">
-        <span>Zoom out</span>
+        <span class="tooltip">Zoom out</span>
     </a>
     <svg class="controls__icon" viewBox="0 0 100 100">
         <use xlink:href="#icon-zoom-out"></use>
@@ -34,19 +34,20 @@
         <a class="controls__menu-item" href="javascript:;"></a>
     </div>
     <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.changeTiles()">
-        <span>Zoom to previous extent</span>
+        <span class="tooltip">Zoom to previous extent</span>
     </a>
     <svg class="controls__icon" viewBox="0 0 100 100">
         <use xlink:href="#icon-back"></use>
     </svg>
-    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.locate()">
-        <span>Zoom to current location via GPS</span>
+    <!-- <a id="test" href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.locate()"> -->
+    <a id="test" href="javascript:;" class="css-tooltip-right color-blue">
+        <span class="tooltip">Zoom to current location via GPS</span>
     </a>
     <svg class="controls__icon" viewBox="0 0 100 100">
         <use xlink:href="#icon-locate"></use>
     </svg>
     <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.changeTiles()">
-        <span>Change background</span>
+        <span class="tooltip">Change background</span>
     </a>
     <svg class="controls__icon" viewBox="0 0 100 100">
         <use ng-attr-xlink:href="{{vm.bgId}}" xlink:href=""></use>

@@ -53,7 +53,7 @@
     	        console.log("Ayo nayo! Could not add POINT layer");
     	    });
 
-    	};
+    	}
 
         /* Create remaining sublayers individually for more flexibility */
     	function createSublayers(map, layer){
@@ -84,12 +84,9 @@
               sql: cdbValues.featSublayer.sql,
             }).on('featureClick', function(e, pos, latlng, data){
                 var season = $rootScope.activeSeason;
-                $timeout(function() { $rootScope.$emit('rootScope:featureClicked', info);},1200);
-                popupFactory.setActiveImages(data, 'features');
-                var info = [data, 'features'];
-                var s = data.mile;
+                // var info = [data, 'features'];
+                // var s = data.mile;
 
-                $timeout(function() {
                     $state.go('layer.features', {
                         cdbid: data.cartodb_id,
                         mile: data.mile,
@@ -98,7 +95,10 @@
                     },{
                         reload: true
                     });
-                },100);
+                // $timeout(function() {
+                // },100);
+                setSelFeatColor(this, 'features', data.cartodb_id);
+                popupFactory.setActiveImages(data, 'features');
 
             });
 
@@ -114,8 +114,8 @@
 
             /***** CLICK FUNCTIONALITY *****/
             /* Set interaction for all sublayers */
-    	    var sublayers = layer.layers;
-    	    for (var i = 0; i < sublayers.length; i++) {
+            var sublayers = layer.layers;
+            for (var i = 0; i < sublayers.length; i++) {
 
                 var sublayer = layer.getSubLayer(i);
                 sublayer.setInteraction(true);
@@ -123,6 +123,21 @@
             } // end for loop
 
         } // end returned object
+
+        /***** SET SELECTED FEATURE COLOR *****/
+        function setSelFeatColor(layer, elem, cdbId){
+            var newCss = getMss(elem, cdbId);
+            layer.setCartoCSS(newCss);
+        }
+
+        function getMss(layer, cdbId){
+            var mss = $('#mss-' + layer).text(),
+                newString = '#' + layer + '[cartodb_id=' + cdbId + '][zoom>1][zoom<22]{' +
+                      'bg/marker-fill: @c-sel-feat-fill;' +
+                      'bg/marker-line-color: @c-sel-feat-stroke;' +
+                    '}';
+            return mss + newString;
+        }
 
     	return layersFactory;
     }

@@ -25,7 +25,7 @@
             fall: 4,
         };
         var selectedTypes = [],
-            mainPtsOnlyQuery = "SELECT features.the_geom_webmercator, features.cartodb_id, features.type, features.mile, features.name_id, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE features.type = 'mainpoints'";
+            mainPtsOnlyQuery = "SELECT features.the_geom_webmercator, features.cartodb_id, features.type, features.mile, features.name_id, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE features.type = 'mainpoints' ORDER BY priority DESC";
 
         function toggleFeatures(types){
 
@@ -34,11 +34,10 @@
             if ( types.length > 0) {
                 var activeSeason = seasonsQueries[$rootScope.activeSeason];
 
-                query = "SELECT features.the_geom_webmercator, features.cartodb_id, features.type, features.mile, features.name_id, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE features.type IN(" + types + ") AND substring(features.seasons," + activeSeason + ",1) = 'y' OR features.type = 'mainpoints' ORDER BY priority";
+                query = "SELECT features.the_geom_webmercator, features.cartodb_id, features.type, features.mile, features.name_id, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE features.type IN(" + types + ") AND substring(features.seasons," + activeSeason + ",1) = 'y' OR features.type = 'mainpoints' ORDER BY priority DESC";
             } else {
                 query = mainPtsOnlyQuery;
             }
-
             sublayers.features.setSQL(query);
 
             selectedTypes = types;
@@ -89,10 +88,49 @@
             });
         }
 
+        // Get feature subgroups
+        function getSubGroups (table){
+            // debugger;
+            var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT DISTINCT ON (sub_group) sub_group FROM ",
+                query;
+
+            if (table == 'feat'){
+                query = prefix + "feature_types WHERE type != 'mainpoints'";
+            } else {
+                query = prefix + "commercial_types";
+            }
+
+            return $http({
+                method: 'GET',
+                url: query,
+             });
+        }
+
+        // Get POI toggles data
+        function getPoiPages (table){
+
+
+            var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT name, sub_group, type, type_desc FROM ",
+                query;
+
+            if (table == 'feat'){
+                query = prefix + "feature_types WHERE type != 'mainpoints'";
+            } else {
+                query = prefix + "commercial_types";
+            }
+
+            return $http({
+                method: 'GET',
+                url: query,
+             });
+        }
+
     	var panelsFactory = {
     	    commToggles: commToggles,
             featToggles: featToggles,
             getHelpData: getHelpData,
+            getPoiPages: getPoiPages,
+            getSubGroups: getSubGroups,
             setSeason: setSeason,
             hey: hey,
             toggleFeatures: toggleFeatures,

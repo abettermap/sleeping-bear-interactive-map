@@ -14,6 +14,22 @@
             map = ctrlsFactory.map,
             tileLayers = ctrlsFactory.tileLayers;
 
+        addGps(map);
+
+        function addGps(map){
+
+            var gpsCtrl =  new L.Control.Gps({
+                maxZoom: 20,
+                style: {radius: 15, weight:4, color: 'red', fill: false, opacity:0.8}
+            });
+            gpsCtrl._map = map;
+
+            var controlDiv = gpsCtrl.onAdd(map);
+            $('#test').append(controlDiv);
+
+        }
+
+
         vm.bgId = '#icon-tree';
 
         vm.showAerial = false;

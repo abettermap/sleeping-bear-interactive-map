@@ -15,15 +15,21 @@
 
         var popups = {
             setActiveImages: setActiveImages,
-            activeImg: '',
             setSeason: setSeason,
-            currentSeason: $rootScope.activeSeason
+            closePopup: closePopup,
         };
+
+        function closePopup(){
+            $state.go('home', {
+            },{
+                reload: true
+            });
+        }
 
         function setSeason(query){
             console.log("popupFactory.setSeason() called");
             var newSeason = query;
-            lsublayers.features.setSQL(newSeason);
+            sublayers.features.setSQL(newSeason);
         }
 
 
@@ -60,7 +66,6 @@
                             activeImages.push(origin + commonPath + suffix + data[i]);
                         }
                     }
-                    console.log(activeImages);
                     $timeout(function() { $rootScope.$broadcast('rootScope:activeImagesSet', activeImages);},100);
                 } else {
                     $rootScope.$broadcast('rootScope:activeImagesSet', [defaultImg]);

@@ -60,16 +60,16 @@
                         selFeatData: ['$http', '$stateParams', function($http, $stateParams) {
 
                             // var columns = 'cartodb_id, name_id, type, mile, name FROM features ',
-                            var columns =   'features.cartodb_id, ' +
-                                            'features.mile, ' +
-                                            'features.name, ' +
-                                            'features.name_id, ' +
-                                            'features.seasons, ' +
-                                            'features.type, ' +
-                                            'feature_types.name AS type_name, ' +
-                                            'feature_types.priority' +
-                                            ' FROM features INNER JOIN feature_types ON features.type=feature_types.type',
-                                            query = queryPrefix + columns + ' WHERE features.cartodb_id = ' + $stateParams.cdbid;
+                            var columns =   "features.cartodb_id, " +
+                                            "features.mile, " +
+                                            "features.name, " +
+                                            "features.name_id, " +
+                                            "features.seasons, " +
+                                            "features.type, " +
+                                            "feature_types.name AS type_name, " +
+                                            "feature_types.priority" +
+                                            " FROM features INNER JOIN feature_types ON features.type=feature_types.type",
+                                            query = queryPrefix + columns + " WHERE features.cartodb_id = " + $stateParams.cdbid + "ORDER BY priority DESC";
 
                             return $http.get(query).then(function(response){
                                 return response.data;

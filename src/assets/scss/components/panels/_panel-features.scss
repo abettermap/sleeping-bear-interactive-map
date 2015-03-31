@@ -178,18 +178,12 @@
 
   &__label {
     align-items: center;
-    display: box;
+    // display: box;
     display: flex;
     flex: 1 46%;
     font-size: 1rem;
     line-height: 1;
     margin: .1rem 1%;
     padding: $l-label-padding .4rem;
-    span {
-      // display: inline;
-      // vertical-align: middle;
-      // height: 1.8rem;
-      // width: 60%;
-    }
   }
 }

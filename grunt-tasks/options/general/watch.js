@@ -2,6 +2,7 @@ module.exports = {
 
     options: {
         spawn: false,
+        debounceDelay: 250,
         // livereload: true
     },
     html: {

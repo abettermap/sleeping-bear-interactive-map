@@ -18,6 +18,10 @@
         /****** FEATURES POPUPS *******/
         /******************************/
 
+        vm.closePopup = function(){
+            popupFactory.closePopup();
+        };
+
         /********** DATA FOR SELECTED FEATURE **********/
 
         /* Only need first row */
@@ -57,14 +61,10 @@
         // Title
         vm.title = vm.selFeatData.name;
 
-        $rootScope.$on('rootScope:featureClicked', function (event, data) {
-            console.log(data[0]);
-            // vm.activeImages = data;
-        });
-
         /***** Images *****/
         $rootScope.$on('rootScope:activeImagesSet', function (event, data) {
             var f = data;
+
             vm.activeImages = data;
         });
 

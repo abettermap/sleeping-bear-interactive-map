@@ -72,7 +72,7 @@
                 // cartocss: "#features[cartodb_id=2]{marker-width: 14}",
                 interactivity: 'cartodb_id, type, name_id, mile',
                 route: 'features',
-                sql: "SELECT features.the_geom_webmercator, features.cartodb_id, features.type, features.mile, features.name_id, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons,3,1) = 'y' AND features.type = 'mainpoints' ORDER BY priority",
+                sql: "SELECT features.the_geom_webmercator, features.cartodb_id, features.type, features.mile, features.name_id, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons,3,1) = 'y' AND features.type = 'mainpoints' ORDER BY priority DESC",
                 name: 'features',
                 table: 'nps_poi_giscloud'
             }, // end FEATURES
