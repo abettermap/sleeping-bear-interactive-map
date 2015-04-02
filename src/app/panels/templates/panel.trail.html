@@ -4,72 +4,76 @@
 		    <use xlink:href="#icon-trail"></use>
 		</svg>
 		<span>The Trail</span>
-		<a href="javascript:;" class="panel__close" ng-click="vm.changePanel('')">
+		<a href="javascript:;" class="panel__close btn" ng-click="vm.changePanel('')">
 			<svg viewBox="0 0 100 100">
     			<use xlink:href="#icon-chevron-down"></use>
 			</svg>
 		</a>
 	</h2>
 	<div class="panel__inner">
-		<p>While the Trail is mostly flat, there are a few hills and a handful of cautionary segments. Select your desired option/s, then click the Trail for details.</p>
-		<div class="toggle--trail__flex-wrap">
-			<!-- GRADE -->
-			<input type="checkbox" id="grade-toggle"
-				ng-checked="vm.trailToggleStatus.grade">
-			<label for="grade-toggle">
-				<svg viewBox="0 0 100 100">
-					<use xlink:href="#icon-grade"></use>
-				</svg>
-				Grade
-				<span class="legend-line">
-					<span class="line-overlay--grade"></span>
-				</span>
-			</label>
-			<!-- CAUTION -->
-			<input type="checkbox" id="caution-toggle"
-				ng-checked="vm.trailToggleStatus.caution">
-			<label for="caution-toggle">
-				<svg viewBox="0 0 100 100">
-					<use xlink:href="#icon-caution"></use>
-				</svg>
-				Caution
-				<span class="legend-line">
-					<span class="line-overlay--caution"></span>
-				</span>
-			</label>
-		</div>
-		<!-- TRAIL CONDITION -->
-		<!-- <div ng-class="{'never-show': activeSeason !== 'winter', '': activeSeason == 'winter'}"> -->
-		<div class="toggle--trail__flex-wrap">
-			<p>Enable this option to display the most current Trail photos (winter only):</p>
-			<input type="checkbox" id="trail-cond-toggle"
-				ng-checked="vm.trailToggleStatus.cond">
-			<label for="trail-cond-toggle">
-				<svg viewBox="0 0 100 100" class="toggle__icon--trail-cond">
-					<use xlink:href="#icon-trail-cond"></use>
-				</svg>
-				Trail Condition
-			</label>
-		</div>
-		<!-- TRAIL PICS & FACES -->
-		<p>The map has a large image library of trail shots and visitors enjoying the Trail. Choose an option below, then click the Trail to view photos.</p>
-		<div class="toggle--trail__flex-wrap">
-			<!-- Trail Pics -->
-			<input ng-checked="vm.trailToggleStatus.pics" type="radio" name="pics-toggle" id="trail-pics-toggle">
-			<label for="trail-pics-toggle">
-				<svg viewBox="0 0 100 100">
-					<use xlink:href="#icon-camera"></use>
-				</svg>
-				Trail Pics
-			</label>
-			<!-- Faces -->
-			<input ng-checked="vm.trailToggleStatus.faces" type="radio" name="pics-toggle" id="faces-toggle">
-			<label for="faces-toggle">
-				<svg viewBox="0 0 100 100">
-					<use xlink:href="#icon-face"></use>
-				</svg>
-				Faces
-			</label>
+		<div class="panel__box">
+			<div class="panel__row">
+				<p>While the Trail is mostly flat, there are a few hills and a handful of cautionary segments. Select your desired option/s, then click the Trail for details.</p>
+				<div class="toggle--trail__flex-wrap">
+					<!-- GRADE -->
+					<input type="checkbox" id="grade-toggle"
+						ng-checked="vm.trailToggleStatus.grade">
+					<label for="grade-toggle">
+						<svg viewBox="0 0 100 100">
+							<use xlink:href="#icon-grade"></use>
+						</svg>
+						Grade
+						<span class="legend-line">
+							<span class="line-overlay--grade"></span>
+						</span>
+					</label>
+					<!-- CAUTION -->
+					<input type="checkbox" id="caution-toggle"
+						ng-checked="vm.trailToggleStatus.caution">
+					<label for="caution-toggle">
+						<svg viewBox="0 0 100 100">
+							<use xlink:href="#icon-caution"></use>
+						</svg>
+						Caution
+						<span class="legend-line">
+							<span class="line-overlay--caution"></span>
+						</span>
+					</label>
+				</div>
+				<!-- TRAIL CONDITION -->
+				<!-- <div ng-class="{'never-show': activeSeason !== 'winter', '': activeSeason == 'winter'}"> -->
+				<div class="toggle--trail__flex-wrap">
+					<p>Enable this option to display the most current Trail photos (winter only):</p>
+					<input type="checkbox" id="trail-cond-toggle"
+						ng-checked="vm.trailToggleStatus.cond">
+					<label for="trail-cond-toggle">
+						<svg viewBox="0 0 100 100" class="toggle__icon--trail-cond">
+							<use xlink:href="#icon-trail-cond"></use>
+						</svg>
+						Trail Condition
+					</label>
+				</div>
+				<!-- TRAIL PICS & FACES -->
+				<p>The map has a large image library of trail shots and visitors enjoying the Trail. Choose an option below, then click the Trail to view photos.</p>
+				<div class="toggle--trail__flex-wrap">
+					<!-- Trail Pics -->
+					<input ng-checked="vm.trailToggleStatus.pics" type="radio" name="pics-toggle" id="trail-pics-toggle">
+					<label for="trail-pics-toggle">
+						<svg viewBox="0 0 100 100">
+							<use xlink:href="#icon-camera"></use>
+						</svg>
+						Trail Pics
+					</label>
+					<!-- Faces -->
+					<input ng-checked="vm.trailToggleStatus.faces" type="radio" name="pics-toggle" id="faces-toggle">
+					<label for="faces-toggle">
+						<svg viewBox="0 0 100 100">
+							<use xlink:href="#icon-face"></use>
+						</svg>
+						Faces
+					</label>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

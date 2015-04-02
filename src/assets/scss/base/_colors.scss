@@ -42,6 +42,7 @@ $c-icon-hover: darken($c-ball-color, 15%);
 /* ELEMENTS */
 /* Headings */
 $c-h3-color: darken($med-dull-blue, 5%);
+
 ///// PANELS \\\\\
 $c-panel-bg: #edede3;
 
@@ -60,7 +61,7 @@ $c-panel-checked-fill	: lighten($steely-blue, 20%);
 $c-panel-checked-border	: darken($c-panel-checked-fill, 20%);
 $c-panel-unchecked-fill	: lighten($c-panel-checked-fill, 15%);
 $c-panel-unchecked-border	: $c-panel-checked-fill;
-$c-panel-unchecked-text	: lighten($gray, 12%);
+$c-panel-unchecked-text	: lighten($gray, 2%);
 $c-panel-checked-text	: $near-white;
 
 // Seasons
@@ -99,3 +100,7 @@ $c-comm-pin-stroke: darken($c-comm-pin-bg, 25%);
 $c-panel--trail__header: $c-h3-color;
 $c-grade-overlay: red;
 $c-caution-overlay: yellow;
+
+
+/* BUTTONS */
+$c-btn-bg: darken(rgba($c-panel-header, .7),20%);

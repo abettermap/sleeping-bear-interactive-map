@@ -22,6 +22,9 @@
             popupFactory.closePopup();
         };
 
+        /* Active popup */
+        vm.imgPopupPage = true;
+
         /********** DATA FOR SELECTED FEATURE **********/
 
         /* Only need first row */
@@ -61,11 +64,26 @@
         // Title
         vm.title = vm.selFeatData.name;
 
-        /***** Images *****/
+        /***** Active primary/secondary images *****/
         $rootScope.$on('rootScope:activeImagesSet', function (event, data) {
+            console.log(data);
             var f = data;
-
             vm.activeImages = data;
+        });
+
+        vm.thumbsData = null;
+        $rootScope.$on('rootScope:thumbsSet', function (event, data) {
+
+            var layer = 'features';
+            var arr = [], basePath = 'img-prod\/' + layer + '\/thumbnail\/';
+
+            for (var n = 0; n < data.length; n++) {
+
+                arr.push(basePath + data[n].mile + '\/' + data[n].name_id + '\/img00001.jpg');
+
+            }
+            vm.thumbsData = arr;
+
         });
 
         // Thumbs pagination

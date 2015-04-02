@@ -17,7 +17,7 @@ module.exports = {
       notify: false,
       open: true,
       ghostMode: false,
-      startPath: '/fosb/wp-content/sbht-i-map'
+      startPath: '/sbht-i-map'
     }
   }
 

@@ -122,7 +122,7 @@
             return $http({
                 method: 'GET',
                 url: query,
-             });
+            });
         }
 
     	var panelsFactory = {

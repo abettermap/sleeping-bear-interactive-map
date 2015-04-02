@@ -22,6 +22,7 @@
         } else {
             path = window.location.origin + '/fosb/wp-content/plugins/wp-fosb-map/' + suffix;
         }
+
         return path;
 
     }

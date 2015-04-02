@@ -1,0 +1,131 @@
+/* POI page container */
+$a-long-trans: 5000ms;
+
+.poi-page {
+  &--home {
+    &.ng-hide-remove {
+      // animation: $a-poi-trans-dur slideInLeft ease;
+    }
+    &.ng-hide-add {
+      // animation: $a-poi-trans-dur slideOutLeft ease;
+    }
+  }
+  &--poi {
+    &.ng-hide-remove {
+      // animation: $a-poi-trans-dur slideInRight;
+    }
+    &.ng-hide-add {
+      // animation: $a-poi-trans-dur slideOutRight ease;
+    }
+  }
+}
+
+
+/* Subgroup (Home) page */
+
+// List and list items
+.poi-subgroup {
+  &-list {
+    margin-bottom: .75rem;
+    margin-top: .75rem;
+  }
+  &-link {
+    font-size: 1.1rem;
+    text-decoration: underline;
+    transition: $a-all-hover-transition;
+
+    &--feat {
+      &:hover {
+        color: $c-feat-pin-bg;
+      }
+    }
+
+    &--comm {
+      &:hover {
+        color: $c-comm-pin-bg;
+      }
+    }
+  }
+}
+
+.subgroup-header {
+  &--feat {
+    color: $c-feat-pin-bg;
+  }
+  &--comm {
+    color: $c-comm-pin-bg;
+  }
+}
+
+/* POI LISTS */
+.poi-type-list {
+  // display: flex;
+  flex-flow: column;
+  justify-content: stretch;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* POI LIST ITEMS & DESCENDANTS */
+.poi-type {
+  align-items: center;
+  // display: flex;
+
+  @include mq($from: tablet){
+    margin-bottom: .5rem;
+  }
+
+  /* Labels */
+  &__label {
+    // align-items: center;
+    background-color: green;
+    // display: flex;
+    flex: 0 100%;
+    font-size: 1.2rem;
+    line-height: .8;
+    padding: .3em .4em .2em;
+  }
+  /* SVG icons */
+  &__icon {
+    $size: 2.2rem;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 100%;
+    display: inline;
+    fill: $near-white;
+    float: left;
+    height: $size;
+    margin-right: 7px;
+    padding: 3px;
+    width: $size;
+    &--feat {
+      background-color: $c-feat-pin-bg;
+      border-color: $c-feat-pin-stroke;
+    }
+    &--comm {
+      background-color: $c-comm-pin-bg;
+      border-color: $c-comm-pin-stroke;
+    }
+  }
+  &__text {
+    display: inline;
+    // display: block;
+    flex-flow: column;
+    float: left;
+    background-color: blue;
+  }
+  &__name {
+    display: inline;
+    background-color: red;
+  }
+  &__desc {
+    // display: inline;
+    color: gray;
+    flex: 0 35%;
+    font-size: .6em;
+    line-height: .9;
+    text-shadow: none;
+  }
+}
+

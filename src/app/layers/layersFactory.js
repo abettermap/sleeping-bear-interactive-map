@@ -87,18 +87,18 @@
                 // var info = [data, 'features'];
                 // var s = data.mile;
 
-                    $state.go('layer.features', {
-                        cdbid: data.cartodb_id,
-                        mile: data.mile,
-                        seasons: season,
-                        table: 'features'
-                    },{
-                        reload: true
-                    });
+                $state.go('layer.features', {
+                    cdbid: data.cartodb_id,
+                    mile: data.mile,
+                    seasons: season,
+                    table: 'features'
+                },{
+                    reload: true
+                });
                 // $timeout(function() {
                 // },100);
                 setSelFeatColor(this, 'features', data.cartodb_id);
-                popupFactory.setActiveImages(data, 'features');
+                popupFactory.setActiveImages(data, 'features', pos);
 
             });
 

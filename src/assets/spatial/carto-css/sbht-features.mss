@@ -1,23 +1,23 @@
 ///// PATHS \\\\\
 
 // FEATURES PIN \\
-@path-pin-feat  :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/defs/map-pin-wide-empty.svg);
+@path-pin-feat    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/defs/map-pin-wide-empty.svg);
 
 // ICONS \\
-@path-beach       :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/beach.svg);
-@path-bikepark    :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/bikepark.svg);
-@path-commserv    :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/commserv.svg);
-@path-conc        :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/conc.svg);
-@path-historic    :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/historic.svg);
-@path-parking     :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/parking.svg);
-@path-other       :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/other.svg);
-@path-mainpoints  :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/mainpoints.svg);
-@path-ranger      :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/ranger.svg);
-@path-restroom    :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/restroom.svg);
-@path-signs       :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/signs.svg);
-@path-trails      :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/trails.svg);
-@path-vista       :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/vista.svg);
-@path-water       :   url(https://abettermap.com/fosb/wp-content/plugins/wp-fosb-map/src/assets/img/svg/project/min/water.svg);
+@path-beach       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/beach.svg);
+@path-bikepark    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/bikepark.svg);
+@path-commserv    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/commserv.svg);
+@path-conc        :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/conc.svg);
+@path-historic    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/historic.svg);
+@path-parking     :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/parking.svg);
+@path-other       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/other.svg);
+@path-mainpoints  :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/mainpoints.svg);
+@path-ranger      :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/ranger.svg);
+@path-restroom    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/restroom.svg);
+@path-signs       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/signs.svg);
+@path-trails      :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/trails.svg);
+@path-vista       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/vista.svg);
+@path-water       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/water.svg);
 
 
 ///// COLORS \\\\\

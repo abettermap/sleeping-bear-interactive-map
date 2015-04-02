@@ -1,93 +1,89 @@
 <div class="panel" ng-show="vm.activePanel == 'features'">
 	<h2 class="panel__header">
-		<a ng-class="{'was-no-hover': !vm.activePoiPg.hover, '': vm.activePoiPg}" href="javascript:;" ng-click="vm.activePoiPage = 'Home'">
+		<a ng-class="{'no-hover': vm.activePoiPage == 'Home', 'btn': vm.activePoiPage !== 'Home'}" href="javascript:;" ng-click="vm.setActivePoiPage('Home')">
 			<svg viewBox="0 0 100 100">
 			    <use ng-attr-xlink:href="{{vm.activePoiPageIcon}}" xlink:href=""></use>
 			</svg>
 		</a>
 		<span>{{vm.activePoiPage}}</span>
-		<a href="javascript:;" class="panel__close" ng-click="vm.changePanel('')">
+		<a href="javascript:;" class="panel__close btn" ng-click="vm.changePanel('')">
 			<svg viewBox="0 0 100 100">
     			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
 			</svg>
 		</a>
 	</h2>
 	<!-- HOME PANEL -->
-	<div class="panel__inner" ng-show="vm.activePoiPage == 'Home'">
-		<h3>Features</h3>
-		<ul class="toggles-subgroup-list">
-			<li ng-repeat="t in vm.featSubGroups">
-				<a href="javascript:;"
-				ng-click="vm.setActivePoiPage(t.sub_group)">{{t.sub_group}}</a>
-			</li>
-		</ul>
-		<h3>Businesses</h3>
-		<ul class="toggles-subgroup-list">
-			<li ng-repeat="t in vm.commSubGroups">
-				<a href="javascript:;"
-				ng-click="vm.setActivePoiPage(t.sub_group)">{{t.sub_group}}</a>
-			</li>
-		</ul>
-		<p>Sleeping Bear is home to a variety of unique shops, historic landmarks, and trail-friendly amenities for visitors and locals alike. Choose a category below to set which types are displayed.</p>
+	<div class="poi-page--home panel__inner" ng-show="vm.activePoiPage == 'Home'">
+		<div class="panel__box">
+			<div class="panel__row">
+				<h3 class="subgroup-header--feat">Features</h3>
+				<ul class="poi-subgroup-list">
+					<li class="poi-subgroup" ng-repeat="t in vm.featSubGroups">
+						<a class="poi-subgroup-link poi-subgroup-link--feat" href="javascript:;"
+						ng-click="vm.setActivePoiPage(t.sub_group)">{{t.sub_group}}  >></a>
+					</li>
+				</ul>
+				<h3 class="subgroup-header--comm">Businesses</h3>
+				<ul class="poi-subgroup-list">
+					<li class="poi-subgroup" ng-repeat="t in vm.commSubGroups">
+						<a class="poi-subgroup-link poi-subgroup-link--comm" href="javascript:;"
+						ng-click="vm.setActivePoiPage(t.sub_group)">{{t.sub_group}}  >></a>
+					</li>
+				</ul>
+				<div class="panel__narrative">
+					<p>Sleeping Bear is home to a variety of unique shops, historic landmarks, and trail-friendly amenities for visitors and locals alike. Choose a category below to set which types are displayed.</p>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- FEATURES -->
-	<div class="poi-page panel__inner"
-		ng-repeat="p in vm.featSubGroups"
-		ng-show="vm.activePoiPage == p.sub_group">
-		<ul>
-			<li ng-repeat="t in p.types">
-				<strong>{{t.name}}</strong>
-				<em>
-					<small>{{t.type_desc}}</small>
-				</em>
-			</li>
-		</ul>
+	<div class="poi-page--poi panel__inner"
+		ng-repeat="subgroup in vm.featSubGroups"
+		ng-show="vm.activePoiPage == subgroup.sub_group">
+		<div class="panel__box">
+			<div class="panel__row">
+				<ul class="poi-type-list">
+					<li class="poi-type" ng-repeat="feattype in subgroup.types">
+						<input class="poi-type__checkbox" type="checkbox"
+							ng-checked="vm.selectedTypes.indexOf(feattype.type) > -1"
+							ng-click="vm.toggleFeatures(feattype.type)"
+							id="{{::feattype.id}}" />
+						<label for="{{::feattype.id}}" class="poi-type__label clearfix">
+							<svg class="poi-type__icon poi-type__icon--feat" viewBox="0 0 100 100">
+							    <use ng-attr-xlink:href="{{::feattype.icon}}" xlink:href=""></use>
+							</svg>
+							{{::feattype.name}}
+							<br>
+							<em class="poi-type__desc">{{::feattype.type_desc}}</em>
+						</label>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 	<!-- COMMERCIAL -->
-	<div class="poi-page panel__inner"
-		ng-repeat="p in vm.commSubGroups"
-		ng-show="vm.activePoiPage == p.sub_group">
-		<ul>
-			<li ng-repeat="t in p.types">
-				<strong>{{t.name}}</strong>
-				<em>
-					<small>{{t.type_desc}}</small>
-				</em>
-			</li>
-		</ul>
-	</div>
-	<!-- FEATURES PANEL -->
-	<div class="panel__inner poi__page--page" ng-show="vm.activePoiPg.id == 'feat'">
-		<input type="checkbox" ng-repeat-start="feat in vm.featToggles"
-			ng-checked="vm.selectedTypes.indexOf(feat.type) > -1"
-			ng-click="vm.toggleFeatures(feat.value)"
-			id="{{::feat.id}}" />
-		<label for="{{::feat.id}}" class="poi-toggle__label">
-			<svg class="poi-toggle--feat__icon" viewBox="0 0 100 100">
-			    <use ng-attr-xlink:href="{{::feat.icon}}" xlink:href=""></use>
-			</svg>
-			{{::feat.text}}
-		</label>
-		<span ng-repeat-end></span>
-<!-- 			<a href="javascript:;" class="btn">
-			<svg viewBox="0 0 100 100">
-    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-back"></use>
-			</svg>
-			<span>Back</span>
-		</a> -->
-	</div>
-	<!-- COMMERCIAL PANEL -->
-	<div class="panel__inner poi__page--page page--comm" ng-show="vm.activePoiPg.id == 'comm'">
-		<p>This map was made possible in part by the generous donations of local businesses. Please show your support by exploring the abundant options the Sleeping Bear area has to offer!</p>
-		<input type="checkbox" ng-repeat-start="feat in vm.commToggles"
-			ng-checked="{{feat.checked}}"
-			id="{{::feat.id}}" />
-		<label for="{{::feat.id}}" class="poi-toggle__label">
-			<svg class="poi-toggle--comm__icon" viewBox="0 0 100 100">
-			    <use ng-attr-xlink:href="{{::feat.icon}}" xlink:href=""></use>
-			</svg>
-			{{::feat.text}}
-		</label>
-		<span ng-repeat-end></span>
-	</div>
+	<div class="poi-page--poi panel__inner"
+		ng-repeat="subgroup in vm.commSubGroups"
+		ng-show="vm.activePoiPage == subgroup.sub_group">
+		<div class="panel__box">
+			<div class="panel__row">
+				<ul class="poi-type-list">
+					<li class="poi-type" ng-repeat="commtype in subgroup.types">
+						<input class="poi-type__checkbox" type="checkbox"
+							ng-checked="vm.selectedTypes.indexOf(commtype.type) > -1"
+							ng-click="vm.toggleFeatures(commtype.type)"
+							id="{{::commtype.id}}" />
+						<label for="{{::commtype.id}}" class="poi-type__label clearfix">
+							<svg class="poi-type__icon poi-type__icon--comm" viewBox="0 0 100 100">
+							    <use ng-attr-xlink:href="{{::commtype.icon}}" xlink:href=""></use>
+							</svg>
+							{{::commtype.name}}
+							<br>
+							<em class="poi-type__desc">{{::commtype.type_desc}}</em>
+						</label>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>++
 </div>

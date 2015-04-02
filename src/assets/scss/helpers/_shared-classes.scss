@@ -15,12 +15,15 @@
 
 /* PANEL & POPUP INPUTS */
 %panel-popup {
-  // background: url(background.jpg);
   background-color: $c-panel-bg;
   box-shadow: 0 -5px 25px 0 $dark-gray;
   position: absolute;
   width: 100%;
   z-index: 1000001;
+  &::-webkit-scrollbar {
+      display: none;
+  }
+  overflow: auto;
 }
 
 .panel, .popup {
@@ -55,34 +58,34 @@
 
 }
 
+ /* BUTTONS */
 .btn {
-  align-items: center;
-  // display: block;
-  box-shadow: 1px 1px 5px $gray;
-  justify-content: center;
-  background-color: $med-blue;
-  border-radius: 8px;
-  // clear: both;
-  // flex-grow: 2;
-  display: box;
-  display: flex;
-  padding: $l-btn-padding;
-  margin: .4rem auto 0;
-  // text-align: center;
-  color: $near-white;
-  font-size: 1rem;
-  text-transform: uppercase;
-  // max-width: 285px;
-  transition: $a-all-hover-transition;
-  width: 50%;
-  &:hover {
-    background-color: darken($med-blue, 12%);
+
+  background-color: lighten($c-btn-bg,10%);
+  border-radius: 5px;
+  padding: 0 3px 4px;
+  margin-top: .2rem;
+
+  &.panel__close {
+    svg {
+      $s: 2.2rem;
+      // padding: .3rem;
+      height: $s;
+      width: $s;
+
+    }
+      // margin-right: .5rem;
+
   }
-  svg {
-    @extend %icon-sm--white;
-    margin-right: .5rem;
+  transition: background-color 300ms ease;
+  @include mq($from: desktop){
+    &:hover {
+      background-color: darken($c-btn-bg,15%);
+    }
   }
+
 }
+
 
 /* FLEXEH */
 .flex {
@@ -158,6 +161,11 @@
   align-items: center;
   display: box;
   display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: 3.2rem;
   flex-direction: row;
   justify-content: space-between;
   margin: 0;
@@ -169,15 +177,45 @@
     width: $l-panel-header-ht + .2rem;
     transition: $a-icon-fill-trans;
     vertical-align: bottom;
-    @include mq($from: desktop) {
-      &:hover {
-        fill: $c-panel-icon;
-      }
-    }
+    // @include mq($from: desktop) {
+    //   &:hover {
+    //     fill: $c-panel-icon;
+    //   }
+    // }
   }
 }
 
 %panel__inner {
+  &::-webkit-scrollbar {
+      display: none;
+  }
+  bottom: 0;
+  display: flex;
+  flex: 1;
   font-size: 1rem;
-  padding: $l-panel-inner-padding;
+  left: 0;
+  overflow: auto;
+  position: absolute;
+  right: 0;
+  top: 3.2rem;
 }
+
+%panel__box {
+  min-height: -webkit-min-content;
+  display: flex;
+  flex: 0 100%;
+  &::-webkit-scrollbar {
+      display: none;
+  }
+
+}
+
+%panel__row {
+  padding: 1rem;
+  border-right: 1px solid #999;
+  width: 100%;
+  &::-webkit-scrollbar {
+      display: none;
+  }
+}
+

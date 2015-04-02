@@ -18,6 +18,7 @@
         vm.activePanel = 'features';
         vm.activePanel = '';
 
+
         $rootScope.$on('rootScope:activeImagesSet', function (event, data) {
             vm.activePanel = '';
         });
@@ -98,9 +99,11 @@
 
                 for (var i = 0; i < sg.length; i++) {
                     for (var n = 0; n < types.length; n++) {
+                        types[n].icon = "#icon-" + types[n].type;
+                        types[n].id = table + "-" + types[n].type;
+
                         if (sg[i].sub_group == types[n].sub_group){
                             sg[i].types.push(types[n]);
-
                         }
                     }
                 }
@@ -119,24 +122,21 @@
         vm.activePoiPageIcon = '#icon-map-pin';
 
         vm.setActivePoiPage = function(page){
-            console.log(page);
             vm.activePoiPage = page;
             if (page !== 'Home'){
                 vm.activePoiPageIcon = '#icon-back';
+            } else {
+                vm.activePoiPageIcon = '#icon-map-pin';
             }
         };
-
-        // Same as factory
-        vm.featToggles = panelsFactory.featToggles;
-        vm.commToggles = panelsFactory.commToggles;
 
         // Update SQL when feature toggled
         vm.selectedTypes = [];
 
         vm.toggleFeatures = function(type){
-
-            var withCommas = "'" + type + "'";
-            var idx = vm.selectedTypes.indexOf(withCommas);
+            console.log(type);
+            var withQuotes = "'" + type + "'";
+            var idx = vm.selectedTypes.indexOf(withQuotes);
 
             // is currently selected
             if (idx > -1) {

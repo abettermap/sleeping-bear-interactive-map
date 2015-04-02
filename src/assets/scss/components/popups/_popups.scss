@@ -1,13 +1,28 @@
 .popup {
 
-  &__inner {
+  /* Same as panels, almost */
 
-    h2 {
-      color: $c-panel-icon;
-      border-bottom: dashed $c-panel-icon 1px;
-      padding-bottom: .5rem;
-    }
+
+  &__inner {
     @extend %panel__inner;
+    background-color: $c-panel-header;
+    &--fluid {
+      display: block;
+      top: 0;
+    }
+  }
+
+  &__box {
+    @extend %panel__box;
+  }
+
+  &__row {
+    @extend %panel__row;
+
+    // No padding
+    &--snug {
+      padding: 0;
+    }
 
   }
 
@@ -16,7 +31,12 @@
 .popup__header {
 
   @extend %panel__header;
+  position: absolute;
+  border-bottom: solid darken($c-panel-header,5%) 1px;
 
+  @include mq($from: tablet){
+    position: static;
+  }
   // no cursor over first icon
   padding: .5rem;
 
@@ -65,7 +85,7 @@
   background-position: center;
   background-repeat: no-repeat;
   // position: relative;
-  position: absolute;
+  // position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
@@ -88,18 +108,62 @@
 /* THUMBS */
 .thumbs-container {
   bottom: 0;
+  box-shadow: 0 -2px 15px 0 rgba($near-white,.5);
   background-color: $c-panel-header;
+  // display: flex;
   padding: .25rem 0;
   width: 100%;
   text-align: center;
+  position: fixed;
+  border-top: solid darken($c-panel-header,5%) 1px;
+  flex-flow: row nowrap;
+
+  @include mq($from: tablet){
+    position: absolute;
+  }
+
   max-width: 1000px;
-  height: 47px;
+  height: 3.4rem;
+}
+
+.nearby-tab {
+  background-color: $c-panel-header;
+  position: absolute;
+  padding: .2rem .5rem 0;
+  bottom: 3.3rem;
+  left: .5rem;
+  box-shadow: 0 -7px 15px 0 rgba($near-white,.1);
+  border-radius: 10px 10px 0 0;
+  color: $near-white;
+}
+
+.icon--nearby {
+  $s: 1rem;
+  fill: $near-white;
+  height: $s;
+  width: $s;
+  margin-top: -2px;
 }
 
 .pagination, .thumbnail-list {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+.thumbnail-list {
+  background-color: $c-panel-header;
+  width: 80%;
+  margin: 0 auto;
+  > li {
+    display: inline-block;
+    // float: left;
+    // padding: 0 .2rem;
+    width: 24%;
+    flex: 0 20%;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
 }
 
 .pagination {
@@ -117,9 +181,9 @@
 }
 .popup-nav {
   $l-main-nav-gutter: 7px;
-  top: calc(50% - 1.5rem);
+  top: calc(50% - 1.2rem);
   position: absolute;
-    background-color: rgba($c-panel-header, .7);
+    background-color: $c-btn-bg;
     border-radius: 3rem;
     padding: 1.25rem;
     @include mq($from: desktop) {
@@ -133,6 +197,7 @@
     left: $l-main-nav-gutter;
     a {
       left: 0;
+      font-weight: bold;
     }
   }
   &:last-of-type {
@@ -155,6 +220,7 @@
     span {
       position: absolute;
       top: -1.1rem;
+      height: 1.2rem;
       left: .7rem;
     }
   }
@@ -162,14 +228,14 @@
 
 .thumbnail {
   cursor: pointer;
-  display: inline-block;
+  // display: inline-block;
   // float: none;
   // clear: none;
   flex: auto 18%;
   height: 100%;
-  margin: 0 5px;
+  // margin: 0 5px;
   img {
-    display: block;
+    // display: block;
     height: 40px;
   }
 }

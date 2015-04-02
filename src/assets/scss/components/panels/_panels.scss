@@ -1,12 +1,16 @@
 .panel {
   background-color: $c-panel-bg;
-
   .panel__header {
+    position: fixed;
     @extend %panel__header;
+    @include mq($from: tablet) {
+      position: absolute;
+    }
+
   }
 
   &__back {
-    margin-left: -5px;
+    // margin-left: -5px;
   }
 
   &__close {
@@ -17,6 +21,19 @@
     @extend %panel__inner;
   }
 
+  &__box {
+    @extend %panel__box;
+  }
+
+  &__row {
+    @extend %panel__row;
+  }
+
+  &__narrative {
+    border-top: dashed gray 1px;
+    margin-top: 1rem;
+  }
+
   // Animations
   &.ng-hide- {
     &remove {
@@ -24,18 +41,9 @@
     }
 
     &add {
-      animation: .2s fadeOutDown ease;
+      // animation: .2s fadeOutDown ease;
     }
   }
-
-  // Border and padding above small
-  small {
-    // border-top: solid $gray 1px;
-    display: block;
-    // margin-top: .5rem;
-    // padding-top: .3rem;
-  }
-
 }
 
 /* TOGGLES */
@@ -46,7 +54,11 @@
   box-shadow: 0 -2px 15px 0;
   display: box;
   display: flex;
-  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  height: 3.5rem;
 }
 
 // Individual toggles
@@ -62,6 +74,15 @@
   font-size: 1.3rem;
   padding: $panel-toggle-padding 0;
 
+  /* Hover on desktop */
+  @include mq($from: desktop) {
+    &:hover {
+      background-color: $c-panel-toggle-hover;
+      color: $near-white;
+      transition: $a-bg-hover-transition;
+    }
+  }
+
   @include mq($from: tablet) {
 
     $p: $panel-toggle-padding*.5;
@@ -75,11 +96,6 @@
     border-left: 0;
   }
 
-  &:hover {
-    background-color: $c-panel-toggle-hover;
-    color: $near-white;
-    transition: $a-bg-hover-transition;
-  }
 
   &__label {
     display: none;

@@ -33,13 +33,7 @@
         vm.bgId = '#icon-tree';
 
         vm.showAerial = false;
-        vm.svgPath = basePath.url;// + 'src/';
-
-        // vm.fullScreen = function(){
-        //             window.scrollTo(0, 172);
-        //             // alert("anythang?");
-
-        // };
+        // vm.svgPath = basePath.url;// + 'src/';
 
         vm.locate = ctrlsFactory.locate;
 

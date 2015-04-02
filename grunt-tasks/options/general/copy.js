@@ -15,13 +15,13 @@ module.exports = {
         dest: 'build'
         // filter: 'isFile'
     },
-    license: {
-        expand: true,
-        // flatten: true,
-        src: 'license.txt',
-        dest: 'build'
-        // filter: 'isFile'
-    },
+    // license: {
+    //     expand: true,
+    //     // flatten: true,
+    //     src: 'license.txt',
+    //     dest: 'build'
+    //     // filter: 'isFile'
+    // },
     html: {
         expand: true,
         cwd: 'src/',

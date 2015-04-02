@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="" ng-app="mapApp">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -18,33 +18,29 @@
         <script type="text/javascript" src="src/assets/js/vendor/fastclick.js"></script>
     </head>
     <body>
-        <?php include('src/assets/img/svg/project/defs/fosb-svg-defs.svg'); ?>
-        <div ng-app="mapApp">
-          <span id="mss-features" class="never-show">
-              <?php
-                $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-features.mss');
-                echo $contents;
-              ?>
-          </span>
-          <span id="mss-lines" class="never-show">
-              <?php
-                $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-trail.mss');
-                echo $contents;
-              ?>
-          </span>
-          <div class="never-show" ng-include="src/assets/img/svg/project/defs/fosb-svg-defs.svg"></div>
-        <!--     <header id="page-header" class="page-header">
-              <h1>Sleeping Bear Heritage Trail</h1>
-              <p>Interactive Map Explorer</p>
-            </header> -->
-            <div id="map-wrapper" class="map-wrapper">
-              <interactive-map></interactive-map>
-              <panels></panels>
-              <div ui-view></div>
-              <map-controls></map-controls>
-            </div>  <!-- </div> -->
-            <!-- <playground></playground> -->
-        </div>
+        <span class="never-show">
+          <?php include('src/assets/img/svg/project/defs/fosb-svg-defs.svg'); ?>
+        </span>
+        <span id="mss-features" class="never-show">
+            <?php
+              $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-features.mss');
+              echo $contents;
+            ?>
+        </span>
+        <span id="mss-lines" class="never-show">
+            <?php
+              $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-trail.mss');
+              echo $contents;
+            ?>
+        </span>
+        <div class="never-show" ng-include="src/assets/img/svg/project/defs/fosb-svg-defs.svg"></div>
+          <div id="map-wrapper" class="map-wrapper">
+            <interactive-map></interactive-map>
+            <panels></panels>
+            <div ui-view></div>
+            <map-controls></map-controls>
+          </div>
+          <!-- <playground></playground> -->
         <svg class="never-show" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <defs>
               <filter id="shadowed-goo">
