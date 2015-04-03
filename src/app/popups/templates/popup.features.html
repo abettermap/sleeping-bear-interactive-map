@@ -18,10 +18,14 @@
 						<svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use></svg>
 					</a>
 				</h2>
-				<img class="active-img"
+				<div class="active-img-container"
 					dir-paginate="img in vm.activeImages | itemsPerPage: 1"
-					ng-src="{{img}}"
 					pagination-id="mainImg">
+						<div class="active-img"
+						ng-style="{'background-image':'url(' + img + ')'}">
+						</div>
+					</div>
+				</div>
 				<dir-pagination-controls pagination-id="mainImg"></dir-pagination-controls>
 			</div>
 		</div>
@@ -31,10 +35,10 @@
 				Nearby
 			</div>
 			<ul class="thumbnail-list">
-			    <li dir-paginate="img in vm.thumbsData | itemsPerPage: 4" pagination-id="thumbs">
-			    	<!-- <a class="thumbnail" ng-click="vm.activeImg = img.base" alt=""> -->
-			    	<a class="thumbnail" alt="">
-			    		<img ng-src="{{img}}">
+			    <li dir-paginate="img in vm.thumbsData | itemsPerPage: 5" pagination-id="thumbs">
+			    	<a class="thumbnail" title="{{img.path}}"
+			    		ng-click="vm.resetPopup(img.layer, img.cartodb_id)">
+			    		<img ng-src="{{img.path}}">
 			    	</a>
 			    </li>
 			</ul>

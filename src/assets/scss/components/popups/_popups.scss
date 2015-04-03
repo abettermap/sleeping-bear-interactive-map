@@ -5,7 +5,6 @@
 
   &__inner {
     @extend %panel__inner;
-    background-color: $c-panel-header;
     &--fluid {
       display: block;
       top: 0;
@@ -31,12 +30,14 @@
 .popup__header {
 
   @extend %panel__header;
+  text-shadow: 1px 1px 1px darken($c-panel-header,25%);
+    background-color: rgba($c-panel-header,.65);
   position: absolute;
   border-bottom: solid darken($c-panel-header,5%) 1px;
 
-  @include mq($from: tablet){
-    position: static;
-  }
+  // @include mq($from: tablet){
+  //   position: static;
+  // }
   // no cursor over first icon
   padding: .5rem;
 
@@ -66,13 +67,13 @@
 }
 
 .active-img-container {
-  position: relative;
+  position: absolute;
   // flex: 0 100%;
 
   width: 100%;
-  height: calc(100% - 6rem);
+  height: 100%;
+  // height: calc(100% - 6rem);
   @include mq($from: tablet){
-  height: 490px;
   }
 }
 
@@ -81,6 +82,8 @@
   @include mq(mobile){
     // background-size: cover;
   }
+  position: absolute;
+  // visibility: hidden;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -109,13 +112,13 @@
 .thumbs-container {
   bottom: 0;
   box-shadow: 0 -2px 15px 0 rgba($near-white,.5);
-  background-color: $c-panel-header;
+  background-color: rgba($c-panel-header,.65);
   // display: flex;
   padding: .25rem 0;
   width: 100%;
   text-align: center;
   position: fixed;
-  border-top: solid darken($c-panel-header,5%) 1px;
+  // border-top: solid darken($c-panel-header,5%) 1px;
   flex-flow: row nowrap;
 
   @include mq($from: tablet){
@@ -127,10 +130,11 @@
 }
 
 .nearby-tab {
-  background-color: $c-panel-header;
+  background-color: rgba($c-panel-header,.65);
+  text-shadow: 1px 1px 1px darken($c-panel-header,25%);
   position: absolute;
   padding: .2rem .5rem 0;
-  bottom: 3.3rem;
+  bottom: 3.4rem;
   left: .5rem;
   box-shadow: 0 -7px 15px 0 rgba($near-white,.1);
   border-radius: 10px 10px 0 0;
@@ -152,17 +156,19 @@
 }
 
 .thumbnail-list {
-  background-color: $c-panel-header;
+  // background-color: $c-panel-header;
   width: 80%;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
   > li {
-    display: inline-block;
+    // display: inline-block;
     // float: left;
     // padding: 0 .2rem;
-    width: 24%;
-    flex: 0 20%;
-    flex-grow: 0;
-    flex-shrink: 0;
+    // max-width: 18%;
+    // flex: 0 18%;
+    // flex-grow: 0;
+    // flex-shrink: 0;
   }
 }
 
@@ -236,6 +242,6 @@
   // margin: 0 5px;
   img {
     // display: block;
-    height: 40px;
+    height: 2.8rem;
   }
 }

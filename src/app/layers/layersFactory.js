@@ -25,6 +25,7 @@
     	var layersFactory = {
             addCdbLayer: addCdbLayer,
     		createSublayers: createSublayers,
+            setSelFeatColor: setSelFeatColor,
             sublayers: sublayers,
     	};
 
@@ -83,7 +84,7 @@
               name: 'features',
               sql: cdbValues.featSublayer.sql,
             }).on('featureClick', function(e, pos, latlng, data){
-                var season = $rootScope.activeSeason;
+                var season = $rootScope.queryStates.season;
                 // var info = [data, 'features'];
                 // var s = data.mile;
 

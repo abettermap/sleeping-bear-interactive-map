@@ -41,15 +41,22 @@
 
         //////// SEASONS PANEL \\\\\\\\
         // The active season
-        vm.activeSeason = $rootScope.activeSeason;
+        vm.activeSeason = $rootScope.queryStates.season;
 
         vm.activeSeasonIcon = '#icon-summer';
 
         // Close Seasons panel when season is clicked
         vm.setSeason = function(season){
             vm.activePanel   = '';
-            vm.activeSeasonIcon = '#icon-' + vm.activeSeason;
-
+            $rootScope.queryStates.season = season;
+            var seasonsQueries = {
+                1: 'winter',
+                2: 'spring',
+                3: 'summer',
+                4: 'fall',
+            };
+            vm.activeSeasonIcon = '#icon-' + seasonsQueries[$rootScope.queryStates.season];
+// debugger;
             panelsFactory.setSeason(season);
 
         };
@@ -133,8 +140,8 @@
         // Update SQL when feature toggled
         vm.selectedTypes = [];
 
-        vm.toggleFeatures = function(type){
-            console.log(type);
+        vm.toggleFeatures = function(type, layer){
+
             var withQuotes = "'" + type + "'";
             var idx = vm.selectedTypes.indexOf(withQuotes);
 
@@ -148,7 +155,7 @@
                 vm.selectedTypes.push("'" + type + "'");
             }
 
-            panelsFactory.toggleFeatures(vm.selectedTypes);
+            panelsFactory.toggleFeatures(vm.selectedTypes, layer);
         }
 
         //////// TRAILS PANEL \\\\\\\\

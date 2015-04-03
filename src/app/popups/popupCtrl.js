@@ -6,13 +6,13 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$timeout', '$state', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$http'];
+    PopupCtrl.$inject = ['$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory'];
 
-    function PopupCtrl($timeout, $state, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $http){
+    function PopupCtrl($timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory){
 
         var vm = this;
 
-        vm.currentSeason = $rootScope.activeSeason;
+        vm.currentSeason = $rootScope.queryStates.season;
 
         /******************************/
         /****** FEATURES POPUPS *******/
@@ -40,54 +40,58 @@
 
         vm.showPopupInfo = 'false';
 
-        // vm.setPopupPg = function(){
-
-        //   vm.showPopupInfo = !vm.showPopupInfo;
-
-        //   if (vm.showPopupInfo) {
-        //       vm.title = vm.selFeatData.name;
-        //       vm.popupNavIcon = '#icon-info';
-        //       vm.typeIcon = '#icon-' + vm.selFeatData.type;
-        //       vm.popupNavTooltip = 'View feature info';
-        //   } else {
-        //       vm.title = "Feature Info";
-        //       vm.popupNavIcon = '#icon-camera';
-        //       vm.popupNavTooltip = 'Back to photos';
-        //       // vm.typeIcon = '';//'#icon-' + vm.selFeatData.type;
-        //   }
-
-        // };
-
         // Type icon
         vm.typeIcon = '#icon-' + vm.selFeatData.type;
 
         // Title
         vm.title = vm.selFeatData.name;
 
-        /***** Active primary/secondary images *****/
+        /***** Active primary *****/
+
+        /*** Create Path ***/
+        var layer = 'features';
+        var primaryPath = 'img-prod\/' + layer  + '\/mid_size\/' + vm.selFeatData.mile + '\/' + vm.selFeatData.name_id + '\/image00001.jpg';
+
+        vm.activeImages = [primaryPath];
+
+        /* Secondary active */
         $rootScope.$on('rootScope:activeImagesSet', function (event, data) {
-            console.log(data);
-            var f = data;
-            vm.activeImages = data;
+            vm.activeImages = vm.activeImages.concat(data);
         });
 
+        /* Thumbnails */
         vm.thumbsData = null;
-        $rootScope.$on('rootScope:thumbsSet', function (event, data) {
+        $rootScope.$on('rootScope:thumbsSet', function (event, response) {
 
+            // debugger;
             var layer = 'features';
-            var arr = [], basePath = 'img-prod\/' + layer + '\/thumbnail\/';
+            var arr = [],
+                basePath = 'img-prod\/' + response.layer + '\/thumbnail\/';
 
-            for (var n = 0; n < data.length; n++) {
+            for (var n = 0; n < response.length; n++) {
 
-                arr.push(basePath + data[n].mile + '\/' + data[n].name_id + '\/img00001.jpg');
+                // arr.push(basePath + data[n].mile + '\/' + data[n].name_id + '\/image00001.jpg');
+                arr.push({
+                    layer: response[n].layer,
+                    path: 'img-prod\/' + response[n].layer + '\/thumbnail\/' + response[n].mile + '\/' + response[n].name_id + '\/image00001.jpg'
+                });
 
             }
-            vm.thumbsData = arr;
+            $timeout(function() {
+                vm.thumbsData = arr;
+            },1000);
 
         });
 
         // Thumbs pagination
         $scope.currentPage = 1;
+
+        /* Trigger new popup */
+        vm.resetPopup = function(layer, cdbid){
+            var queryLayer = layersFactory.sublayers[layer];
+            layersFactory.setSelFeatColor(queryLayer, layer, cdbid);
+            console.log(layer);
+        };
 
         // Name
         vm.featName = vm.selFeatData.name;

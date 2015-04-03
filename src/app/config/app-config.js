@@ -45,11 +45,19 @@
         ])
         .run(['$rootScope', '$state', '$stateParams', '$location',
             function ($rootScope, $state, $stateParams, $location) {
-                $stateParams.seasons = 'summer';
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
-                $rootScope.activeSeason = 'summer';
-                // $rootScope.primaryImg = '';
+
+                // Let's keep track of these, hey?
+                $rootScope.queryStates = {
+                    season: 3,
+                    trailPics: true,
+                    features: null,
+                    commercial: null,
+                    cond: false,
+                };
+
+                $stateParams.seasons = $rootScope.queryStates.season;
             }
         ]);
 

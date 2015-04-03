@@ -32,65 +32,77 @@
             sublayers.features.setSQL(newSeason);
         }
 
-
         function setActiveImages(data, layer, coords){
-
-            /* Defaults for all hosts */
-            var hostName = window.location.hostname,
-                origin = window.location.origin + '\/sbht-i-map\/',
-                commonPath = 'img-prod/';
-
-            /* Account for fosb folder */
-            if (hostName == 'localhost' || hostName == 'wpmulti.dev' || hostName == 'abettermap.com'){
-                origin = origin;
-            } else {
-                origin = origin;
-            }
-
 
             /*** Create Path ***/
             var suffix = layer + '\/mid_size\/' + data.mile + '\/' + data.name_id + '\/',
-                phpQuery = origin + 'get-images.php?dir=' + suffix;
-                console.log(phpQuery);
+                phpQuery = 'get-images.php?dir=' + suffix;
 
             $http.get(phpQuery, {})
             .success(function(data) {
-
                 if (typeof data === "object"){
 
                     var activeImages = [];
 
                     for( var i in data ) {
+
                         // Convert returned object to array
-                        if (data.hasOwnProperty(i)){
-                            activeImages.push(origin + commonPath + suffix + data[i]);
+                        if (data.hasOwnProperty(i) && data[i] !== "image00001.jpg"){
+                            activeImages.push( 'img-prod\/' + suffix + data[i]);
                         }
+
                     }
-                    $timeout(function() { $rootScope.$broadcast('rootScope:activeImagesSet', activeImages);},100);
+                    $timeout(function() { $rootScope.$broadcast('rootScope:activeImagesSet', activeImages);},1000);
                 } else {
                     $rootScope.$broadcast('rootScope:activeImagesSet', [defaultImg]);
                 }
-                setThumbs(coords).then(function(dataResponse) {
-                    $rootScope.$broadcast('rootScope:thumbsSet', dataResponse.data.rows);
+
+                var thumbsParams = {
+                    coords: coords,
+                    layer: layer,
+                }
+
+                setThumbs(thumbsParams).then(function(dataResponse) {
+                    var thumbsData = dataResponse.data.rows;
+                    for (var i in thumbsData){
+                        thumbsData[i].layer = layer;
+                    }
+
+                    $rootScope.$broadcast('rootScope:thumbsSet', thumbsData);
                 });
 
-            });
+            })
+            .error(function() {
+                console.log("no bueno");
+            });;
 
         }
 
-        function setThumbs(coords){
+        function setThumbs(params){
 
+            var typeQuery;
+
+            if($rootScope.queryStates[params.layer]){
+                typeQuery = " type IN(" + $rootScope.queryStates[params.layer] + ")" +
+                    " AND substring(seasons," + $rootScope.queryStates.season + ",1) = 'y'";
+            } else {
+                typeQuery = "type = null AND substring(seasons," + $rootScope.queryStates.season + ",1) = 'y'";
+            }
             var query = "SELECT "+
                           "cartodb_id, the_geom, the_geom_webmercator, mile, name_id, "+
                           "ST_Distance("+
                               "the_geom::geography, "+
-                              "CDB_LatLng(" + coords +
+                              "CDB_LatLng(" + params.coords +
                               ")::geography) "+
-                              "AS dist "+
-                        "FROM "+
-                          "features " +
-                        "ORDER BY dist " +
+                              "AS dist" +
+                        " FROM "+
+                          params.layer +
+                        // " WHERE type IN(" + $rootScope.queryStates[params.layer] + ")" +
+                        " WHERE " + typeQuery +
+                        " AND substring(seasons," + $rootScope.queryStates.season + ",1) = 'y'" +
+                        " ORDER BY dist " +
                         "LIMIT 50";
+                        // alert(query);
                         // "UNION ALL "+
                         // "SELECT "+
                         //   "cartodb_id, the_geom, the_geom_webmercator, "+
@@ -111,13 +123,6 @@
                         //   "commercial";
 
             var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=";
-                // query;
-
-            // if (table == 'feat'){
-            //     query = prefix + "feature_types WHERE type != 'mainpoints'";
-            // } else {
-            //     query = prefix + "commercial_types";
-            // }
 
             return $http({
                 method: 'GET',

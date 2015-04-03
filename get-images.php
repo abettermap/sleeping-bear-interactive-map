@@ -11,12 +11,8 @@
  	// Just the pics
 	$img_dir = $img_path . '*.{JPG,jpg,jpeg,PNG,gif,png}';
 
-	// Loop throuhg
-	// foreach (glob($img_dir, GLOB_BRACE) as $filename) {
-		// print_r(basename($filename . ','));
-	// }
-
-	$files = array_diff( scandir($img_path), array(".", "..") );
+	// Ignore subdirs and desktop.ini
+	$files = array_diff( scandir($img_path), array(".", "..", "desktop.ini") );
 
 	$result = json_encode($files);
 
