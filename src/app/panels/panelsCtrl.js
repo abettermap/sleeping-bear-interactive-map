@@ -155,6 +155,12 @@
                 vm.selectedTypes.push("'" + type + "'");
             }
 
+            // Put mainpoints back in if features array empty
+            if (layer === 'features' && vm.selectedTypes.length <= 0) {
+                vm.selectedTypes.push("'mainpoints'");
+            }
+
+
             panelsFactory.toggleFeatures(vm.selectedTypes, layer);
         }
 

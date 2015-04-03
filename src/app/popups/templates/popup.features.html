@@ -37,7 +37,7 @@
 			<ul class="thumbnail-list">
 			    <li dir-paginate="img in vm.thumbsData | itemsPerPage: 5" pagination-id="thumbs">
 			    	<a class="thumbnail" title="{{img.path}}"
-			    		ng-click="vm.resetPopup(img.layer, img.cartodb_id)">
+			    		ng-click="vm.resetPopup(img.layer, img.attribs)">
 			    		<img ng-src="{{img.path}}">
 			    	</a>
 			    </li>

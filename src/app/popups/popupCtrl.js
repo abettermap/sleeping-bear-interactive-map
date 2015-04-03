@@ -6,9 +6,9 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory'];
+    PopupCtrl.$inject = ['$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$state'];
 
-    function PopupCtrl($timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory){
+    function PopupCtrl($timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state){
 
         var vm = this;
 
@@ -70,10 +70,11 @@
 
             for (var n = 0; n < response.length; n++) {
 
-                // arr.push(basePath + data[n].mile + '\/' + data[n].name_id + '\/image00001.jpg');
                 arr.push({
                     layer: response[n].layer,
-                    path: 'img-prod\/' + response[n].layer + '\/thumbnail\/' + response[n].mile + '\/' + response[n].name_id + '\/image00001.jpg'
+                    path: 'img-prod\/' + response[n].layer + '\/thumbnail\/' + response[n].mile + '\/' + response[n].name_id + '\/image00001.jpg',
+                    // cartodb_id: response[n].cartodb_id,
+                    attribs: response[n],
                 });
 
             }
@@ -87,10 +88,41 @@
         $scope.currentPage = 1;
 
         /* Trigger new popup */
-        vm.resetPopup = function(layer, cdbid){
+        vm.resetPopup = function(layer, attribs){
             var queryLayer = layersFactory.sublayers[layer];
-            layersFactory.setSelFeatColor(queryLayer, layer, cdbid);
-            console.log(layer);
+            layersFactory.setSelFeatColor(queryLayer, layer, attribs.cartodb_id);
+
+            // Primary/secondary
+            var stateString = 'layer.' + layer;
+
+            $state.go(stateString, {
+                cartodb_id: attribs.cartodb_id,
+                mile: attribs.mile,
+                seasons: $rootScope.queryStates.season,
+                table: layer
+            },{
+                reload: true
+            });
+
+            popupFactory.setActiveImages(attribs, layer, [attribs.lon, attribs.lat]);
+
+
+            // Thumbs
+            var thumbsParams = {
+                coords: [attribs.lon, attribs.lat],
+                layer: layer,
+                cartodb_id: attribs.cartodb_id,
+            }
+
+            popupFactory.setThumbs(thumbsParams).then(function(dataResponse) {
+                // debugger;
+                var thumbsData = dataResponse.data.rows;
+                for (var i in thumbsData){
+                    thumbsData[i].layer = thumbsParams.layer;
+                }
+
+                $rootScope.$broadcast('rootScope:thumbsSet', thumbsData);
+            });
         };
 
         // Name

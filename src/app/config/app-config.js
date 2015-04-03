@@ -52,8 +52,8 @@
                 $rootScope.queryStates = {
                     season: 3,
                     trailPics: true,
-                    features: null,
-                    commercial: null,
+                    features: ["'mainpoints'"],
+                    commercial: ["''"],
                     cond: false,
                 };
 

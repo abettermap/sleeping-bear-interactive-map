@@ -25,18 +25,32 @@
 
             var query;
 
+            var globalSelTypes = $rootScope.queryStates[layer];
+
+            if (types.indexOf("'mainpoints'") < 0){
+                // alert("aint in derr! get er in derr!");
+                types.push("'mainpoints'");
+            }
+
+            // Will always be true for features since array never empy
             if ( types.length > 0) {
                 var activeSeason = $rootScope.queryStates.season;
 
                 query = "SELECT features.the_geom_webmercator, features.cartodb_id, features.type, features.mile, features.name_id, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE features.type IN(" + types + ") AND substring(features.seasons," + activeSeason + ",1) = 'y' OR features.type = 'mainpoints' ORDER BY priority DESC";
-            } else {
-                query = mainPtsOnlyQuery;
-                $rootScope.queryStates[layer] = null;
+
             }
+            // else {
+            //     if (layer === 'features'){
+            //         selectedTypes = selectedTypes.push("'mainpoints'");
+            //         query = mainPtsOnlyQuery;
+            //         $rootScope.queryStates[layer] = ["'mainpoints'"];
+            //     } else {
+            //         $rootScope.queryStates[layer] = ["''"];
+            //     }
+            // }
+
 
             sublayers.features.setSQL(query);
-
-            selectedTypes = types;
 
             $rootScope.queryStates[layer] = types;
         }

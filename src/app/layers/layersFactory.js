@@ -89,17 +89,36 @@
                 // var s = data.mile;
 
                 $state.go('layer.features', {
-                    cdbid: data.cartodb_id,
+                    cartodb_id: data.cartodb_id,
                     mile: data.mile,
                     seasons: season,
                     table: 'features'
                 },{
                     reload: true
                 });
-                // $timeout(function() {
-                // },100);
+
+                // Restyle selected feature
                 setSelFeatColor(this, 'features', data.cartodb_id);
+
+                // Set primary/secondary
                 popupFactory.setActiveImages(data, 'features', pos);
+
+                // Set thumbnails
+                var thumbsParams = {
+                    coords: pos,
+                    layer: 'features',
+                    cartodb_id: data.cartodb_id,
+                }
+
+                popupFactory.setThumbs(thumbsParams).then(function(dataResponse) {
+                    // debugger;
+                    var thumbsData = dataResponse.data.rows;
+                    for (var i in thumbsData){
+                        thumbsData[i].layer = thumbsParams.layer;
+                    }
+
+                    $rootScope.$broadcast('rootScope:thumbsSet', thumbsData);
+                });
 
             });
 
@@ -126,14 +145,16 @@
         } // end returned object
 
         /***** SET SELECTED FEATURE COLOR *****/
-        function setSelFeatColor(layer, elem, cdbId){
-            var newCss = getMss(elem, cdbId);
+        function setSelFeatColor(layer, elem, cartodb_id){
+
+            var newCss = getMss(elem, cartodb_id);
             layer.setCartoCSS(newCss);
+
         }
 
-        function getMss(layer, cdbId){
+        function getMss(layer, cartodb_id){
             var mss = $('#mss-' + layer).text(),
-                newString = '#' + layer + '[cartodb_id=' + cdbId + '][zoom>1][zoom<22]{' +
+                newString = '#' + layer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
                       'bg/marker-fill: @c-sel-feat-fill;' +
                       'bg/marker-line-color: @c-sel-feat-stroke;' +
                     '}';

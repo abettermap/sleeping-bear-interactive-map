@@ -52,7 +52,7 @@
                     template: '<div ui-view></div>'
                 })
                 .state('layer.features', {
-                    url: ':seasons/features/:cdbid/:mile',
+                    url: ':seasons/features/:cartodb_id/:mile',
                     templateUrl: 'src/app/popups/templates/popup.features.html',
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
@@ -69,7 +69,7 @@
                                             "feature_types.name AS type_name, " +
                                             "feature_types.priority" +
                                             " FROM features INNER JOIN feature_types ON features.type=feature_types.type",
-                                            query = queryPrefix + columns + " WHERE features.cartodb_id = " + $stateParams.cdbid + "ORDER BY priority DESC";
+                                            query = queryPrefix + columns + " WHERE features.cartodb_id = " + $stateParams.cartodb_id + "ORDER BY priority DESC";
 
                             return $http.get(query).then(function(response){
                                 return response.data;
@@ -80,7 +80,7 @@
                     }
                 })
                 .state('home.commercial', {
-                    url: 'commercial/:cdbid/:mile',
+                    url: 'commercial/:cartodb_id/:mile',
                     templateUrl: 'src/app/popups/templates/popup.comm.html',
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
@@ -88,7 +88,7 @@
                         selFeatData: ['$http', '$stateParams', function($http, $stateParams) {
 
                             var columns = 'cartodb_id, type, name, audio, video FROM commercial ',
-                                query = queryPrefix + columns + midString + $stateParams.cdbid;
+                                query = queryPrefix + columns + midString + $stateParams.cartodb_id;
 
                             return $http.get(query).then(function(response){
                                 return response.data;
@@ -98,7 +98,7 @@
                     }
                 });
                 // .state('home.trail-pix', {
-                //     url: 'trail-pix/:cdbid/:mile',
+                //     url: 'trail-pix/:cartodb_id/:mile',
                 //     templateUrl: 'src/app/popups/templates/trail-pix-template.html',
                 //     controller: 'PopupCtrl',
                 //     controllerAs: 'vm',

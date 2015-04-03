@@ -16,6 +16,7 @@
         var popups = {
             setActiveImages: setActiveImages,
             setSeason: setSeason,
+            setThumbs: setThumbs,
             closePopup: closePopup,
         };
 
@@ -27,28 +28,27 @@
         }
 
         function setSeason(query){
-            console.log("popupFactory.setSeason() called");
             var newSeason = query;
             sublayers.features.setSQL(newSeason);
         }
 
         function setActiveImages(data, layer, coords){
-
+            // debugger;
             /*** Create Path ***/
             var suffix = layer + '\/mid_size\/' + data.mile + '\/' + data.name_id + '\/',
                 phpQuery = 'get-images.php?dir=' + suffix;
 
             $http.get(phpQuery, {})
-            .success(function(data) {
-                if (typeof data === "object"){
+            .success(function(secondImgFiles) {
+                if (typeof secondImgFiles === "object"){
 
                     var activeImages = [];
 
-                    for( var i in data ) {
+                    for( var i in secondImgFiles ) {
 
                         // Convert returned object to array
-                        if (data.hasOwnProperty(i) && data[i] !== "image00001.jpg"){
-                            activeImages.push( 'img-prod\/' + suffix + data[i]);
+                        if (secondImgFiles.hasOwnProperty(i) && secondImgFiles[i] !== "image00001.jpg"){
+                            activeImages.push( 'img-prod\/' + suffix + secondImgFiles[i]);
                         }
 
                     }
@@ -56,20 +56,6 @@
                 } else {
                     $rootScope.$broadcast('rootScope:activeImagesSet', [defaultImg]);
                 }
-
-                var thumbsParams = {
-                    coords: coords,
-                    layer: layer,
-                }
-
-                setThumbs(thumbsParams).then(function(dataResponse) {
-                    var thumbsData = dataResponse.data.rows;
-                    for (var i in thumbsData){
-                        thumbsData[i].layer = layer;
-                    }
-
-                    $rootScope.$broadcast('rootScope:thumbsSet', thumbsData);
-                });
 
             })
             .error(function() {
@@ -79,27 +65,24 @@
         }
 
         function setThumbs(params){
+            var typeQuery,
+                queryState = $rootScope.queryStates[params.layer];
 
-            var typeQuery;
-
-            if($rootScope.queryStates[params.layer]){
-                typeQuery = " type IN(" + $rootScope.queryStates[params.layer] + ")" +
-                    " AND substring(seasons," + $rootScope.queryStates.season + ",1) = 'y'";
-            } else {
-                typeQuery = "type = null AND substring(seasons," + $rootScope.queryStates.season + ",1) = 'y'";
-            }
-            var query = "SELECT "+
+            typeQuery = " type IN(" + queryState + ")";
+            var query = "SELECT " +
                           "cartodb_id, the_geom, the_geom_webmercator, mile, name_id, "+
-                          "ST_Distance("+
+                          " ST_X(the_geom) AS lon," +
+                          " ST_Y(the_geom) AS lat," +
+                          " ST_Distance("+
                               "the_geom::geography, "+
                               "CDB_LatLng(" + params.coords +
                               ")::geography) "+
                               "AS dist" +
-                        " FROM "+
-                          params.layer +
+                        " FROM " + params.layer +
                         // " WHERE type IN(" + $rootScope.queryStates[params.layer] + ")" +
                         " WHERE " + typeQuery +
                         " AND substring(seasons," + $rootScope.queryStates.season + ",1) = 'y'" +
+                        " AND cartodb_id != " + params.cartodb_id +
                         " ORDER BY dist " +
                         "LIMIT 50";
                         // alert(query);
