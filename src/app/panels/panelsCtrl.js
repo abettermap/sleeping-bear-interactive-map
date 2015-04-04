@@ -160,7 +160,6 @@
                 vm.selectedTypes.push("'mainpoints'");
             }
 
-
             panelsFactory.toggleFeatures(vm.selectedTypes, layer);
         }
 
@@ -175,34 +174,30 @@
 
 
         //////// INFO PANEL \\\\\\\\
-        vm.activeInfoPg = {
-            name: 'Home'
-        };
+        vm.activeInfoPg = 'Home';
+        vm.activeInfoPgIcon = '#icon-info';
 
         vm.toggleFeaturesLayer = function(layer){
             panelsFactory.toggleFeaturesLayer(layer);
         };
 
-        $scope.helpData = [];
-        $scope.$watch('helpData', get_results, true);
+        vm.setActiveInfoPg = function(page){
+            alert(page);
+            vm.activeInfoPage = page;
+            if (page !== 'Home'){
+                vm.activeInfoPageIcon = '#icon-back';
+            } else {
+                vm.activeInfoPageIcon = '#icon-info';
+            }
+        };
 
-        var get_results = function() {
-          // if (name) {
-            var query = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT subject, text, topic_id FROM help';
-            $http.get(query).
-              success(function(data) {
-                $scope.helpData = data.rows;
-                // $scope.topic = data.rows[0].subject;
-              });
+        panelsFactory.getHelpData().then(function(dataResponse) {
 
-        }
+            vm.helpData = dataResponse.data.rows;
 
-        vm.getHelpData = function(){
-            get_results();
-            // Set info panel active
-            vm.changePanel('info');
+        });
 
-        }
+
 
 
     }

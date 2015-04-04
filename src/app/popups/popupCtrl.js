@@ -6,9 +6,9 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$state'];
+    PopupCtrl.$inject = ['$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$state', 'mapFactory'];
 
-    function PopupCtrl($timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state){
+    function PopupCtrl($timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state, mapFactory){
 
         var vm = this;
 
@@ -43,9 +43,6 @@
         // Type icon
         vm.typeIcon = '#icon-' + vm.selFeatData.type;
 
-        // Title
-        vm.title = vm.selFeatData.name;
-
         /***** Active primary *****/
 
         /*** Create Path ***/
@@ -55,16 +52,27 @@
         vm.activeImages = [primaryPath];
 
         /* Secondary active */
-        $rootScope.$on('rootScope:activeImagesSet', function (event, data) {
+        $rootScope.$on('rootScope:secondarySet', function (event, data) {
             vm.activeImages = vm.activeImages.concat(data);
         });
 
+        var secondaryParams = {
+            layer: $stateParams.layer,
+            cartodb_id: vm.selFeatData.cartodb_id,
+        }
+
+        vm.midSizeImgSuffix = $stateParams.layer + '\/mid_size\/' + vm.selFeatData.mile + '\/' + vm.selFeatData.name_id + '\/';
+
+        popupFactory.findSecondary(vm.selFeatData, $stateParams.layer)
+        .then(function(secondarySearchResult) {
+            var response = secondarySearchResult,
+                secondaryImages = popupFactory.setSecondary(response.data, vm.midSizeImgSuffix);
+            $rootScope.$broadcast('rootScope:secondarySet', secondaryImages);
+        });
+
         /* Thumbnails */
-        vm.thumbsData = null;
         $rootScope.$on('rootScope:thumbsSet', function (event, response) {
 
-            // debugger;
-            var layer = 'features';
             var arr = [],
                 basePath = 'img-prod\/' + response.layer + '\/thumbnail\/';
 
@@ -73,49 +81,64 @@
                 arr.push({
                     layer: response[n].layer,
                     path: 'img-prod\/' + response[n].layer + '\/thumbnail\/' + response[n].mile + '\/' + response[n].name_id + '\/image00001.jpg',
-                    // cartodb_id: response[n].cartodb_id,
                     attribs: response[n],
                 });
 
             }
-            $timeout(function() {
-                vm.thumbsData = arr;
-            },1000);
+
+            vm.thumbsData = arr;
 
         });
 
         // Thumbs pagination
         $scope.currentPage = 1;
 
+        var thumbsParams = {
+            coords: [$stateParams.lat, $stateParams.lon],
+            layer: $stateParams.layer,
+            cartodb_id: vm.selFeatData.cartodb_id,
+        }
+
+        popupFactory.setThumbs(thumbsParams).then(function(dataResponse) {
+            var thumbsData = dataResponse.data.rows;
+            for (var i in thumbsData){
+                thumbsData[i].layer = thumbsParams.layer;
+            }
+
+            $rootScope.$broadcast('rootScope:thumbsSet', thumbsData);
+        });
+
         /* Trigger new popup */
         vm.resetPopup = function(layer, attribs){
+
+            // Red pin for selected
             var queryLayer = layersFactory.sublayers[layer];
             layersFactory.setSelFeatColor(queryLayer, layer, attribs.cartodb_id);
 
-            // Primary/secondary
-            var stateString = 'layer.' + layer;
+            // Pan to selection
+            mapFactory.map.panTo([attribs.lat, attribs.lon]);
 
-            $state.go(stateString, {
+            // Primary/secondary
+            $state.go('popup', {
                 cartodb_id: attribs.cartodb_id,
                 mile: attribs.mile,
-                seasons: $rootScope.queryStates.season,
-                table: layer
+                layer: layer,
+                // lat: pos[0],
+                // lon: pos[1],
             },{
                 reload: true
             });
 
-            popupFactory.setActiveImages(attribs, layer, [attribs.lon, attribs.lat]);
+            popupFactory.findSecondary(vm.selFeatData, $stateParams.layer)
+            .then(function(secondarySearchResult) {
+                var response = secondarySearchResult,
+                    secondaryImages = popupFactory.setSecondary(response.data, vm.midSizeImgSuffix);
+                $rootScope.$broadcast('rootScope:secondarySet', secondaryImages);
+            });
 
 
             // Thumbs
-            var thumbsParams = {
-                coords: [attribs.lon, attribs.lat],
-                layer: layer,
-                cartodb_id: attribs.cartodb_id,
-            }
-
             popupFactory.setThumbs(thumbsParams).then(function(dataResponse) {
-                // debugger;
                 var thumbsData = dataResponse.data.rows;
                 for (var i in thumbsData){
                     thumbsData[i].layer = thumbsParams.layer;
@@ -123,10 +146,8 @@
 
                 $rootScope.$broadcast('rootScope:thumbsSet', thumbsData);
             });
-        };
 
-        // Name
-        vm.featName = vm.selFeatData.name;
+        };
 
     }
 

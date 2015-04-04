@@ -10,11 +10,12 @@
 
     function popupFactory($rootScope, $http, basePath, $timeout, $state){
 
-        // var defaultImg = 'src/assets/img/raster/SBHT_6077.jpg';
-        var defaultImg = 'http://friendsofsleepingbear.org/wp-content/sbht-i-map/img-prod/features/mid_size/n00/wdune-climb/img00009.jpg';
+        var defaultImg = 'sbht-i-map/img-prod/features/mid_size/n00/wdune-climb/image00009.jpg';
 
         var popups = {
-            setActiveImages: setActiveImages,
+            findSecondary: findSecondary,
+            defaultImg: defaultImg,
+            setSecondary: setSecondary,
             setSeason: setSeason,
             setThumbs: setThumbs,
             closePopup: closePopup,
@@ -32,35 +33,34 @@
             sublayers.features.setSQL(newSeason);
         }
 
-        function setActiveImages(data, layer, coords){
-            // debugger;
-            /*** Create Path ***/
+        /* Look for secondary images */
+        function findSecondary(data, layer){
+
             var suffix = layer + '\/mid_size\/' + data.mile + '\/' + data.name_id + '\/',
                 phpQuery = 'get-images.php?dir=' + suffix;
 
-            $http.get(phpQuery, {})
-            .success(function(secondImgFiles) {
-                if (typeof secondImgFiles === "object"){
+            return $http({
+                method: 'GET',
+                url: phpQuery,
+            });
 
-                    var activeImages = [];
+        }
 
-                    for( var i in secondImgFiles ) {
+        /* Set secondary images */
+        function setSecondary(secondImgFiles, suffix) {
 
-                        // Convert returned object to array
-                        if (secondImgFiles.hasOwnProperty(i) && secondImgFiles[i] !== "image00001.jpg"){
-                            activeImages.push( 'img-prod\/' + suffix + secondImgFiles[i]);
-                        }
+            var activeImages = [];
 
-                    }
-                    $timeout(function() { $rootScope.$broadcast('rootScope:activeImagesSet', activeImages);},1000);
-                } else {
-                    $rootScope.$broadcast('rootScope:activeImagesSet', [defaultImg]);
+            for( var i in secondImgFiles ) {
+
+                // Convert returned object to array
+                if (secondImgFiles.hasOwnProperty(i) && secondImgFiles[i] !== "image00001.jpg"){
+                    activeImages.push( 'img-prod\/' + suffix + secondImgFiles[i]);
                 }
 
-            })
-            .error(function() {
-                console.log("no bueno");
-            });;
+            }
+
+            return activeImages;
 
         }
 
@@ -76,7 +76,7 @@
                           " ST_Distance("+
                               "the_geom::geography, "+
                               "CDB_LatLng(" + params.coords +
-                              ")::geography) "+
+                              ")::geography) / 1000 "+
                               "AS dist" +
                         " FROM " + params.layer +
                         // " WHERE type IN(" + $rootScope.queryStates[params.layer] + ")" +
@@ -85,7 +85,6 @@
                         " AND cartodb_id != " + params.cartodb_id +
                         " ORDER BY dist " +
                         "LIMIT 50";
-                        // alert(query);
                         // "UNION ALL "+
                         // "SELECT "+
                         //   "cartodb_id, the_geom, the_geom_webmercator, "+

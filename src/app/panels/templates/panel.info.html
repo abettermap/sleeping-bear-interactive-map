@@ -1,28 +1,40 @@
-<div class="panel panel--trail" ng-show="vm.activePanel == 'info'">
+<div class="panel" ng-show="vm.activePanel == 'info'">
 	<h2 class="panel__header">
-		<svg viewBox="0 0 100 100" class="no-hover">
-		    <use xlink:href="#icon-info"></use>
-		</svg>
-		<span>Help & Info</span>
+		<a ng-class="{'no-hover': vm.activeInfoPg == 'Home', 'btn': vm.activeInfoPg !== 'Home'}" href="javascript:;" ng-click="vm.setActiveInfoPg('Home')">
+			<svg viewBox="0 0 100 100">
+			    <use ng-attr-xlink:href="{{vm.activeInfoPgIcon}}" xlink:href=""></use>
+			</svg>
+		</a>
+		<span>{{vm.activeInfoPg}}</span>
 		<a href="javascript:;" class="panel__close btn" ng-click="vm.changePanel('')">
 			<svg viewBox="0 0 100 100">
-    			<use xlink:href="#icon-chevron-down"></use>
+    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
 			</svg>
 		</a>
 	</h2>
-	<div class="panel__inner" ng-show="vm.activeInfoPg.name == 'home'">
-		<button ng-click="vm.togglePoiLayer('feat')"></button>
-		<p ng-click="vm.now()">Below is a list of helpful map topics and general trail info. Please email <a href="mailto:info@friendsofsleepingbear.org">info@friendsofsleepingbear.org</a>. Thank you for visiting!</p>
-		<ul class="info-topics-list">
-			<!-- <li ng-model="topic">{{topic}}</li> -->
-			<li ng-repeat="t in helpData"><a href="javascript:;">{{t.subject}}</a></li>
-		</ul>
+	<div class="panel__inner" ng-show="vm.activeInfoPg == 'Home'">
+		<div class="panel__box">
+			<div class="panel__row">
+				<p>Below is a list of helpful map topics and general trail info. Please email <a href="mailto:info@friendsofsleepingbear.org">info@friendsofsleepingbear.org</a>. Thank you for visiting!</p>
+				<ul class="info-topics-list">
+					<li ng-repeat="t in vm.helpData">
+						<a href="javascript:;"
+							ng-click="vm.setActiveInfoPage(t.subject)">{{t.subject}}</a>
+					</li>
+				</ul>
+				<div class="panel__narrative">
+					<p>Credits here</p>
+				</div>
+			</div>
+		</div>
 	</div>
-<!-- 	<div class="panel__inner" ng-repeat="t in topics">
-		<p>{{t.text}}</p>
+	<div class="panel__inner"
+		ng-repeat="topic in vm.helpData"
+		ng-show="vm.activeInfoPg == topic.subject">
+		<div class="panel__box">
+			<div class="panel__row">
+				<div>{{topic.text}}</div>
+			</div>
+		</div>
 	</div>
-	<div ng-repeat="foo in ['a','b','c']" ng-init="loading=[]">
-	  <p ng-click="loading[$index]=true">Click me! Item Value: {{foo}}<p>
-	  <p ng-show="loading[$index]">Item {{$index}} loading...</p>
-	</div> -->
 </div>

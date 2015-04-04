@@ -64,10 +64,9 @@
         /* Load help data */
         function getHelpData(){
             var query = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT subject, text, topic_id FROM help';
-            return $http.get(query).then(function(response){
-                var reply = response.data.rows;
-                hey = reply;
-                // return response.data;
+            return $http({
+                method: 'GET',
+                url: query
             });
         }
 
@@ -107,6 +106,7 @@
                 url: query,
             });
         }
+
 
     	var panelsFactory = {
             getHelpData: getHelpData,

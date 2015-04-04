@@ -84,41 +84,19 @@
               name: 'features',
               sql: cdbValues.featSublayer.sql,
             }).on('featureClick', function(e, pos, latlng, data){
-                var season = $rootScope.queryStates.season;
-                // var info = [data, 'features'];
-                // var s = data.mile;
 
-                $state.go('layer.features', {
+                $state.go('popup', {
                     cartodb_id: data.cartodb_id,
                     mile: data.mile,
-                    seasons: season,
-                    table: 'features'
+                    layer: 'features',
+                    lat: pos[0],
+                    lon: pos[1],
                 },{
                     reload: true
                 });
 
                 // Restyle selected feature
                 setSelFeatColor(this, 'features', data.cartodb_id);
-
-                // Set primary/secondary
-                popupFactory.setActiveImages(data, 'features', pos);
-
-                // Set thumbnails
-                var thumbsParams = {
-                    coords: pos,
-                    layer: 'features',
-                    cartodb_id: data.cartodb_id,
-                }
-
-                popupFactory.setThumbs(thumbsParams).then(function(dataResponse) {
-                    // debugger;
-                    var thumbsData = dataResponse.data.rows;
-                    for (var i in thumbsData){
-                        thumbsData[i].layer = thumbsParams.layer;
-                    }
-
-                    $rootScope.$broadcast('rootScope:thumbsSet', thumbsData);
-                });
 
             });
 
