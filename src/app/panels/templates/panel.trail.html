@@ -17,7 +17,8 @@
 				<h3 class="panel--trail__header">Trail Images</h3>
 				<div class="panel--trail__label-cont">
 					<!-- Trail Pics -->
-					<input ng-checked="vm.queryStates.trail_pix" type="checkbox" id="trail-pics-toggle">
+					<input ng-checked="vm.trailPicsState" type="checkbox" id="trail-pics-toggle"
+						ng-click="vm.toggleTrailPicsState()">
 					<label class="panel--trail__label" for="trail-pics-toggle">
 						<svg viewBox="0 0 100 100">
 							<use xlink:href="#icon-camera"></use>
@@ -61,7 +62,7 @@
 					</label>
 				</div>
 				<!-- TRAIL CONDITION -->
-				<h3 class="panel--trail__header">Trail Condition</h3>
+				<h3 class="panel--trail__header" ng-show="vm.queryStates.season == 1">Trail Condition</h3>
 				<div class="panel--trail__label-cont" ng-show="vm.queryStates.season == 1">
 					<input type="checkbox" id="trail-cond-toggle"
 						ng-checked="vm.queryStates.trail_condition">

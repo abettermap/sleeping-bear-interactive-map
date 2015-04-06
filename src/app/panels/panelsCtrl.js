@@ -139,7 +139,8 @@
         vm.toggleFeatures = function(type, layer){
 
             var withQuotes = "'" + type + "'";
-            var idx = vm.selectedTypes.indexOf(withQuotes);
+            var idx = vm.selectedTypes.indexOf(withQuotes),
+                mainPtsCheck = vm.selectedTypes.indexOf("'mainpoints'");
 
             // is currently selected
             if (idx > -1) {
@@ -152,7 +153,8 @@
             }
 
             // Put mainpoints back in if features array empty
-            if (layer === 'features' && vm.selectedTypes.length <= 0) {
+            // if (layer === 'features' && vm.selectedTypes.length <= 0) {
+            if (layer === 'features' && mainPtsCheck <= 0) {
                 vm.selectedTypes.push("'mainpoints'");
             }
 
@@ -161,7 +163,22 @@
         }
 
         //////// TRAIL PANEL \\\\\\\\
+
+        // Trail cond state
         vm.queryStates = $rootScope.queryStates;
+
+        // Trail cond state
+        vm.trailPicsState = $rootScope.queryStates.trail_pix;
+
+        vm.toggleTrailPicsState = function(){
+            console.log($rootScope.queryStates.features);
+            if ($rootScope.queryStates.trail_pix){
+                $rootScope.queryStates.trail_pix = false;
+            } else {
+                $rootScope.queryStates.trail_pix = true;
+            }
+
+        };
 
 
         //////// INFO PANEL \\\\\\\\

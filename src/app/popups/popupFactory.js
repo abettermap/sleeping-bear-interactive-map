@@ -78,7 +78,8 @@
                     " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat," +
                     " ST_Distance(the_geom::geography," +
                     " CDB_LatLng(" + params.coords + ")::geography) / 1000 " +
-                    " AS dist,",
+                    " AS dist",
+                end = " ORDER BY dist LIMIT 50",
                 nonPoiStatus = {
                     faces: states.faces,
                     trail_condition: '',
@@ -87,11 +88,11 @@
 
             // Features
             var featQuery = shared +
-                    " 'features' AS layer" +
+                    ", 'features' AS layer" +
                     " FROM features WHERE type IN(" + states.features + ")" +
                     " AND substring(seasons," + states.season + ",1) = 'y'" +
-                    " AND cartodb_id != " + params.data.cartodb_id +
-                    " UNION ALL ";
+                    " AND cartodb_id != " + params.data.cartodb_id;
+
 
             // Commercial (HOW TO AVOID OMITTING FEATURES WHEN CDBID MATCHES FEAT, & VICE VERSA??)
             // var commQuery = shared +
@@ -102,13 +103,16 @@
             //         " UNION ALL ";
 
             // Trail pics
-            var picsQuery = shared +
-                    " 'trail_pix' AS layer" +
+            var trailPicsQuery = ' UNION ALL ' + shared +
+                    ", 'trail_pix' AS layer" +
                     " FROM trail_pix" +
-                    " WHERE substring(seasons," + states.season + ",1) = 'y'" +
-                    " ORDER BY dist LIMIT 50";
+                    " WHERE substring(seasons," + states.season + ",1) = 'y'";
 
-            query = prefix + featQuery + picsQuery;
+            if (states.trail_pix){
+                query = prefix + featQuery + trailPicsQuery + end;
+            } else {
+                query = prefix + featQuery + end;
+            }
 
             return $http({
                 method: 'GET',
