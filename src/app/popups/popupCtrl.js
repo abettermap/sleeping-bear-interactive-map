@@ -10,7 +10,8 @@
 
     function PopupCtrl($log, $timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state, mapFactory){
 
-        var vm = this;
+        var vm = this,
+            sp = $stateParams; // too much to type
 
         vm.currentSeason = $rootScope.queryStates.season;
 
@@ -50,7 +51,7 @@
                 "<use xlink:href='#icon-camera'></use></svg>"
         });
 
-        var tempMarker = L.marker([$stateParams.lat, $stateParams.lon],{
+        var tempMarker = L.marker([sp.lat, sp.lon],{
             temp: true,
             icon: tempIcon,
             // iconAnchor: [-216, 16]
@@ -63,18 +64,42 @@
             }
         }
 
-        if ($stateParams.layer === 'trail_pix'){
+        if (sp.layer === 'trail_pix'){
             tempMarker.addTo(mapFactory.map);
         }
 
-        popupFactory.findSecondary($stateParams)
+        // Pan to selection
+        mapFactory.map.panTo([sp.lat, sp.lon]);
+
+        // If features, set feat red, clear comm
+        if (sp.layer === 'features'){
+            layersFactory.setSelFeatColor('features', sp.cartodb_id);
+            /* PUT BACK WHEN COMM */
+            // layersFactory.setSelFeatColor('commercial', null);
+        }
+
+        // If comm, set comm red, clear feat
+        if (sp.layer === 'commercial'){
+            layersFactory.setSelFeatColor('commercial', sp.cartodb_id);
+            layersFactory.setSelFeatColor('features', null);
+        }
+
+        // If faces, pics, or trail_con, clear comm & feat
+        if (sp.layer === 'trail_pix' || sp.layer === 'faces' || sp.layer === 'trail_condition') {
+            /* PUT BACK WHEN COMM */
+            // layersFactory.setSelFeatColor('commercial', null);
+            layersFactory.setSelFeatColor('features', null);
+        }
+
+        /* Look for secondary images (even w/pics & faces, to stay consistent) */
+        popupFactory.findSecondary(sp)
         .then(function(result) {
 
             var imgObj = result.data,
                 secondaryImages,
                 arr = [],
-                layer = $stateParams.layer,
-                suffix = 'img_prod\/' + layer + '\/mid_size' + $stateParams.imgDir;
+                layer = sp.layer,
+                suffix = 'img_prod\/' + layer + '\/mid_size' + sp.imgDir;
 
             /* POI need path + file pushed */
             if (layer === 'features' || layer === 'commercial'){
@@ -91,7 +116,7 @@
 
             var activeImages = [],
                 secondImgFiles = result,
-                suffix = 'img_prod\/' + $stateParams.layer + '\/mid_size' + $stateParams.imgDir;
+                suffix = 'img_prod\/' + sp.layer + '\/mid_size' + sp.imgDir;
 
             // Length will be zero for trail pics, faces, and trail condition (???)
             if (secondImgFiles.length <= 0){
@@ -111,7 +136,7 @@
         $scope.currentPage = 1;
 
         var thumbsParams = {
-            coords: [$stateParams.lat, $stateParams.lon],
+            coords: [sp.lat, sp.lon],
             data: vm.selFeatData,
         }
 
@@ -145,13 +170,8 @@
         /* Trigger new popup */
         vm.resetPopup = function(path, attribs){
 
-            // Primary/secondary
-
             var layer = attribs.layer,
                 route;
-
-            // Pan to selection
-            mapFactory.map.panTo([attribs.lat, attribs.lon]);
 
             /* Go to correct route */
             if (attribs.layer === 'features' || attribs.layer === 'commercial'){
@@ -159,6 +179,9 @@
             } else {
                 route = 'popup.pic';
             }
+
+            /* Clear selected, if any */
+            // layersFactory.setSelFeatColor(attribs.layer, )
 
             $state.go(route, {
                 cartodb_id: attribs.cartodb_id,

@@ -46,28 +46,32 @@
                 // Add interaction
                 cdb.vis.Vis.addCursorInteraction(map, layer);
 
-                var picsLayer = $rootScope.queryStates.pics;
-
                 layer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data, layerNumber) {
 
-                    var coords = [latlng[0], latlng[1]];
+                    var coords = [latlng[0], latlng[1]],
+                        states = $rootScope.queryStates;
 
-                    popupFactory.getNearestPic(coords, picsLayer)
-                    .then(function(result){
+                    // Only do this if something other than a POI layer is visible
+                    if (states.trail_pix || states.faces || states.trail_condition){
 
-                        var closest = result.data.rows[0];
+                        popupFactory.getNearestPic(coords)
+                        .then(function(result){
 
-                        $state.go('popup.pic', {
-                            cartodb_id: closest.cartodb_id,
-                            imgDir: closest.filepath,
-                            layer: picsLayer,
-                            lat: latlng[0],
-                            lon: latlng[1],
-                        },{
-                            reload: true
+                            var closest = result.data.rows[0];
+
+                            $state.go('popup.pic', {
+                                cartodb_id: closest.cartodb_id,
+                                imgDir: closest.filepath,
+                                layer: closest.layer,
+                                lat: latlng[0],
+                                lon: latlng[1],
+                            },{
+                                reload: true
+                            });
+
                         });
 
-                    });
+                    }
 
                 });
 
@@ -121,8 +125,6 @@
                     reload: true
                 });
 
-                // Restyle selected feature
-                setSelFeatColor(this, 'features', data.cartodb_id);
 
             });
 
@@ -149,19 +151,35 @@
         } // end returned object
 
         /***** SET SELECTED FEATURE COLOR *****/
-        function setSelFeatColor(layer, elem, cartodb_id){
+        function setSelFeatColor(tableNm, cartodb_id){
 
-            var newCss = getMss(elem, cartodb_id);
+            var newCss,
+                layer = layersFactory.sublayers[tableNm];
+
+            // Clear if no CDB id passed
+            if (cartodb_id){
+                newCss = getMss(tableNm, cartodb_id);
+            } else {
+                newCss = getMss(tableNm);
+                newCss = getMss(tableNm, cartodb_id);
+            }
+
             layer.setCartoCSS(newCss);
 
         }
 
         function getMss(layer, cartodb_id){
+
             var mss = $('#mss-' + layer).text(),
                 newString = '#' + layer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
                       'bg/marker-fill: @c-sel-feat-fill;' +
                       'bg/marker-line-color: @c-sel-feat-stroke;' +
                     '}';
+
+            if (cartodb_id){
+            }
+                mss = mss + newString;
+
             return mss + newString;
         }
 

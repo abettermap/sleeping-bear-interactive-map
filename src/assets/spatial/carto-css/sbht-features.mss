@@ -98,7 +98,7 @@
   [type="water"]    {fg/marker-file: @path-water;}
   [type="beach"]    {fg/marker-height: @icon-h-mid*.5;}
   [type="commserv"] {fg/marker-file: @path-commserv;}
-  [type="historic"] {fg/marker-file: @path-historic;}
+  [type="historic"] {fg/marker-file: @path-historic; fg/marker-height: 13; fg/marker-transform: translate(0,@pin-shift-y-mid - 6);}
   [type="other"]    {fg/marker-file: @path-other;}
   [type="parking"]  {fg/marker-file: @path-parking; fg/marker-height: 15;}
   [type="restroom"] {fg/marker-transform: translate(-1,@pin-shift-y-mid*1.3);}

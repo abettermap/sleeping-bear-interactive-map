@@ -13,12 +13,32 @@
 	<div class="panel__inner">
 		<div class="panel__box">
 			<div class="panel__row">
-				<p>While the Trail is mostly flat, there are a few hills and a handful of cautionary segments. Select your desired option/s, then click the Trail for details.</p>
-				<div class="toggle--trail__flex-wrap">
+				<!-- TRAIL PICS & FACES -->
+				<h3 class="panel--trail__header">Trail Images</h3>
+				<div class="panel--trail__label-cont">
+					<!-- Trail Pics -->
+					<input ng-checked="vm.queryStates.trail_pix" type="checkbox" id="trail-pics-toggle">
+					<label class="panel--trail__label" for="trail-pics-toggle">
+						<svg viewBox="0 0 100 100">
+							<use xlink:href="#icon-camera"></use>
+						</svg>
+						Trail Pics
+					</label>
+					<!-- Faces -->
+					<input ng-checked="vm.queryStates.faces" type="checkbox" id="faces-toggle">
+					<label class="panel--trail__label" for="faces-toggle">
+						<svg viewBox="0 0 100 100">
+							<use xlink:href="#icon-face"></use>
+						</svg>
+						Faces
+					</label>
+				</div>
+				<h3 class="panel--trail__header">Grade & Caution</h3>
+				<div class="panel--trail__label-cont">
 					<!-- GRADE -->
 					<input type="checkbox" id="grade-toggle"
-						ng-checked="vm.trailToggleStatus.grade">
-					<label for="grade-toggle">
+						ng-checked="vm.queryStates.grade">
+					<label class="panel--trail__label space-around" for="grade-toggle">
 						<svg viewBox="0 0 100 100">
 							<use xlink:href="#icon-grade"></use>
 						</svg>
@@ -29,8 +49,8 @@
 					</label>
 					<!-- CAUTION -->
 					<input type="checkbox" id="caution-toggle"
-						ng-checked="vm.trailToggleStatus.caution">
-					<label for="caution-toggle">
+						ng-checked="vm.queryStates.caution">
+					<label class="panel--trail__label space-around" for="caution-toggle">
 						<svg viewBox="0 0 100 100">
 							<use xlink:href="#icon-caution"></use>
 						</svg>
@@ -41,37 +61,21 @@
 					</label>
 				</div>
 				<!-- TRAIL CONDITION -->
-				<!-- <div ng-class="{'never-show': activeSeason !== 'winter', '': activeSeason == 'winter'}"> -->
-				<div class="toggle--trail__flex-wrap">
-					<p>Enable this option to display the most current Trail photos (winter only):</p>
+				<h3 class="panel--trail__header">Trail Condition</h3>
+				<div class="panel--trail__label-cont" ng-show="vm.queryStates.season == 1">
 					<input type="checkbox" id="trail-cond-toggle"
-						ng-checked="vm.trailToggleStatus.cond">
-					<label for="trail-cond-toggle">
+						ng-checked="vm.queryStates.trail_condition">
+					<label class="panel--trail__label trail-cond" for="trail-cond-toggle">
 						<svg viewBox="0 0 100 100" class="toggle__icon--trail-cond">
 							<use xlink:href="#icon-trail-cond"></use>
 						</svg>
 						Trail Condition
 					</label>
 				</div>
-				<!-- TRAIL PICS & FACES -->
-				<p>The map has a large image library of trail shots and visitors enjoying the Trail. Choose an option below, then click the Trail to view photos.</p>
-				<div class="toggle--trail__flex-wrap">
-					<!-- Trail Pics -->
-					<input ng-checked="vm.trailToggleStatus.pics" type="radio" name="pics-toggle" id="trail-pics-toggle">
-					<label for="trail-pics-toggle">
-						<svg viewBox="0 0 100 100">
-							<use xlink:href="#icon-camera"></use>
-						</svg>
-						Trail Pics
-					</label>
-					<!-- Faces -->
-					<input ng-checked="vm.trailToggleStatus.faces" type="radio" name="pics-toggle" id="faces-toggle">
-					<label for="faces-toggle">
-						<svg viewBox="0 0 100 100">
-							<use xlink:href="#icon-face"></use>
-						</svg>
-						Faces
-					</label>
+				<div class="panel__narrative">
+					<p>The map has a large image library of trail scenes and visitors enjoying the Trail. Choose one or both options, then click the Trail to view photos.</p>
+					<p>While the Trail is mostly flat, there are a few hills and a handful of cautionary segments. Select your desired option/s, then click the Trail for details.</p>
+					<p>Enable the "Trail Condition" option to display the most current Trail photos (winter only).</p>
 				</div>
 			</div>
 		</div>

@@ -72,38 +72,42 @@
 
         function setThumbs(params){
             var query,
-                featQueryState = $rootScope.queryStates.features,
-                commQueryState = $rootScope.queryStates.commercial;
+                states = $rootScope.queryStates,
+                prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=",
+                shared = "SELECT cartodb_id, the_geom, the_geom_webmercator, filepath,"+
+                    " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat," +
+                    " ST_Distance(the_geom::geography," +
+                    " CDB_LatLng(" + params.coords + ")::geography) / 1000 " +
+                    " AS dist,",
+                nonPoiStatus = {
+                    faces: states.faces,
+                    trail_condition: '',
+                    trail_pix: '',
+                };
 
             // Features
-            var featQuery = "SELECT cartodb_id, the_geom, the_geom_webmercator, filepath,"+
-                    " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat," +
-                    " ST_Distance(the_geom::geography," +
-                    " CDB_LatLng(" + params.coords + ")::geography) / 1000 " +
-                    " AS dist," +
+            var featQuery = shared +
                     " 'features' AS layer" +
-                    " FROM features WHERE type IN(" + featQueryState + ")" +
-                    " AND substring(seasons," + $rootScope.queryStates.season + ",1) = 'y'" +
+                    " FROM features WHERE type IN(" + states.features + ")" +
+                    " AND substring(seasons," + states.season + ",1) = 'y'" +
                     " AND cartodb_id != " + params.data.cartodb_id +
-                    " UNION ALL";
+                    " UNION ALL ";
 
-            // Trail pics or faces
-            var picsQuery = " SELECT cartodb_id, the_geom, the_geom_webmercator, filepath,"+
-                    " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat," +
-                    " ST_Distance(the_geom::geography," +
-                    " CDB_LatLng(" + params.coords + ")::geography) / 1000 " +
-                    " AS dist," +
+            // Commercial (HOW TO AVOID OMITTING FEATURES WHEN CDBID MATCHES FEAT, & VICE VERSA??)
+            // var commQuery = shared +
+            //         " 'commercial' AS layer" +
+            //         " FROM commercial WHERE type IN(" + states.commercial + ")" +
+            //         " AND substring(seasons," + states.season + ",1) = 'y'" +
+            //         " AND cartodb_id != " + params.data.cartodb_id +
+            //         " UNION ALL ";
+
+            // Trail pics
+            var picsQuery = shared +
                     " 'trail_pix' AS layer" +
-                    // " FROM  "+ $rootScope.queryStates.pics +
                     " FROM trail_pix" +
-                    " WHERE substring(seasons," + $rootScope.queryStates.season + ",1) = 'y'" +
+                    " WHERE substring(seasons," + states.season + ",1) = 'y'" +
                     " ORDER BY dist LIMIT 50";
-                    // alert(params.data.layer);
 
-                    // alert(picsQuery);
-            if (params.data.layer === 'trail_pix'){
-            }
-            var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=";
             query = prefix + featQuery + picsQuery;
 
             return $http({
@@ -113,21 +117,21 @@
         }
 
         /* When trail is clicked on... */
-        function getNearestPic (coords, layer){
+        function getNearestPic (coords){
 
-            var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=",
-                suffix = "SELECT cartodb_id, the_geom, the_geom_webmercator, filepath,"+
+            var states = $rootScope.queryStates,
+                prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=",
+                midShared = "SELECT cartodb_id, the_geom, the_geom_webmercator, filepath,"+
                         " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat," +
                         " ST_Distance(the_geom::geography," +
                         " CDB_LatLng(" + coords + ")::geography) / 1000 " +
                         " AS dist, '" +
-                        layer + "' AS layer" +
-                        " FROM " + layer +
-                        // " WHERE substring(seasons," + $rootScope.queryStates.season + ",1) = 'y'" +
-                        " WHERE substring(seasons,1,1) = 'y'" +
+                        "trail_pix" + "' AS layer" +
+                        " FROM " + "trail_pix" +
+                        " WHERE substring(seasons," + states.season + ",1) = 'y'" +
                         " ORDER BY dist LIMIT 1";
 
-            var query = prefix + suffix;
+            var query = prefix + midShared;
 
             return $http({
                 method: 'GET',

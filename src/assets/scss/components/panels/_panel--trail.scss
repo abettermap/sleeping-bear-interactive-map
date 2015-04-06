@@ -38,59 +38,64 @@
 
 /* Top-level panel assignments */
 .panel--trail {
-  label {
-    align-items: center;
-    // align-self: center;
-    display: box;
-    display: flex;
-    flex: 0 46%;
-    padding: .3rem 4px;
-  }
   svg {
     display: inline;
     fill: $c-panel--trail__header;
     height: 1.8rem;
     width: 1.8rem;
   }
+  // Paragraphs:
+  &__narrative {
+    margin-top: 0;
+  }
+  &__header {
+    font-size: 1.2rem;
+  }
 }
 
 /* Grade, caution, trail condition toggles */
 
 // Shared \\
-.toggle--trail {
-
-  &__flex-wrap {
-    display: box;
+.panel--trail__label {
+  align-items: center;
+  justify-content: center;
+  flex: 0 48%;
+  display: box;
+  display: flex;
+  padding: .3rem 4px;
+  &.trail-cond {
+    flex: 0 100%;
+  }
+  svg {
+    margin-right: 5px;
+  }
+  // Container:
+  &-cont {
     display: flex;
     justify-content: space-between;
-    flex-flow: row wrap;
-    p {
-      flex: 0 50%;
-    }
-    p + input + label {
-      align-self: center;
+    ~ h3 {
+      margin-top: .9rem;
     }
   }
-}
+  &.space-around {
+    justify-content: center;
+  }
 
-// Margin below grade/caution \\
-.toggle--trail__flex-wrap {
-  &:first-of-type {
-    margin-bottom: .5rem;
-  }
 }
 
 // Line symbols in legend \\
 .legend-line {
   $line-height: 4px;
-  $line-width: 50px;
+  flex: 0 30%;
   background-color: $near-white;
   border-color: $near-black;
   border-style: dashed;
   border-width: $line-height 0 0 0;
   height: $line-height;
+  margin-left: 5px;
   position: relative;
-  width: $line-width;
+  // width: $line-width;
+
   span {
     display: block;
     height: $line-height;
@@ -99,6 +104,7 @@
     top: $line-height*-1;
     width: 100%;
   }
+
 }
 
 // Line overlay colors

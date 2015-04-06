@@ -15,13 +15,8 @@
         //////// PANELS \\\\\\\\
 
         // The active panel
-        // vm.activePanel = 'info';
+        // vm.activePanel = 'trail';
         vm.activePanel = '';
-
-
-        $rootScope.$on('rootScope:activeImagesSet', function (event, data) {
-            vm.activePanel = '';
-        });
 
         vm.changePanel = function(panel){
 
@@ -57,9 +52,8 @@
             };
 
             vm.activeSeasonIcon = '#icon-' + seasonsQueries[$rootScope.queryStates.season];
-// debugger;
+
             panelsFactory.setSeason(season);
-            // vm.toggleFeatures
 
         };
 
@@ -166,14 +160,8 @@
 
         }
 
-        //////// TRAILS PANEL \\\\\\\\
-        vm.trailToggleStatus = {
-            caution: false,
-            grade: false,
-            cond: false,
-            pics: false,
-            faces: false
-        };
+        //////// TRAIL PANEL \\\\\\\\
+        vm.queryStates = $rootScope.queryStates;
 
 
         //////// INFO PANEL \\\\\\\\
