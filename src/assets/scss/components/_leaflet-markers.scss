@@ -1,0 +1,16 @@
+.temp-div-icon {
+    $size: 2rem;
+    svg {
+        background-color: red;
+        box-shadow: 1px 1px 5px $gray;
+        border-radius: 8px;
+        display: block;
+        fill: $near-white;
+        height: $size;
+        padding: .1rem;
+        position: relative;
+        left: $size/-2;
+        top: $size/-2;
+        width: $size;
+    }
+}

@@ -43,6 +43,30 @@
         // Type icon
         vm.typeIcon = '#icon-' + vm.selFeatData.type;
 
+        /***** Have marker ready but don't add to map *****/
+        var tempIcon = L.divIcon({
+            className: 'temp-div-icon',
+            html: "<svg viewBox='0 0 100 100'>" +
+                "<use xlink:href='#icon-camera'></use></svg>"
+        });
+
+        var tempMarker = L.marker([$stateParams.lat, $stateParams.lon],{
+            temp: true,
+            icon: tempIcon,
+            // iconAnchor: [-216, 16]
+        });
+        var mapLayers = mapFactory.map._layers;
+
+        for (var i in mapLayers){
+            if (mapLayers[i].options.temp){
+                mapFactory.map.removeLayer(mapLayers[i]);
+            }
+        }
+
+        if ($stateParams.layer === 'trail_pix'){
+            tempMarker.addTo(mapFactory.map);
+        }
+
         popupFactory.findSecondary($stateParams)
         .then(function(result) {
 

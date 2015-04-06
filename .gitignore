@@ -18,6 +18,7 @@ src/assets/scss/vendor
 ######
 src/assets/js/vendor
 src/app/map-app.js
+src/app/map-app.js.map
 
 # Spatial #
 ###########
