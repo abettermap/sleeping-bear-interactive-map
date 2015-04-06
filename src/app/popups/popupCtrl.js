@@ -49,26 +49,35 @@
             var imgObj = result.data,
                 secondaryImages, path;//, arr;
                 var arr = [];
-                var layer = $stateParams.layer;
+                var layer = $stateParams.layer,
+                suffix = 'img_prod\/' + $stateParams.layer + '\/mid_size' + $stateParams.imgDir;
 
-            for (var i in imgObj){
-                if (imgObj[i].hasOwnProperty(i)){
-                   arr.push(imgObj[i]);
-
+            /* POI need path + file pushed */
+            if ($stateParams.layer === 'features' || $stateParams.layer === 'commercial'){
+                for (var i in imgObj){
+                    if (imgObj[i].hasOwnProperty(i)){
+                       arr.push(imgObj[i]);
+                    }
                 }
-
             }
 
             return arr;
         })
         .then(function(result){
+
             var activeImages = [],
                 secondImgFiles = result,
                 suffix = 'img_prod\/' + $stateParams.layer + '\/mid_size' + $stateParams.imgDir;
 
-            for( var i in secondImgFiles ) {
-                activeImages.push(suffix + secondImgFiles[i]);
+            // Length will be zero for trail pics, faces, and trail condition (???)
+            if (secondImgFiles.length <= 0){
+                activeImages =[suffix];
+            } else {
+                for ( var i in secondImgFiles ) {
+                    activeImages.push(suffix + secondImgFiles[i]);
+                }
             }
+
             vm.activeImages = activeImages;
 
         });
@@ -120,13 +129,13 @@
                 secondaryImages;
 
             // Features, commercial, trail condition
-            if (layer !== 'trail_pix' && layer !== 'faces') {
+            // if (layer !== 'trail_pix' && layer !== 'faces') {
 
-                cdbId = attribs.cartodb_id;
+            //     cdbId = attribs.cartodb_id;
 
-                // Red pin for selected
-                pointQueryLayer = layersFactory.sublayers[layer];
-                layersFactory.setSelFeatColor(pointQueryLayer, layer, cdbId);
+            //     // Red pin for selected
+            //     pointQueryLayer = layersFactory.sublayers[layer];
+            //     layersFactory.setSelFeatColor(pointQueryLayer, layer, cdbId);
 
             //     // Get primary & secondary
             //     popupFactory.findSecondary(vm.selFeatData, $stateParams.layer)
@@ -139,13 +148,13 @@
 
             //     });
 
-            } // else {
-
+            // } else {
+            //     console.log('not poi');
             //     // create temp feature
 
 
-            //     // secondaryImages = [];
-            //     // secondaryImages = 'img_prod\/' + attribs.layer + '\/mid_size\/' + attribs.filepath;
+            //     secondaryImages = [];
+            //     secondaryImages = ['img_prod\/' + attribs.layer + '\/mid_size' + attribs.filepath];
             //     // $rootScope.$broadcast('rootScope:secondarySet', secondaryImages);
             // }
 
@@ -158,7 +167,15 @@
             //     // $rootScope.$broadcast('rootScope:thumbsSet', thumbsData);
             // });
 
-            $state.go('popup', {
+            /* Go to correct route */
+            var route;
+            if (attribs.layer === 'features' || attribs.layer === 'commercial'){
+                route = 'popup.poi';
+            } else {
+                route = 'popup.pic';
+            }
+
+            $state.go(route, {
                 cartodb_id: attribs.cartodb_id,
                 layer: attribs.layer,
                 lat: attribs.lat,

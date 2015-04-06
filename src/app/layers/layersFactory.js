@@ -49,7 +49,7 @@
                 var picsLayer = $rootScope.queryStates.pics;
 
                 layer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data, layerNumber) {
-                    $state.go('popup', {
+                    $state.go('popup.pic', {
                         cartodb_id: 0,
                         mile: 0,
                         imgDir: '',
@@ -101,7 +101,7 @@
             }).on('featureClick', function(e, pos, latlng, data){
 
 
-                $state.go('popup', {
+                $state.go('popup.poi', {
                     cartodb_id: data.cartodb_id,
                     mile: data.mile,
                     imgDir: data.filepath,
