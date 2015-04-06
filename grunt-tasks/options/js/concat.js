@@ -25,16 +25,18 @@ module.exports = {
     //     dest: 'build/src/app/map-app-kiosk.js'
     // },
     ng: {
-      src: [
-        'src/app/config/app-config.js', // should work as long as app-config comes first
-        'src/app/map/*.js',
-        'src/app/layers/*.js',
-        'src/app/popups/*js',
-        'src/app/ctrls/*.js',
-        'src/app/panels/*.js',
-        'src/app/vendor/dirPagination.js'
-      ],
-      dest: 'src/app/map-app.js'
+        options: {
+            sourceMap: true
+        },
+        src: [
+            'src/app/config/app-config.js', // should work as long as app-config comes first
+            'src/app/map/*.js',
+            'src/app/layers/*.js',
+            'src/app/popups/*js',
+            'src/app/ctrls/*.js',
+            'src/app/panels/*.js',
+        ],
+        dest: 'src/app/map-app.js'
     },
     vendorScripts: {
       src: [
@@ -54,6 +56,8 @@ module.exports = {
 
         // Leaflet GPS
         'src/assets/js/vendor/bower_components/leaflet-gps/src/leaflet-gps.js',
+        // Pagination
+        'src/assets/js/vendor/dirPagination.js',
         // Angular Fullscreen
         // 'src/assets/js/vendor/bower_components/angular-fullscreen/src/angular-fullscreen.js',
         // // Multiline (need this or no?)

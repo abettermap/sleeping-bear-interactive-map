@@ -12,7 +12,7 @@
 
         // Set empty objects for easy access later
         var sublayers = {
-            trail: {},
+            sbht: {},
             grade: {},
             caution: {},
             features: {},
@@ -45,6 +45,21 @@
 
                 // Add interaction
                 cdb.vis.Vis.addCursorInteraction(map, layer);
+
+                var picsLayer = $rootScope.queryStates.pics;
+
+                layer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data, layerNumber) {
+                    $state.go('popup', {
+                        cartodb_id: 0,
+                        mile: 0,
+                        imgDir: '',
+                        layer: picsLayer,
+                        lat: pos[0],
+                        lon: pos[1],
+                    },{
+                        reload: true
+                    });
+                });
 
                 // Create remaining sublayers
     	        createSublayers(map, layer);
@@ -85,9 +100,11 @@
               sql: cdbValues.featSublayer.sql,
             }).on('featureClick', function(e, pos, latlng, data){
 
+
                 $state.go('popup', {
                     cartodb_id: data.cartodb_id,
                     mile: data.mile,
+                    imgDir: data.filepath,
                     layer: 'features',
                     lat: pos[0],
                     lon: pos[1],
@@ -101,6 +118,7 @@
             });
 
             /* Assign variables to reference sublayer based on index */
+            layersFactory.sublayers.sbht     = layer.getSubLayer(0);
             layersFactory.sublayers.grade     = layer.getSubLayer(1);
             layersFactory.sublayers.caution   = layer.getSubLayer(2);
             layersFactory.sublayers.features  = layer.getSubLayer(3);
@@ -108,7 +126,6 @@
             // layersFactory.trailPics = layer.getSubLayer(5);
             // layersFactory.faces     = layer.getSubLayer(6);
             // layersFactory.trailCond = layer.getSubLayer(7);
-
 
             /***** CLICK FUNCTIONALITY *****/
             /* Set interaction for all sublayers */

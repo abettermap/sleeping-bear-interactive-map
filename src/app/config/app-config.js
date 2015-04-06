@@ -43,15 +43,15 @@
             'angularUtils.directives.dirPagination',
             'ui.router',
         ])
-        .run(['$rootScope', '$state', '$stateParams', '$location',
-            function ($rootScope, $state, $stateParams, $location) {
+        .run(['$log', '$rootScope', '$state', '$stateParams', '$location',
+            function ($log, $rootScope, $state, $stateParams, $location) {
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
 
                 // Let's keep track of these, hey?
                 $rootScope.queryStates = {
                     season: 3,
-                    trailPics: true,
+                    pics: 'trail_pix',
                     features: ["'mainpoints'"],
                     commercial: ["''"],
                     cond: false,

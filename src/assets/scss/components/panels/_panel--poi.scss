@@ -30,7 +30,8 @@ $a-long-trans: 5000ms;
     margin-top: .75rem;
   }
   &-link {
-    font-size: 1.1rem;
+    color: $near-black;
+    font-size: 1.2rem;
     text-decoration: underline;
     transition: $a-all-hover-transition;
 

@@ -15,7 +15,7 @@
         //////// PANELS \\\\\\\\
 
         // The active panel
-        vm.activePanel = 'features';
+        // vm.activePanel = 'info';
         vm.activePanel = '';
 
 
@@ -55,9 +55,11 @@
                 3: 'summer',
                 4: 'fall',
             };
+
             vm.activeSeasonIcon = '#icon-' + seasonsQueries[$rootScope.queryStates.season];
 // debugger;
             panelsFactory.setSeason(season);
+            // vm.toggleFeatures
 
         };
 
@@ -161,6 +163,7 @@
             }
 
             panelsFactory.toggleFeatures(vm.selectedTypes, layer);
+
         }
 
         //////// TRAILS PANEL \\\\\\\\
@@ -182,12 +185,12 @@
         };
 
         vm.setActiveInfoPg = function(page){
-            alert(page);
-            vm.activeInfoPage = page;
+
+            vm.activeInfoPg = page;
             if (page !== 'Home'){
-                vm.activeInfoPageIcon = '#icon-back';
+                vm.activeInfoPgIcon = '#icon-back';
             } else {
-                vm.activeInfoPageIcon = '#icon-info';
+                vm.activeInfoPgIcon = '#icon-info';
             }
         };
 

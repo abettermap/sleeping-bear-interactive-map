@@ -6,11 +6,11 @@
         .module('popupsModule')
         .factory('popupFactory', popupFactory);
 
-    popupFactory.$inject = ['$rootScope', '$http', 'basePath', '$timeout', '$state'];
+    popupFactory.$inject = ['$rootScope', '$http', 'basePath', '$timeout', '$state', '$stateParams'];
 
-    function popupFactory($rootScope, $http, basePath, $timeout, $state){
+    function popupFactory($rootScope, $http, basePath, $timeout, $state, $stateParams){
 
-        var defaultImg = 'sbht-i-map/img-prod/features/mid_size/n00/wdune-climb/image00009.jpg';
+        var defaultImg = 'sbht-i-map/img_prod/features/mid_size/n00/wdune-climb/image00009.jpg';
 
         var popups = {
             findSecondary: findSecondary,
@@ -34,29 +34,34 @@
         }
 
         /* Look for secondary images */
-        function findSecondary(data, layer){
+        function findSecondary(data){
 
-            var suffix = layer + '\/mid_size\/' + data.mile + '\/' + data.name_id + '\/',
-                phpQuery = 'get-images.php?dir=' + suffix;
+            var suffix = data.layer + '\/mid_size' + data.imgDir,
+                phpQuery = 'get-images.php?dir=' + suffix,
+                query;
+
+            if (data.layer === 'features'){
+                query = phpQuery;
+            } else {
+                query = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT cartodb_id, the_geom, filepath, 'trail_pix' AS layer FROM trail_pix WHERE cartodb_id = null";
+            }
 
             return $http({
                 method: 'GET',
-                url: phpQuery,
+                url: query,
             });
 
         }
 
         /* Set secondary images */
-        function setSecondary(secondImgFiles, suffix) {
+        function setSecondary(secondImgFiles) {
 
             var activeImages = [];
+            var suffix = 'img_prod\/' + $stateParams.layer + '\/mid_size' + $stateParams.imgDir;
 
             for( var i in secondImgFiles ) {
 
-                // Convert returned object to array
-                if (secondImgFiles.hasOwnProperty(i) && secondImgFiles[i] !== "image00001.jpg"){
-                    activeImages.push( 'img-prod\/' + suffix + secondImgFiles[i]);
-                }
+                activeImages.push(suffix + secondImgFiles[i]);
 
             }
 
@@ -65,50 +70,44 @@
         }
 
         function setThumbs(params){
-            var typeQuery,
-                queryState = $rootScope.queryStates[params.layer];
+            var query,
+                featQueryState = $rootScope.queryStates.features,
+                commQueryState = $rootScope.queryStates.commercial;
 
-            typeQuery = " type IN(" + queryState + ")";
-            var query = "SELECT " +
-                          "cartodb_id, the_geom, the_geom_webmercator, mile, name_id, "+
-                          " ST_X(the_geom) AS lon," +
-                          " ST_Y(the_geom) AS lat," +
-                          " ST_Distance("+
-                              "the_geom::geography, "+
-                              "CDB_LatLng(" + params.coords +
-                              ")::geography) / 1000 "+
-                              "AS dist" +
-                        " FROM " + params.layer +
-                        // " WHERE type IN(" + $rootScope.queryStates[params.layer] + ")" +
-                        " WHERE " + typeQuery +
-                        " AND substring(seasons," + $rootScope.queryStates.season + ",1) = 'y'" +
-                        " AND cartodb_id != " + params.cartodb_id +
-                        " ORDER BY dist " +
-                        "LIMIT 50";
-                        // "UNION ALL "+
-                        // "SELECT "+
-                        //   "cartodb_id, the_geom, the_geom_webmercator, "+
-                        //   "ST_Distance( "+
-                        //       "the_geom::geography, "+
-                        //       "CDB_LatLng(44.8441,-86.0593)::geography "+
-                        //       ") AS dist "+
-                        // "FROM  "+
-                        //   "trail_pix "+
-                        // "UNION ALL "+
-                        // "SELECT "+
-                        //   "cartodb_id, the_geom, the_geom_webmercator, "+
-                        //   "ST_Distance( "+
-                        //       "the_geom::geography, "+
-                        //       "CDB_LatLng(44.8441,-86.0593)::geography "+
-                        //       ") AS dist "+
-                        // "FROM "+
-                        //   "commercial";
+            // Features
+            var featQuery = "SELECT cartodb_id, the_geom, the_geom_webmercator, filepath,"+
+                    " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat," +
+                    " ST_Distance(the_geom::geography," +
+                    " CDB_LatLng(" + params.coords + ")::geography) / 1000 " +
+                    " AS dist," +
+                    " 'features' AS layer" +
+                    " FROM features WHERE type IN(" + featQueryState + ")" +
+                    " AND substring(seasons," + $rootScope.queryStates.season + ",1) = 'y'" +
+                    " AND cartodb_id != " + params.data.cartodb_id +
+                    " UNION ALL";
 
+            // Trail pics or faces
+            var picsQuery = " SELECT cartodb_id, the_geom, the_geom_webmercator, filepath,"+
+                    " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat," +
+                    " ST_Distance(the_geom::geography," +
+                    " CDB_LatLng(" + params.coords + ")::geography) / 1000 " +
+                    " AS dist," +
+                    " 'trail_pix' AS layer" +
+                    // " FROM  "+ $rootScope.queryStates.pics +
+                    " FROM trail_pix" +
+                    " WHERE substring(seasons," + $rootScope.queryStates.season + ",1) = 'y'" +
+                    " ORDER BY dist LIMIT 50";
+                    // alert(params.data.layer);
+
+                    // alert(picsQuery);
+            if (params.data.layer === 'trail_pix'){
+            }
             var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=";
+            query = prefix + featQuery + picsQuery;
 
             return $http({
                 method: 'GET',
-                url: prefix + query,
+                url: query,
             });
         }
 

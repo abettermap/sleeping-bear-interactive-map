@@ -15,15 +15,35 @@
 	<div class="panel__inner" ng-show="vm.activeInfoPg == 'Home'">
 		<div class="panel__box">
 			<div class="panel__row">
-				<p>Below is a list of helpful map topics and general trail info. Please email <a href="mailto:info@friendsofsleepingbear.org">info@friendsofsleepingbear.org</a>. Thank you for visiting!</p>
-				<ul class="info-topics-list">
-					<li ng-repeat="t in vm.helpData">
-						<a href="javascript:;"
-							ng-click="vm.setActiveInfoPage(t.subject)">{{t.subject}}</a>
+				<h3>Map Credits</h3>
+				<ul class="logos">
+					<li>
+						<a href="http://abettermap.com" target="_blank" class="logo">
+							<img src="src/assets/img/svg/project/abm-logo.svg" alt="A Better Map logo">
+						</a>
+					</li>
+					<li>
+						<a href="http://friendsofsleepingbear.org" target="_blank" class="logo">
+							<img src="src/assets/img/raster/logos/fosb-logo.png" alt="Friends of Sleeping Bear Dunes
+							logo">
+						</a>
+						</li>
+					<li>
+						<a href="http://www.visitglenarbor.com/" target="_blank" class="logo">
+							<img src="src/assets/img/raster/logos/glcc-logo.png" alt="Glen Lake CC logo">
+						</a>
 					</li>
 				</ul>
 				<div class="panel__narrative">
-					<p>Credits here</p>
+					<small class="credits">This map was made through a collaborative effort between <a href="http://abettermap.com" target="_blank" class="logo">A Better Map</a>, <a href="http://friendsofsleepingbear.org" target="_blank" class="logo">Friends of Sleeping Bear Dunes</a>, and <a href="http://www.visitglenarbor.com/" target="_blank" class="logo">Glen Lake Chamber of Commerce</a>.</small>
+					<h3>Help & Info</h3>
+					<p>Select a topic below to learn more about the map, Sleeping Bear Dunes National Lakeshore, and The Friends of Sleeping Bear Dunes:</p>
+					<ul class="info-topics-list">
+						<li ng-repeat="t in vm.helpData">
+							<a class="info-topics-link" href="javascript:;"
+								ng-click="vm.setActiveInfoPg(t.subject)">{{t.subject}} >></a>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>

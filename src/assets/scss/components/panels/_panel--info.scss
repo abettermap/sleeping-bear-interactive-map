@@ -1,0 +1,28 @@
+/* Logos list */
+.logos {
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  > li {
+    flex: 0 30%;
+  }
+}
+
+/* Individual logos */
+.logo {
+    width: 100%;
+}
+
+/* Credits */
+.credits {
+    color: $gray;
+    display: block;
+    margin-bottom: .75rem;
+}
+
+/* Topics list */
+.info-topics-link {
+    font-size: 1.1rem;
+}

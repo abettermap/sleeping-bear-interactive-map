@@ -67,7 +67,8 @@
 }
 
 .active-img-container {
-  background-color: $c-panel-header;
+  // background-color: $c-panel-header;
+  background-color: lighten($c-panel-header,20%);
   position: absolute;
   // flex: 0 100%;
 
@@ -179,7 +180,7 @@
   // position: absolute;
 }
 
-.pagination {
+.pagination span {
   color: $near-white;
   font-size: 3rem;
 }

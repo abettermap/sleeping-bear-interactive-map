@@ -6,9 +6,9 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$state', 'mapFactory'];
+    PopupCtrl.$inject = ['$log', '$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$state', 'mapFactory'];
 
-    function PopupCtrl($timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state, mapFactory){
+    function PopupCtrl($log, $timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state, mapFactory){
 
         var vm = this;
 
@@ -43,45 +43,64 @@
         // Type icon
         vm.typeIcon = '#icon-' + vm.selFeatData.type;
 
-        /***** Active primary *****/
+        popupFactory.findSecondary($stateParams)
+        .then(function(result) {
 
-        /*** Create Path ***/
-        var layer = 'features';
-        var primaryPath = 'img-prod\/' + layer  + '\/mid_size\/' + vm.selFeatData.mile + '\/' + vm.selFeatData.name_id + '\/image00001.jpg';
+            var imgObj = result.data,
+                secondaryImages, path;//, arr;
+                var arr = [];
+                var layer = $stateParams.layer;
 
-        vm.activeImages = [primaryPath];
+            for (var i in imgObj){
+                if (imgObj[i].hasOwnProperty(i)){
+                   arr.push(imgObj[i]);
 
-        /* Secondary active */
-        $rootScope.$on('rootScope:secondarySet', function (event, data) {
-            vm.activeImages = vm.activeImages.concat(data);
-        });
+                }
 
-        var secondaryParams = {
-            layer: $stateParams.layer,
-            cartodb_id: vm.selFeatData.cartodb_id,
-        }
+            }
 
-        vm.midSizeImgSuffix = $stateParams.layer + '\/mid_size\/' + vm.selFeatData.mile + '\/' + vm.selFeatData.name_id + '\/';
+            return arr;
+        })
+        .then(function(result){
+            var activeImages = [],
+                secondImgFiles = result,
+                suffix = 'img_prod\/' + $stateParams.layer + '\/mid_size' + $stateParams.imgDir;
 
-        popupFactory.findSecondary(vm.selFeatData, $stateParams.layer)
-        .then(function(secondarySearchResult) {
-            var response = secondarySearchResult,
-                secondaryImages = popupFactory.setSecondary(response.data, vm.midSizeImgSuffix);
-            $rootScope.$broadcast('rootScope:secondarySet', secondaryImages);
+            for( var i in secondImgFiles ) {
+                activeImages.push(suffix + secondImgFiles[i]);
+            }
+            vm.activeImages = activeImages;
+
         });
 
         /* Thumbnails */
-        $rootScope.$on('rootScope:thumbsSet', function (event, response) {
+        // Thumbs pagination
+        $scope.currentPage = 1;
 
-            var arr = [],
-                basePath = 'img-prod\/' + response.layer + '\/thumbnail\/';
+        var thumbsParams = {
+            coords: [$stateParams.lat, $stateParams.lon],
+            data: vm.selFeatData,
+        }
 
-            for (var n = 0; n < response.length; n++) {
+        /* PUT IT BACK */
+        popupFactory.setThumbs(thumbsParams).then(function(dataResponse) {
+
+            // debugger;
+            var thumbsData = dataResponse.data.rows;
+            var arr = [], path, layer;
+
+            for (var n = 0; n < thumbsData.length; n++) {
+
+                path = 'img_prod\/' + thumbsData[n].layer + '\/thumbnail' + thumbsData[n].filepath;
+                layer = thumbsData[n].layer;
+
+                if ( layer === 'features' || layer === 'commercial'){
+                    path = path + 'image00001.jpg';
+                }
 
                 arr.push({
-                    layer: response[n].layer,
-                    path: 'img-prod\/' + response[n].layer + '\/thumbnail\/' + response[n].mile + '\/' + response[n].name_id + '\/image00001.jpg',
-                    attribs: response[n],
+                    path: path,
+                    attribs: thumbsData[n],
                 });
 
             }
@@ -90,62 +109,65 @@
 
         });
 
-        // Thumbs pagination
-        $scope.currentPage = 1;
-
-        var thumbsParams = {
-            coords: [$stateParams.lat, $stateParams.lon],
-            layer: $stateParams.layer,
-            cartodb_id: vm.selFeatData.cartodb_id,
-        }
-
-        popupFactory.setThumbs(thumbsParams).then(function(dataResponse) {
-            var thumbsData = dataResponse.data.rows;
-            for (var i in thumbsData){
-                thumbsData[i].layer = thumbsParams.layer;
-            }
-
-            $rootScope.$broadcast('rootScope:thumbsSet', thumbsData);
-        });
-
         /* Trigger new popup */
-        vm.resetPopup = function(layer, attribs){
+        vm.resetPopup = function(path, attribs){
 
-            // Red pin for selected
-            var queryLayer = layersFactory.sublayers[layer];
-            layersFactory.setSelFeatColor(queryLayer, layer, attribs.cartodb_id);
+            // Primary/secondary
+
+            var layer = attribs.layer,
+                pointQueryLayer,
+                cdbId,
+                secondaryImages;
+
+            // Features, commercial, trail condition
+            if (layer !== 'trail_pix' && layer !== 'faces') {
+
+                cdbId = attribs.cartodb_id;
+
+                // Red pin for selected
+                pointQueryLayer = layersFactory.sublayers[layer];
+                layersFactory.setSelFeatColor(pointQueryLayer, layer, cdbId);
+
+            //     // Get primary & secondary
+            //     popupFactory.findSecondary(vm.selFeatData, $stateParams.layer)
+            //     .then(function(secondarySearchResult) {
+
+            //         var response = secondarySearchResult;
+            //         secondaryImages = popupFactory.setSecondary(response.data, vm.midSizePrefix);
+
+            //         // $rootScope.$broadcast('rootScope:secondarySet', secondaryImages);
+
+            //     });
+
+            } // else {
+
+            //     // create temp feature
+
+
+            //     // secondaryImages = [];
+            //     // secondaryImages = 'img_prod\/' + attribs.layer + '\/mid_size\/' + attribs.filepath;
+            //     // $rootScope.$broadcast('rootScope:secondarySet', secondaryImages);
+            // }
 
             // Pan to selection
             mapFactory.map.panTo([attribs.lat, attribs.lon]);
 
-            // Primary/secondary
+            // Thumbs
+            // popupFactory.setThumbs(thumbsParams).then(function(dataResponse) {
+            //     var thumbsData = dataResponse.data.rows;
+            //     // $rootScope.$broadcast('rootScope:thumbsSet', thumbsData);
+            // });
+
             $state.go('popup', {
                 cartodb_id: attribs.cartodb_id,
-                mile: attribs.mile,
-                layer: layer,
-                // lat: pos[0],
-                // lon: pos[1],
+                layer: attribs.layer,
+                lat: attribs.lat,
+                lon: attribs.lon,
+                imgDir: attribs.filepath,
             },{
                 reload: true
             });
 
-            popupFactory.findSecondary(vm.selFeatData, $stateParams.layer)
-            .then(function(secondarySearchResult) {
-                var response = secondarySearchResult,
-                    secondaryImages = popupFactory.setSecondary(response.data, vm.midSizeImgSuffix);
-                $rootScope.$broadcast('rootScope:secondarySet', secondaryImages);
-            });
-
-
-            // Thumbs
-            popupFactory.setThumbs(thumbsParams).then(function(dataResponse) {
-                var thumbsData = dataResponse.data.rows;
-                for (var i in thumbsData){
-                    thumbsData[i].layer = thumbsParams.layer;
-                }
-
-                $rootScope.$broadcast('rootScope:thumbsSet', thumbsData);
-            });
 
         };
 
@@ -153,3 +175,52 @@
 
 
 })();
+
+
+        // $rootScope.$on('rootScope:thumbsSet', function (event, response) {
+
+        //     var arr = [], layer, path;
+
+        //     for (var n = 0; n < response.length; n++) {
+
+        //         path = 'img_prod\/' + response[n].layer + '\/thumbnail' + response[n].filepath;
+        //         layer = response[n].layer;
+
+        //         if ( layer === 'features' || layer === 'commercial'){
+        //             path = path + 'image00001.jpg';
+        //         }
+
+        //         arr.push({
+        //             path: path,
+        //             attribs: response[n],
+        //         });
+
+        //     }
+
+        //     vm.thumbsData = arr;
+
+        // });
+
+                // $rootScope.$on('rootScope:secondarySet', function (event, data) {
+
+        //     if ($stateParams.layer === 'features'){
+        //         vm.activeImages = vm.activeImages.concat(data);
+        //     } else {
+        //         vm.activeImages = data;
+        //     }
+        // });
+
+                // if (layer === 'features'|| layer === 'commercial'){
+
+        //     vm.activeImages = [pointPrimaryPath];
+
+        //     popupFactory.findSecondary(vm.selFeatData, layer)
+        //     .then(function(secondarySearchResult) {
+
+        //         var response = secondarySearchResult,
+        //             secondaryImages = popupFactory.setSecondary(response.data, midSizePrefix);
+
+        //         $rootScope.$broadcast('rootScope:secondarySet', secondaryImages);
+        //     });
+
+        // }

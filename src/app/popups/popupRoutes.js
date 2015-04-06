@@ -27,7 +27,7 @@
                     },
                 })
                 .state('popup', {
-                    url: ':layer/:cartodb_id',
+                    url: ':layer/:cartodb_id/:imgDir',
                     templateUrl: 'src/app/popups/templates/popup.features.html',
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
@@ -39,9 +39,15 @@
                     resolve: {
                         selFeatData: ['$http', '$stateParams', function($http, $stateParams) {
 
-                            var query = queryPrefix + "cartodb_id, the_geom, type, name, mile, name_id" +
-                                " FROM " + $stateParams.layer +
-                                " WHERE cartodb_id = " + $stateParams.cartodb_id;
+                            var layer = $stateParams.layer,
+                                query;
+
+                            if (layer === 'trail_pix'){
+                                query = queryPrefix + "cartodb_id, the_geom, filepath, 'trail_pix' AS layer FROM trail_pix";
+                            } else {
+                                query = queryPrefix + "cartodb_id, the_geom, type, name, filepath, '" + layer + "' AS layer" +
+                                " FROM " + layer + " WHERE cartodb_id = " + $stateParams.cartodb_id;
+                            }
 
                             return $http.get(query).then(function(response){
                                 return response.data;

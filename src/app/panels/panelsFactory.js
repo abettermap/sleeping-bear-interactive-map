@@ -23,42 +23,44 @@
 
         function toggleFeatures(types, layer){
 
-            var query;
+            var query,
+                states = $rootScope.queryStates,
+                featQuery = {
+                    start: "SELECT 'features' AS layer, features.the_geom_webmercator, features.seasons, features.cartodb_id, features.type, features.filepath, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE features.type IN(",
+                    end: ") AND substring(features.seasons," + states.season + ",1) = 'y' OR features.type = 'mainpoints' ORDER BY priority DESC",
+                    all: ""
+                };
 
-            var globalSelTypes = $rootScope.queryStates[layer];
-
-            if (types.indexOf("'mainpoints'") < 0){
-                // alert("aint in derr! get er in derr!");
+            /* Make sure mainpoints always present */
+            if ( types && states.features.indexOf("'mainpoints'") < 0){
                 types.push("'mainpoints'");
             }
 
-            // Will always be true for features since array never empy
-            if ( types.length > 0) {
-                var activeSeason = $rootScope.queryStates.season;
-
-                query = "SELECT features.the_geom_webmercator, features.cartodb_id, features.type, features.mile, features.name_id, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE features.type IN(" + types + ") AND substring(features.seasons," + activeSeason + ",1) = 'y' OR features.type = 'mainpoints' ORDER BY priority DESC";
-
+            /* When not called from setSeason()... */
+            if ( types ){
+                if (layer === 'features') {
+                    states.features = types;
+                    featQuery.all = featQuery.start + types + featQuery.end;
+                } else {
+                    /* similar for commercial */
+                }
+            } else {
+                featQuery.all = featQuery.start + states.features + featQuery.end;
             }
-            // else {
-            //     if (layer === 'features'){
-            //         selectedTypes = selectedTypes.push("'mainpoints'");
-            //         query = mainPtsOnlyQuery;
-            //         $rootScope.queryStates[layer] = ["'mainpoints'"];
-            //     } else {
-            //         $rootScope.queryStates[layer] = ["''"];
-            //     }
-            // }
+
+            sublayers.features.setSQL(featQuery.all);
 
 
-            sublayers.features.setSQL(query);
+            // Trail pix even need to be in map?
+            // sublayers.trail_pix.setSQL(query);
 
-            $rootScope.queryStates[layer] = types;
         }
 
         /* Will need to be run by router to keep season toggle accurate*/
         function setSeason(season){
             var newSeason = season;
-            toggleFeatures(selectedTypes);
+            $rootScope.activeSeason = newSeason;
+            toggleFeatures();
         }
 
         /* Load help data */
