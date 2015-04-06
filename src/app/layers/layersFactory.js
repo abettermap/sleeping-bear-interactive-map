@@ -49,16 +49,26 @@
                 var picsLayer = $rootScope.queryStates.pics;
 
                 layer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data, layerNumber) {
-                    $state.go('popup.pic', {
-                        cartodb_id: 0,
-                        mile: 0,
-                        imgDir: '',
-                        layer: picsLayer,
-                        lat: pos[0],
-                        lon: pos[1],
-                    },{
-                        reload: true
+
+                    var coords = [latlng[0], latlng[1]];
+
+                    popupFactory.getNearestPic(coords, picsLayer)
+                    .then(function(result){
+
+                        var closest = result.data.rows[0];
+
+                        $state.go('popup.pic', {
+                            cartodb_id: closest.cartodb_id,
+                            imgDir: closest.filepath,
+                            layer: picsLayer,
+                            lat: latlng[0],
+                            lon: latlng[1],
+                        },{
+                            reload: true
+                        });
+
                     });
+
                 });
 
                 // Create remaining sublayers
@@ -103,7 +113,6 @@
 
                 $state.go('popup.poi', {
                     cartodb_id: data.cartodb_id,
-                    mile: data.mile,
                     imgDir: data.filepath,
                     layer: 'features',
                     lat: pos[0],

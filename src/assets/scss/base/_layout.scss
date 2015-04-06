@@ -25,7 +25,7 @@
 // PANELS
 
 .panel {
-  background-color: $c-panel-bg;
+  background-color: lighten($c-panel-header,20%);
   bottom: 3.5rem;
   position: absolute;
   top: 0;

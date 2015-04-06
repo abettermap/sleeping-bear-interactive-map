@@ -35,6 +35,7 @@ module.exports = {
             'src/app/popups/*js',
             'src/app/ctrls/*.js',
             'src/app/panels/*.js',
+            'src/assets/js/vendor/dirPagination.js',
         ],
         dest: 'src/app/map-app.js'
     },
@@ -57,7 +58,7 @@ module.exports = {
         // Leaflet GPS
         'src/assets/js/vendor/bower_components/leaflet-gps/src/leaflet-gps.js',
         // Pagination
-        'src/assets/js/vendor/dirPagination.js',
+        // 'src/assets/js/vendor/dirPagination.js',
         // Angular Fullscreen
         // 'src/assets/js/vendor/bower_components/angular-fullscreen/src/angular-fullscreen.js',
         // // Multiline (need this or no?)

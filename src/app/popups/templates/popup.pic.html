@@ -8,11 +8,12 @@
                 <h2 ng-class="{'popup__header popup__header--fluid': vm.imgPopupPage, 'popup__header': !vm.imgPopupPage}">
                     <a class="no-hover" href="javascript:;" ng-click="vm.setPopupPg()">
                         <svg class="popup-icon--type no-hover" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
-                            <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
+                            <!-- <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use> -->
+                            <use xlink:href="#icon-camera"></use>
                         </svg>
                     </a>
                     <span>
-                        Trail Pic
+                        Trail Snapshot
                     </span>
                     <a class="popup__close btn" ui-sref="home" href="javascript:;" ng-click="vm.closePopup()">
                         <svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use></svg>

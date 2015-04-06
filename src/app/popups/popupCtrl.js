@@ -47,13 +47,13 @@
         .then(function(result) {
 
             var imgObj = result.data,
-                secondaryImages, path;//, arr;
-                var arr = [];
-                var layer = $stateParams.layer,
-                suffix = 'img_prod\/' + $stateParams.layer + '\/mid_size' + $stateParams.imgDir;
+                secondaryImages,
+                arr = [],
+                layer = $stateParams.layer,
+                suffix = 'img_prod\/' + layer + '\/mid_size' + $stateParams.imgDir;
 
             /* POI need path + file pushed */
-            if ($stateParams.layer === 'features' || $stateParams.layer === 'commercial'){
+            if (layer === 'features' || layer === 'commercial'){
                 for (var i in imgObj){
                     if (imgObj[i].hasOwnProperty(i)){
                        arr.push(imgObj[i]);
@@ -124,51 +124,12 @@
             // Primary/secondary
 
             var layer = attribs.layer,
-                pointQueryLayer,
-                cdbId,
-                secondaryImages;
-
-            // Features, commercial, trail condition
-            // if (layer !== 'trail_pix' && layer !== 'faces') {
-
-            //     cdbId = attribs.cartodb_id;
-
-            //     // Red pin for selected
-            //     pointQueryLayer = layersFactory.sublayers[layer];
-            //     layersFactory.setSelFeatColor(pointQueryLayer, layer, cdbId);
-
-            //     // Get primary & secondary
-            //     popupFactory.findSecondary(vm.selFeatData, $stateParams.layer)
-            //     .then(function(secondarySearchResult) {
-
-            //         var response = secondarySearchResult;
-            //         secondaryImages = popupFactory.setSecondary(response.data, vm.midSizePrefix);
-
-            //         // $rootScope.$broadcast('rootScope:secondarySet', secondaryImages);
-
-            //     });
-
-            // } else {
-            //     console.log('not poi');
-            //     // create temp feature
-
-
-            //     secondaryImages = [];
-            //     secondaryImages = ['img_prod\/' + attribs.layer + '\/mid_size' + attribs.filepath];
-            //     // $rootScope.$broadcast('rootScope:secondarySet', secondaryImages);
-            // }
+                route;
 
             // Pan to selection
             mapFactory.map.panTo([attribs.lat, attribs.lon]);
 
-            // Thumbs
-            // popupFactory.setThumbs(thumbsParams).then(function(dataResponse) {
-            //     var thumbsData = dataResponse.data.rows;
-            //     // $rootScope.$broadcast('rootScope:thumbsSet', thumbsData);
-            // });
-
             /* Go to correct route */
-            var route;
             if (attribs.layer === 'features' || attribs.layer === 'commercial'){
                 route = 'popup.poi';
             } else {
@@ -192,52 +153,3 @@
 
 
 })();
-
-
-        // $rootScope.$on('rootScope:thumbsSet', function (event, response) {
-
-        //     var arr = [], layer, path;
-
-        //     for (var n = 0; n < response.length; n++) {
-
-        //         path = 'img_prod\/' + response[n].layer + '\/thumbnail' + response[n].filepath;
-        //         layer = response[n].layer;
-
-        //         if ( layer === 'features' || layer === 'commercial'){
-        //             path = path + 'image00001.jpg';
-        //         }
-
-        //         arr.push({
-        //             path: path,
-        //             attribs: response[n],
-        //         });
-
-        //     }
-
-        //     vm.thumbsData = arr;
-
-        // });
-
-                // $rootScope.$on('rootScope:secondarySet', function (event, data) {
-
-        //     if ($stateParams.layer === 'features'){
-        //         vm.activeImages = vm.activeImages.concat(data);
-        //     } else {
-        //         vm.activeImages = data;
-        //     }
-        // });
-
-                // if (layer === 'features'|| layer === 'commercial'){
-
-        //     vm.activeImages = [pointPrimaryPath];
-
-        //     popupFactory.findSecondary(vm.selFeatData, layer)
-        //     .then(function(secondarySearchResult) {
-
-        //         var response = secondarySearchResult,
-        //             secondaryImages = popupFactory.setSecondary(response.data, midSizePrefix);
-
-        //         $rootScope.$broadcast('rootScope:secondarySet', secondaryImages);
-        //     });
-
-        // }

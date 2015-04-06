@@ -2,6 +2,8 @@
 
   /* Same as panels, almost */
 
+  background-color: lighten($c-panel-header,20%);
+
 
   &__inner {
     @extend %panel__inner;
@@ -68,7 +70,6 @@
 
 .active-img-container {
   // background-color: $c-panel-header;
-  background-color: lighten($c-panel-header,20%);
   position: absolute;
   // flex: 0 100%;
 

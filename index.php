@@ -82,8 +82,8 @@
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.min.js"></script>
 
         <!-- CartoDB CDN -->
-        <!-- <script type="text/javascript" src="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.js"></script> -->
-        <script type="text/javascript" src="src/assets/js/vendor/cartodb.uncompressed.js"></script>
+        <script type="text/javascript" src="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.js"></script>
+        <!-- <script type="text/javascript" src="src/assets/js/vendor/cartodb.uncompressed.js"></script> -->
 
         <!-- Vendor scripts UNminified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, bindonce, others? -->
         <script type="text/javascript" src="src/assets/js/vendor/map-vendors.js"></script>
