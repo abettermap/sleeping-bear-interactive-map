@@ -25,15 +25,41 @@ $a-long-trans: 5000ms;
 
 // List and list items
 .poi-subgroup {
+
+  // Not the last list item
+  &+.poi-subgroup:before {
+    content: "";
+    display: block;
+    height: .1rem;
+    @include mq($from: tablet){
+      height: .4rem;
+    }
+  }
   &-list {
-    margin-bottom: .75rem;
-    margin-top: .75rem;
+    list-style-type: none;
+    margin-bottom: 0;
+    padding-left: .75rem;
+    @include mq($from: tablet){
+      margin-bottom: .5rem;
+    }
+    margin-top: .25rem;
+
+    // Override positioning from shared class
+    .poi-type__icon {
+      margin-right: 10px;
+      // float: none;
+    }
   }
   &-link {
     color: $near-black;
+    display: block;
     font-size: 1.2rem;
-    text-decoration: underline;
+    text-decoration: none;
     transition: $a-all-hover-transition;
+
+    .poi-subgroup__preview {
+      text-decoration: none;
+    }
 
     &--feat {
       &:hover {
@@ -47,14 +73,35 @@ $a-long-trans: 5000ms;
       }
     }
   }
+  &__name {
+    display: block;
+    font-size: 1rem;
+    @include mq($from: tablet){
+      font-size: 1.1rem;
+    }
+    line-height: 1;
+    text-decoration: underline;
+  }
+  // Preview list (assumes more than 1 per category)
+  &__preview {
+    color: $gray;
+    display: block;
+    font-size: .8rem;
+    line-height: 1.5;
+    text-decoration: none;
+    width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .subgroup-header {
-  &--feat {
-    color: $c-feat-pin-bg;
-  }
-  &--comm {
-    color: $c-comm-pin-bg;
+  font-size: 1.2rem;
+  margin-bottom: .1rem;
+  @include mq($from: tablet){
+    font-size: 1.4rem;
+    margin-bottom: .25rem;
   }
 }
 
@@ -89,17 +136,21 @@ $a-long-trans: 5000ms;
   }
   /* SVG icons */
   &__icon {
-    $size: 2.2rem;
+    $size: 2rem;
     border-width: 2px;
     border-style: solid;
-    border-radius: 100%;
+    border-radius: 25px;
     display: inline;
     fill: $near-white;
     float: left;
     height: $size;
     margin-right: 7px;
-    padding: 3px;
+    padding: .2rem;
     width: $size;
+    @include mq($from: tablet){
+      height: $size*1.2;
+      width: $size*1.2;
+    }
     &--feat {
       background-color: $c-feat-pin-bg;
       border-color: $c-feat-pin-stroke;

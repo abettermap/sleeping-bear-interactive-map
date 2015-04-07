@@ -13,13 +13,13 @@
         // Set empty objects for easy access later
         var sublayers = {
             sbht: {},
-            grade: {},
-            caution: {},
+            sbht_grade: {},
+            sbht_caution: {},
             features: {},
             commercial: {},
-            trailPics: {},
+            trail_pix: {},
             faces: {},
-            trailCond: {},
+            trail_condition: {},
         };
 
     	var layersFactory = {
@@ -46,33 +46,8 @@
                 // Add interaction
                 cdb.vis.Vis.addCursorInteraction(map, layer);
 
-                layer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data, layerNumber) {
-
-                    var coords = [latlng[0], latlng[1]],
-                        states = $rootScope.queryStates;
-
-                    // Only do this if something other than a POI layer is visible
-                    if (states.trail_pix || states.faces || states.trail_condition){
-
-                        popupFactory.getNearestPic(coords)
-                        .then(function(result){
-
-                            var closest = result.data.rows[0];
-
-                            $state.go('popup.pic', {
-                                cartodb_id: closest.cartodb_id,
-                                imgDir: closest.filepath,
-                                layer: closest.layer,
-                                lat: latlng[0],
-                                lon: latlng[1],
-                            },{
-                                reload: true
-                            });
-
-                        });
-
-                    }
-
+                layer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data, layerNumber){
+                    doThisWhenTrailClicked(e, latlng, pos, data, layerNumber);
                 });
 
                 // Create remaining sublayers
@@ -85,6 +60,37 @@
 
     	}
 
+        function doThisWhenTrailClicked(e, latlng, pos, data, layerNumber){
+
+            var coords = [latlng[0], latlng[1]],
+                states = $rootScope.queryStates;
+
+            // Only do this if something other than a POI layer is visible
+            if (states.trail_pix || states.faces || states.trail_condition){
+
+                popupFactory.getNearestPic(coords)
+                .then(function(result){
+
+                    var closest = result.data.rows[0];
+
+                    $state.go('popup.pic', {
+                        cartodb_id: closest.cartodb_id,
+                        imgDir: closest.filepath,
+                        layer: closest.layer,
+                        lat: latlng[0],
+                        lon: latlng[1],
+                    },{
+                        reload: true
+                    });
+
+                });
+
+            }
+
+            $rootScope.$broadcast('featureClicked', '');
+
+        }
+
         /* Create remaining sublayers individually for more flexibility */
     	function createSublayers(map, layer){
 
@@ -93,16 +99,18 @@
             // Grade overlay (index: 1)
             layer.createSubLayer({
               cartocss: cdbValues.gradeSublayer.cartocss,
-              name: 'grade',
               sql: cdbValues.gradeSublayer.sql,
-            });
+            }).on('featureClick', function(e, latlng, pos, data, layerNumber){
+                doThisWhenTrailClicked(e, latlng, pos, data, layerNumber);
+            });;
 
             // Caution overlay (index: 2)
             layer.createSubLayer({
               cartocss: cdbValues.cautionSublayer.cartocss,
-              name: 'caution',
               sql: cdbValues.cautionSublayer.sql,
-            });
+            }).on('featureClick', function(e, latlng, pos, data, layerNumber){
+                doThisWhenTrailClicked(e, latlng, pos, data, layerNumber);
+            });;
 
             /***** POINTS *****/
 
@@ -125,13 +133,14 @@
                     reload: true
                 });
 
+                $rootScope.$broadcast('featureClicked', '');
 
             });
 
             /* Assign variables to reference sublayer based on index */
             layersFactory.sublayers.sbht     = layer.getSubLayer(0);
-            layersFactory.sublayers.grade     = layer.getSubLayer(1);
-            layersFactory.sublayers.caution   = layer.getSubLayer(2);
+            layersFactory.sublayers.sbht_grade     = layer.getSubLayer(1);
+            layersFactory.sublayers.sbht_caution   = layer.getSubLayer(2);
             layersFactory.sublayers.features  = layer.getSubLayer(3);
             // layersFactory.commercial = layer.getSubLayer(4);
             // layersFactory.trailPics = layer.getSubLayer(5);

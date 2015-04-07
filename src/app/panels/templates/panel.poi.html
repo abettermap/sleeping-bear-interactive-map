@@ -16,18 +16,34 @@
 	<div class="poi-page--home panel__inner" ng-show="vm.activePoiPage == 'Home'">
 		<div class="panel__box">
 			<div class="panel__row">
-				<h3 class="subgroup-header--feat">Features</h3>
+				<h3 class="subgroup-header">Features</h3>
 				<ul class="poi-subgroup-list">
 					<li class="poi-subgroup" ng-repeat="t in vm.featSubGroups">
-						<a class="poi-subgroup-link poi-subgroup-link--feat" href="javascript:;"
-						ng-click="vm.setActivePoiPage(t.sub_group)">{{t.sub_group}}  >></a>
+						<svg class="poi-type__icon poi-type__icon--feat" viewBox="0 0 100 100">
+						    <use ng-attr-xlink:href="{{t.types[0].icon}}" xlink:href=""></use>
+						</svg>
+						<a class="poi-subgroup-link poi-subgroup-link--feat clearfix" href="javascript:;"
+							ng-click="vm.setActivePoiPage(t.sub_group)">
+							<span class="poi-subgroup__name">{{t.sub_group}}  >></span>
+							<span class="poi-subgroup__preview">
+								{{t.types[0].name}}, {{t.types[1].name}}
+							</span>
+						</a>
 					</li>
 				</ul>
-				<h3 class="subgroup-header--comm">Businesses</h3>
+				<h3 class="subgroup-header">Businesses</h3>
 				<ul class="poi-subgroup-list">
 					<li class="poi-subgroup" ng-repeat="t in vm.commSubGroups">
-						<a class="poi-subgroup-link poi-subgroup-link--comm" href="javascript:;"
-						ng-click="vm.setActivePoiPage(t.sub_group)">{{t.sub_group}}  >></a>
+						<svg class="poi-type__icon poi-type__icon--comm" viewBox="0 0 100 100">
+						    <use ng-attr-xlink:href="{{t.types[0].icon}}" xlink:href=""></use>
+						</svg>
+						<a class="poi-subgroup-link poi-subgroup-link--comm clearfix" href="javascript:;"
+							ng-click="vm.setActivePoiPage(t.sub_group)">
+							<span class="poi-subgroup__name">{{t.sub_group}}  >></span>
+							<span class="poi-subgroup__preview">
+								{{t.types[0].name}}, {{t.types[1].name}}
+							</span>
+						</a>
 					</li>
 				</ul>
 				<div class="panel__narrative">

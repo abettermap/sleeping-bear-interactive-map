@@ -110,11 +110,11 @@
 // Line overlay colors
 .line-overlay {
 
-  &--grade {
+  &--sbht_grade {
     background-color: $c-grade-overlay;
   }
 
-  &--caution {
+  &--sbht_caution {
     background-color: $c-caution-overlay;
   }
 }

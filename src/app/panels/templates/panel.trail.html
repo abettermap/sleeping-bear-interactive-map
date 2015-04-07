@@ -37,27 +37,18 @@
 				<h3 class="panel--trail__header">Grade & Caution</h3>
 				<div class="panel--trail__label-cont">
 					<!-- GRADE -->
-					<input type="checkbox" id="grade-toggle"
-						ng-checked="vm.queryStates.grade">
-					<label class="panel--trail__label space-around" for="grade-toggle">
+					<input type="checkbox"
+						ng-repeat-start="overlay in vm.lineOverlayStates"
+						id="{{overlay.layer}}-toggle"
+						ng-change='vm.toggleLineOverlay(overlay)' ng-model="overlay.on">
+					<label class="panel--trail__label space-around" for="{{overlay.layer}}-toggle"
+						ng-repeat-end>
 						<svg viewBox="0 0 100 100">
-							<use xlink:href="#icon-grade"></use>
+						    <use ng-attr-xlink:href="{{overlay.icon}}" xlink:href=""></use>
 						</svg>
-						Grade
+						{{overlay.name}}
 						<span class="legend-line">
-							<span class="line-overlay--grade"></span>
-						</span>
-					</label>
-					<!-- CAUTION -->
-					<input type="checkbox" id="caution-toggle"
-						ng-checked="vm.queryStates.caution">
-					<label class="panel--trail__label space-around" for="caution-toggle">
-						<svg viewBox="0 0 100 100">
-							<use xlink:href="#icon-caution"></use>
-						</svg>
-						Caution
-						<span class="legend-line">
-							<span class="line-overlay--caution"></span>
+							<span ng-class="'line-overlay--' + overlay.layer"></span>
 						</span>
 					</label>
 				</div>

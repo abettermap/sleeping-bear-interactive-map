@@ -43,12 +43,14 @@
                 }
             ],
             gradeSublayer: { // GRADE
-                cartocss: "#sbht_grade[zoom>=13]{line-color: red; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
-                sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_grade WHERE cartodb_id = null",
+                // cartocss: "#sbht_grade[zoom>=13]{line-color: red; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
+                cartocss: "#sbht_grade{line-color: red; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
+                sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_grade WHERE cartodb_id = 0",
             }, // end GRADE
             cautionSublayer: { // CAUTION
-                cartocss: "#sbht_caution[zoom>=13]{line-color: yellow; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
-                sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_caution WHERE cartodb_id = null",
+                // cartocss: "#sbht_caution[zoom>=13]{line-color: yellow; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
+                cartocss: "#sbht_caution{line-color: yellow; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
+                sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_caution WHERE cartodb_id = 0",
             }, // end CAUTION
             commSublayer: { // COMMERCIAL
                 sql: "SELECT the_geom_webmercator, cartodb_id FROM commercial",

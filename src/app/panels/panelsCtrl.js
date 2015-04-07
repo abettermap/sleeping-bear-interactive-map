@@ -15,8 +15,13 @@
         //////// PANELS \\\\\\\\
 
         // The active panel
-        // vm.activePanel = 'trail';
+        // vm.activePanel = 'features';
         vm.activePanel = '';
+
+        // Close it when any feature clicked
+        $rootScope.$on('featureClicked',function(){
+            vm.activePanel = '';
+        });
 
         vm.changePanel = function(panel){
 
@@ -164,11 +169,34 @@
 
         //////// TRAIL PANEL \\\\\\\\
 
-        // Trail cond state
+        // Root scope query states
         vm.queryStates = $rootScope.queryStates;
 
-        // Trail cond state
+        // Trail pics state
         vm.trailPicsState = $rootScope.queryStates.trail_pix;
+
+        // Grade/caution model attempt
+        vm.lineOverlayStates = [
+            {name: 'Grade', layer: 'sbht_grade', on: false, icon: '#icon-grade'},
+            {name: 'Caution', layer: 'sbht_caution', on: false, icon: '#icon-caution'},
+        ];
+
+        vm.toggleLineOverlay = function(overlay){
+
+            var operator;
+
+            if (overlay.on){
+                operator = ">";
+            } else {
+                operator = "=";
+            }
+
+            var query = "SELECT the_geom_webmercator, cartodb_id FROM " + overlay.layer +
+                    " WHERE cartodb_id " + operator + " 0";
+
+            layersFactory.sublayers[overlay.layer].setSQL(query);
+
+        };
 
         vm.toggleTrailPicsState = function(){
             console.log($rootScope.queryStates.features);

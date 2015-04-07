@@ -23,7 +23,8 @@
 ///// COLORS \\\\\
 
 // FEATURES MAP PINS \\
-@c-perm-pin-fill: #7caad4;
+// @c-perm-pin-fill: #7caad4;
+@c-perm-pin-fill: #F27D48;
 
 @c-feat-pin-fill: #934e7d;
 @c-feat-pin-stroke: darken(@c-feat-pin-fill, 25%);
@@ -64,27 +65,28 @@
       bg/marker-allow-overlap: true;
       bg/marker-file: @path-pin-feat;
       bg/marker-fill: @c-perm-pin-fill;
+      bg/marker-height: @pin-h-mid;
       bg/marker-line-color: darken(@c-perm-pin-fill, 25%);
       bg/marker-line-width: @pin-line-w-mid;
-      bg/marker-height: @pin-h-mid;
+      bg/marker-opacity: .8;
       bg/marker-transform: translate(0,@pin-shift-y-mid*1.25);
       fg/marker-allow-overlap: true;
-      fg/marker-fill: @c-icon-fill;
-      fg/marker-width: @icon-h-mid;
-      fg/marker-transform: translate(0,@pin-shift-y-mid*1.55);
       fg/marker-file: @path-mainpoints;
+      fg/marker-fill: @c-icon-fill;
+      fg/marker-transform: translate(0,@pin-shift-y-mid*1.55);
+      fg/marker-width: @icon-h-mid;
   }
 }
 
 /* Not mainpoints */
 #features[type!="mainpoints"]{
-  bg/marker-fill  : @c-feat-pin-fill;
-  bg/marker-opacity  : .9;
   bg/marker-allow-overlap: true;
   bg/marker-file: @path-pin-feat;
+  bg/marker-fill  : @c-feat-pin-fill;
+  bg/marker-height: @pin-h-mid;
   bg/marker-line-color: @c-feat-pin-stroke;
   bg/marker-line-width: @pin-line-w-mid;
-  bg/marker-height: @pin-h-mid;
+  bg/marker-opacity  : .9;
   bg/marker-transform: translate(0,@pin-shift-y-mid);
   fg/marker-allow-overlap: true;
   fg/marker-fill: @c-icon-fill;
@@ -92,19 +94,17 @@
   fg/marker-transform: translate(0,@pin-shift-y-mid*1.25);
   [type="beach"]    {fg/marker-file: @path-beach; fg/marker-height: @icon-h-mid*.5;}
   [type="bikepark"] {fg/marker-file: @path-bikepark; }
-  [type="conc"]     {fg/marker-file: @path-conc; fg/marker-height: 13; fg/marker-transform: translate(0,@pin-shift-y-mid - 6);}
-  [type="ranger"]   {fg/marker-file: @path-ranger; }
-  [type="restroom"] {fg/marker-file: @path-restroom; fg/marker-height: 13;}
-  [type="water"]    {fg/marker-file: @path-water;}
-  [type="beach"]    {fg/marker-height: @icon-h-mid*.5;}
   [type="commserv"] {fg/marker-file: @path-commserv;}
+  [type="conc"]     {fg/marker-file: @path-conc; fg/marker-height: 13; fg/marker-transform: translate(0,@pin-shift-y-mid - 6);}
   [type="historic"] {fg/marker-file: @path-historic; fg/marker-height: 13; fg/marker-transform: translate(0,@pin-shift-y-mid - 6);}
   [type="other"]    {fg/marker-file: @path-other;}
   [type="parking"]  {fg/marker-file: @path-parking; fg/marker-height: 15;}
-  [type="restroom"] {fg/marker-transform: translate(-1,@pin-shift-y-mid*1.3);}
+  [type="ranger"]   {fg/marker-file: @path-ranger; }
+  [type="restroom"] {fg/marker-file: @path-restroom; fg/marker-height: 13; fg/marker-transform: translate(-1,@pin-shift-y-mid*1.3);}
   [type="signs"]    {fg/marker-file: @path-signs;}
   [type="trails"]   {fg/marker-file: @path-trails;}
   [type="vista"]    {fg/marker-file: @path-vista; fg/marker-height: @icon-h-close*.9; fg/marker-transform: translate(0,@pin-shift-y-mid - 6);}
+  [type="water"]    {fg/marker-file: @path-water;}
 
   /* Second-to-closest zoom level group; set sizes only */
   [zoom>=15][zoom<17]{
