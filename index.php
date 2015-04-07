@@ -50,8 +50,8 @@
           <div id="map-wrapper" class="map-wrapper">
             <interactive-map></interactive-map>
             <panels></panels>
-            <div ui-view></div>
             <map-controls></map-controls>
+            <div ui-view></div>
           </div>
           <!-- <playground></playground> -->
         <svg class="never-show" xmlns="http://www.w3.org/2000/svg" version="1.1">

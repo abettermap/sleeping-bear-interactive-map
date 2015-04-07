@@ -20,7 +20,10 @@
         /******************************/
 
         vm.closePopup = function(){
-            popupFactory.closePopup();
+            $state.go('popup', {
+            },{
+                reload: true
+            });
         };
 
         /* Active popup */
@@ -51,7 +54,7 @@
                 "<use xlink:href='#icon-camera'></use></svg>"
         });
 
-        var tempMarker = L.marker([sp.lat, sp.lon],{
+        var tempMarker = L.marker([vm.selFeatData.lat, vm.selFeatData.lon],{
             temp: true,
             icon: tempIcon,
             // iconAnchor: [-216, 16]
@@ -64,42 +67,43 @@
             }
         }
 
-        if (sp.layer === 'trail_pix'){
+        if (vm.selFeatData === 'trail_pix'){
             tempMarker.addTo(mapFactory.map);
         }
 
         // Pan to selection
-        mapFactory.map.panTo([sp.lat, sp.lon]);
+        mapFactory.map.panTo([vm.selFeatData.lat, vm.selFeatData.lon]);
 
         // If features, set feat red, clear comm
-        if (sp.layer === 'features'){
-            layersFactory.setSelFeatColor('features', sp.cartodb_id);
+        if (vm.selFeatData === 'features'){
+            layersFactory.setSelFeatColor('features', vm.selFeatData.cartodb_id);
             /* PUT BACK WHEN COMM */
             // layersFactory.setSelFeatColor('commercial', null);
         }
 
         // If comm, set comm red, clear feat
-        if (sp.layer === 'commercial'){
-            layersFactory.setSelFeatColor('commercial', sp.cartodb_id);
+        if (vm.selFeatData === 'commercial'){
+            layersFactory.setSelFeatColor('commercial', vm.selFeatData.cartodb_id);
             layersFactory.setSelFeatColor('features', null);
         }
 
         // If faces, pics, or trail_con, clear comm & feat
-        if (sp.layer === 'trail_pix' || sp.layer === 'faces' || sp.layer === 'trail_condition') {
+        // if (vm.selFeatData === 'trail_pix' || vm.selFeatData === 'faces' || vm.selFeatData === 'trail_condition') {
+        if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces' || vm.selFeatData.layer === 'trail_condition') {
             /* PUT BACK WHEN COMM */
             // layersFactory.setSelFeatColor('commercial', null);
             layersFactory.setSelFeatColor('features', null);
         }
 
         /* Look for secondary images (even w/pics & faces, to stay consistent) */
-        popupFactory.findSecondary(sp)
+        popupFactory.findSecondary(vm.selFeatData)
         .then(function(result) {
 
             var imgObj = result.data,
                 secondaryImages,
                 arr = [],
-                layer = sp.layer,
-                suffix = 'img_prod\/' + layer + '\/mid_size' + sp.imgDir;
+                layer = vm.selFeatData.layer,
+                suffix = 'img_prod\/' + layer + '\/mid_size' + vm.selFeatData.filepath;
 
             /* POI need path + file pushed */
             if (layer === 'features' || layer === 'commercial'){
@@ -116,7 +120,7 @@
 
             var activeImages = [],
                 secondImgFiles = result,
-                suffix = 'img_prod\/' + sp.layer + '\/mid_size' + sp.imgDir;
+                suffix = 'img_prod\/' + vm.selFeatData.layer + '\/mid_size' + vm.selFeatData.filepath;
 
             // Length will be zero for trail pics, faces, and trail condition (???)
             if (secondImgFiles.length <= 0){
@@ -135,15 +139,10 @@
         // Thumbs pagination
         $scope.currentPage = 1;
 
-        var thumbsParams = {
-            coords: [sp.lat, sp.lon],
-            data: vm.selFeatData,
-        }
-
         /* PUT IT BACK */
-        popupFactory.setThumbs(thumbsParams).then(function(dataResponse) {
+        popupFactory.setThumbs(vm.selFeatData).then(function(dataResponse) {
 
-            // debugger;
+
             var thumbsData = dataResponse.data.rows;
             var arr = [], path, layer;
 
@@ -188,7 +187,7 @@
                 layer: attribs.layer,
                 lat: attribs.lat,
                 lon: attribs.lon,
-                imgDir: attribs.filepath,
+                filepath: attribs.filepath,
             },{
                 reload: true
             });

@@ -13,7 +13,6 @@
         var defaultImg = 'sbht-i-map/img_prod/features/mid_size/n00/wdune-climb/image00009.jpg';
 
         var popups = {
-            closePopup: closePopup,
             defaultImg: defaultImg,
             findSecondary: findSecondary,
             getNearestPic: getNearestPic,
@@ -21,13 +20,6 @@
             setSeason: setSeason,
             setThumbs: setThumbs,
         };
-
-        function closePopup(){
-            $state.go('home', {
-            },{
-                reload: true
-            });
-        }
 
         function setSeason(query){
             var newSeason = query;
@@ -37,7 +29,7 @@
         /* Look for secondary images */
         function findSecondary(data){
 
-            var suffix = data.layer + '\/mid_size' + data.imgDir,
+            var suffix = data.layer + '\/mid_size' + data.filepath,
                 phpQuery = 'get-images.php?dir=' + suffix,
                 query;
 
@@ -58,7 +50,7 @@
         function setSecondary(secondImgFiles) {
 
             var activeImages = [];
-            var suffix = 'img_prod\/' + $stateParams.layer + '\/mid_size' + $stateParams.imgDir;
+            var suffix = 'img_prod\/' + $stateParams.layer + '\/mid_size' + $stateParams.filepath;
 
             for( var i in secondImgFiles ) {
 
@@ -72,12 +64,13 @@
 
         function setThumbs(params){
             var query,
+                coords = [params.lat, params.lon],
                 states = $rootScope.queryStates,
                 prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=",
                 shared = "SELECT cartodb_id, the_geom, the_geom_webmercator, filepath,"+
                     " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat," +
                     " ST_Distance(the_geom::geography," +
-                    " CDB_LatLng(" + params.coords + ")::geography) / 1000 " +
+                    " CDB_LatLng(" + coords + ")::geography) / 1000 " +
                     " AS dist",
                 end = " ORDER BY dist LIMIT 50",
                 nonPoiStatus = {
@@ -91,7 +84,7 @@
                     ", 'features' AS layer" +
                     " FROM features WHERE type IN(" + states.features + ")" +
                     " AND substring(seasons," + states.season + ",1) = 'y'" +
-                    " AND cartodb_id != " + params.data.cartodb_id;
+                    " AND cartodb_id != " + params.cartodb_id;
 
 
             // Commercial (HOW TO AVOID OMITTING FEATURES WHEN CDBID MATCHES FEAT, & VICE VERSA??)

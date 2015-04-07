@@ -32,7 +32,8 @@
             }
 
             // Close popup
-            $state.go('home', {
+            // $state.go('home', {
+            $state.go('popup', {
             },{
                 reload: true
             });

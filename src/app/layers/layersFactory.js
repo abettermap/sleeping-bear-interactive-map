@@ -75,7 +75,7 @@
 
                     $state.go('popup.pic', {
                         cartodb_id: closest.cartodb_id,
-                        imgDir: closest.filepath,
+                        filepath: closest.filepath,
                         layer: closest.layer,
                         lat: latlng[0],
                         lon: latlng[1],
@@ -125,7 +125,7 @@
 
                 $state.go('popup.poi', {
                     cartodb_id: data.cartodb_id,
-                    imgDir: data.filepath,
+                    filepath: data.filepath,
                     layer: 'features',
                     lat: pos[0],
                     lon: pos[1],

@@ -13,25 +13,21 @@
             var queryPrefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT ',
                 midString = ' WHERE cartodb_id = ';
 
-            // $urlRouterProvider.otherwise('/');
+            $urlRouterProvider.otherwise('/');
 
             $stateProvider
-                .state('home', {
-                    url: '/',
-                    // template: '<div ui-view></div>',
-                    params: {
-                        layer: ''
-                    },
-                    controller: function(){
-                        $('.leaflet-tile-container.leaflet-zoom-animated').click();
-                    },
-                })
+                // .state('home', {
+                //     url: '/',
+                //     controller: function(){
+                //         $('.leaflet-tile-container.leaflet-zoom-animated').click();
+                //     },
+                // })
                 .state('popup', {
-                    url: 'popup/',
+                    url: '/',
                     template: '<div ui-view></div>',
                 })
                 .state('popup.poi', {
-                    url: ':layer/:cartodb_id/',
+                    url: 'popup/:layer/:cartodb_id',
                     templateUrl: 'src/app/popups/templates/popup.features.html',
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
@@ -39,13 +35,14 @@
                         lat: 0,
                         lon: 0,
                         seasons: 3,
-                        imgDir: ''
+                        filepath: ''
                     },
                     resolve: {
                         selFeatData: ['$http', '$stateParams', function($http, $stateParams) {
 
                             var layer = $stateParams.layer,
-                                query = queryPrefix + "cartodb_id, the_geom, type, name, filepath, '" + layer + "' AS layer" +
+                                query = queryPrefix + "cartodb_id, the_geom, type, name, filepath, '" + layer + "' AS layer," +
+                                " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat" +
                                 " FROM " + layer + " WHERE cartodb_id = " + $stateParams.cartodb_id;
 
                             return $http.get(query).then(function(response){
@@ -56,7 +53,7 @@
                     },
                 })
                 .state('popup.pic', {
-                    url: ':layer/:cartodb_id/',
+                    url: 'popup/:layer/:cartodb_id',
                     templateUrl: 'src/app/popups/templates/popup.pic.html',
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
@@ -64,13 +61,14 @@
                         lat: 0,
                         lon: 0,
                         seasons: 3,
-                        imgDir: ''
+                        filepath: ''
                     },
                     resolve: {
                         selFeatData: ['$http', '$stateParams', function($http, $stateParams) {
 
                             var layer = $stateParams.layer,
-                                query = queryPrefix + "cartodb_id, the_geom, filepath, '" + layer + "' AS layer" +
+                                query = queryPrefix + "cartodb_id, the_geom, filepath, '" + layer + "' AS layer," +
+                                " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat" +
                                 " FROM " + layer + " WHERE cartodb_id = " + $stateParams.cartodb_id;
 
                             return $http.get(query).then(function(response){
