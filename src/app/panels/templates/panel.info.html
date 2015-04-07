@@ -12,7 +12,7 @@
 			</svg>
 		</a>
 	</h2>
-	<div class="panel__inner" ng-show="vm.activeInfoPg == 'Home'">
+	<div class="panel__inner info-page--home" ng-show="vm.activeInfoPg == 'Home'">
 		<div class="panel__box">
 			<div class="panel__row">
 				<h3>Map Credits</h3>
@@ -48,7 +48,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="panel__inner"
+	<div class="panel__inner info-page--topic"
 		ng-repeat="topic in vm.helpData"
 		ng-show="vm.activeInfoPg == topic.subject">
 		<div class="panel__box">

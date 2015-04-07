@@ -1,22 +1,46 @@
 /* POI page container */
 $a-long-trans: 5000ms;
 
+%poi-page-shared {
+  opacity: 1;
+}
+
 .poi-page {
+
   &--home {
-    &.ng-hide-remove {
-      // animation: $a-poi-trans-dur slideInLeft ease;
+
+    opacity: 1;
+
+    &.ng-hide-add.ng-hide-add-active {
+      animation: $a-poi-trans-dur slideOutLeft ease;
     }
-    &.ng-hide-add {
-      // animation: $a-poi-trans-dur slideOutLeft ease;
+
+    &.ng-hide-remove.ng-hide-remove-active {
+      animation: $a-poi-trans-dur slideInLeft ease;
     }
+
+    &.ng-hide {
+      opacity: 0;
+    }
+
   }
+
   &--poi {
-    &.ng-hide-remove {
-      // animation: $a-poi-trans-dur slideInRight;
+
+    opacity: 1;
+
+    &.ng-hide-add.ng-hide-add-active {
+      animation: $a-poi-trans-dur slideOutRight ease;
     }
-    &.ng-hide-add {
-      // animation: $a-poi-trans-dur slideOutRight ease;
+
+    &.ng-hide-remove.ng-hide-remove-active {
+      animation: $a-poi-trans-dur slideInRight ease;
     }
+
+    &.ng-hide {
+      opacity: 0;
+    }
+
   }
 }
 
@@ -101,7 +125,7 @@ $a-long-trans: 5000ms;
   margin-bottom: .1rem;
   @include mq($from: tablet){
     font-size: 1.4rem;
-    margin-bottom: .25rem;
+    margin-bottom: .5rem;
   }
 }
 

@@ -65,13 +65,6 @@
         //////// POI VIEWS \\\\\\\\
 
         // Pages/views
-        vm.poiPages = {
-            nav: {hover: false, icon: '#icon-map-pin', id: 'nav', heading: 'Points of Interest'},
-            feat: {hover: true, icon: '#icon-back', id: 'feat', heading: 'Features'},
-            comm: {hover: true, icon: '#icon-back', id: 'comm', heading: 'Businesses'}
-        };
-        vm.activePoiPg = vm.poiPages.nav;
-
         vm.featSubGroups = null;
         vm.commSubGroups = null;
         vm.allFeatTypes = null;
@@ -128,14 +121,20 @@
         // Change POI toggle view
         vm.activePoiPage = 'Home';
         vm.activePoiPageIcon = '#icon-map-pin';
+        vm.activePoiPageTitle = 'Points of Interest';
 
         vm.setActivePoiPage = function(page){
+
             vm.activePoiPage = page;
-            if (page !== 'Home'){
-                vm.activePoiPageIcon = '#icon-back';
-            } else {
+
+            if (page === 'Home'){
+                vm.activePoiPageTitle = 'Points of Interest';
                 vm.activePoiPageIcon = '#icon-map-pin';
+            } else {
+                vm.activePoiPageTitle = page;
+                vm.activePoiPageIcon = '#icon-back';
             }
+
         };
 
         // Update SQL when feature toggled

@@ -23,8 +23,7 @@
 ///// COLORS \\\\\
 
 // FEATURES MAP PINS \\
-// @c-perm-pin-fill: #7caad4;
-@c-perm-pin-fill: #F27D48;
+@c-perm-pin-fill: #7caad4;
 
 @c-feat-pin-fill: #934e7d;
 @c-feat-pin-stroke: darken(@c-feat-pin-fill, 25%);
@@ -68,7 +67,7 @@
       bg/marker-height: @pin-h-mid;
       bg/marker-line-color: darken(@c-perm-pin-fill, 25%);
       bg/marker-line-width: @pin-line-w-mid;
-      bg/marker-opacity: .8;
+      bg/marker-opacity: .7;
       bg/marker-transform: translate(0,@pin-shift-y-mid*1.25);
       fg/marker-allow-overlap: true;
       fg/marker-file: @path-mainpoints;

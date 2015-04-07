@@ -32,6 +32,13 @@
   &__narrative {
     border-top: dashed gray 1px;
     margin-top: 1rem;
+
+    // add space at end so all content shows
+    &:after {
+      content: "";
+      display: block;
+      height: 1rem;
+    }
   }
 
   // Animations

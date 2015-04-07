@@ -1,3 +1,43 @@
+/* Info pages */
+.info-page-- {
+
+  &home {
+
+    opacity: 1;
+
+    &.ng-hide-add.ng-hide-add-active {
+      animation: $a-poi-trans-dur slideOutLeft ease;
+    }
+
+    &.ng-hide-remove.ng-hide-remove-active {
+      animation: $a-poi-trans-dur slideInLeft ease;
+    }
+
+    &.ng-hide {
+      opacity: 0;
+    }
+
+  }
+
+  &topic {
+
+    opacity: 1;
+
+    &.ng-hide-add.ng-hide-add-active {
+      animation: $a-poi-trans-dur slideOutRight ease;
+    }
+
+    &.ng-hide-remove.ng-hide-remove-active {
+      animation: $a-poi-trans-dur slideInRight ease;
+    }
+
+    &.ng-hide {
+      opacity: 0;
+    }
+
+  }
+}
+
 /* Logos list */
 .logos {
   display: flex;
@@ -19,10 +59,26 @@
 .credits {
     color: $gray;
     display: block;
+    font-size: 85%;
+    margin-top: .25rem;
     margin-bottom: .75rem;
 }
 
 /* Topics list */
-.info-topics-link {
-    font-size: 1.1rem;
+.info-topics-list {
+
+  // Add space after last list item
+  li:last-of-type {
+    &:after {
+      content: "";
+      display: block;
+      height: 1rem;
+    }
+  }
+
 }
+
+.info-topics-link {
+  font-size: 1.1rem;
+}
+
