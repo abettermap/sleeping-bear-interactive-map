@@ -1,6 +1,6 @@
 <div class="popup">
 	<h2 class="popup__header">{{vm.features.name}}
-		<a class="popup__close btn" ui-sref="home" href="javascript:;" ng-click="$state.go('popup')">
+		<a class="popup__close btn" ui-sref="popup" ui-sref-opts="{reload: true}" href="javascript:;" ng-click="$state.go('popup')">
 			<svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use></svg>
 		</a>
 	</h2>

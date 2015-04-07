@@ -16,6 +16,7 @@
         /****** TOGGLE POI TYPES ******/
         /******************************/
 
+
         var sublayers = layersFactory.sublayers;
 
         var selectedTypes = [],
@@ -117,6 +118,7 @@
             setSeason: setSeason,
             hey: hey,
             toggleFeatures: toggleFeatures,
+            map: mapFactory.map
     	};
 
 		return panelsFactory;

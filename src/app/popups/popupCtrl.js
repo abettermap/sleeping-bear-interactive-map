@@ -19,13 +19,12 @@
         /****** FEATURES POPUPS *******/
         /******************************/
 
-        vm.closePopup = function(){
-            $state.go('popup', {
-            },{
-                reload: true
-            });
-        };
-
+        // vm.closePopup = function(){
+        //     $state.go('popup', {
+        //     },{
+        //         reload: true
+        //     });
+        // };
         /* Active popup */
         vm.imgPopupPage = true;
 
@@ -36,6 +35,14 @@
 
         /***** Header *****/
 
+        if (!vm.selFeatData.name){
+            vm.popupHeader = 'Trail Snapshot';
+            vm.typeIcon = '#icon-camera';
+        } else {
+            vm.popupHeader = vm.selFeatData.name;
+            vm.typeIcon = '#icon-' + vm.selFeatData.type;
+        }
+
         // Popup pages nav icon
         vm.popupNavIcon = '#icon-info';
 
@@ -43,9 +50,6 @@
         vm.popupNavTooltip = 'View feature info';
 
         vm.showPopupInfo = 'false';
-
-        // Type icon
-        vm.typeIcon = '#icon-' + vm.selFeatData.type;
 
         /***** Have marker ready but don't add to map *****/
         var tempIcon = L.divIcon({
@@ -67,22 +71,36 @@
             }
         }
 
-        if (vm.selFeatData === 'trail_pix'){
+        if (vm.selFeatData.layer === 'trail_pix'){
             tempMarker.addTo(mapFactory.map);
         }
 
+
         // Pan to selection
-        mapFactory.map.panTo([vm.selFeatData.lat, vm.selFeatData.lon]);
+        var map = mapFactory.map;
+
+        map.panTo([vm.selFeatData.lat, vm.selFeatData.lon]);
+
+        var targetPoint, targetLatLng, centerPoint,
+            viewportWidth = document.documentElement.clientWidth;
+
+        if (viewportWidth > 740){
+            var y = map.getSize().y / 2;
+            var xOffset = map.getSize().x / 3 * 2;
+            targetLatLng = map.containerPointToLatLng([xOffset, y]);
+            map.panTo(targetLatLng);
+        }
+
 
         // If features, set feat red, clear comm
-        if (vm.selFeatData === 'features'){
+        if (vm.selFeatData.layer === 'features'){
             layersFactory.setSelFeatColor('features', vm.selFeatData.cartodb_id);
             /* PUT BACK WHEN COMM */
             // layersFactory.setSelFeatColor('commercial', null);
         }
 
         // If comm, set comm red, clear feat
-        if (vm.selFeatData === 'commercial'){
+        if (vm.selFeatData.layer === 'commercial'){
             layersFactory.setSelFeatColor('commercial', vm.selFeatData.cartodb_id);
             layersFactory.setSelFeatColor('features', null);
         }

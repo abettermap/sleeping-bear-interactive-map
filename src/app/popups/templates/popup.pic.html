@@ -5,17 +5,16 @@
         ng-show="vm.imgPopupPage">
         <div class="popup__box">
             <div class="popup__row popup__row--snug">
-                <h2 ng-class="{'popup__header popup__header--fluid': vm.imgPopupPage, 'popup__header': !vm.imgPopupPage}">
+                <h2 style="background-color: red;" ng-class="{'popup__header popup__header--fluid': vm.imgPopupPage, 'popup__header': !vm.imgPopupPage}">
                     <a class="no-hover" href="javascript:;" ng-click="vm.setPopupPg()">
                         <svg class="popup-icon--type no-hover" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
-                            <!-- <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use> -->
-                            <use xlink:href="#icon-camera"></use>
+                            <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
                         </svg>
                     </a>
                     <span>
-                        Trail Snapshot
+                        {{vm.selFeatData.name}}
                     </span>
-                    <a class="popup__close btn" ui-sref="home" href="javascript:;" ng-click="vm.closePopup()">
+                    <a class="popup__close btn" ui-sref="popup" ui-sref-opts="{reload: true}" href="#map">
                         <svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use></svg>
                     </a>
                 </h2>

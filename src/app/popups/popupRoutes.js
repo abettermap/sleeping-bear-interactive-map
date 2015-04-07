@@ -24,6 +24,9 @@
                 // })
                 .state('popup', {
                     url: '/',
+                    controller: function(){
+                        $('.leaflet-tile-container.leaflet-zoom-animated').click();
+                    },
                     template: '<div ui-view></div>',
                 })
                 .state('popup.poi', {
@@ -54,7 +57,7 @@
                 })
                 .state('popup.pic', {
                     url: 'popup/:layer/:cartodb_id',
-                    templateUrl: 'src/app/popups/templates/popup.pic.html',
+                    templateUrl: 'src/app/popups/templates/popup.features.html',
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     params: {

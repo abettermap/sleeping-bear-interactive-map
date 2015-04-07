@@ -34,6 +34,9 @@
   @extend %panel__header;
   text-shadow: 1px 1px 1px darken($c-panel-header,25%);
     background-color: rgba($c-panel-header,.65);
+    @include mq($from: tablet){
+      background-color: $c-panel-header;
+    }
   position: absolute;
   border-bottom: solid darken($c-panel-header,5%) 1px;
 
@@ -82,9 +85,6 @@
 
 /* MAIN IMAGE */
 .active-img  {
-  @include mq(mobile){
-    // background-size: cover;
-  }
   position: absolute;
   // visibility: hidden;
   background-size: contain;
@@ -96,6 +96,10 @@
     bottom: 0;
     left: 0;
     right: 0;
+  @include mq($from: tablet){
+    bottom: 54px;
+    top: 50px;
+  }
   ////* Animations *////
   // Coming in from the left: nav view
   &.ng-hide {
@@ -116,6 +120,9 @@
   bottom: 0;
   box-shadow: 0 -2px 15px 0 rgba($near-white,.5);
   background-color: rgba($c-panel-header,.65);
+  @include mq($from: tablet){
+    background-color: $c-panel-header;
+  }
   // display: flex;
   padding: .25rem 0;
   width: 100%;
@@ -134,6 +141,9 @@
 
 .nearby-tab {
   background-color: rgba($c-panel-header,.65);
+  @include mq($from: tablet){
+    background-color: $c-panel-header;
+  }
   text-shadow: 1px 1px 1px darken($c-panel-header,25%);
   position: absolute;
   padding: .2rem .5rem 0;
