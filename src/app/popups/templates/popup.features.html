@@ -1,18 +1,20 @@
 <div class="popup">
 
 	<!-- IMAGE PAGE -->
-	<div class="popup__inner popup__inner--fluid"
-		ng-show="vm.imgPopupPage">
+	<div class="popup__inner popup__inner--fluid" ng-show="vm.imgPopupPage">
 		<div class="popup__box">
 			<div class="popup__row popup__row--snug">
 				<h2 ng-class="{'popup__header popup__header--fluid': vm.imgPopupPage, 'popup__header': !vm.imgPopupPage}">
-					<a class="no-hover" href="javascript:;" ng-click="vm.setPopupPg()">
+					<a class="btn" href="javascript:;" ng-click="vm.setPopupPg()">
 						<svg class="popup-icon--type no-hover" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
-						    <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
+						    <use ng-attr-xlink:href="{{vm.popupNavIcon}}" xlink:href=""></use>
 						</svg>
 					</a>
-					<span>
-						{{vm.popupHeader}}
+					<span class="popup__header--inner">
+						<svg class="popup-icon--type no-hover popup-icon-sm" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+						    <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
+						</svg>
+						<span>{{vm.popupHeader}}</span>
 					</span>
 					<a class="popup__close btn" ui-sref="popup" ui-sref-opts="{reload: true}" href="#map">
 						<svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use></svg>
@@ -21,9 +23,8 @@
 				<div class="active-img-container"
 					dir-paginate="img in vm.activeImages | itemsPerPage: 1"
 					pagination-id="mainImg">
-						<div class="active-img"
-						ng-style="{'background-image':'url(' + img + ')'}">
-						</div>
+					<div class="active-img"
+					ng-style="{'background-image':'url(' + img + ')'}">
 					</div>
 				</div>
 				<dir-pagination-controls pagination-id="mainImg"></dir-pagination-controls>
@@ -46,13 +47,57 @@
 		</div>
 	</div>
 	<!-- INFO PAGE -->
-	<div class="popup__inner"
-		ng-show="!vm.imgPopupPage">
+	<div class="popup__inner popup__inner--fluid popup__inner--info-pg" ng-show="!vm.imgPopupPage">
 		<div class="popup__box">
-			<div class="popup__row">
-				<h3>Contact Info</h3>
-				<h3>Share this:</h3>
-				<h3>Media</h3>
+			<div class="popup__row popup__row--snug">
+				<h2 class="popup__header popup__header--fluid fluid-header">
+					<a class="btn" href="javascript:;" ng-click="vm.setPopupPg()">
+						<svg class="popup-icon--type no-hover" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+						    <use ng-attr-xlink:href="{{vm.popupNavIcon}}" xlink:href=""></use>
+						</svg>
+					</a>
+					<span class="popup__header--inner">
+						<svg class="popup-icon--type no-hover popup-icon-sm" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+						    <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
+						</svg>
+						Point Info
+					</span>
+					<a class="popup__close btn" ui-sref="popup" ui-sref-opts="{reload: true}" href="#map">
+						<svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use></svg>
+					</a>
+				</h2>
+				<div class="popup__info-wrap">
+					<h3 class="info-wrap">
+						<svg class="popup--info--icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+						    <use xlink:href="#icon-audio_link"></use>
+						</svg>
+						Audio Link
+					</h3>
+					<p ng-show="vm.selFeatData.video_link">{{vm.selFeatData.audio_link}}</p>
+					<p ng-show="!vm.selFeatData.video_link">No videos at this location.</p>
+					<h3 class="info-wrap">
+						<svg class="popup--info--icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+						    <use xlink:href="#icon-video_link"></use>
+						</svg>
+						Video Link
+					</h3>
+					<p ng-show="vm.selFeatData.video_link">{{vm.selFeatData.video_link}}</p>
+					<p ng-show="!vm.selFeatData.video_link">No videos at this location.</p>
+					<h3 class="info-wrap">
+						<svg class="popup--info--icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+						    <use xlink:href="#icon-share"></use>
+						</svg>
+						Share This
+					</h3>
+					<a class="btn email-this" target='_blank'
+					ng-href="{{vm.currentUrl}}" class="btn">
+					<svg class="popup--info--icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+					    <use xlink:href="#icon-email"></use>
+					</svg>E-mail this feature</a>
+					<div class="panel__narrative" ng-show="vm.selFeatData.narrative">
+						<p>{{vm.selFeatData.narrative}}</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

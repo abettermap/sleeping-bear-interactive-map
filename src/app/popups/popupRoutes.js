@@ -44,7 +44,7 @@
                         selFeatData: ['$http', '$stateParams', function($http, $stateParams) {
 
                             var layer = $stateParams.layer,
-                                query = queryPrefix + "cartodb_id, the_geom, type, name, filepath, '" + layer + "' AS layer," +
+                                query = queryPrefix + "cartodb_id, narrative, video_link, audio_link, the_geom, type, name, filepath, '" + layer + "' AS layer," +
                                 " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat" +
                                 " FROM " + layer + " WHERE cartodb_id = " + $stateParams.cartodb_id;
 

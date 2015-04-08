@@ -28,6 +28,17 @@
         /* Active popup */
         vm.imgPopupPage = true;
 
+        vm.setPopupPg = function(){
+            vm.currentUrl = "mailto:?subject=Check out this SBHT feature!&body=" + window.location.href;
+            if (vm.imgPopupPage){
+                vm.imgPopupPage = false;
+                vm.popupNavIcon = '#icon-back';
+            } else {
+                vm.imgPopupPage = true;
+                vm.popupNavIcon = '#icon-info';
+            }
+        }
+
         /********** DATA FOR SELECTED FEATURE **********/
 
         /* Only need first row */
