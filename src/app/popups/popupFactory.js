@@ -6,16 +6,16 @@
         .module('popupsModule')
         .factory('popupFactory', popupFactory);
 
-    popupFactory.$inject = ['$rootScope', '$http', 'basePath', '$timeout', '$state', '$stateParams'];
+    popupFactory.$inject = ['$rootScope', '$http', 'basePath', '$timeout', '$state', '$stateParams', 'cdbValues'];
 
-    function popupFactory($rootScope, $http, basePath, $timeout, $state, $stateParams){
+    function popupFactory($rootScope, $http, basePath, $timeout, $state, $stateParams, cdbValues){
 
         var defaultImg = 'sbht-i-map/img_prod/features/mid_size/n00/wdune-climb/image00009.jpg';
 
         var popups = {
             defaultImg: defaultImg,
             findSecondary: findSecondary,
-            getNearestPic: getNearestPic,
+            getNearest: getNearest,
             setSecondary: setSecondary,
             setSeason: setSeason,
             setThumbs: setThumbs,
@@ -66,12 +66,8 @@
             var query,
                 coords = [params.lat, params.lon],
                 states = $rootScope.queryStates,
-                prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=",
-                shared = "SELECT cartodb_id, the_geom, the_geom_webmercator, filepath,"+
-                    " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat," +
-                    " ST_Distance(the_geom::geography," +
-                    " CDB_LatLng(" + coords + ")::geography) / 1000 " +
-                    " AS dist",
+                shared = cdbValues.sharedQueries,
+                sql = shared.sql + " ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) AS dist,",
                 end = " ORDER BY dist LIMIT 50",
                 nonPoiStatus = {
                     faces: states.faces,
@@ -80,8 +76,8 @@
                 };
 
             // Features
-            var featQuery = shared +
-                    ", 'features' AS layer" +
+            var featQuery = sql +
+                    " 'features' AS layer" +
                     " FROM features WHERE type IN(" + states.features + ")" +
                     " AND substring(seasons," + states.season + ",1) = 'y'" +
                     " AND cartodb_id != " + params.cartodb_id;
@@ -96,15 +92,15 @@
             //         " UNION ALL ";
 
             // Trail pics
-            var trailPicsQuery = ' UNION ALL ' + shared +
-                    ", 'trail_pix' AS layer" +
+            var trailPicsQuery = ' UNION ALL ' + sql +
+                    " 'trail_pix' AS layer" +
                     " FROM trail_pix" +
                     " WHERE substring(seasons," + states.season + ",1) = 'y'";
 
             if (states.trail_pix){
-                query = prefix + featQuery + trailPicsQuery + end;
+                query = shared.url + featQuery + trailPicsQuery + end;
             } else {
-                query = prefix + featQuery + end;
+                query = shared.url + featQuery + end;
             }
 
             return $http({
@@ -114,7 +110,7 @@
         }
 
         /* When trail is clicked on... */
-        function getNearestPic (coords){
+        function getNearest (coords){
 
             var states = $rootScope.queryStates,
                 prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=",

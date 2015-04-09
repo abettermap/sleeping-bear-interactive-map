@@ -42,17 +42,15 @@
                     interactivity: 'cartodb_id',
                 }
             ],
-            gradeSublayer: { // GRADE
-                // cartocss: "#sbht_grade[zoom>=13]{line-color: red; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
+            gradeSublayer: {
                 cartocss: "#sbht_grade{line-color: red; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
                 sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_grade WHERE cartodb_id = 0",
-            }, // end GRADE
-            cautionSublayer: { // CAUTION
-                // cartocss: "#sbht_caution[zoom>=13]{line-color: yellow; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
+            },
+            cautionSublayer: {
                 cartocss: "#sbht_caution{line-color: yellow; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
                 sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_caution WHERE cartodb_id = 0",
-            }, // end CAUTION
-            commSublayer: { // COMMERCIAL
+            },
+            commSublayer: {
                 sql: "SELECT the_geom_webmercator, cartodb_id FROM commercial",
                 cartocss: "#trail_pix_digitize{marker-fill:orange;marker-placement:point;marker-type:ellipse;marker-width:.1;marker-allow-overlap:true;}",
                 // interactivity: 'cartodb_id',
@@ -63,10 +61,10 @@
                 interactivity: 'cartodb_id, type, filepath, layer, seasons',
                 sql: "SELECT 'features' AS layer, features.the_geom_webmercator, features.seasons, features.cartodb_id, features.type, features.filepath, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons,3,1) = 'y' AND features.type = 'mainpoints' ORDER BY priority DESC",
             },
-            // trailPixSublayer: {
-            //     cartocss: "#trail_pix{marker-width: 1}",
-            //     interactivity: 'cartodb_id, type, filepath, layer, seasons',
-            // }
+            sharedQueries: {
+                url: "https://remcaninch.cartodb.com/api/v2/sql?q=",
+                sql: "SELECT cartodb_id, the_geom, the_geom_webmercator, filepath, ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat,"
+            }
 
         });
 

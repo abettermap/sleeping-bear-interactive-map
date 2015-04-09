@@ -34,7 +34,7 @@
 							<svg class="icon--nearby" viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-nearby"></use></svg>
 							Nearby
 						</div>
-						<ul class="thumbnail-list" ng-class="{{vm.thumbsDirection}}">
+						<ul class="thumbnail-list">
 						    <li dir-paginate="img in vm.thumbsData | itemsPerPage: 5" pagination-id="thumbs" class="thumb">
 						    	<a class="thumbnail" title="{{img.path}}"
 						    		ng-click="vm.resetPopup(img.path, img.attribs)">

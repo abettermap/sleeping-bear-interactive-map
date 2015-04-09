@@ -66,14 +66,14 @@
                 states = $rootScope.queryStates;
 
             // Only do this if something other than a POI layer is visible
-            if (states.trail_pix || states.faces || states.trail_condition){
+            // if (states.trail_pix || states.faces || states.trail_condition){
 
-                popupFactory.getNearestPic(coords)
+                popupFactory.getNearest(coords)
                 .then(function(result){
 
                     var closest = result.data.rows[0];
 
-                    $state.go('popup.pic', {
+                    $state.go('popup.poi', {
                         cartodb_id: closest.cartodb_id,
                         filepath: closest.filepath,
                         layer: closest.layer,
@@ -85,7 +85,7 @@
 
                 });
 
-            }
+            // }
 
             $rootScope.$broadcast('featureClicked', '');
 
@@ -121,7 +121,6 @@
               name: 'features',
               sql: cdbValues.featSublayer.sql,
             }).on('featureClick', function(e, pos, latlng, data){
-
 
                 $state.go('popup.poi', {
                     cartodb_id: data.cartodb_id,

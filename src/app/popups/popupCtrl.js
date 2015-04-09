@@ -19,12 +19,6 @@
         /****** FEATURES POPUPS *******/
         /******************************/
 
-        // vm.closePopup = function(){
-        //     $state.go('popup', {
-        //     },{
-        //         reload: true
-        //     });
-        // };
         /* Active popup */
         vm.imgPopupPage = true;
 
@@ -182,13 +176,7 @@
 
         });
 
-        $scope.test = function(msg){
-            alert(msg);
-        }
-
         /* Thumbnails */
-        // Thumbs pagination
-        $scope.currentPage = 1;
 
         /* PUT IT BACK */
         popupFactory.setThumbs(vm.selFeatData).then(function(dataResponse) {
@@ -216,24 +204,20 @@
             vm.thumbsData = arr;
 
         });
-vm.thumbsDirection = 'slide-in-left';
-        vm.setThumbsDir = function(direction){
-            alert(direction);
-            vm.thumbsDirection = 'slide-in-' + direction;
-        };
 
         /* Trigger new popup */
         vm.resetPopup = function(path, attribs){
 
             var layer = attribs.layer,
                 route;
+                route = 'popup.poi';
 
             /* Go to correct route */
-            if (attribs.layer === 'features' || attribs.layer === 'commercial'){
-                route = 'popup.poi';
-            } else {
-                route = 'popup.pic';
-            }
+            // if (attribs.layer === 'features' || attribs.layer === 'commercial'){
+            //     route = 'popup.poi';
+            // } else {
+            //     route = 'popup.pic';
+            // }
 
             /* Clear selected, if any */
             // layersFactory.setSelFeatColor(attribs.layer, )
