@@ -6,11 +6,14 @@
 
 
   &__inner {
+
     @extend %panel__inner;
+
     &--fluid {
       display: block;
       top: 0;
     }
+
   }
 
   &__box {
@@ -20,14 +23,63 @@
   &__row {
     @extend %panel__row;
 
+
+
     // No padding
-    &--snug {
+    &--noPad {
       padding: 0;
     }
 
   }
 
 }
+
+.flip {
+
+  transform-style: preserve-3d;
+  transition: 1s ease-out;
+
+  // Keep it backwards when hidden
+  &.ng-hide {
+    opacity: 0;
+    transform: rotateY(180deg);
+  }
+
+  &--infoPg {
+
+    &.ng-hide-add.ng-hide-add-active {
+      backface-visibility: visible;
+      transform: rotateY(-180deg);
+      // transition: none;
+    }
+
+  }
+
+  &--imgPg {
+
+    // Has to be absolute
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &.ng-hide-add.ng-hide-add-active {
+      backface-visibility: visible;
+      transform: rotateY(-180deg);
+      // transition: none;
+    }
+
+  }
+
+}
+
+/* Info/content page */
+.popup__inner--info-pg {
+
+
+}
+
 
 .popup__header {
 
@@ -40,18 +92,16 @@
   position: absolute;
   border-bottom: solid darken($c-panel-header,5%) 1px;
 
-  // @include mq($from: tablet){
-  //   position: static;
-  // }
-  // no cursor over first icon
   padding: .5rem;
   &.fluid-header {
     position: static;
   }
   &--inner {
-    max-width: 275px;
+    width: 255px;
+    padding: 0 4px;
     white-space: nowrap;
     overflow: hidden;
+    text-align: center;
     text-overflow: ellipsis;
   }
 
@@ -117,9 +167,9 @@ svg.popup-icon-sm {
   }
   ////* Animations *////
   // Coming in from the left: nav view
-  &.ng-hide {
-    animation: $a-poi-trans-dur flipOutY ease;
-  }
+  // &.ng-hide {
+  //   animation: $a-poi-trans-dur flipOutY ease;
+  // }
     // animation: $a-poi-trans-dur flipInY ease;
 
 
@@ -143,14 +193,13 @@ svg.popup-icon-sm {
   width: 100%;
   text-align: center;
   position: fixed;
-  // border-top: solid darken($c-panel-header,5%) 1px;
   flex-flow: row nowrap;
 
   @include mq($from: tablet){
     position: absolute;
   }
 
-  max-width: 1000px;
+  // max-width: 1000px;
   height: 3.4rem;
 }
 
@@ -184,20 +233,10 @@ svg.popup-icon-sm {
 }
 
 .thumbnail-list {
-  // background-color: $c-panel-header;
   width: 80%;
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
-  > li {
-    // display: inline-block;
-    // float: left;
-    // padding: 0 .2rem;
-    // max-width: 18%;
-    // flex: 0 18%;
-    // flex-grow: 0;
-    // flex-shrink: 0;
-  }
 }
 
 .pagination {
@@ -259,9 +298,22 @@ svg.popup-icon-sm {
     }
   }
 }
-.popup__inner.popup__inner--info-pg {
-  background-color: $c-panel-bg;
+
+.thumb {
+
+    &.ng-enter {
+      animation: 1s slideInRight ease;
+    }
+
+  &.ng-enter.ng-enter-active,
+  &.ng-leave {
+      transform: scaleY(1);
+      height: 30px;
+      opacity: 1;
+  }
+
 }
+
 .thumbnail {
   cursor: pointer;
   // display: inline-block;
@@ -277,7 +329,14 @@ svg.popup-icon-sm {
 }
 
 .popup__info-wrap {
+  margin-top: 3.2rem;
+  background-color: $c-panel-bg;
   padding: 1.2rem;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
   text-align: center;
 }
 

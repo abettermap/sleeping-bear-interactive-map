@@ -32,12 +32,30 @@
             vm.currentUrl = "mailto:?subject=Check out this SBHT feature!&body=" + window.location.href;
             if (vm.imgPopupPage){
                 vm.imgPopupPage = false;
-                vm.popupNavIcon = '#icon-back';
+                vm.popupNavIcon = '#icon-camera';
+                vm.popupHeader = 'Point Info';
             } else {
                 vm.imgPopupPage = true;
                 vm.popupNavIcon = '#icon-info';
+                if (vm.selFeatData.layer === 'trail_pix'){
+                    vm.popupHeader = "Trail Snapshot";
+                } else {
+                    vm.popupHeader = vm.selFeatData.name;
+
+                }
             }
-        }
+        };
+
+        // vm.popupTypes = {
+        //     poi: {
+        //         header: vm.selFeatData.name,
+        //         icon: '#icon-' + vm.selFeatData.type,
+        //     },
+        //     trailPic: {
+        //         header: 'Trail Snapshot',
+        //         icon: '#icon-camera',
+        //     }
+        // };
 
         /********** DATA FOR SELECTED FEATURE **********/
 
@@ -164,6 +182,10 @@
 
         });
 
+        $scope.test = function(msg){
+            alert(msg);
+        }
+
         /* Thumbnails */
         // Thumbs pagination
         $scope.currentPage = 1;
@@ -194,6 +216,11 @@
             vm.thumbsData = arr;
 
         });
+vm.thumbsDirection = 'slide-in-left';
+        vm.setThumbsDir = function(direction){
+            alert(direction);
+            vm.thumbsDirection = 'slide-in-' + direction;
+        };
 
         /* Trigger new popup */
         vm.resetPopup = function(path, attribs){

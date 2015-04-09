@@ -16,7 +16,6 @@
 
         // The active panel
         // vm.activePanel = 'features';
-        // vm.activePanel = '';
 
         // Close it when any feature clicked
         $rootScope.$on('featureClicked',function(){
