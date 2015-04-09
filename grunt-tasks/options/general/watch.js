@@ -9,7 +9,9 @@ module.exports = {
     //     files: 'src/app/**/*.html'
     // },
     sass: {
-        files: ['src/assets/scss/**/*.scss'], //'!src/assets/scss/vendor/**/*.scss' ],
+        files: ['src/assets/scss/**/*.scss',
+                '!src/assets/scss/vendor/**/*.scss',
+                'src/assets/scss/vendor/_vendors.scss'],
         tasks: ['sass', 'autoprefixer:dev']
     },
     scripts: {
