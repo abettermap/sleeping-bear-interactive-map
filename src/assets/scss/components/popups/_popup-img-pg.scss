@@ -117,14 +117,12 @@
   position: absolute;
   top: calc(50% - 1.2rem);
 
-  @include mq($from: desktop) {
+  transition: background-color 300ms ease;
 
-    transition: $a-all-hover-transition;
-
+  @include mq($from: desktop){
     &:hover {
-      background-color: rgba($c-panel-header, .9);
+      background-color: darken($c-btn-bg, 5%);
     }
-
   }
 
   &:first-of-type {

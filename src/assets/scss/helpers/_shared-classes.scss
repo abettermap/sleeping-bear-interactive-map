@@ -80,7 +80,7 @@
   transition: background-color 300ms ease;
   @include mq($from: desktop){
     &:hover {
-      background-color: darken($c-btn-bg,15%);
+      background-color: darken($c-btn-bg,5%);
     }
   }
 
