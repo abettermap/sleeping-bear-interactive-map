@@ -194,13 +194,20 @@
                     path = path + 'image00001.jpg';
                 }
 
+                if (thumbsData[n].dist < 528){
+                    thumbsData[n].dist = thumbsData[n].dist + ' ft';
+                } else {
+                    thumbsData[n].dist = Math.round(thumbsData[n].dist / 5280 * 100)/100 + ' mi';
+                    thumbsData[n].dist = thumbsData[n].dist.replace(/^[0]+/g,"");
+                }
+
                 arr.push({
                     path: path,
                     attribs: thumbsData[n],
                 });
 
             }
-
+            // debugger;
             vm.thumbsData = arr;
 
         });

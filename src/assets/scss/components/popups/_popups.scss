@@ -299,6 +299,7 @@ svg.popup-icon-sm {
   }
 }
 
+/* <li> (where the repeat happens) */
 .thumb {
 
 
@@ -332,25 +333,38 @@ svg.popup-icon-sm {
 
 }
 
+/* <a> elements */
 .thumbnail {
   $s: 2.7rem;
-  transition: 300ms all ease;
-  opacity: 1;
-  background-repeat: no-repeat;
   background-position: 50% 50%;
+  background-repeat: no-repeat;
   border-radius: 3px;
   box-shadow: 1px 1px 3px hsl(209, 51%, 46%);
   cursor: pointer;
   display: block;
   height: $s;
   margin: .1rem 0 .25rem;
+  opacity: 1;
+  position: relative; // for distance container
+  transition: 300ms all ease;
   width: $s;
-  // margin: 0 5px;
-  img {
-    // display: block;
-    height: 2.8rem;
-  }
 }
+
+.thumb-distance {
+  background-color: darken($c-panel-header, 10%);
+  color: $near-white;
+  font-size: .6rem;
+  padding: 0 0 0 .2rem;
+  border-top-left-radius: 5px;
+  position: absolute;
+  bottom: 0;
+  text-align: left;
+  right: 0;
+  text-decoration: none;
+}
+
+
+/* Popup Info Page */
 
 .popup__info-wrap {
   margin-top: 3.2rem;

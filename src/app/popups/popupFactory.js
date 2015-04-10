@@ -67,7 +67,7 @@
                 coords = [params.lat, params.lon],
                 states = $rootScope.queryStates,
                 shared = cdbValues.sharedQueries,
-                sql = shared.sql + " ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) AS dist,",
+                sql = shared.sql + " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist,",
                 end = " ORDER BY dist LIMIT 50",
                 nonPoiStatus = {
                     faces: states.faces,
@@ -116,8 +116,8 @@
                 prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=",
                 midShared = "SELECT cartodb_id, the_geom, the_geom_webmercator, filepath,"+
                         " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat," +
-                        " ST_Distance(the_geom::geography," +
-                        " CDB_LatLng(" + coords + ")::geography) / 1000 " +
+                        " FLOOR(ST_Distance(the_geom::geography," +
+                        " CDB_LatLng(" + coords + ")::geography) * 3.28084) " +
                         " AS dist, '" +
                         "trail_pix" + "' AS layer" +
                         " FROM " + "trail_pix" +
