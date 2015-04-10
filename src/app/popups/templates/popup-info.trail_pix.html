@@ -1,0 +1,21 @@
+<header>
+	<h3 class="popup-info-pg__main-heading">{{vm.popupImgPgData[vm.selFeatData.layer].header}}</h3>
+	<p class="popup-info-pg__subheading">{{vm.selFeatData.lat}}, {{vm.selFeatData.lon}}</p>
+</header>
+<h4 class="popup-info-pg__subheading">
+	<svg class="popup--info--icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+	    <use xlink:href="#icon-share"></use>
+	</svg>
+	Share This
+</h4>
+<a class="btn email-this" target='_blank'
+ng-href="{{vm.currentUrl}}" class="btn">
+<svg class="popup--info--icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+    <use xlink:href="#icon-email"></use>
+</svg>E-mail this feature</a>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, asperiores, debitis optio unde et ratione soluta rerum ad at iste nisi laudantium beatae modi rem alias. Aliquid commodi illum minus.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, asperiores, debitis optio unde et ratione soluta rerum ad at iste nisi laudantium beatae modi rem alias. Aliquid commodi illum minus.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, asperiores, debitis optio unde et ratione soluta rerum ad at iste nisi laudantium beatae modi rem alias. Aliquid commodi illum minus.</p>
+<div class="panel__narrative" ng-show="vm.selFeatData.narrative">
+	<p>{{vm.selFeatData.narrative}}</p>
+</div>

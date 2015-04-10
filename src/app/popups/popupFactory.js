@@ -95,7 +95,8 @@
             var trailPicsQuery = ' UNION ALL ' + sql +
                     " 'trail_pix' AS layer" +
                     " FROM trail_pix" +
-                    " WHERE substring(seasons," + states.season + ",1) = 'y'";
+                    " WHERE substring(seasons," + states.season + ",1) = 'y'" +
+                    " AND cartodb_id != " + params.cartodb_id;
 
             if (states.trail_pix){
                 query = shared.url + featQuery + trailPicsQuery + end;

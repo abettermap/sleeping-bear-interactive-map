@@ -7,9 +7,8 @@
 @import 'panels/panel--info';
 
 /* Leaflet marker/s */
-@import '_leaflet-markers';
+@import 'leaflet-markers';
 
 @import 'popups/popups';
-// @import 'popups/directions';
-// @import 'popups/nearby';
-// @import 'popups/share';
+@import 'popups/popup-img-pg';
+@import 'popups/popup-info-pg';

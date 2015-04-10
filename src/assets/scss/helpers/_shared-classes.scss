@@ -64,6 +64,7 @@
   border-radius: 5px;
   padding: 0 3px 4px;
   margin-top: .2rem;
+  border: solid 1px lighten($c-btn-bg,6%);
 
   &.panel__close {
     svg {

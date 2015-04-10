@@ -25,7 +25,7 @@
                 })
                 .state('popup.poi', {
                     url: 'popup/:layer/:cartodb_id',
-                    templateUrl: 'src/app/popups/templates/popup.features.html',
+                    templateUrl: 'src/app/popups/templates/popup.html',
                     controller: 'PopupCtrl',
                     controllerAs: 'vm',
                     params: {

@@ -15,92 +15,111 @@
 
         vm.currentSeason = $rootScope.queryStates.season;
 
+
         /******************************/
         /****** FEATURES POPUPS *******/
         /******************************/
 
         /* Active popup */
-        vm.imgPopupPage = true;
+        vm.imgPgVisible = true;
 
         vm.setPopupPg = function(){
+
+            // Does this always work?
             vm.currentUrl = "mailto:?subject=Check out this SBHT feature!&body=" + window.location.href;
-            if (vm.imgPopupPage){
-                vm.imgPopupPage = false;
+
+            if (vm.imgPgVisible){       // Info page
+                vm.imgPgVisible = false;
                 vm.popupNavIcon = '#icon-camera';
-                vm.popupHeader = 'Point Info';
-            } else {
-                vm.imgPopupPage = true;
+                vm.popupHeader = 'Location Info';
+                vm.typeIcon = '#icon-info';
+            } else {                    // Home/img page
+                vm.imgPgVisible = true;
                 vm.popupNavIcon = '#icon-info';
-                if (vm.selFeatData.layer === 'trail_pix'){
-                    vm.popupHeader = "Trail Snapshot";
-                } else {
-                    vm.popupHeader = vm.selFeatData.name;
-
-                }
+                vm.popupHeader = vm.popupImgPgData[vm.selFeatData.layer].header;
+                vm.typeIcon = vm.popupImgPgData[vm.selFeatData.layer].icon;
             }
-        };
 
-        // vm.popupTypes = {
-        //     poi: {
-        //         header: vm.selFeatData.name,
-        //         icon: '#icon-' + vm.selFeatData.type,
-        //     },
-        //     trailPic: {
-        //         header: 'Trail Snapshot',
-        //         icon: '#icon-camera',
-        //     }
-        // };
+        };
 
         /********** DATA FOR SELECTED FEATURE **********/
 
         /* Only need first row */
         vm.selFeatData = selFeatData.rows[0];
 
+        vm.popupImgPgData = {
+            features: {
+                header: vm.selFeatData.name,
+                icon: '#icon-' + vm.selFeatData.type,
+            },
+            commercial: {
+                header: vm.selFeatData.name,
+                icon: '#icon-' + vm.selFeatData.type,
+            },
+            trail_pix: {
+                header: 'Trail Snapshot',
+                icon: '#icon-camera',
+            },
+            faces: {
+                header: 'Faces on the Trail',
+                icon: '#icon-face',
+            },
+            trail_condition: {
+                header: 'Trail Condition',
+                icon: '#icon-cond',
+            },
+        };
+
         /***** Header *****/
+        vm.popupHeader = vm.popupImgPgData[vm.selFeatData.layer].header;
 
-        if (!vm.selFeatData.name){
-            vm.popupHeader = 'Trail Snapshot';
-            vm.typeIcon = '#icon-camera';
-        } else {
-            vm.popupHeader = vm.selFeatData.name;
-            vm.typeIcon = '#icon-' + vm.selFeatData.type;
-        }
-
-        // Popup pages nav icon
+        // Pages nav icon
         vm.popupNavIcon = '#icon-info';
+
+        // Type icon
+        vm.typeIcon = vm.popupImgPgData[vm.selFeatData.layer].icon;
 
         // Tooltip
         vm.popupNavTooltip = 'View feature info';
 
+        // Show image page when true
         vm.showPopupInfo = 'false';
 
-        /***** Have marker ready but don't add to map *****/
-        var tempIcon = L.divIcon({
-            className: 'temp-div-icon',
-            html: "<svg viewBox='0 0 100 100'>" +
-                "<use xlink:href='#icon-camera'></use></svg>"
-        });
+        /******************************/
+        /****** TEMP CAMERA ICON ******/
+        /******************************/
 
+        var map = mapFactory.map,
+            mapLayers = map._layers;
+
+        /***** Have marker ready but don't add to map *****/
         var tempMarker = L.marker([vm.selFeatData.lat, vm.selFeatData.lon],{
             temp: true,
-            icon: tempIcon,
+            icon: L.divIcon({
+                className: 'temp-div-icon',
+                html: "<svg viewBox='0 0 100 100'>" +
+                    "<use xlink:href='#icon-camera'></use></svg>"
+            }),
             // iconAnchor: [-216, 16]
         });
-        var mapLayers = mapFactory.map._layers;
 
+        /***** Remove if already present *****/
         for (var i in mapLayers){
             if (mapLayers[i].options.temp){
-                mapFactory.map.removeLayer(mapLayers[i]);
+                map.removeLayer(mapLayers[i]);
             }
         }
 
+        /***** Add if trail_pix *****/
         if (vm.selFeatData.layer === 'trail_pix'){
-            tempMarker.addTo(mapFactory.map);
+            tempMarker.addTo(map);
         }
+        /***** Need similar for faces *****/
 
 
-        // Pan to selection
-        var map = mapFactory.map;
+        /******************************/
+        /****** PAN TO SELECTION ******/
+        /******************************/
 
         map.panTo([vm.selFeatData.lat, vm.selFeatData.lon]);
 
@@ -114,6 +133,10 @@
             map.panTo(targetLatLng);
         }
 
+
+        /******************************/
+        /****** MAKE SELECTED RED *****/
+        /******************************/
 
         // If features, set feat red, clear comm
         if (vm.selFeatData.layer === 'features'){
@@ -135,6 +158,10 @@
             // layersFactory.setSelFeatColor('commercial', null);
             layersFactory.setSelFeatColor('features', null);
         }
+
+        /******************************/
+        /****** SECONDARY IMAGES ******/
+        /******************************/
 
         /* Look for secondary images (even w/pics & faces, to stay consistent) */
         popupFactory.findSecondary(vm.selFeatData)
@@ -176,14 +203,15 @@
 
         });
 
-        /* Thumbnails */
 
-        /* PUT IT BACK */
+        /******************************/
+        /****** SET THUMBNAILS *******/
+        /******************************/
+
         popupFactory.setThumbs(vm.selFeatData).then(function(dataResponse) {
 
-
-            var thumbsData = dataResponse.data.rows;
-            var arr = [], path, layer;
+            var thumbsData = dataResponse.data.rows,
+                arr = [], path, layer;
 
             for (var n = 0; n < thumbsData.length; n++) {
 
@@ -207,29 +235,19 @@
                 });
 
             }
-            // debugger;
+
             vm.thumbsData = arr;
 
         });
 
-        /* Trigger new popup */
+
+        /******************************/
+        /* RESET POPUP ON THUMB CLICK */
+        /******************************/
+
         vm.resetPopup = function(path, attribs){
 
-            var layer = attribs.layer,
-                route;
-                route = 'popup.poi';
-
-            /* Go to correct route */
-            // if (attribs.layer === 'features' || attribs.layer === 'commercial'){
-            //     route = 'popup.poi';
-            // } else {
-            //     route = 'popup.pic';
-            // }
-
-            /* Clear selected, if any */
-            // layersFactory.setSelFeatColor(attribs.layer, )
-
-            $state.go(route, {
+            $state.go('popup.poi', {
                 cartodb_id: attribs.cartodb_id,
                 layer: attribs.layer,
                 lat: attribs.lat,
@@ -239,10 +257,8 @@
                 reload: true
             });
 
-
         };
 
     }
-
 
 })();
