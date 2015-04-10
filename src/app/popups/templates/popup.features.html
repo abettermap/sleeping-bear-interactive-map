@@ -35,10 +35,11 @@
 							Nearby
 						</div>
 						<ul class="thumbnail-list">
-						    <li dir-paginate="img in vm.thumbsData | itemsPerPage: 5" pagination-id="thumbs" class="thumb">
+						    <li dir-paginate="img in vm.thumbsData | itemsPerPage: 5" pagination-id="thumbs" class="thumb" ng-animate-children>
 						    	<a class="thumbnail" title="{{img.path}}"
-						    		ng-click="vm.resetPopup(img.path, img.attribs)">
-						    		<img ng-src="{{img.path}}">
+						    		ng-click="vm.resetPopup(img.path, img.attribs)"
+						    		ng-style="{'background-image': 'url(' + img.path + ')'}">
+						    		<!-- <img ng-src="{{img.path}}"> -->
 						    	</a>
 						    </li>
 						</ul>

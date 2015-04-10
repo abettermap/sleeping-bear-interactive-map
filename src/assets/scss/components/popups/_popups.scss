@@ -301,26 +301,50 @@ svg.popup-icon-sm {
 
 .thumb {
 
-    &.ng-enter {
-      animation: 1s slideInRight ease;
-    }
 
-  &.ng-enter.ng-enter-active,
-  &.ng-leave {
-      transform: scaleY(1);
-      height: 30px;
-      opacity: 1;
-  }
+  // &.ng-enter,
+  // &.ng-leave
+  // {
+  //     transition: 3000ms cubic-bezier(0.250, 0.250, 0.750, 0.750) background-color;
+  // }
+
+  // &.ng-enter {
+  //   .thumbnail {
+  //     left: 100%;
+  //   }
+  // }
+  // &.ng-enter.ng-enter-active {
+  //   .thumbnail {
+  //     opacity: 1;
+  //   }
+  // }
+
+  // &.ng-leave {
+  //   .thumbnail {
+  //     opacity: .5;
+  //   }
+  // }
+  // &.ng-leave.ng-leave-active{
+  //   .thumbnail {
+  //     background-color: yellow;
+  //   }
+  // }
 
 }
 
 .thumbnail {
+  $s: 2.7rem;
+  transition: 300ms all ease;
+  opacity: 1;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  border-radius: 3px;
+  box-shadow: 1px 1px 3px hsl(209, 51%, 46%);
   cursor: pointer;
-  // display: inline-block;
-  // float: none;
-  // clear: none;
-  flex: auto 18%;
-  height: 100%;
+  display: block;
+  height: $s;
+  margin: .1rem 0 .25rem;
+  width: $s;
   // margin: 0 5px;
   img {
     // display: block;
