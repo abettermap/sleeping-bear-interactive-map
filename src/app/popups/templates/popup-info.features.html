@@ -1,37 +1,72 @@
-<header>
-	<h3 class="popup-info-pg__main-heading">{{vm.popupImgPgData[vm.selFeatData.layer].header}}</h3>
-	<p class="popup-info-pg__subheading">{{vm.selFeatData.lat}}, {{vm.selFeatData.lon}}</p>
+<header class="popup-info-pg__main-header">
+	<h3 class="popup-info-pg__main-heading">{{vm.selFeatData.name}}</h3>
+	<p class="popup-info-pg__subheading">
+		<svg class="subheading__icon" viewBox="0 0 100 100" >
+		    <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
+		</svg>
+		{{vm.selFeatData.type_name}}
+		<svg class="subheading__icon" viewBox="0 0 100 100" >
+		    <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
+		</svg>
+	</p>
+	<p class="popup-info-pg__coords">
+		{{vm.selFeatData.lat}}, {{vm.selFeatData.lon}}
+	</p>
 </header>
-<h4 class="popup-info-pg__subheading">
-	<svg class="popup--info--icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+<h4 class="">
+	<svg class="subheading__icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+	    <use xlink:href="#icon-directions"</use>
+	</svg>
+	Directions:
+	<a class="btn" target="_blank" ng-href="{{vm.directionsUrl.to}}">
+		<svg class="subheading__icon down-arrow" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+		    <use xlink:href="#icon-back"</use>
+		</svg>
+		<span class="btn--directions__inner-text">TO<br>here</span>
+	</a>
+	<a class="btn" target="_blank" ng-href="{{vm.directionsUrl.from}}">
+		<svg class="subheading__icon up-arrow" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+		    <use xlink:href="#icon-back"</use>
+		</svg>
+		<span class="btn--directions__inner-text">FROM<br>here</span>
+	</a>
+</h4>
+<h4>
+	<svg class="subheading__icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
 	    <use xlink:href="#icon-audio_link"></use>
 	</svg>
 	Audio Link
 </h4>
 <p ng-show="vm.selFeatData.video_link">{{vm.selFeatData.audio_link}}</p>
 <p ng-show="!vm.selFeatData.video_link">No videos at this location.</p>
-<h4 class="popup-info-pg__subheading">
-	<svg class="popup--info--icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+<h4>
+	<svg class="subheading__icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
 	    <use xlink:href="#icon-video_link"></use>
 	</svg>
 	Video Link
 </h4>
 <p ng-show="vm.selFeatData.video_link">{{vm.selFeatData.video_link}}</p>
 <p ng-show="!vm.selFeatData.video_link">No videos at this location.</p>
-<h4 class="popup-info-pg__subheading">
-	<svg class="popup--info--icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+<h4>
+	<svg class="subheading__icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
 	    <use xlink:href="#icon-share"></use>
 	</svg>
 	Share This
 </h4>
 <a class="btn email-this" target='_blank'
 ng-href="{{vm.currentUrl}}" class="btn">
-<svg class="popup--info--icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+<svg class="subheading__icon" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
     <use xlink:href="#icon-email"></use>
 </svg>E-mail this feature</a>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, asperiores, debitis optio unde et ratione soluta rerum ad at iste nisi laudantium beatae modi rem alias. Aliquid commodi illum minus.</p>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, asperiores, debitis optio unde et ratione soluta rerum ad at iste nisi laudantium beatae modi rem alias. Aliquid commodi illum minus.</p>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, asperiores, debitis optio unde et ratione soluta rerum ad at iste nisi laudantium beatae modi rem alias. Aliquid commodi illum minus.</p>
+<div class="popup__footer">
+    <div class="popup__footer__tab">
+        <svg class="footer__tab__icon" viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-share"></use></svg>
+        Share This
+    </div>
+</div>
 <div class="panel__narrative" ng-show="vm.selFeatData.narrative">
 	<p>{{vm.selFeatData.narrative}}</p>
 </div>

@@ -25,7 +25,8 @@
 // PANELS
 
 .panel {
-  background-color: lighten($c-panel-header,20%);
+  // background-color: lighten($c-panel-header,20%);
+  background: url('../img/raster/background.jpg');
   bottom: 3.5rem;
   position: absolute;
   top: 0;

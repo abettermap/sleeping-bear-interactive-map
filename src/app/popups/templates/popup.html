@@ -7,7 +7,7 @@
         </a>
         <span class="popup__header--inner">
             <svg class="popup-icon--type no-hover popup-icon-sm" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
-                <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
+                <use ng-attr-xlink:href="{{vm.headerTypeIcon}}" xlink:href=""></use>
             </svg>
             <span>{{vm.popupHeader}}</span>
         </span>
@@ -26,9 +26,9 @@
                         <div class="active-img" ng-style="{'background-image':'url(' + img + ')'}"></div>
                     </div>
                     <dir-pagination-controls pagination-id="mainImg"></dir-pagination-controls>
-                    <div class="thumbs-container">
-                        <div class="nearby-tab">
-                            <svg class="icon--nearby" viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-nearby"></use></svg>
+                    <div class="popup__footer">
+                        <div class="popup__footer__tab">
+                            <svg class="footer__tab__icon" viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-nearby"></use></svg>
                             Nearby
                         </div>
                         <dir-pagination-controls pagination-id="thumbs"></dir-pagination-controls>
@@ -44,9 +44,18 @@
                     </div>
                 </div>
                 <!-- INFO PAGE -->
-                <div class="flip flip--infoPg" ng-show="!vm.imgPgVisible">
+                <div class="flip flip--infoPg popup-info-pg" ng-show="!vm.imgPgVisible">
                     <div ng-if="vm.selFeatData.layer === 'features'" ng-include="'src/app/popups/templates/popup-info.features.html'"></div>
                     <div ng-if="vm.selFeatData.layer === 'trail_pix'" ng-include="'src/app/popups/templates/popup-info.trail_pix.html'"></div>
+                    <div class="popup__footer">
+                        <div class="popup__footer__tab">
+                            <svg class="footer__tab__icon" viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-share"></use></svg>
+                            Share This
+                        </div>
+                    </div>
+                    <div class="panel__narrative" ng-show="vm.selFeatData.narrative">
+                        <p>{{vm.selFeatData.narrative}}</p>
+                    </div>
                 </div>
             </div>
         </div>

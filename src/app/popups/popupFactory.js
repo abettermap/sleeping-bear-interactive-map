@@ -157,8 +157,9 @@
                     " features.filepath, " +
                     " features.seasons," +
                     " features.type," +
+                    " features.name," +
                     " feature_types.name AS type_name," +
-                    "' features' AS layer" +
+                    " 'features' AS layer" +
                 " FROM" +
                     " features" +
                 " INNER JOIN" +
@@ -181,6 +182,7 @@
                     " filepath, " +
                     " seasons," +
                     " 'camera' AS type," +
+                    " 'Trail Snapshot' AS name," +
                     " 'Trail Snapshot' AS type_name," +
                     " 'trail_pix' AS layer" +
                 " FROM" +
@@ -188,7 +190,6 @@
                 " WHERE " + seasonsString +
                 " AND cartodb_id " + nonPoiOperators.trail_pix + "0";
 
-                alert(trailPicsQuery);
             if (states.trail_pix){
                 query = shared.url + featQuery + trailPicsQuery + end;
             } else {

@@ -28,7 +28,7 @@
 /* THUMBS */
 
 // <div> including thumbs pagination
-.thumbs-container {
+.popup__footer {
 
   background-color: rgba($c-panel-header, .65);
   bottom: 0;
@@ -76,7 +76,7 @@
 }
 
 // Nearby results tab
-.nearby-tab {
+.popup__footer__tab {
 
   background-color: rgba($c-panel-header,.65);
   border-radius: 10px 10px 0 0;
@@ -95,7 +95,7 @@
 
 }
 
-.icon--nearby {
+.footer__tab__icon {
   $s: 1rem;
   fill: $near-white;
   height: $s;
@@ -149,7 +149,7 @@
   }
 }
 
-.thumbs-container {
+.popup__footer {
   .pagination {
     right: 0;
     left: 0;

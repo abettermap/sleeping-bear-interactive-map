@@ -198,7 +198,7 @@
         };
 
         vm.toggleTrailPicsState = function(){
-            console.log($rootScope.queryStates.features);
+
             if ($rootScope.queryStates.trail_pix){
                 $rootScope.queryStates.trail_pix = false;
             } else {

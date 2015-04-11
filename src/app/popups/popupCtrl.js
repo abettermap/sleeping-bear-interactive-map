@@ -32,12 +32,12 @@
                 vm.imgPgVisible = false;
                 vm.popupNavIcon = '#icon-camera';
                 vm.popupHeader = 'Location Info';
-                vm.typeIcon = '#icon-info';
+                vm.headerTypeIcon = '#icon-info';
             } else {                    // Home/img page
                 vm.imgPgVisible = true;
                 vm.popupNavIcon = '#icon-info';
-                vm.popupHeader = vm.popupImgPgData[vm.selFeatData.layer].header;
-                vm.typeIcon = vm.popupImgPgData[vm.selFeatData.layer].icon;
+                vm.popupHeader = vm.selFeatData.name;
+                vm.headerTypeIcon = '#icon-' + vm.selFeatData.type;
             }
 
         };
@@ -47,37 +47,22 @@
         /* Only need first row */
         vm.selFeatData = selFeatData.rows[0];
 
-        vm.popupImgPgData = {
-            features: {
-                header: vm.selFeatData.name,
-                icon: '#icon-' + vm.selFeatData.type,
-            },
-            commercial: {
-                header: vm.selFeatData.name,
-                icon: '#icon-' + vm.selFeatData.type,
-            },
-            trail_pix: {
-                header: 'Trail Snapshot',
-                icon: '#icon-camera',
-            },
-            faces: {
-                header: 'Faces on the Trail',
-                icon: '#icon-face',
-            },
-            trail_condition: {
-                header: 'Trail Condition',
-                icon: '#icon-cond',
-            },
-        };
-
         /***** Header *****/
-        vm.popupHeader = vm.popupImgPgData[vm.selFeatData.layer].header;
+        vm.popupHeader = vm.selFeatData.name;
 
         // Pages nav icon
         vm.popupNavIcon = '#icon-info';
 
+        // Type icon -- header
+        vm.headerTypeIcon = '#icon-' + vm.selFeatData.type;
+
         // Type icon
-        vm.typeIcon = vm.popupImgPgData[vm.selFeatData.layer].icon;
+        vm.typeIcon = '#icon-' + vm.selFeatData.type;
+
+        vm.directionsUrl = {
+            to: 'https://maps.google.com/maps?daddr=' + vm.selFeatData.lat + ',' + vm.selFeatData.lon,
+            from: 'https://maps.google.com/maps?saddr=' + vm.selFeatData.lat + ',' + vm.selFeatData.lon,
+        };
 
         // Tooltip
         vm.popupNavTooltip = 'View feature info';

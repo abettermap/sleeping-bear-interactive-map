@@ -6,7 +6,8 @@
   }
 
   &.brown-bg {
-    background-color: $c-panel-bg;
+    // background-color: $c-panel-bg;
+    background: url('../img/raster/background.jpg');
     .popup__header {
       background-color: $c-panel-header;
     }

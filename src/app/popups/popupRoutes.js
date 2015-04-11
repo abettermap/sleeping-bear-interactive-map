@@ -37,20 +37,52 @@
                     resolve: {
                         selFeatData: ['$http', '$stateParams', function($http, $stateParams) {
 
+                            // Common
                             var sp = $stateParams,
                                 query,
-                                queries = {
-                                    sharedPrefix: queryPrefix + "cartodb_id, the_geom, filepath, '" + sp.layer + "' AS layer," +
-                                            " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat",
-                                    sharedSuffix: " FROM " + sp.layer + " WHERE cartodb_id = " + sp.cartodb_id,
-                                    features: ", narrative, video_link, audio_link, type, name",
+                                sharedPrefix = "" +
+                                    queryPrefix + "cartodb_id, the_geom, filepath, '" +
+                                    sp.layer + "' AS layer," +
+                                    " ROUND(ST_X(the_geom)::numeric, 5) AS lon," +
+                                    " ROUND(ST_Y(the_geom)::numeric, 5) AS lat,",
+                                sharedSuffix = " FROM " + sp.layer + " WHERE cartodb_id = " + sp.cartodb_id;
+
+                            // Features
+                            var featQuery = "" +
+                                queryPrefix +
+                                " features.cartodb_id," +
+                                " features.the_geom," +
+                                " ROUND(ST_X(features.the_geom)::numeric, 5) AS lon," +
+                                " ROUND(ST_Y(features.the_geom)::numeric, 5) AS lat," +
+                                " features.filepath, " +
+                                " features.seasons," +
+                                " features.type," +
+                                " features.name," +
+                                " narrative, video_link, audio_link," +
+                                " feature_types.name AS type_name," +
+                                " 'features' AS layer" +
+                                " FROM" +
+                                    " features" +
+                                " INNER JOIN" +
+                                    " feature_types" +
+                                " ON" +
+                                    " features.type=feature_types.type" +
+                                " WHERE features.cartodb_id = " + sp.cartodb_id;
+
+                                var queries = {
+                                    features: featQuery,
                                     commercial: 'similar to features',
                                     faces: '',
-                                    trail_pix: '',
+                                    trail_pix: "" +
+                                        sharedPrefix +
+                                        " 'camera' AS type," +
+                                        " 'Trail Snapshot' AS name," +
+                                        " 'Trail Snapshot' AS type_name" +
+                                        sharedSuffix,
                                     trail_condition: ''
                                 };
 
-                            query = queries.sharedPrefix + queries[sp.layer] + queries.sharedSuffix;
+                            query = queries[sp.layer];
 
                             return $http.get(query).then(function(response){
                                 return response.data;
