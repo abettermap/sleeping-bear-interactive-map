@@ -39,11 +39,10 @@
     <svg class="controls__icon" viewBox="0 0 100 100">
         <use xlink:href="#icon-back"></use>
     </svg>
-    <!-- <a id="test" href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.locate()"> -->
     <a id="test" href="javascript:;" class="css-tooltip-right color-blue">
         <span class="tooltip">Zoom to current location via GPS</span>
     </a>
-    <svg class="controls__icon" viewBox="0 0 100 100">
+    <svg class="controls__icon" viewBox="0 0 100 100" ng-class="{'tool-icon--active': vm.gpsIsActive}">
         <use xlink:href="#icon-locate"></use>
     </svg>
     <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.changeTiles()">
@@ -52,5 +51,4 @@
     <svg class="controls__icon" viewBox="0 0 100 100">
         <use ng-attr-xlink:href="{{vm.bgId}}" xlink:href=""></use>
     </svg>
-    <!-- <p style="position: absolute; left: 50px; font-size: 32px;" ng-click="vm.getZoom()">{{vm.currentZoom}}</p> -->
 </nav>

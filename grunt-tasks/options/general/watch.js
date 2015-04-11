@@ -11,7 +11,9 @@ module.exports = {
     sass: {
         files: ['src/assets/scss/**/*.scss',
                 '!src/assets/scss/vendor/**/*.scss',
-                'src/assets/scss/vendor/_vendors.scss'],
+                'src/assets/scss/vendor/_vendors.scss',
+                'src/assets/scss/vendor/_leaflet-gps.scss'
+                ],
         tasks: ['sass', 'autoprefixer:dev']
     },
     scripts: {

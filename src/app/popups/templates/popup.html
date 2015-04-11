@@ -47,15 +47,6 @@
                 <div class="flip flip--infoPg popup-info-pg" ng-show="!vm.imgPgVisible">
                     <div ng-if="vm.selFeatData.layer === 'features'" ng-include="'src/app/popups/templates/popup-info.features.html'"></div>
                     <div ng-if="vm.selFeatData.layer === 'trail_pix'" ng-include="'src/app/popups/templates/popup-info.trail_pix.html'"></div>
-                    <div class="popup__footer">
-                        <div class="popup__footer__tab">
-                            <svg class="footer__tab__icon" viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-share"></use></svg>
-                            Share This
-                        </div>
-                    </div>
-                    <div class="panel__narrative" ng-show="vm.selFeatData.narrative">
-                        <p>{{vm.selFeatData.narrative}}</p>
-                    </div>
                 </div>
             </div>
         </div>

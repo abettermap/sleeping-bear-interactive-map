@@ -6,56 +6,36 @@
         .module('ctrlsModule')
         .controller('CtrlsCtrl', CtrlsCtrl);
 
-    CtrlsCtrl.$inject = ['ctrlsFactory', 'basePath'];
+    CtrlsCtrl.$inject = ['ctrlsFactory', 'basePath', '$rootScope', '$scope'];
 
-    function CtrlsCtrl(ctrlsFactory, basePath){
+    function CtrlsCtrl(ctrlsFactory, basePath, $rootScope, $scope){
 
         var vm = this,
             map = ctrlsFactory.map,
             tileLayers = ctrlsFactory.tileLayers;
 
+        // Toggle bg tiles layer
+        vm.bgId = '#icon-tree';
+        vm.showAerial = false;
+
+
+        // Locate
         addGps(map);
 
-        function addGps(map){
-
-            var gpsCtrl =  new L.Control.Gps({
-                maxZoom: 20,
-                style: {radius: 15, weight:4, color: 'red', fill: false, opacity:0.8}
+        var gpsBtn = angular.element( document.querySelector( '.gps-button' ) );
+        gpsBtn.bind('click', function() {
+            $scope.$apply(function(){
+                vm.gpsIsActive = !vm.gpsIsActive;
             });
-            gpsCtrl._map = map;
-
-            var controlDiv = gpsCtrl.onAdd(map);
-            $('#test').append(controlDiv);
-
-        }
+        });
 
 
-        vm.bgId = '#icon-tree';
-
-        vm.showAerial = false;
-        // vm.svgPath = basePath.url;// + 'src/';
-
-        vm.locate = ctrlsFactory.locate;
-
+        // Others
         vm.zoomHome = ctrlsFactory.zoomHome;
-
         vm.zoomIn = ctrlsFactory.zoomIn;
-
         vm.zoomOut = ctrlsFactory.zoomOut;
 
-        vm.currentZoom = ctrlsFactory.getZoom();
-        vm.getZoom = function(){
-            vm.currentZoom = ctrlsFactory.getZoom();
-        }
-
-
-
-        // vm.changeTiles = ctrlsFactory.changeTiles;
         vm.changeTiles = function(){
-
-            // var layerName = current.toString(),
-            //     newLayer = '',
-            //     currentLayer = '';
 
             vm.showAerial = !vm.showAerial;
 
@@ -71,17 +51,29 @@
                 tileLayers.terrain.bringToBack();
             }
 
-            // for (var key in tileLayers) {
-            //     if (key === layerName){
-            //         newLayer = key;
-            //     } else {
-            //         currentLayer = key;
-            //     }
-            // }
+        };
 
-            // map.removeLayer(tileLayers[currentLayer]);
-            // map.addLayer(tileLayers[newLayer]);
-            // tileLayers[newLayer].bringToBack();
+        function addGps(map){
+
+            var tempMarker = L.marker([0,0],{
+                iconSize: [25,25],
+                icon: L.divIcon({
+                    className: 'current-location-icon',
+                    html: "<svg viewBox='0 0 100 100'>" +
+                        "<use xlink:href='#icon-locate'></use></svg>"
+                }),
+                // iconAnchor: [-216, 16]
+            });
+
+            var gpsCtrl =  new L.Control.Gps({
+                maxZoom: 20,
+                marker: tempMarker,
+                style: {radius: 15, weight:4, color: 'red', fill: false, opacity:0.8}
+            });
+            gpsCtrl._map = map;
+
+            var controlDiv = gpsCtrl.onAdd(map);
+            $('#test').append(controlDiv);
 
         }
 

@@ -181,8 +181,8 @@ $a-trans-fill: fill 250ms ease;
   position: absolute;
   visibility: hidden;
   width: 50px;
-
 }
+
 .controls__checkbox:checked ~ .css-tooltip-right {
   background: transparent;
   display: inline-block !important;
@@ -194,6 +194,7 @@ $a-trans-fill: fill 250ms ease;
     }
   }
 }
+
 // Non-toolbox icons when checked
 .controls__checkbox:checked ~ .controls__icon,
 .controls__checkbox:checked ~ .css-tooltip-right {
@@ -226,4 +227,13 @@ $a-trans-fill: fill 250ms ease;
     }
   }
 
+}
+
+// "Locate" tool icon when active
+.tool-icon--active {
+  fill: $c-icon-hover;
+}
+
+#test {
+  z-index: 5;
 }
