@@ -46,8 +46,8 @@
                 // Add interaction
                 cdb.vis.Vis.addCursorInteraction(map, layer);
 
-                layer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data, layerNumber){
-                    doThisWhenTrailClicked(e, latlng, pos, data, layerNumber);
+                layer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data){
+                    doThisWhenTrailClicked(e, latlng, pos, data);
                 });
 
                 // Create remaining sublayers
@@ -60,7 +60,7 @@
 
     	}
 
-        function doThisWhenTrailClicked(e, latlng, pos, data, layerNumber){
+        function doThisWhenTrailClicked(e, latlng, pos, data){
 
             var coords = [latlng[0], latlng[1]],
                 states = $rootScope.queryStates;
@@ -100,16 +100,16 @@
             layer.createSubLayer({
               cartocss: cdbValues.gradeSublayer.cartocss,
               sql: cdbValues.gradeSublayer.sql,
-            }).on('featureClick', function(e, latlng, pos, data, layerNumber){
-                doThisWhenTrailClicked(e, latlng, pos, data, layerNumber);
+            }).on('featureClick', function(e, latlng, pos, data){
+                doThisWhenTrailClicked(e, latlng, pos, data);
             });;
 
             // Caution overlay (index: 2)
             layer.createSubLayer({
               cartocss: cdbValues.cautionSublayer.cartocss,
               sql: cdbValues.cautionSublayer.sql,
-            }).on('featureClick', function(e, latlng, pos, data, layerNumber){
-                doThisWhenTrailClicked(e, latlng, pos, data, layerNumber);
+            }).on('featureClick', function(e, latlng, pos, data){
+                doThisWhenTrailClicked(e, latlng, pos, data);
             });;
 
             /***** POINTS *****/
@@ -142,8 +142,6 @@
             layersFactory.sublayers.sbht_caution   = layer.getSubLayer(2);
             layersFactory.sublayers.features  = layer.getSubLayer(3);
             // layersFactory.commercial = layer.getSubLayer(4);
-            // layersFactory.trailPics = layer.getSubLayer(5);
-            // layersFactory.faces     = layer.getSubLayer(6);
             // layersFactory.trailCond = layer.getSubLayer(7);
 
             /***** CLICK FUNCTIONALITY *****/

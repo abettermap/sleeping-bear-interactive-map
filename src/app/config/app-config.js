@@ -50,15 +50,14 @@
 
                 // Let's keep track of these, hey?
                 $rootScope.queryStates = {
-                    caution: false,
+                    sbht_caution: false,
                     commercial: ["''"],
                     faces: false,
                     features: ["'mainpoints'"],
-                    grade: false,
+                    sbht_grade: false,
                     season: 3,
                     trail_condition: false,
-                    trail_pix: true,
-                    tester: 'tester'
+                    trail_pix: true
                 };
 
                 $stateParams.seasons = $rootScope.queryStates.season;

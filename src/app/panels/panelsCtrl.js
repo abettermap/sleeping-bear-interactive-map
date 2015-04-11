@@ -190,8 +190,19 @@
                 operator = "=";
             }
 
-            var query = "SELECT the_geom_webmercator, cartodb_id FROM " + overlay.layer +
-                    " WHERE cartodb_id " + operator + " 0";
+            var query,
+                queries = {
+                    prefix: "SELECT the_geom_webmercator, cartodb_id,",
+                    sbht_grade: "" +
+                        " grade, 'sbht_grade' as layer",
+                    sbht_caution: "" +
+                        " type, 'sbht_caution' as layer",
+                    suffix: "" +
+                        " FROM " + overlay.layer +
+                        " WHERE cartodb_id " + operator + " 0"
+                };
+
+            query = queries.prefix + queries[overlay.layer] + queries.suffix;
 
             layersFactory.sublayers[overlay.layer].setSQL(query);
 

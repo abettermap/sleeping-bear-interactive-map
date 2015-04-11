@@ -43,12 +43,41 @@
                 }
             ],
             gradeSublayer: {
-                cartocss: "#sbht_grade{line-color: red; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
-                sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_grade WHERE cartodb_id = 0",
+                cartocss: "" +
+                    "#sbht_grade{line-color: red; line-width: 4; line-opacity: .76; line-join: round;}" +
+                    "#sbht_grade::labels[zoom >= 14]{" +
+                      "text-name: [grade];" +
+                      "text-face-name: 'DejaVu Sans Book';" +
+                      "text-size: 11;" +
+                      "text-opacity: 1;" +
+                      "text-label-position-tolerance: 0;" +
+                      "text-fill: #fff;" +
+                      "text-halo-fill: rgba(255,0,0,.6);" +
+                      "text-halo-radius: 3;" +
+                      "text-dy: 10;" +
+                      "text-allow-overlap: true;" +
+                      "text-placement: line;" +
+                    "}",
+                sql: "SELECT the_geom_webmercator, cartodb_id, grade FROM sbht_grade WHERE cartodb_id = 0",
             },
             cautionSublayer: {
-                cartocss: "#sbht_caution{line-color: yellow; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
-                sql: "SELECT the_geom_webmercator, cartodb_id FROM sbht_caution WHERE cartodb_id = 0",
+                cartocss: "" +
+                    "#sbht_caution{line-color: yellow; line-width: 4; line-opacity: .76; line-join: round;}" +
+                    "#sbht_caution::labels[zoom >= 14]{" +
+                      "text-name: [type];" +
+                      "text-face-name: 'DejaVu Sans Book';" +
+                      "text-size: 11;" +
+                      "text-opacity: .85;" +
+                      "text-label-position-tolerance: 0;" +
+                      "text-fill: #000;" +
+                      "text-halo-fill: rgba(255,255,0,.6);" +
+                      "text-halo-radius: 2;" +
+                      "text-dy: 10;" +
+                      "text-allow-overlap: true;" +
+                      "text-placement: line;" +
+                      // "text-placement-type: dummy;" +
+                    "}",
+                sql: "SELECT the_geom_webmercator, cartodb_id, type FROM sbht_caution WHERE cartodb_id = 0",
             },
             commSublayer: {
                 sql: "SELECT the_geom_webmercator, cartodb_id FROM commercial",
