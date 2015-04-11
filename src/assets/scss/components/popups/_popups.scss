@@ -2,7 +2,7 @@
 .popup {
 
   @include mq($from: tablet) {
-    border-radius: 8px;
+    border-radius: 8px 8px 4px 4px;
   }
 
   &.brown-bg {

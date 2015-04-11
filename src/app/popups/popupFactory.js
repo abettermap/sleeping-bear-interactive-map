@@ -120,24 +120,75 @@
                 sql = shared.sql + " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist,",
                 seasonsString = "substring(seasons," + states.season + ",1) = 'y'",
                 end = " ORDER BY dist LIMIT 1",
-                nonPoiStatus = {
-                    faces: states.faces,
+                nonPoiOperators = {
+                    faces: '',
                     trail_condition: '',
                     trail_pix: '',
                 };
 
+            /* Ghetto, but use > or = when non-POI enabled/disabled to look for CDB = 0 */
+            if (states.faces){
+                nonPoiOperators.faces = '>';
+            } else {
+                nonPoiOperators.faces = '=';
+            }
+
+            if (states.trail_pix){
+                nonPoiOperators.trail_pix = '>';
+            } else {
+                nonPoiOperators.trail_pix = '=';
+            }
+
+            if (states.trail_condition){
+                nonPoiOperators.trail_condition = '>';
+            } else {
+                nonPoiOperators.trail_condition = '=';
+            }
+
             // Features
-            var featQuery = sql +
-                    " 'features' AS layer" +
-                    " FROM features WHERE type IN(" + states.features + ")" +
-                    " AND " + seasonsString;
+            var featQuery = "" +
+                "SELECT" +
+                    " features.cartodb_id," +
+                    " features.the_geom," +
+                    " features.the_geom_webmercator," +
+                    " FLOOR(ST_Distance(features.the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist," +
+                    " ST_X(features.the_geom) AS lon," +
+                    " ST_Y(features.the_geom) AS lat," +
+                    " features.filepath, " +
+                    " features.seasons," +
+                    " features.type," +
+                    " feature_types.name AS type_name," +
+                    "' features' AS layer" +
+                " FROM" +
+                    " features" +
+                " INNER JOIN" +
+                    " feature_types" +
+                " ON" +
+                    " features.type=feature_types.type" +
+                " WHERE " + seasonsString +
+                " AND features.type IN(" + states.features + ")";
 
             // Trail pics
-            var trailPicsQuery = ' UNION ALL ' + sql +
+            var trailPicsQuery = "" +
+                " UNION ALL" +
+                " SELECT" +
+                    " cartodb_id," +
+                    " the_geom," +
+                    " the_geom_webmercator," +
+                    " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist," +
+                    " ST_X(the_geom) AS lon," +
+                    " ST_Y(the_geom) AS lat," +
+                    " filepath, " +
+                    " seasons," +
+                    " 'camera' AS type," +
+                    " 'Trail Snapshot' AS type_name," +
                     " 'trail_pix' AS layer" +
-                    " FROM trail_pix" +
-                    " WHERE " + seasonsString;
+                " FROM" +
+                    " trail_pix" +
+                " WHERE " + seasonsString +
+                " AND cartodb_id " + nonPoiOperators.trail_pix + "0";
 
+                alert(trailPicsQuery);
             if (states.trail_pix){
                 query = shared.url + featQuery + trailPicsQuery + end;
             } else {

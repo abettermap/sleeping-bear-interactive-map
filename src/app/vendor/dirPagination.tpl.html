@@ -1,12 +1,8 @@
 <ul class="pagination" ng-if="1 < pages.length">
-    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }" class="ng-scope popup-nav">
-        <a href="" ng-click="setCurrent(pagination.current - 1)" class="ng-binding">
-            <span>‹</span>
-        </a>
+    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }" class="ng-scope pagination-arrow-container">
+        <a class="pagination-arrow" href="javascript:;" ng-click="setCurrent(pagination.current - 1)" class="ng-binding">‹</a>
     </li>
-    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }" class="ng-scope popup-nav">
-        <a href="" ng-click="setCurrent(pagination.current + 1)" class="ng-binding">
-            <span>›</span>
-        </a>
+    <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }" class="ng-scope pagination-arrow-container">
+        <a class="pagination-arrow" href="javascript:;" ng-click="setCurrent(pagination.current + 1)" class="ng-binding">›</a>
     </li>
 </ul>

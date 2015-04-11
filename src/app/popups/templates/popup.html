@@ -31,17 +31,16 @@
                             <svg class="icon--nearby" viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-nearby"></use></svg>
                             Nearby
                         </div>
+                        <dir-pagination-controls pagination-id="thumbs"></dir-pagination-controls>
                         <ul class="thumbnail-list">
                             <li dir-paginate="img in vm.thumbsData | itemsPerPage: 5" pagination-id="thumbs" class="thumb" ng-animate-children>
                                 <a class="thumbnail" title="{{img.path}}"
                                     ng-click="vm.resetPopup(img.path, img.attribs)"
                                     ng-style="{'background-image': 'url(' + img.path + ')'}">
-                                    <!-- <img ng-src="{{img.path}}"> -->
                                     <span class="thumb-distance">{{img.attribs.dist}}</span>
                                 </a>
                             </li>
                         </ul>
-                        <dir-pagination-controls pagination-id="thumbs"></dir-pagination-controls>
                     </div>
                 </div>
                 <!-- INFO PAGE -->
