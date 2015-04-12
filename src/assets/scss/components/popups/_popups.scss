@@ -16,6 +16,7 @@
 
   &__box {
     @extend %panel__box;
+    min-height: 100%;
   }
 
 }

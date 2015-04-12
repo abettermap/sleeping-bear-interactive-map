@@ -11,9 +11,15 @@
     function PopupCtrl($log, $timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state, mapFactory){
 
         var vm = this,
-            sp = $stateParams; // too much to type
+            sp = $stateParams;
 
+        // Current seasons
         vm.currentSeason = $rootScope.queryStates.season;
+
+        /********** DATA FOR SELECTED FEATURE **********/
+
+        /* Only need first row */
+        vm.selFeatData = selFeatData.rows[0];
 
 
         /******************************/
@@ -23,10 +29,13 @@
         /* Active popup */
         vm.imgPgVisible = true;
 
-        vm.setPopupPg = function(){
+        // Show image page when true
+        vm.showPopupInfo = 'false';
 
-            // Does this always work?
-            vm.currentUrl = "mailto:?subject=Check out this SBHT feature!&body=" + window.location.href;
+        // Does this always work?
+        vm.currentUrl = "mailto:?subject=Check out this SBHT feature!&body=" + window.location.href;
+
+        vm.setPopupPg = function(){
 
             if (vm.imgPgVisible){       // Info page
                 vm.imgPgVisible = false;
@@ -35,11 +44,6 @@
             }
 
         };
-
-        /********** DATA FOR SELECTED FEATURE **********/
-
-        /* Only need first row */
-        vm.selFeatData = selFeatData.rows[0];
 
         /***** Header *****/
         vm.popupHeader = vm.selFeatData.name;
@@ -53,16 +57,44 @@
         // Type icon
         vm.typeIcon = '#icon-' + vm.selFeatData.type;
 
-        vm.directionsUrl = {
-            to: 'https://maps.google.com/maps?daddr=' + vm.selFeatData.lat + ',' + vm.selFeatData.lon,
-            from: 'https://maps.google.com/maps?saddr=' + vm.selFeatData.lat + ',' + vm.selFeatData.lon,
-        };
+        // Social links
+        vm.socialLinkList = [
+            {
+                name: 'email',
+                caption: 'Share this exact location on ...',
+                icon: '#icon-email',
+                url: vm.currentUrl,
+            },
+            {
+                name: 'email',
+                caption: 'Share this exact location on ...',
+                icon: '#icon-facebook',
+                url: vm.currentUrl,
+            },
+            {
+                name: 'email',
+                caption: 'Share this exact location on ...',
+                icon: '#icon-twitter',
+                url: vm.currentUrl,
+            },
+            {
+                name: 'email',
+                caption: 'Share this exact location on ...',
+                icon: '#icon-google',
+                url: vm.currentUrl,
+            },
+            {
+                name: 'email',
+                caption: 'Share this exact location on ...',
+                icon: '#icon-link',
+                url: vm.currentUrl,
+            },
+        ];
+
+        vm.directionsUrl = 'https://maps.google.com/maps?daddr=' + vm.selFeatData.lat + ',' + vm.selFeatData.lon;
 
         // Tooltip
         vm.popupNavTooltip = 'View feature info';
-
-        // Show image page when true
-        vm.showPopupInfo = 'false';
 
         /******************************/
         /****** TEMP CAMERA ICON ******/

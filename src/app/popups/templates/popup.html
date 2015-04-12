@@ -8,7 +8,7 @@
                 </svg>
             </a>
             <span class="popup__header--inner">
-                <svg class="popup-icon--type no-hover popup-icon-sm" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+                <svg class="popup-icon--type no-hover popup-icon-sm" viewBox="0 0 100 100">
                     <use ng-attr-xlink:href="{{vm.headerTypeIcon}}" xlink:href=""></use>
                 </svg>
                 <span>{{vm.selFeatData.name}}</span>
@@ -50,7 +50,7 @@
         <div class="blurred-bg"ng-style="{'background-image':'url(' + vm.activeImages[0] + ')'}"></div>
         <h2 class="popup__header popup__header--opaque">
             <a class="btn" href="javascript:;" ng-click="vm.setPopupPg()">
-                <svg class="popup-icon--type no-hover" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+                <svg class="popup-icon--type no-hover" viewBox="0 0 100 100">
                     <use xlink:href="#icon-camera"></use>
                 </svg>
             </a>
@@ -65,10 +65,8 @@
             </a>
         </h2>
         <div class="popup__inner">
-            <div class="popup__box">
-                <div class="popup-info-pg__content" ng-if="vm.selFeatData.layer === 'features'" ng-include="'src/app/popups/templates/popup-info.features.html'"></div>
-                <div class="popup-info-pg__content" ng-if="vm.selFeatData.layer === 'trail_pix'" ng-include="'src/app/popups/templates/popup-info.trail_pix.html'"></div>
-            </div>
+            <div class="popup__box" ng-if="vm.selFeatData.layer === 'features'" ng-include="'src/app/popups/templates/popup-info.features.html'"></div>
+            <div class="popup__box" ng-if="vm.selFeatData.layer === 'trail_pix'" ng-include="'src/app/popups/templates/popup-info.trail_pix.html'"></div>
         </div>
         <div class="popup__footer popup__footer--opaque">
             <div class="popup__footer__tab">
@@ -77,6 +75,15 @@
                 </svg>
                 Share This
             </div>
+            <ul class="link-sharing-list">
+                <li ng-repeat="link in vm.socialLinkList">
+                    <a class="btn btn--share" target='_blank' ng-href="{{link.url}}" title="{{link.caption}}" class="btn">
+                        <svg class="icon--share" viewBox="0 0 100 100" >
+                            <use ng-attr-xlink:href="{{link.icon}}" xlink:href=""></use>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
