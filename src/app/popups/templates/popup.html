@@ -1,53 +1,81 @@
 <div class="popup" ng-class="{'blue-bg': vm.imgPgVisible, 'brown-bg': !vm.imgPgVisible}">
-    <h2 class="popup__header">
-        <a class="btn" href="javascript:;" ng-click="vm.setPopupPg()">
-            <svg class="popup-icon--type no-hover" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
-                <use ng-attr-xlink:href="{{vm.popupNavIcon}}" xlink:href=""></use>
-            </svg>
-        </a>
-        <span class="popup__header--inner">
-            <svg class="popup-icon--type no-hover popup-icon-sm" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
-                <use ng-attr-xlink:href="{{vm.headerTypeIcon}}" xlink:href=""></use>
-            </svg>
-            <span>{{vm.popupHeader}}</span>
-        </span>
-        <a class="popup__close btn" ui-sref="popup" ui-sref-opts="{reload: true}" href="#map">
-            <svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use></svg>
-        </a>
-    </h2>
-    <div class="popup__inner">
-        <div class="popup__box">
-            <div class="popup__row">
+    <!-- FADED BG IMAGE -->
+    <div class="flip popup__page--img" ng-show="vm.imgPgVisible">
+        <h2 class="popup__header">
+            <a class="btn" href="javascript:;" ng-click="vm.setPopupPg()">
+                <svg class="popup-icon--type no-hover" viewBox="0 0 100 100">
+                    <use xlink:href="#icon-info"></use>
+                </svg>
+            </a>
+            <span class="popup__header--inner">
+                <svg class="popup-icon--type no-hover popup-icon-sm" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+                    <use ng-attr-xlink:href="{{vm.headerTypeIcon}}" xlink:href=""></use>
+                </svg>
+                <span>{{vm.selFeatData.name}}</span>
+            </span>
+            <a class="popup__close btn" ui-sref="popup" ui-sref-opts="{reload: true}" href="#map">
+                <svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use></svg>
+            </a>
+        </h2>
+        <div class="popup__inner popup__inner--img-pg">
+            <div class="popup__box">
                 <!-- IMAGE PAGE -->
-                <div class="flip flip--imgPg" ng-show="vm.imgPgVisible">
-                    <div class="active-img-container"
-                        dir-paginate="img in vm.activeImages | itemsPerPage: 1"
-                        pagination-id="mainImg">
-                        <div class="active-img" ng-style="{'background-image':'url(' + img + ')'}"></div>
-                    </div>
-                    <dir-pagination-controls pagination-id="mainImg"></dir-pagination-controls>
-                    <div class="popup__footer">
-                        <div class="popup__footer__tab">
-                            <svg class="footer__tab__icon" viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-nearby"></use></svg>
-                            Nearby
-                        </div>
-                        <dir-pagination-controls pagination-id="thumbs"></dir-pagination-controls>
-                        <ul class="thumbnail-list">
-                            <li dir-paginate="img in vm.thumbsData | itemsPerPage: 5" pagination-id="thumbs" class="thumb" ng-animate-children>
-                                <a class="thumbnail" title="{{img.path}}"
-                                    ng-click="vm.resetPopup(img.path, img.attribs)"
-                                    ng-style="{'background-image': 'url(' + img.path + ')'}">
-                                    <span class="thumb-distance">{{img.attribs.dist}}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="active-img-container"
+                    dir-paginate="img in vm.activeImages | itemsPerPage: 1"
+                    pagination-id="mainImg">
+                    <div class="active-img" ng-style="{'background-image':'url(' + img + ')'}"></div>
                 </div>
-                <!-- INFO PAGE -->
-                <div class="flip flip--infoPg popup-info-pg" ng-show="!vm.imgPgVisible">
-                    <div ng-if="vm.selFeatData.layer === 'features'" ng-include="'src/app/popups/templates/popup-info.features.html'"></div>
-                    <div ng-if="vm.selFeatData.layer === 'trail_pix'" ng-include="'src/app/popups/templates/popup-info.trail_pix.html'"></div>
+                <dir-pagination-controls pagination-id="mainImg"></dir-pagination-controls>
+                <div class="popup__footer">
+                    <div class="popup__footer__tab">
+                        <svg class="footer__tab__icon" viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-nearby"></use></svg>
+                        Nearby
+                    </div>
+                    <dir-pagination-controls pagination-id="thumbs"></dir-pagination-controls>
+                    <ul class="thumbnail-list">
+                        <li dir-paginate="img in vm.thumbsData | itemsPerPage: 5" pagination-id="thumbs" class="thumb" ng-animate-children>
+                            <a class="thumbnail" title="{{img.path}}"
+                                ng-click="vm.resetPopup(img.path, img.attribs)"
+                                ng-style="{'background-image': 'url(' + img.path + ')'}">
+                                <span class="thumb-distance">{{img.attribs.dist}}</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- INFO PAGE -->
+    <div class="flip popup__page-info" ng-show="!vm.imgPgVisible">
+        <div class="blurred-bg"ng-style="{'background-image':'url(' + vm.activeImages[0] + ')'}"></div>
+        <h2 class="popup__header popup__header--opaque">
+            <a class="btn" href="javascript:;" ng-click="vm.setPopupPg()">
+                <svg class="popup-icon--type no-hover" viewBox="0 0 100 100" ng-show="vm.showPopupInfo">
+                    <use xlink:href="#icon-camera"></use>
+                </svg>
+            </a>
+            <span class="popup__header--inner">
+                <svg class="popup-icon--type no-hover popup-icon-sm" viewBox="0 0 100 100">
+                    <use xlink:href="#icon-info"></use>
+                </svg>
+                <span>Location Info</span>
+            </span>
+            <a class="popup__close btn" ui-sref="popup" ui-sref-opts="{reload: true}" href="#map">
+                <svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use></svg>
+            </a>
+        </h2>
+        <div class="popup__inner">
+            <div class="popup__box">
+                <div class="popup-info-pg__content" ng-if="vm.selFeatData.layer === 'features'" ng-include="'src/app/popups/templates/popup-info.features.html'"></div>
+                <div class="popup-info-pg__content" ng-if="vm.selFeatData.layer === 'trail_pix'" ng-include="'src/app/popups/templates/popup-info.trail_pix.html'"></div>
+            </div>
+        </div>
+        <div class="popup__footer popup__footer--opaque">
+            <div class="popup__footer__tab">
+                <svg class="footer__tab__icon" viewBox="0 0 100 100">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-share"></use>
+                </svg>
+                Share This
             </div>
         </div>
     </div>

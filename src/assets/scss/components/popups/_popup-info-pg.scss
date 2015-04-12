@@ -3,10 +3,6 @@
 // Top-level layout stuff
 .popup-info-pg {
   text-align: center;
-  // position: absolute; 
-  .popup__footer {
-
-  }
 }
 
 // Name, or type if no name
@@ -20,6 +16,41 @@
 
 .popup-info-pg__main-header {
   // border-bottom: dashed gray 1px;
+}
+.popup-info-pg {
+  // background-color: rgba($c-panel-bg, .8);
+  padding: 1.2rem;
+}
+
+// Blurry background experiment
+.blurred-bg {
+
+  transition: opacity 10s ease-out;
+  &.ng-hide-add.ng-hide-add-active {
+    // animation: $a-poi-trans-dur slideOutLeft ease;
+    transition: none;
+  }
+
+  &.ng-hide {
+    opacity: 0;
+  }
+
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  filter: sepia(.95) blur(2px);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.popup-info-pg__content {
+  padding: 1.2rem;
+  margin-top: 3.2rem;
+  background-color: rgba($c-panel-bg, .87);
+  text-align: center;
 }
 
 // The little guys

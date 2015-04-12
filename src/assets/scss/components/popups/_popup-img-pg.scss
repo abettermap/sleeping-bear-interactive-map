@@ -140,13 +140,12 @@
 
     line-height: .25;
 
-      padding: .94rem .3rem .94rem .5rem;
+    padding: .94rem .3rem .94rem .5rem;
     color: $near-white;
-  // padding: 1rem;
-  background-color: rgba(lighten($c-btn-bg, 10%),.85);
-  border-color: lighten($c-btn-bg, 10%);
-    text-decoration: none;
-  }
+    background-color: rgba(lighten($c-btn-bg, 10%),.85);
+    border-color: lighten($c-btn-bg, 10%);
+      text-decoration: none;
+    }
 }
 
 .popup__footer {
@@ -174,6 +173,12 @@
         border-radius: 1.75rem 0 0 1.75rem;
         padding: .74rem .25rem .94rem .35rem;
       }
+    }
+  }
+  &--opaque {
+    background-color: $c-panel-header;
+    .popup__footer__tab {
+      background-color: inherit;
     }
   }
 }

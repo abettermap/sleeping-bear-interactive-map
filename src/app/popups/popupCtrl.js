@@ -30,14 +30,8 @@
 
             if (vm.imgPgVisible){       // Info page
                 vm.imgPgVisible = false;
-                vm.popupNavIcon = '#icon-camera';
-                vm.popupHeader = 'Location Info';
-                vm.headerTypeIcon = '#icon-info';
             } else {                    // Home/img page
                 vm.imgPgVisible = true;
-                vm.popupNavIcon = '#icon-info';
-                vm.popupHeader = vm.selFeatData.name;
-                vm.headerTypeIcon = '#icon-' + vm.selFeatData.type;
             }
 
         };

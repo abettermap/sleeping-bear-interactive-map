@@ -2,29 +2,14 @@
 .popup {
 
   @include mq($from: tablet) {
-    border-radius: 8px 8px 4px 4px;
+    border-radius: 1px;
   }
 
-  &.brown-bg {
-    // background-color: $c-panel-bg;
-    background: url('../img/raster/background.jpg');
-    .popup__header {
-      background-color: $c-panel-header;
-    }
-  }
-
-  &.blue-bg {
-    background-color: lighten($c-panel-header, 20%);
-  }
+  background-color: lighten($c-panel-header, 20%);
 
   &__inner {
-
     @extend %panel__inner;
     top: 0;
-    @include mq($from: mobile, $and: '(min-device-height: 481px)') {
-      top: 3.1rem;
-    }
-
     display: block;
 
   }
@@ -33,18 +18,12 @@
     @extend %panel__box;
   }
 
-  &__row {
-
-    padding: 1.2rem;
-
-  }
-
 }
 
 .flip {
 
   transform-style: preserve-3d;
-  transition: 1s ease-out;
+  transition: 750ms ease-out;
 
   // Keep it backwards when hidden
   &.ng-hide {
@@ -52,43 +31,33 @@
     transform: rotateY(180deg);
   }
 
-  &--infoPg {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
 
-    margin-top: 3.3rem;
-
+  &.popup__page--img {
     &.ng-hide-add.ng-hide-add-active {
       backface-visibility: visible;
-      transform: rotateY(-180deg);
-      // transition: none;
+      transform: rotateY(0deg);
     }
-
-    @include mq($from: mobile, $and: '(min-device-height: 481px)') {
-      margin-top: 0;
-    }
-
   }
 
-  &--imgPg {
-
-    // Has to be absolute
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    @include mq($from: mobile, $and: '(min-device-height: 481px)') {
-      top: -2px;
-    }
-
+  &.popup__page--info {
     &.ng-hide-add.ng-hide-add-active {
       backface-visibility: visible;
-      transform: rotateY(-180deg);
-      // transition: none;
+      transform: rotateY(0deg);
     }
-
   }
 
+}
+
+.popup__inner--img-pg {
+  @include mq($from: mobile, $and: '(min-device-height: 481px)') {
+   top: 3.1rem;
+  }
 }
 
 /* The main header */
@@ -97,6 +66,9 @@
   @extend %panel__header;
 
   background-color: rgba($c-panel-header, .65);
+  &.popup__header--opaque {
+    background-color: $c-panel-header;
+  }
   border-bottom: solid darken($c-panel-header, 5%) 1px;
   padding: .5rem;
   position: absolute;
@@ -107,7 +79,7 @@
   }
 
   @include mq($from: tablet) {
-    border-radius: 8px 8px 0 0;
+    border-radius: 1px 1px 0 0;
   }
 
   &--inner {
