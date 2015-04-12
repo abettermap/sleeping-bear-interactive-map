@@ -194,10 +194,12 @@
   flex: 1;
   font-size: 1rem;
   left: 0;
-  overflow: auto;
   position: absolute;
+  overflow-x: auto;
   right: 0;
   top: 3.2rem;
+  overflow-y: scroll; /* has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;
 }
 
 %panel__box {
@@ -207,7 +209,6 @@
   &::-webkit-scrollbar {
       display: none;
   }
-
 }
 
 %panel__row {

@@ -11,7 +11,6 @@
     @extend %panel__inner;
     top: 0;
     display: block;
-
   }
 
   &__box {
@@ -90,6 +89,7 @@
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;
+
   }
 
 }

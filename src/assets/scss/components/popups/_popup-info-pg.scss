@@ -56,8 +56,8 @@
   background-color: rgba($c-panel-bg, .87);
   text-align: center;
   min-height: 100%;
-  // overflow-y: scroll; /* has to be scroll, not auto */
-  -webkit-overflow-scrolling: touch;
+  // overflow-y: inherit; /* has to be scroll, not auto */
+  // -webkit-overflow-scrolling: inherit;
 }
 
 // The little guys
