@@ -28,9 +28,9 @@
   // Keep it backwards when hidden
   &.ng-hide {
     opacity: 0;
-    transform: rotateY(180deg);
+    // transform: rotateY(180deg);
   }
-
+  opacity: 1;
   height: 100%;
   left: 0;
   position: absolute;
@@ -41,14 +41,20 @@
   &.popup__page--img {
     &.ng-hide-add.ng-hide-add-active {
       backface-visibility: visible;
-      transform: rotateY(0deg);
+      transform: rotateY(180deg);
+      .popup__inner {
+        overflow: hidden;
+      }
     }
   }
 
   &.popup__page--info {
     &.ng-hide-add.ng-hide-add-active {
       backface-visibility: visible;
-      transform: rotateY(0deg);
+      transform: rotateY(-180deg);
+      .popup__inner {
+        overflow: hidden;
+      }
     }
   }
 
@@ -56,7 +62,7 @@
 
 .popup__inner--img-pg {
   @include mq($from: mobile, $and: '(min-device-height: 481px)') {
-   top: 3.1rem;
+   top: 3rem;
   }
 }
 

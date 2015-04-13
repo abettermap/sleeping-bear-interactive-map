@@ -6,9 +6,9 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$log', '$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$state', 'mapFactory'];
+    PopupCtrl.$inject = ['$sce', '$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$state', 'mapFactory'];
 
-    function PopupCtrl($log, $timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state, mapFactory){
+    function PopupCtrl($sce, $timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state, mapFactory){
 
         var vm = this,
             sp = $stateParams;
@@ -38,12 +38,96 @@
         vm.setPopupPg = function(){
 
             if (vm.imgPgVisible){       // Info page
+
                 vm.imgPgVisible = false;
+
+
+
             } else {                    // Home/img page
                 vm.imgPgVisible = true;
             }
 
         };
+
+
+        // Get seasons ready
+        var seasons = vm.selFeatData.seasons;
+
+        // Run if it exists (POI only)
+        if (seasons){
+            seasonsAvailable(seasons);
+        }
+
+        function seasonsAvailable(seasons){
+
+            var obj = {
+                0: {
+                    name: 'Winter',
+                    open: null,
+                    icon: '#icon-winter',
+                    classNm: 'winter',
+                },
+                1: {
+                    name: 'Spring',
+                    open: null,
+                    icon: '#icon-spring',
+                    classNm: 'spring',
+                },
+                2: {
+                    name: 'Summer',
+                    open: null,
+                    icon: '#icon-summer',
+                    classNm: 'summer',
+                },
+                3: {
+                    name: 'Fall',
+                    open: null,
+                    icon: '#icon-fall',
+                    classNm: 'fall',
+                },
+            };
+
+            for (var i = 0; i < 4; i++) {
+                if (seasons.substring(i,i+1) === 'y'){
+                    obj[i].open = true;
+                    // obj[i].classNm = 'available-seasons__icon available';
+                    obj[i].classNm = 'available-seasons__icon ' + obj[i].classNm;
+                } else {
+                    obj[i].open = false;
+                    obj[i].classNm = 'available-seasons__icon';
+                }
+            }
+
+            vm.availableSeasons = obj;
+
+        }
+
+        /***** Trust video URLs *****/
+        vm.allowVideo = function (url) {
+          vm.videoUrl = $sce.trustAsResourceUrl(url);
+        }
+
+        var video = vm.selFeatData.video_link;
+
+        // Run if it exists (POI only)
+        if (video){
+            vm.allowVideo(video);
+        }
+
+        /***** Trust audio URLs *****/
+        vm.allowAudio = function (url) {
+
+          vm.audioUrl = $sce.trustAsResourceUrl(url);
+
+        };
+
+        var audio = vm.selFeatData.audio_link;
+
+        // Run if it exists (POI only)
+        if (audio){
+            audio = "https://w.soundcloud.com/player/?url=" + audio + "&amp;color=4285c2&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_playcount=false&amp;show_artwork=false&amp;show_user=false&amp;show_reposts=false";
+            vm.allowAudio(audio);
+        }
 
         /***** Header *****/
         vm.popupHeader = vm.selFeatData.name;
@@ -95,6 +179,7 @@
 
         // Tooltip
         vm.popupNavTooltip = 'View feature info';
+
 
         /******************************/
         /****** TEMP CAMERA ICON ******/

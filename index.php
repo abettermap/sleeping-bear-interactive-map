@@ -10,7 +10,7 @@
         <!-- Place favicon.ico in the root directory -->
 
         <!-- <link rel="stylesheet" href="css/normalize.css"> -->
-        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Average+Sans">
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Average+Sans|Brawler">
         <link rel="stylesheet" href="src/assets/css/map-style.css">
         <!-- <script src="js/vendor/modernizr-2.8.3.min.js"></script> -->
 
@@ -73,7 +73,7 @@
             </defs>
         </svg>
         <!-- AngularJS -->
-        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
 
         <!-- Angular ui.router -->
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>

@@ -3,26 +3,23 @@
 // Top-level layout stuff
 .popup-info-pg {
   padding: 1.2rem;
-  text-align: center;
 }
 
 // Name, or type if no name
-.popup-info-pg__main-heading {
-  border-bottom: dashed gray 1px;
-  padding-bottom: .5rem;
-  font-size: 1.8rem;
+.popup-info-pg__title {
+  color: #38629c;
+  font-family: Brawler, serif;
+  font-weight: 100;
+  font-size: 2.2rem;
   line-height: 1.1;
   margin: 0;
 }
 
-.popup-info-pg__main-header {
-  // border-bottom: dashed gray 1px;
-}
-
 .divider {
-  fill: brown;
+  fill: desaturate(tan,10%);
   width: 100%;
-  height: 25px;
+  margin: -.3rem 0;
+  // height: 25px;
   // display: block;
 }
 
@@ -45,7 +42,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  filter: sepia(.95) blur(2px);
+  filter: sepia(.75) blur(2px);
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -53,35 +50,76 @@
 .popup-info-pg__content {
   padding: 1.2rem;
   margin-top: 3.2rem;
+  width: 100%;
   background-color: rgba($c-panel-bg, .87);
-  text-align: center;
   min-height: 100%;
-  // overflow-y: inherit; /* has to be scroll, not auto */
-  // -webkit-overflow-scrolling: inherit;
+  header {
+    text-align: center;
+    margin-bottom: .5rem;
+  }
+  p {
+    margin: 0;
+  }
+  div:last-of-type:after {
+    content: "";
+    display: block;
+    height: 4rem;
+  }
 }
 
 // The little guys
 .popup-info-pg__ {
 
-  &subheading {
+  &subtitle {
     align-items: center;
     justify-content: center;
     display: flex;
     font-size: 1.2rem;
-    margin: .4rem 0 0;
+    color: darken($gray,5%);
+    color: darken($c-panel-header,5%);
+    line-height: .75;
+    margin: 0;
+
+    .icon--heading {
+      $s: 1.5rem;
+      height: $s;
+      width: $s;
+      fill: darken($c-panel-header,5%);
+    }
   }
 
   &coords {
     font-size: .75rem;
-    margin: 0;
+    margin-top: 0;
+    color: $gray;
   }
 }
 
+.subtitle__text {
+  margin: 0 .25rem;
+  font-family: Brawler;
+}
+
+
+/* Before each info section */
+.popup-info-pg__heading {
+  font-family: Brawler, serif;
+  font-size: 1.4rem;
+  // color: darken(desaturate($c-panel-header,15%),15%);
+  color: #38629c;
+  font-weight: normal;
+  margin: .9rem auto .4rem;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+
 .icon--heading {
-  // display: inline-block;
-  fill: $c-panel-header;
+  display: inline-block;
+  fill: darken(desaturate($c-panel-header,25%),15%);
   height: 1.8rem;
-  margin-right: 5px;
+  vertical-align: middle;
+  // margin-right: 5px;
   // vertical-align: bottom;
   width: 1.8rem;
 
@@ -107,18 +145,62 @@
   }
 }
 
-.down-arrow {
-  transform: rotate(-90deg);
+
+/* Seasons */
+.available-seasons {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  >li {
+    // flex: 0 25%;
+    text-align: center;
+  }
 }
 
-.up-arrow {
-  transform: rotate(90deg);
-}
+$c-season-unavail: lighten($gray, 15%);
+$c-season-avail: darken($gray,15%);
 
-.btn--directions__inner-text {
+.available-seasons__icon {
+  $s: 1.5rem;
+  fill: $c-season-unavail;
+  height: $s;
+  width: $s;
   display: inline-block;
-  line-height: 1;
+  vertical-align: middle;
+  &.available {
+    fill: $c-season-avail;
+  }
+  &.spring {
+    fill: $spring;
+  }
+
+  &.summer {
+    fill: $summer;
+  }
+
+  &.fall {
+    fill: $fall;
+  }
+
+  &.winter {
+    fill: $winter;
+  }
 }
+
+.available-seasons__text {
+  color: $c-season-unavail;
+  font-size: 1rem;
+  margin-left: -3px;
+  // display: inline-block;
+  vertical-align: middle;
+
+  &.season-available {
+    color: $c-season-avail;
+  }
+}
+
 
 /* Sharing buttons list */
 .link-sharing-list {
