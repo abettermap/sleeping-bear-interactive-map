@@ -141,37 +141,49 @@
         // Type icon
         vm.typeIcon = '#icon-' + vm.selFeatData.type;
 
+
+
         // Social links
+        vm.currentPageUrl = encodeURIComponent(window.location.href);
+        vm.currentUrlReally = window.location.href;
+
         vm.socialLinkList = [
             {
                 name: 'email',
-                caption: 'Share this exact location on ...',
+                caption: 'Share this exact location via email',
                 icon: '#icon-email',
                 url: vm.currentUrl,
+                click: function(){}
             },
             {
-                name: 'email',
-                caption: 'Share this exact location on ...',
+                name: 'facebook',
+                caption: 'Share this exact location on Facebook',
                 icon: '#icon-facebook',
-                url: vm.currentUrl,
+                url: 'http://www.facebook.com/sharer.php?u=' + vm.currentPageUrl,
+                click: function(){}
             },
             {
-                name: 'email',
-                caption: 'Share this exact location on ...',
+                name: 'twitter',
+                caption: 'Share this exact location on Twitter',
                 icon: '#icon-twitter',
-                url: vm.currentUrl,
+                url: '',
+                click: function(){alert('Nope, not yet...');}
             },
             {
-                name: 'email',
-                caption: 'Share this exact location on ...',
+                name: 'google',
+                caption: 'Share this exact location on Google Plus',
                 icon: '#icon-google',
-                url: vm.currentUrl,
+                url: '',
+                click: function(){alert('Nope, not yet...');}
             },
             {
                 name: 'email',
-                caption: 'Share this exact location on ...',
+                caption: 'get link',
                 icon: '#icon-link',
-                url: vm.currentUrl,
+                url: '',
+                click: function(){
+                    alert("Will get into popup later, but here is link: " + vm.currentUrlReally);
+                }
             },
         ];
 
@@ -179,6 +191,20 @@
 
         // Tooltip
         vm.popupNavTooltip = 'View feature info';
+
+
+
+        /******************************/
+        /******** GRADE/CAUTION *******/
+        /******************************/
+
+        if (vm.selFeatData.layer === 'sbht_grade') {
+            vm.overlayStatus.grade = vm.selFeatData.grade;
+        }
+        if (vm.selFeatData.layer === 'sbht_caution') {
+            alert('caution');
+            vm.overlayStatus.grade = vm.selFeatData.type;
+        }
 
 
         /******************************/

@@ -204,6 +204,8 @@
 
             query = queries.prefix + queries[overlay.layer] + queries.suffix;
 
+            $rootScope.queryStates[overlay.layer] = !$rootScope.queryStates[overlay.layer];
+
             layersFactory.sublayers[overlay.layer].setSQL(query);
 
         };
