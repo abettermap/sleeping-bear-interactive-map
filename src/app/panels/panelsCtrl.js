@@ -222,8 +222,10 @@
 
 
         //////// INFO PANEL \\\\\\\\
-        vm.activeInfoPg = 'Home';
+        vm.activeInfoPgHeader = 'Help & Info';
+        vm.isInfoHomePage = true;
         vm.activeInfoPgIcon = '#icon-info';
+
 
         vm.toggleFeaturesLayer = function(layer){
             panelsFactory.toggleFeaturesLayer(layer);
@@ -231,12 +233,16 @@
 
         vm.setActiveInfoPg = function(page){
 
-            vm.activeInfoPg = page;
-            if (page !== 'Home'){
-                vm.activeInfoPgIcon = '#icon-back';
+            if (page === 'Home'){
+                vm.isInfoHomePage = true;
+                vm.activeInfoPgHeader = 'Help & Info'
             } else {
-                vm.activeInfoPgIcon = '#icon-info';
+                vm.isInfoHomePage = false;
+                vm.activeInfoPgHeader = page;
             }
+
+            vm.activeInfoPg = page;
+
         };
 
         panelsFactory.getHelpData().then(function(dataResponse) {

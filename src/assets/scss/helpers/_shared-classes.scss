@@ -25,14 +25,14 @@
     width: 12px;
     height: 12px;
   }
-  .ui-dialog-content::-webkit-scrollbar {
-    -webkit-appearance: none;
-  }
-  .ui-dialog-content::-webkit-scrollbar-thumb {
-    border-radius: 8px;
-    border: 1px solid rgba(24, 30, 43, 0.85);  /*should match background, can't be transparent */
-    background-color: rgba(225, 225, 225, .9);
-  }
+  // .ui-dialog-content::-webkit-scrollbar {
+  //   -webkit-appearance: none;
+  // }
+  // .ui-dialog-content::-webkit-scrollbar-thumb {
+  //   border-radius: 8px;
+  //   border: 1px solid rgba(24, 30, 43, 0.85);  /*should match background, can't be transparent */
+  //   background-color: rgba(225, 225, 225, .9);
+  // }
   overflow: auto;
 }
 
@@ -74,7 +74,7 @@
   background-color: lighten($c-btn-bg,10%);
   cursor: pointer;
   border-radius: 5px;
-  padding: 0 3px 4px;
+  padding: 0 .2rem .2rem;
   // margin-top: .2rem;
   border: solid 1px lighten($c-btn-bg,6%);
   text-decoration: none;
@@ -235,3 +235,6 @@
   }
 }
 
+.panel__header > .btn--left.btn.vis-hidden {
+  opacity: 0;
+}
