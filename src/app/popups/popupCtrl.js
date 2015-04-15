@@ -202,7 +202,6 @@
             vm.overlayStatus.grade = vm.selFeatData.grade;
         }
         if (vm.selFeatData.layer === 'sbht_caution') {
-            alert('caution');
             vm.overlayStatus.grade = vm.selFeatData.type;
         }
 
@@ -225,12 +224,7 @@
             // iconAnchor: [-216, 16]
         });
 
-        /***** Remove if already present *****/
-        for (var i in mapLayers){
-            if (mapLayers[i].options.temp){
-                map.removeLayer(mapLayers[i]);
-            }
-        }
+        popupFactory.clearTempMarker(map, mapLayers);
 
         /***** Add if trail_pix *****/
         if (vm.selFeatData.layer === 'trail_pix'){

@@ -13,6 +13,7 @@
         var defaultImg = 'sbht-i-map/img_prod/features/mid_size/n00/wdune-climb/image00009.jpg';
 
         var popups = {
+            clearTempMarker: clearTempMarker,
             defaultImg: defaultImg,
             findSecondary: findSecondary,
             getNearest: getNearest,
@@ -200,6 +201,18 @@
                 method: 'GET',
                 url: query,
             });
+
+        }
+
+        /* Clear temp marker */
+        function clearTempMarker(map, mapLayers){
+
+            /***** Remove if already present *****/
+            for (var i in mapLayers){
+                if (mapLayers[i].options.temp){
+                    map.removeLayer(mapLayers[i]);
+                }
+            }
 
         }
 

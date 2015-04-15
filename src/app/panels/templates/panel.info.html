@@ -60,7 +60,7 @@
 		ng-show="vm.activeInfoPg == topic.subject">
 		<div class="panel__box">
 			<div class="panel__row">
-				<div>{{topic.narrative}}</div>
+				<div ng-bind-html="vm.toTrusted(topic.narrative)"></div>
 			</div>
 		</div>
 	</div>

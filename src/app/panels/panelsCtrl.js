@@ -6,9 +6,9 @@
         .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
-    PanelsCtrl.$inject = ['panelsFactory', '$rootScope', '$http', '$scope', '$stateParams', '$state', 'layersFactory'];
+    PanelsCtrl.$inject = ['panelsFactory', '$rootScope', '$http', '$scope', '$stateParams', '$state', 'layersFactory', '$sce', 'popupFactory'];
 
-    function PanelsCtrl(panelsFactory, $rootScope, $http, $scope, $stateParams, $state, layersFactory){
+    function PanelsCtrl(panelsFactory, $rootScope, $http, $scope, $stateParams, $state, layersFactory, $sce, popupFactory){
 
     	var vm = this;
 
@@ -212,6 +212,8 @@
 
         vm.toggleTrailPicsState = function(){
 
+            popupFactory.clearTempMarker(panelsFactory.map, panelsFactory.map._layers);
+
             if ($rootScope.queryStates.trail_pix){
                 $rootScope.queryStates.trail_pix = false;
             } else {
@@ -225,6 +227,10 @@
         vm.activeInfoPgHeader = 'Help & Info';
         vm.isInfoHomePage = true;
         vm.activeInfoPgIcon = '#icon-info';
+
+        vm.toTrusted = function(html_code) {
+            return $sce.trustAsHtml(html_code);
+        }
 
 
         vm.toggleFeaturesLayer = function(layer){

@@ -44,20 +44,7 @@
             ],
             gradeSublayer: {
                 cartocss: "" +
-                    "#sbht_grade{line-color: red; line-width: 4; line-opacity: .76; line-join: round;}" +
-                    "#sbht_grade::labels[zoom >= 14]{" +
-                      "text-name: [grade];" +
-                      "text-face-name: 'DejaVu Sans Book';" +
-                      "text-size: 11;" +
-                      "text-opacity: 1;" +
-                      "text-label-position-tolerance: 0;" +
-                      "text-fill: #fff;" +
-                      "text-halo-fill: rgba(255,0,0,.6);" +
-                      "text-halo-radius: 3;" +
-                      "text-dy: 10;" +
-                      "text-allow-overlap: true;" +
-                      "text-placement: line;" +
-                    "}",
+                    "#sbht_grade{line-color: red; line-width: 4; line-opacity: .76; line-join: round;}",
                 sql: "SELECT the_geom_webmercator, cartodb_id, grade FROM sbht_grade WHERE cartodb_id = 0",
             },
             cautionSublayer: {
