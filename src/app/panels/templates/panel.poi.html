@@ -1,10 +1,13 @@
 <div class="panel" ng-show="vm.activePanel == 'features'">
 	<h2 class="panel__header">
-		<a ng-class="{'no-hover': vm.activePoiPage == 'Home', 'btn': vm.activePoiPage !== 'Home'}" href="javascript:;" ng-click="vm.setActivePoiPage('Home')">
+		<a ng-show="vm.activePoiPage !== 'Home'" class="btn btn--left" href="javascript:;" ng-click="vm.setActivePoiPage('Home')">
 			<svg viewBox="0 0 100 100">
-			    <use ng-attr-xlink:href="{{vm.activePoiPageIcon}}" xlink:href=""></use>
+			    <use xlink:href="#icon-back"></use>
 			</svg>
 		</a>
+		<svg viewBox="0 0 100 100">
+		    <use xlink:href="#icon-map-pin"></use>
+		</svg>
 		<span>{{vm.activePoiPageTitle}}</span>
 		<a href="javascript:;" class="panel__close btn" ng-click="vm.changePanel('')">
 			<svg viewBox="0 0 100 100">

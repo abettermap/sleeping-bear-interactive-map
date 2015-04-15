@@ -90,8 +90,8 @@
             for (var i = 0; i < 4; i++) {
                 if (seasons.substring(i,i+1) === 'y'){
                     obj[i].open = true;
-                    // obj[i].classNm = 'available-seasons__icon available';
-                    obj[i].classNm = 'available-seasons__icon ' + obj[i].classNm;
+                    obj[i].classNm = 'available-seasons__icon available';
+                    // obj[i].classNm = 'available-seasons__icon ' + obj[i].classNm;
                 } else {
                     obj[i].open = false;
                     obj[i].classNm = 'available-seasons__icon';

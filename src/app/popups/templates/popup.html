@@ -2,7 +2,7 @@
     <!-- FADED BG IMAGE -->
     <div class="flip popup__page--img" ng-show="vm.imgPgVisible">
         <h2 class="popup__header">
-            <a class="btn" href="javascript:;" ng-click="vm.setPopupPg()">
+            <a class="btn btn--left" href="javascript:;" ng-click="vm.setPopupPg()">
                 <svg class="popup-icon--type no-hover" viewBox="0 0 100 100">
                     <use xlink:href="#icon-info"></use>
                 </svg>
@@ -47,9 +47,9 @@
     </div>
     <!-- INFO PAGE -->
     <div class="flip popup__page-info" ng-show="!vm.imgPgVisible">
-        <div class="blurred-bg"ng-style="{'background-image':'url(' + vm.activeImages[0] + ')'}"></div>
+        <div class="blurred-bg" ng-style="{'background-image':'url(' + vm.activeImages[0] + ')'}"></div>
         <h2 class="popup__header popup__header--opaque">
-            <a class="btn" href="javascript:;" ng-click="vm.setPopupPg()">
+            <a class="btn btn--left" href="javascript:;" ng-click="vm.setPopupPg()">
                 <svg class="popup-icon--type no-hover" viewBox="0 0 100 100">
                     <use xlink:href="#icon-camera"></use>
                 </svg>

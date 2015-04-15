@@ -38,11 +38,11 @@
 
   opacity: 1;
   position: absolute;
-  top: 0;
+  top: 1px;
   left: 0;
   right: 0;
-  bottom: 0;
-  filter: sepia(.75) blur(2px);
+  bottom: 1px;
+  filter: sepia(.75) blur(1px);
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -51,7 +51,7 @@
   padding: 1.2rem;
   margin-top: 3.2rem;
   width: 100%;
-  background-color: rgba($c-panel-bg, .87);
+  background-color: rgba($c-panel-bg, .9);
   min-height: 100%;
   header {
     text-align: center;
@@ -107,8 +107,9 @@
   font-size: 1.4rem;
   // color: darken(desaturate($c-panel-header,15%),15%);
   color: #38629c;
+  fill: darken(desaturate($c-panel-header,25%),15%);
   font-weight: normal;
-  margin: .9rem auto .4rem;
+  margin: 1rem auto .4rem;
   display: inline-block;
   vertical-align: bottom;
 }
@@ -152,7 +153,7 @@
   display: flex;
   justify-content: space-around;
   padding: 0;
-  margin: 0;
+  margin: .2rem 0 0;
   >li {
     // flex: 0 25%;
     text-align: center;
@@ -160,7 +161,7 @@
 }
 
 $c-season-unavail: lighten($gray, 15%);
-$c-season-avail: darken($gray,15%);
+$c-season-avail: darken($c-panel-header,18%);
 
 .available-seasons__icon {
   $s: 1.5rem;

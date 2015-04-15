@@ -11,6 +11,14 @@
     @include mq($from: tablet) {
       position: absolute;
     }
+    .btn {
+      transition: 300ms ease-out;
+      opacity: 1;
+      // Animations
+      &.ng-hide {
+        opacity: 0;
+      }
+    }
 
   }
 
@@ -18,9 +26,9 @@
     // margin-left: -5px;
   }
 
-  &__close {
-    margin-right: -5px;
-  }
+  // &__close {
+  //   margin-right: -5px;
+  // }
 
   &__inner {
     @extend %panel__inner;
