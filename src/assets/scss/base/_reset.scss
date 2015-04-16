@@ -32,6 +32,10 @@ input, .never-show {
   display: none;
 }
 
+.never-show {
+  opacity: 0;
+}
+
 h1 {
   font-size: 2.2rem;
   color: $med-blue;

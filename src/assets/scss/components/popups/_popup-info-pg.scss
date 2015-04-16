@@ -204,6 +204,44 @@ $c-season-avail: darken($c-panel-header,18%);
 
 
 /* Sharing buttons list */
+
+// Current URL container
+.footer-tab--url {
+  border-style: solid;
+  border-width: 3px 3px 0;
+  opacity: 1;
+  $f: .75rem;
+  background-color: $c-panel-header;
+  display: block;
+  padding: 0 .75rem;
+  width: 95%;
+  p {
+    margin-bottom: .5rem;
+  + a {
+    margin-bottom: .75rem;
+  }
+  }
+  a {
+    color: $near-white;
+    display: inline-block;
+    font-size: $f;
+    text-align: center;
+  }
+}
+
+.close-tab {
+  line-height: .75;
+  background-color: $c-btn-bg;
+  border-radius: 15px;
+  padding: 6px;
+  font-weight: bold;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  text-decoration: none;
+}
+
+// Link list and buttons
 .link-sharing-list {
   display: flex;
   justify-content: center;

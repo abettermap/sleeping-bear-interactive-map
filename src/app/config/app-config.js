@@ -66,7 +66,7 @@
 
                 $rootScope.metaInfo = {
                     image: 'http://friendsofsleepingbear.org/wp-content/uploads/2012/06/SBHT-Logo-300x300-192x192.jpg',
-                    title: 'Sleeping Bear Heritage Trail Interactive Map',
+                    title: 'Sleeping Bear Heritage Trail - Interactive Map',
                     description: "An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.",
                     url: 'http://friendsofsleepingbear.org/sbht-i-map'
                 }

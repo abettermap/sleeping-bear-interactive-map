@@ -22,15 +22,6 @@
         /* Only need first row */
         vm.selFeatData = selFeatData.rows[0];
 
-
-        /********** UPDATE META **********/
-
-        /* Upate page title */
-        $rootScope.metaInfo.title = vm.selFeatData.name + ' - SBHT Interactive Map';
-
-        /* Upate meta URL */
-        $rootScope.metaInfo.url = $location.$$absUrl;
-
         if (vm.selFeatData.narrative) {
             $rootScope.metaInfo.description = vm.selFeatData.narrative;
         } else {
@@ -289,14 +280,74 @@
            return vm.activeImages[0];
 
         })
-        .then(function(imgUri){
+        .then(function(activeImage){
 
-            var uri = imgUri;
+            var activeImg = 'http://friendsofsleepingbear.org/sbht-i-map/' + activeImage;
 
-            $rootScope.metaInfo.image = 'http://friendsofsleepingbear.org/sbht-i-map/' + uri;
+            $rootScope.metaInfo.image = encodeURIComponent(activeImg);
+
+            // Update page title
+            $rootScope.metaInfo.title = vm.selFeatData.name + ' - SBHT Interactive Map';
+
+            /********** UPDATE META **********/
+
+
+            /* Upate meta URL */
+            $rootScope.metaInfo.url = $location.$$absUrl;
+                // popupFactory.setShareUrl(act)
+
+            vm.socialLinkList = [
+                {
+                    name: 'email',
+                    caption: 'via email',
+                    icon: '#icon-email',
+                    url: popupFactory.setShareUrl('email'),
+                    click: null,
+                },
+                {
+                    name: 'facebook',
+                    caption: 'on Facebook',
+                    icon: '#icon-facebook',
+                    url: popupFactory.setShareUrl('facebook'),
+                    click: null,
+                },
+                {
+                    name: 'twitter',
+                    caption: 'on Twitter',
+                    icon: '#icon-twitter',
+                    url: popupFactory.setShareUrl('twitter'),
+                    click: null,
+                },
+                {
+                    name: 'google',
+                    caption: 'on Google Plus',
+                    icon: '#icon-google',
+                    url: popupFactory.setShareUrl('google'),
+                    click: null,
+                },
+                {
+                    name: 'pinterest',
+                    caption: 'on Pinterest',
+                    icon: '#icon-pinterest',
+                    url: popupFactory.setShareUrl('pinterest'),
+                    click: null,
+                },
+                {
+                    name: 'link',
+                    caption: 'get link',
+                    icon: '#icon-link',
+                    url: '',
+                    click: function(){
+                        vm.showLinkContainer = !vm.showLinkContainer;
+                    }
+                },
+            ];
 
         });
 
+        vm.getCurrentUrl = function(){
+            return $location.$$absUrl;
+        };
 
         /******************************/
         /****** SET THUMBNAILS *******/
@@ -333,68 +384,6 @@
             vm.thumbsData = arr;
 
         });
-
-
-        // Social links
-        function setShareUrl() {
-
-            var currentUrl = "mailto:?subject=" + $rootScope.metaInfo.title +
-                "&body=Take a look at this feature I found on the Sleeping Bear Heritage Trail: " + $location.$$absUrl;
-
-            return currentUrl;
-
-        }
-
-        vm.currentPageUri = encodeURIComponent($location.$$absUrl);
-        vm.currentImgUri = encodeURIComponent($rootScope.metaInfo.image);
-
-        vm.socialLinkList = [
-            {
-                name: 'email',
-                caption: 'Share this location via email',
-                icon: '#icon-email',
-                url: setShareUrl(),
-                click: function(){}
-            },
-            {
-                name: 'facebook',
-                caption: 'Share this location on Facebook',
-                icon: '#icon-facebook',
-                url: 'http://www.facebook.com/sharer.php?u=' + vm.currentPageUri,
-                click: function(){}
-            },
-            {
-                name: 'twitter',
-                caption: 'Share this location on Twitter',
-                icon: '#icon-twitter',
-                // url: 'https://twitter.com/intent/tweet?text=Using%20Chrome%20DevTools%20to%20Debug%20JavaScript%20in%20Any%20Browser%20with%20Ghostlab%202&url=https://css-tricks.com/using-chrome-devtools-to-debug-javascript-in-any-browser-with-ghostlab-2/&via=real_css_tricks',
-                url: '',
-                click: function(){}
-            },
-            {
-                name: 'google',
-                caption: 'Share this location on Google Plus',
-                icon: '#icon-google',
-                url: 'https://plus.google.com/share?url=' + $location.$$absUrl,
-                click: function(){}
-            },
-            {
-                name: 'pinterest',
-                caption: 'Share this location on Pinterest',
-                icon: '#icon-pinterest',
-                url: 'http://pinterest.com/pin/create/button/?url=' + vm.currentImgUri + '&media=' + vm.currentPageUri + '&description=' + $rootScope.metaInfo.description,
-                click: function(){}
-            },
-            {
-                name: 'link',
-                caption: 'get link',
-                icon: '#icon-link',
-                url: '',
-                click: function(){
-                    alert("Will get into popup later, but here is link: " + $location.$$absUrl);
-                }
-            },
-        ];
 
 
         /******************************/

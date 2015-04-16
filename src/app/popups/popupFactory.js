@@ -6,9 +6,9 @@
         .module('popupsModule')
         .factory('popupFactory', popupFactory);
 
-    popupFactory.$inject = ['$rootScope', '$http', 'basePath', '$timeout', '$state', '$stateParams', 'cdbValues'];
+    popupFactory.$inject = ['$rootScope', '$http', 'basePath', '$timeout', '$state', '$stateParams', 'cdbValues', '$location'];
 
-    function popupFactory($rootScope, $http, basePath, $timeout, $state, $stateParams, cdbValues){
+    function popupFactory($rootScope, $http, basePath, $timeout, $state, $stateParams, cdbValues, $location){
 
         var defaultImg = 'sbht-i-map/img_prod/features/mid_size/n00/wdune-climb/image00009.jpg';
 
@@ -19,6 +19,7 @@
             getNearest: getNearest,
             setSecondary: setSecondary,
             setSeason: setSeason,
+            setShareUrl: setShareUrl,
             setThumbs: setThumbs,
         };
 
@@ -215,6 +216,38 @@
             }
 
         }
+
+        /* Encode URLs */
+        function encodeUrls(){
+
+        }
+
+
+        /* Social links */
+        function setShareUrl(medium) {
+
+            var test = $location.$$absUrl;
+            var twitterString = 'https://twitter.com/intent/tweet?url=' + test + '&text=' + $rootScope.metaInfo.description,
+                metaUri = {
+                    description: encodeURIComponent($rootScope.metaInfo.description.substr(0,116)),
+                    img: encodeURIComponent($rootScope.metaInfo.image),
+                    title: encodeURIComponent($rootScope.metaInfo.title),
+                    url: encodeURIComponent($location.$$absUrl),
+                }, shareUrl = {
+                    email: "mailto:?subject=" + $rootScope.metaInfo.title +
+                    "&body=Check out this location on the Sleeping Bear Heritage Trail Interactive Map: " + $location.$$absUrl,
+                    facebook: 'http://www.facebook.com/sharer.php?u=' + $location.$$absUrl,
+                    google: 'https://plus.google.com/share?url=' + $location.$$absUrl,
+                    link: '#',
+                    pinterest: 'http://pinterest.com/pin/create/button/?url=' + metaUri.url + '&media=' + metaUri.img + '&description=' + metaUri.url,
+                    twitter: "https://twitter.com/share?url=" + metaUri.url + "&text=" + metaUri.description,
+                };
+
+            return shareUrl[medium];
+
+        }
+
+
 
     	return popups;
     }

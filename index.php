@@ -4,19 +4,21 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title ng-bind="$root.metaInfo.title"></title>
+        <!-- <title ng-bind="$root.metaInfo.title"></title> -->
+        <title>Sleeping Bear Heritage Trail - Interactive Map</title>
         <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Average+Sans|Brawler">
 
-        <meta name="description" ng-attr-content="{{$root.metaInfo.description}}" />
+        <!-- <meta name="description" ng-attr-content="{{$root.metaInfo.description}}" /> -->
 
-        <meta property="og:image" ng-attr-content="{{$root.metaInfo.image}}" />
-        <meta property="og:title" ng-attr-content="{{$root.metaInfo.title}}" />
-        <meta property="og:url" ng-attr-content="{{$root.metaInfo.url}}" />
-        <meta property="og:description" ng-attr-content="{{$root.metaInfo.description}}" />
+        <meta name="description" ng-attr-content="An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country." />
+
+        <meta property="og:image" content="http://friendsofsleepingbear.org/wp-content/uploads/2012/06/SBHT-Logo-300x300-192x192.jpg" />
+
+        <meta property="og:description" content="An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country." />
         <meta property="og:type" content="website" />
 
-        <meta name="twitter:description" ng-attr-content="{{$root.metaInfo.title}}" />
-        <meta name="twitter:title" ng-attr-content="{{$root.metaInfo.description}}" />
+        <meta name="twitter:description" content="An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country." />
+        <meta name="twitter:title" content="Sleeping Bear Heritage Trail - Interactive Map" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
