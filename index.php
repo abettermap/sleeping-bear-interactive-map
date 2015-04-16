@@ -3,14 +3,27 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Sleeping Bear Heritage Trail - Interactive Map</title>
-        <!-- <meta name="description" content=""> -->
+
+        <title ng-bind="$root.metaInfo.title"></title>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Average+Sans|Brawler">
+
+        <meta name="description" ng-attr-content="{{$root.metaInfo.description}}" />
+
+        <meta property="og:image" ng-attr-content="{{$root.metaInfo.image}}" />
+        <meta property="og:title" ng-attr-content="{{$root.metaInfo.title}}" />
+        <meta property="og:url" ng-attr-content="{{$root.metaInfo.url}}" />
+        <meta property="og:description" ng-attr-content="{{$root.metaInfo.description}}" />
+        <meta property="og:type" content="website" />
+
+        <meta name="twitter:description" ng-attr-content="{{$root.metaInfo.title}}" />
+        <meta name="twitter:title" ng-attr-content="{{$root.metaInfo.description}}" />
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
         <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
         <!-- Place favicon.ico in the root directory -->
 
-        <!-- <link rel="stylesheet" href="css/normalize.css"> -->
-        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Average+Sans|Brawler">
         <link rel="stylesheet" href="src/assets/css/map-style.css">
         <!-- <script src="js/vendor/modernizr-2.8.3.min.js"></script> -->
 
@@ -73,7 +86,7 @@
             </defs>
         </svg>
         <!-- AngularJS -->
-        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js"></script>
 
         <!-- Angular ui.router -->
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>

@@ -6,12 +6,13 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$sce', '$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$state', 'mapFactory'];
+    PopupCtrl.$inject = ['$sce', '$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$state', 'mapFactory', '$location'];
 
-    function PopupCtrl($sce, $timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state, mapFactory){
+    function PopupCtrl($sce, $timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state, mapFactory, $location){
 
         var vm = this,
             sp = $stateParams;
+
 
         // Current seasons
         vm.currentSeason = $rootScope.queryStates.season;
@@ -21,6 +22,20 @@
         /* Only need first row */
         vm.selFeatData = selFeatData.rows[0];
 
+
+        /********** UPDATE META **********/
+
+        /* Upate page title */
+        $rootScope.metaInfo.title = vm.selFeatData.name + ' - SBHT Interactive Map';
+
+        /* Upate meta URL */
+        $rootScope.metaInfo.url = $location.$$absUrl;
+
+        if (vm.selFeatData.narrative) {
+            $rootScope.metaInfo.description = vm.selFeatData.narrative;
+        } else {
+            $rootScope.metaInfo.description = "An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.";
+        };
 
         /******************************/
         /****** FEATURES POPUPS *******/
@@ -33,7 +48,6 @@
         vm.showPopupInfo = 'false';
 
         // Does this always work?
-        vm.currentUrl = "mailto:?subject=Check out this SBHT feature!&body=" + window.location.href;
 
         vm.setPopupPg = function(){
 
@@ -41,10 +55,10 @@
 
                 vm.imgPgVisible = false;
 
-
-
             } else {                    // Home/img page
+
                 vm.imgPgVisible = true;
+
             }
 
         };
@@ -141,52 +155,7 @@
         // Type icon
         vm.typeIcon = '#icon-' + vm.selFeatData.type;
 
-
-
-        // Social links
-        vm.currentPageUrl = encodeURIComponent(window.location.href);
-        vm.currentUrlReally = window.location.href;
-
-        vm.socialLinkList = [
-            {
-                name: 'email',
-                caption: 'Share this exact location via email',
-                icon: '#icon-email',
-                url: vm.currentUrl,
-                click: function(){}
-            },
-            {
-                name: 'facebook',
-                caption: 'Share this exact location on Facebook',
-                icon: '#icon-facebook',
-                url: 'http://www.facebook.com/sharer.php?u=' + vm.currentPageUrl,
-                click: function(){}
-            },
-            {
-                name: 'twitter',
-                caption: 'Share this exact location on Twitter',
-                icon: '#icon-twitter',
-                url: '',
-                click: function(){alert('Nope, not yet...');}
-            },
-            {
-                name: 'google',
-                caption: 'Share this exact location on Google Plus',
-                icon: '#icon-google',
-                url: '',
-                click: function(){alert('Nope, not yet...');}
-            },
-            {
-                name: 'email',
-                caption: 'get link',
-                icon: '#icon-link',
-                url: '',
-                click: function(){
-                    alert("Will get into popup later, but here is link: " + vm.currentUrlReally);
-                }
-            },
-        ];
-
+        // Directions
         vm.directionsUrl = 'https://maps.google.com/maps?daddr=' + vm.selFeatData.lat + ',' + vm.selFeatData.lon;
 
         // Tooltip
@@ -317,6 +286,15 @@
 
             vm.activeImages = activeImages;
 
+           return vm.activeImages[0];
+
+        })
+        .then(function(imgUri){
+
+            var uri = imgUri;
+
+            $rootScope.metaInfo.image = 'http://friendsofsleepingbear.org/sbht-i-map/' + uri;
+
         });
 
 
@@ -355,6 +333,68 @@
             vm.thumbsData = arr;
 
         });
+
+
+        // Social links
+        function setShareUrl() {
+
+            var currentUrl = "mailto:?subject=" + $rootScope.metaInfo.title +
+                "&body=Take a look at this feature I found on the Sleeping Bear Heritage Trail: " + $location.$$absUrl;
+
+            return currentUrl;
+
+        }
+
+        vm.currentPageUri = encodeURIComponent($location.$$absUrl);
+        vm.currentImgUri = encodeURIComponent($rootScope.metaInfo.image);
+
+        vm.socialLinkList = [
+            {
+                name: 'email',
+                caption: 'Share this location via email',
+                icon: '#icon-email',
+                url: setShareUrl(),
+                click: function(){}
+            },
+            {
+                name: 'facebook',
+                caption: 'Share this location on Facebook',
+                icon: '#icon-facebook',
+                url: 'http://www.facebook.com/sharer.php?u=' + vm.currentPageUri,
+                click: function(){}
+            },
+            {
+                name: 'twitter',
+                caption: 'Share this location on Twitter',
+                icon: '#icon-twitter',
+                // url: 'https://twitter.com/intent/tweet?text=Using%20Chrome%20DevTools%20to%20Debug%20JavaScript%20in%20Any%20Browser%20with%20Ghostlab%202&url=https://css-tricks.com/using-chrome-devtools-to-debug-javascript-in-any-browser-with-ghostlab-2/&via=real_css_tricks',
+                url: '',
+                click: function(){}
+            },
+            {
+                name: 'google',
+                caption: 'Share this location on Google Plus',
+                icon: '#icon-google',
+                url: 'https://plus.google.com/share?url=' + $location.$$absUrl,
+                click: function(){}
+            },
+            {
+                name: 'pinterest',
+                caption: 'Share this location on Pinterest',
+                icon: '#icon-pinterest',
+                url: 'http://pinterest.com/pin/create/button/?url=' + vm.currentImgUri + '&media=' + vm.currentPageUri + '&description=' + $rootScope.metaInfo.description,
+                click: function(){}
+            },
+            {
+                name: 'link',
+                caption: 'get link',
+                icon: '#icon-link',
+                url: '',
+                click: function(){
+                    alert("Will get into popup later, but here is link: " + $location.$$absUrl);
+                }
+            },
+        ];
 
 
         /******************************/

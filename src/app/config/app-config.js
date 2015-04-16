@@ -9,6 +9,8 @@
     angular
         .module('layersModule', []);
     angular
+        .module('metaInfoModule', []);
+    angular
         .module('panelsModule', []);
     angular
         .module('popupsModule', []);
@@ -35,6 +37,7 @@
 
     angular.module('mapApp', [
             'basePathModule',
+            'metaInfoModule',
             'ctrlsModule',
             'panelsModule',
             'popupsModule',
@@ -45,6 +48,7 @@
         ])
         .run(['$log', '$rootScope', '$state', '$stateParams', '$location',
             function ($log, $rootScope, $state, $stateParams, $location) {
+
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
 
@@ -59,6 +63,13 @@
                     trail_condition: false,
                     trail_pix: true
                 };
+
+                $rootScope.metaInfo = {
+                    image: 'http://friendsofsleepingbear.org/wp-content/uploads/2012/06/SBHT-Logo-300x300-192x192.jpg',
+                    title: 'Sleeping Bear Heritage Trail Interactive Map',
+                    description: "An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.",
+                    url: 'http://friendsofsleepingbear.org/sbht-i-map'
+                }
 
                 $stateParams.seasons = $rootScope.queryStates.season;
             }

@@ -32,7 +32,7 @@
                         lat: 0,
                         lon: 0,
                         seasons: 3,
-                        filepath: ''
+                        filepath: '',
                     },
                     resolve: {
                         selFeatData: ['$http', '$stateParams', function($http, $stateParams) {
