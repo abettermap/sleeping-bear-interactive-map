@@ -2,7 +2,7 @@
     <!-- FADED BG IMAGE -->
     <div class="flip popup__page--img" ng-show="vm.imgPgVisible">
         <h2 class="popup__header">
-            <a class="btn btn--left" href="javascript:;" ng-click="vm.setPopupPg()">
+            <a class="btn btn--left" href="" ng-click="vm.setPopupPg()">
                 <svg class="popup-icon--type no-hover" viewBox="0 0 100 100">
                     <use xlink:href="#icon-info"></use>
                 </svg>
@@ -31,13 +31,35 @@
                         <svg class="footer__tab__icon" viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-nearby"></use></svg>
                         Nearby
                     </div>
+                    <div class="popup__footer__tab footer-tab--right">
+                        <a class="btn" href="" ng-click="vm.showThumbSort = !vm.showThumbSort">
+                            <svg class="footer__tab__icon" viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-sort"></use></svg>
+                            Sort
+                        </a>
+                    </div>
+                    <div class="popup__footer__tab footer-tab--url" ng-hide="!vm.showThumbSort">
+                        <p>Sort thumbnails by distance from this point, or by distance from the south end of the trail near the town of Empire:</p>
+                        <div class="panel--trail__label-cont">
+                            <input name="sort-thumbs" type="radio"
+                                ng-checked="$root.thumbsPrefs.rel"
+                                ng-click="vm.sortThumbs('rel')"
+                                id="relative-distance" />
+                            <label for="relative-distance" class="panel--trail__label">From Here</label>
+                            <input name="sort-thumbs" type="radio"
+                                ng-checked="!$root.thumbsPrefs.rel"
+                                ng-click="vm.sortThumbs('abs')"
+                                id="absolute-distance" />
+                            <label for="absolute-distance" class="panel--trail__label">From Empire</label>
+                        </div>
+                        <a class="close-tab" href="" ng-click="vm.showThumbSort = !vm.showThumbSort">X</a>
+                    </div>
                     <dir-pagination-controls pagination-id="thumbs"></dir-pagination-controls>
                     <ul class="thumbnail-list">
-                        <li dir-paginate="img in vm.thumbsData | itemsPerPage: 5" pagination-id="thumbs" class="thumb" ng-animate-children>
+                        <li dir-paginate="img in vm.thumbsData | itemsPerPage: 5 | orderBy:$root.thumbsPrefs.sortField" pagination-id="thumbs" class="thumb" ng-animate-children>
                             <a class="thumbnail" title="{{img.path}}"
                                 ng-click="vm.resetPopup(img.path, img.attribs)"
                                 ng-style="{'background-image': 'url(' + img.path + ')'}">
-                                <span class="thumb-distance">{{img.attribs.dist}}</span>
+                                <span class="thumb-distance">{{img[$root.thumbsPrefs.label]}}</span>
                             </a>
                         </li>
                     </ul>
@@ -49,7 +71,7 @@
     <div class="flip popup__page-info" ng-show="!vm.imgPgVisible">
         <div class="blurred-bg" ng-style="{'background-image':'url(' + vm.activeImages[0] + ')'}"></div>
         <h2 class="popup__header popup__header--opaque">
-            <a class="btn btn--left" href="javascript:;" ng-click="vm.setPopupPg()">
+            <a class="btn btn--left" href="" ng-click="vm.setPopupPg()">
                 <svg class="popup-icon--type no-hover" viewBox="0 0 100 100">
                     <use xlink:href="#icon-camera"></use>
                 </svg>
@@ -78,7 +100,7 @@
             <div class="never-show" ng-class="{'popup__footer__tab footer-tab--url': vm.showLinkContainer}">
                 <p>To visit this location again or share it with others, use the following link or one of the sharing presets below:</p>
                 <a ng-href="{{vm.getCurrentUrl()}}">{{vm.getCurrentUrl()}}</a>
-                <a class="close-tab" href="javascript:;" ng-click="vm.showLinkContainer = !vm.showLinkContainer">X</a>
+                <a class="close-tab" href="" ng-click="vm.showLinkContainer = !vm.showLinkContainer">X</a>
             </div>
             <ul class="link-sharing-list">
                 <li ng-repeat="link in vm.socialLinkList">

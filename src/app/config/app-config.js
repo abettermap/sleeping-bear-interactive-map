@@ -71,6 +71,13 @@
                     url: 'http://friendsofsleepingbear.org/sbht-i-map'
                 }
 
+                // Thumbs sort preference states
+                $rootScope.thumbsPrefs = {
+                    sortField: 'diff',
+                    rel: true,
+                    label: 'relLabel'
+                };
+
                 $stateParams.seasons = $rootScope.queryStates.season;
             }
         ]);

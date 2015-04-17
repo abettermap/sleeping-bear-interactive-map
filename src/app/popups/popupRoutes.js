@@ -41,7 +41,7 @@
                             var sp = $stateParams,
                                 query,
                                 sharedPrefix = "" +
-                                    queryPrefix + "cartodb_id, the_geom, filepath, '" +
+                                    queryPrefix + "cartodb_id, the_geom, filepath, lin_dist, '" +
                                     sp.layer + "' AS layer," +
                                     " ROUND(ST_X(the_geom)::numeric, 5) AS lon," +
                                     " ROUND(ST_Y(the_geom)::numeric, 5) AS lat,",
@@ -54,7 +54,8 @@
                                 " features.the_geom," +
                                 " ROUND(ST_X(features.the_geom)::numeric, 5) AS lon," +
                                 " ROUND(ST_Y(features.the_geom)::numeric, 5) AS lat," +
-                                " features.filepath, " +
+                                " features.filepath," +
+                                " features.lin_dist," +
                                 " features.seasons," +
                                 " features.type," +
                                 " features.name," +

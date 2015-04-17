@@ -70,7 +70,7 @@
                 coords = [params.lat, params.lon],
                 states = $rootScope.queryStates,
                 shared = cdbValues.sharedQueries,
-                sql = shared.sql + " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist,",
+                sql = shared.sql + " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist, lin_dist,",
                 end = " ORDER BY dist LIMIT 50",
                 nonPoiStatus = {
                     faces: states.faces,
@@ -121,7 +121,7 @@
                 shared = cdbValues.sharedQueries,
                 sql = shared.sql + " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist,",
                 seasonsString = "substring(seasons," + states.season + ",1) = 'y'",
-                end = " ORDER BY dist LIMIT 1",
+                end = " ORDER BY lin_dist LIMIT 1",
                 nonPoiOperators = {
                     faces: '',
                     trail_condition: '',
@@ -156,6 +156,7 @@
                     " FLOOR(ST_Distance(features.the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist," +
                     " ST_X(features.the_geom) AS lon," +
                     " ST_Y(features.the_geom) AS lat," +
+                    " features.lin_dist, " +
                     " features.filepath, " +
                     " features.seasons," +
                     " features.type," +
@@ -181,6 +182,7 @@
                     " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist," +
                     " ST_X(the_geom) AS lon," +
                     " ST_Y(the_geom) AS lat," +
+                    " lin_dist, " +
                     " filepath, " +
                     " seasons," +
                     " 'camera' AS type," +

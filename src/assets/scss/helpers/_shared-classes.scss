@@ -72,6 +72,7 @@
 .btn {
 
   background-color: lighten($c-btn-bg,10%);
+  color: $near-white;
   cursor: pointer;
   border-radius: 5px;
   padding: 0 .2rem .2rem;

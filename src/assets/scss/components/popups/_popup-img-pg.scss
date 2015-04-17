@@ -93,6 +93,33 @@
     background-color: $c-panel-header;
   }
 
+  input:checked + .panel--trail__label {
+    box-shadow: 0 0 7px 1px darken($c-panel-header, 10%);
+  }
+
+  input:not(:checked) + .panel--trail__label {
+    color: lighten($gray, 15%);
+    text-shadow: none;
+    &:hover {
+      color: $near-white;
+      text-shadow: 1px 1px 1px #4d4d4d;
+    }
+  }
+
+}
+
+.footer-tab--right {
+  left: auto;
+  right: 0;
+  padding: .3rem;
+  font-size: .8rem;
+  .btn {
+    padding: 0 .2rem .1rem;
+    line-height: 1.25;
+    svg {
+      // vertical-align: top;
+    }
+  }
 }
 
 .footer__tab__icon {

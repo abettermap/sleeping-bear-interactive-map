@@ -74,12 +74,12 @@
             featSublayer: { // FEATURES
                 cartocss: getMss('features'),
                 // cartocss: "#features[cartodb_id=2]{marker-width: 14}",
-                interactivity: 'cartodb_id, type, filepath, layer, seasons',
-                sql: "SELECT 'features' AS layer, features.the_geom_webmercator, features.seasons, features.cartodb_id, features.type, features.filepath, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons,3,1) = 'y' AND features.type = 'mainpoints' ORDER BY priority DESC",
+                interactivity: 'cartodb_id, type, filepath, layer, seasons, lin_dist',
+                sql: "SELECT 'features' AS layer, features.lin_dist, features.the_geom_webmercator, features.seasons, features.cartodb_id, features.type, features.filepath, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons,3,1) = 'y' AND features.type = 'mainpoints' ORDER BY priority DESC",
             },
             sharedQueries: {
                 url: "https://remcaninch.cartodb.com/api/v2/sql?q=",
-                sql: "SELECT cartodb_id, the_geom, the_geom_webmercator, filepath, ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat,"
+                sql: "SELECT cartodb_id, lin_dist, the_geom, the_geom_webmercator, filepath, ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat,"
             }
 
         });

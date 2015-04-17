@@ -49,8 +49,9 @@
 			</svg>
 			Audio Clip
 		</h4>
-		<iframe width="100%" height="166" scrolling="no" frameborder="no" src="{{vm.audioUrl}}"></iframe>
+		<iframe ng-src="{{vm.audioUrl}}"></iframe>
 	</div>
+
 	<!-- VIDEO CLIP -->
 	<div ng-show="vm.selFeatData.video_link">
 		<h4 class="popup-info-pg__heading">
@@ -59,7 +60,7 @@
 			</svg>
 			Video
 		</h4>
-		<iframe width="100%" src="{{vm.videoUrl}}" frameborder="0" allowfullscreen></iframe>
+		<iframe width="100%" ng-src="{{vm.videoUrl}}" frameborder="0" allowfullscreen></iframe>
 	</div>
 	<!-- NARRATIVE -->
 	<div ng-show="vm.selFeatData.narrative">

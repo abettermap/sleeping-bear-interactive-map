@@ -213,13 +213,11 @@ $c-season-avail: darken($c-panel-header,18%);
   $f: .75rem;
   background-color: $c-panel-header;
   display: block;
-  padding: 0 .75rem;
-  width: 95%;
+  padding: .75rem 25px;
+  right: .5rem;
+  // width: calc(100% - 50px);
   p {
-    margin-bottom: .5rem;
-  + a {
-    margin-bottom: .75rem;
-  }
+    margin: 0 0 .5rem;
   }
   a {
     color: $near-white;
@@ -236,8 +234,8 @@ $c-season-avail: darken($c-panel-header,18%);
   padding: 6px;
   font-weight: bold;
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 4px;
+  top: 4px;
   text-decoration: none;
 }
 

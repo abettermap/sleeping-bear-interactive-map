@@ -130,7 +130,7 @@
 
         // Run if it exists (POI only)
         if (audio){
-            audio = "https://w.soundcloud.com/player/?url=" + audio + "&amp;color=4285c2&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_playcount=false&amp;show_artwork=false&amp;show_user=false&amp;show_reposts=false";
+            audio = "https://w.soundcloud.com/player/?url=" + audio + "&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false";
             vm.allowAudio(audio);
         }
 
@@ -356,35 +356,59 @@
         popupFactory.setThumbs(vm.selFeatData).then(function(dataResponse) {
 
             var thumbsData = dataResponse.data.rows,
-                arr = [], path, layer;
+                arr = [], path, layer, difference, absLabel, relLabel;
 
             for (var n = 0; n < thumbsData.length; n++) {
 
                 path = 'img_prod\/' + thumbsData[n].layer + '\/thumbnail' + thumbsData[n].filepath;
                 layer = thumbsData[n].layer;
 
+                difference = Math.abs(vm.selFeatData.lin_dist - thumbsData[n].lin_dist);
+
                 if ( layer === 'features' || layer === 'commercial'){
                     path = path + 'image00001.jpg';
                 }
 
-                if (thumbsData[n].dist < 528){
-                    thumbsData[n].dist = thumbsData[n].dist + ' ft';
+                if (difference < 1000){
+                    relLabel =  difference + ' ft';
                 } else {
-                    thumbsData[n].dist = Math.round(thumbsData[n].dist / 5280 * 100)/100 + ' mi';
-                    thumbsData[n].dist = thumbsData[n].dist.replace(/^[0]+/g,"");
+                    relLabel = Math.round(difference / 5280 * 100)/100 + ' mi';
+                    relLabel = relLabel.replace(/^[0]+/g,"");
                 }
+
+                // No need to have
+                absLabel = 'MP ' + Math.round(thumbsData[n].lin_dist / 5280 * 100)/100;
+                absLabel = absLabel.replace(/^[0]+/g,"");
 
                 arr.push({
                     path: path,
+                    diff: difference,
+                    absLabel: absLabel,
+                    relLabel: relLabel,
                     attribs: thumbsData[n],
                 });
 
             }
-
             vm.thumbsData = arr;
 
         });
 
+
+
+        vm.sortThumbs = function(direction) {
+
+            // debugger;
+            if (direction === 'rel'){
+                $rootScope.thumbsPrefs.rel = true;
+                $rootScope.thumbsPrefs.label = 'relLabel';
+                $rootScope.thumbsPrefs.sortField = 'diff';
+            } else {
+                $rootScope.thumbsPrefs.rel = false;
+                $rootScope.thumbsPrefs.label = 'absLabel';
+                $rootScope.thumbsPrefs.sortField = 'attribs.lin_dist';
+            }
+
+        }
 
         /******************************/
         /* RESET POPUP ON THUMB CLICK */
