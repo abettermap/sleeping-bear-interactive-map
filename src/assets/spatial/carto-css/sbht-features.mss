@@ -8,6 +8,7 @@
 @path-bikepark    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/bikepark.svg);
 @path-commserv    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/commserv.svg);
 @path-conc        :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/conc.svg);
+@path-event      :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/event.svg);
 @path-historic    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/historic.svg);
 @path-parking     :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/parking.svg);
 @path-other       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/other.svg);
@@ -95,6 +96,7 @@
   [type="bikepark"] {fg/marker-file: @path-bikepark; }
   [type="commserv"] {fg/marker-file: @path-commserv;}
   [type="conc"]     {fg/marker-file: @path-conc; fg/marker-height: 13; fg/marker-transform: translate(0,@pin-shift-y-mid - 6);}
+  [type="event"]    {fg/marker-file: @path-event; fg/marker-height: 14; fg/marker-transform: translate(0,@pin-shift-y-mid - 6);}
   [type="historic"] {fg/marker-file: @path-historic; fg/marker-height: 13; fg/marker-transform: translate(0,@pin-shift-y-mid - 6);}
   [type="other"]    {fg/marker-file: @path-other;}
   [type="parking"]  {fg/marker-file: @path-parking; fg/marker-height: 15;}

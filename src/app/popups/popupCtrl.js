@@ -149,6 +149,12 @@
         // Directions
         vm.directionsUrl = 'https://maps.google.com/maps?daddr=' + vm.selFeatData.lat + ',' + vm.selFeatData.lon;
 
+        // Description/Narrative - enable HTML
+        vm.toTrusted = function(html_code) {
+            return $sce.trustAsHtml(html_code);
+        };
+
+
         // Tooltip
         vm.popupNavTooltip = 'View feature info';
 

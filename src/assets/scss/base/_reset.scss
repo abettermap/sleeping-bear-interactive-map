@@ -62,10 +62,15 @@ label {
 }
 
 p {
-
-    font-size: 1rem;
-    margin-top: .8rem;
+  font-size: 1rem;
+  margin-top: .8rem;
 }
+
+// No top margin on paragraphs preceded by h4
+h4 + p {
+  margin-top: 0;
+}
+
 
 // Attribution
 .leaflet-container .leaflet-control-attribution {

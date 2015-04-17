@@ -5,12 +5,20 @@
     // border-radius: 1px;
   }
 
+  &.no-scrollbars {
+    overflow: hidden;
+    .popup__inner {
+      overflow: hidden;
+    }
+  }
+
   background-color: lighten($c-panel-header, 20%);
 
   &__inner {
     @extend %panel__inner;
-    top: 0;
+    // top: 0;
     display: block;
+    // overflow-y: auto;
   }
 
   &__box {

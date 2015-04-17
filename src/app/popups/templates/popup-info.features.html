@@ -70,6 +70,6 @@
 			</svg>
 			Description
 		</h4>
-		<p>{{vm.selFeatData.narrative}}</p>
+		<div ng-bind-html="vm.toTrusted(vm.selFeatData.narrative)"></div>
 	</div>
 </div>

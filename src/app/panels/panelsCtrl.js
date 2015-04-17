@@ -228,6 +228,7 @@
         vm.isInfoHomePage = true;
         vm.activeInfoPgIcon = '#icon-info';
 
+        // Enable HTML
         vm.toTrusted = function(html_code) {
             return $sce.trustAsHtml(html_code);
         }
