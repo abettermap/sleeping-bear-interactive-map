@@ -359,38 +359,41 @@
         /****** SET THUMBNAILS *******/
         /******************************/
 
+        vm.currentPage = 1; //current page
+        vm.pageSize = 5; //pagination max size
+        vm.entryLimit = 50; //max rows for data table
+        vm.totalThumbs = 0;
+
         popupFactory.setThumbs(vm.selFeatData).then(function(dataResponse) {
 
             var thumbsData = dataResponse.data.rows,
-                arr = [], path, layer, difference, absLabel, relLabel;
+                arr = [], path, layer, difference, label, south, north;
 
             for (var n = 0; n < thumbsData.length; n++) {
 
+                // Thumbs paths
                 path = 'img_prod\/' + thumbsData[n].layer + '\/thumbnail' + thumbsData[n].filepath;
                 layer = thumbsData[n].layer;
-
-                difference = Math.abs(vm.selFeatData.lin_dist - thumbsData[n].lin_dist);
 
                 if ( layer === 'features' || layer === 'commercial'){
                     path = path + 'image00001.jpg';
                 }
 
-                if (difference < 1000){
-                    relLabel =  difference + ' ft';
-                } else {
-                    relLabel = Math.round(difference / 5280 * 100)/100 + ' mi';
-                    relLabel = relLabel.replace(/^[0]+/g,"");
-                }
+                // Thumbs distance filter values
+                difference = vm.selFeatData.lin_dist - thumbsData[n].lin_dist;
 
-                // No need to have
-                absLabel = 'MP ' + Math.round(thumbsData[n].lin_dist / 5280 * 100)/100;
-                absLabel = absLabel.replace(/^[0]+/g,"");
+                // Thumbs labels
+                if (Math.abs(difference) < 528){
+                    label = Math.abs(difference) + ' ft';
+                } else {
+                    label = Math.abs(Math.round(difference / 5280 * 100)/100) + ' mi';
+                    label = label.replace(/^[0]+/g,"");
+                }
 
                 arr.push({
                     path: path,
                     diff: difference,
-                    absLabel: absLabel,
-                    relLabel: relLabel,
+                    label: label,
                     attribs: thumbsData[n],
                 });
 
@@ -399,21 +402,30 @@
 
         });
 
+        $rootScope.$watch('thumbsFilterModel.dir', function(direction) {
+            console.log(direction);
+            // $rootScope.setDirection(direction);
+            // vm.filtered = filterFilter(vm.thumbsData, term);
+            // vm.noOfPages = Math.ceil(vm.filtered.length/vm.entryLimit);
+        });
 
+        function getResultsPage(pageNumber) {
+            // this is just an example, in reality this stuff should be in a service
+            $http.get('path/to/api/users?page=' + pageNumber)
+                .then(function(result) {
+                    $scope.users = result.data.Items;
+                    $scope.totalUsers = result.data.Count
+                });
+        }
 
-        vm.sortThumbs = function(direction) {
+        $scope.thumbsFilterModel = {};
 
-            // debugger;
-            if (direction === 'rel'){
-                $rootScope.thumbsPrefs.rel = true;
-                $rootScope.thumbsPrefs.label = 'relLabel';
-                $rootScope.thumbsPrefs.sortField = 'diff';
-            } else {
-                $rootScope.thumbsPrefs.rel = false;
-                $rootScope.thumbsPrefs.label = 'absLabel';
-                $rootScope.thumbsPrefs.sortField = 'attribs.lin_dist';
-            }
+        $scope.setDirection = function(img) {
+            return img.diff > 0;
+        }
 
+        vm.test = function(a){
+            alert(a);
         }
 
         /******************************/

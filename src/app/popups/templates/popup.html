@@ -40,26 +40,23 @@
                     <div class="popup__footer__tab footer-tab--url" ng-hide="!vm.showThumbSort">
                         <p>Sort thumbnails by distance from this point, or by distance from the south end of the trail near the town of Empire:</p>
                         <div class="panel--trail__label-cont">
-                            <input name="sort-thumbs" type="radio"
-                                ng-checked="$root.thumbsPrefs.rel"
-                                ng-click="vm.sortThumbs('rel')"
-                                id="relative-distance" />
-                            <label for="relative-distance" class="panel--trail__label">From Here</label>
-                            <input name="sort-thumbs" type="radio"
-                                ng-checked="!$root.thumbsPrefs.rel"
-                                ng-click="vm.sortThumbs('abs')"
-                                id="absolute-distance" />
-                            <label for="absolute-distance" class="panel--trail__label">From Empire</label>
+                            <input value="both" ng-model="$root.thumbsFilterModel.dir" ng-click="$root.thumbsFilter = {}" id="filter-thumbs-both" type="radio" name="thumbs-filters">
+                            <label for="filter-thumbs-both" class="panel--trail__label">Both</label>
+                            <input value="north" ng-model="$root.thumbsFilterModel.dir" ng-click="$root.thumbsFilter = $root.setThumbsNorth" id="filter-thumbs-north" type="radio" name="thumbs-filters">
+                            <label for="filter-thumbs-north" class="panel--trail__label">North</label>
+                            <input value="south" ng-model="$root.thumbsFilterModel.dir" ng-click="$root.thumbsFilter = $root.setThumbsSouth" id="filter-thumbs-south" type="radio" name="thumbs-filters">
+                            <label for="filter-thumbs-south" class="panel--trail__label">South</label>
                         </div>
                         <a class="close-tab" href="" ng-click="vm.showThumbSort = !vm.showThumbSort">X</a>
                     </div>
                     <dir-pagination-controls pagination-id="thumbs"></dir-pagination-controls>
                     <ul class="thumbnail-list">
-                        <li dir-paginate="img in vm.thumbsData | itemsPerPage: 5 | orderBy:$root.thumbsPrefs.sortField" pagination-id="thumbs" class="thumb" ng-animate-children>
+                        <li dir-paginate="img in vm.thumbsData | itemsPerPage: 5 | filter:$root.thumbsFilter"
+                        pagination-id="thumbs" class="thumb">
                             <a class="thumbnail" title="{{img.path}}"
                                 ng-click="vm.resetPopup(img.path, img.attribs)"
                                 ng-style="{'background-image': 'url(' + img.path + ')'}">
-                                <span class="thumb-distance">{{img[$root.thumbsPrefs.label]}}</span>
+                                <span class="thumb-distance">{{img.label}}</span>
                             </a>
                         </li>
                     </ul>

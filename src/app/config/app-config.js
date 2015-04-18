@@ -70,13 +70,19 @@
                     description: "An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.",
                     url: 'http://friendsofsleepingbear.org/sbht-i-map'
                 }
+                $rootScope.thumbsFilter = {};
 
-                // Thumbs sort preference states
-                $rootScope.thumbsPrefs = {
-                    sortField: 'diff',
-                    rel: true,
-                    label: 'relLabel'
-                };
+                $rootScope.thumbsFilterModel = {
+                    dir: 'both'
+                }
+
+                $rootScope.setThumbsNorth = function(img) {
+                    return img.diff < 0;
+                }
+
+                $rootScope.setThumbsSouth = function(img) {
+                    return img.diff > 0;
+                }
 
                 $stateParams.seasons = $rootScope.queryStates.season;
             }

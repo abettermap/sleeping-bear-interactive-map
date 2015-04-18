@@ -121,7 +121,7 @@
                 shared = cdbValues.sharedQueries,
                 sql = shared.sql + " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist,",
                 seasonsString = "substring(seasons," + states.season + ",1) = 'y'",
-                end = " ORDER BY lin_dist LIMIT 1",
+                end = " ORDER BY dist LIMIT 1",
                 nonPoiOperators = {
                     faces: '',
                     trail_condition: '',
