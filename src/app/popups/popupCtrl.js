@@ -6,9 +6,9 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$sce', '$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$state', 'mapFactory', '$location'];
+    PopupCtrl.$inject = ['$sce', '$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$state', 'mapFactory', '$location', 'paginationService'];
 
-    function PopupCtrl($sce, $timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state, mapFactory, $location){
+    function PopupCtrl($sce, $timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state, mapFactory, $location, paginationService){
 
         var vm = this,
             sp = $stateParams;
@@ -367,7 +367,9 @@
         popupFactory.setThumbs(vm.selFeatData).then(function(dataResponse) {
 
             var thumbsData = dataResponse.data.rows,
-                arr = [], path, layer, difference, label, south, north;
+                arr = [], path, layer, difference, label,
+                southArr = [],
+                northArr = [];
 
             for (var n = 0; n < thumbsData.length; n++) {
 
@@ -397,36 +399,50 @@
                     attribs: thumbsData[n],
                 });
 
+                if (difference > 0){
+                    southArr.push({
+                        path: path,
+                        diff: difference,
+                        label: label,
+                        attribs: thumbsData[n],
+                    });
+                } else {
+                    northArr.push({
+                        path: path,
+                        diff: difference,
+                        label: label,
+                        attribs: thumbsData[n],
+                    });
+                }
+
             }
+
             vm.thumbsData = arr;
 
+            $rootScope.thumbsArrays.north = northArr;
+            $rootScope.thumbsArrays.south = southArr;
+
+            var forPromise = northArr.concat(southArr);
+            $rootScope.thumbsArrays.both = northArr.concat(southArr);
+
+            return forPromise;
+
+        }).then(function(result){
+            if ($rootScope.thumbsArrays.current.length < 1){
+                $rootScope.updateThumbs('both');
+            } else {
+                $rootScope.updateThumbs($rootScope.thumbsDirectionModel);
+            }
         });
 
-        $rootScope.$watch('thumbsFilterModel.dir', function(direction) {
-            console.log(direction);
-            // $rootScope.setDirection(direction);
-            // vm.filtered = filterFilter(vm.thumbsData, term);
-            // vm.noOfPages = Math.ceil(vm.filtered.length/vm.entryLimit);
+
+        $rootScope.$watch('thumbsDirectionModel', function(direction) {
+
+            paginationService.setCurrentPage('thumbs', 1);
+
         });
 
-        function getResultsPage(pageNumber) {
-            // this is just an example, in reality this stuff should be in a service
-            $http.get('path/to/api/users?page=' + pageNumber)
-                .then(function(result) {
-                    $scope.users = result.data.Items;
-                    $scope.totalUsers = result.data.Count
-                });
-        }
 
-        $scope.thumbsFilterModel = {};
-
-        $scope.setDirection = function(img) {
-            return img.diff > 0;
-        }
-
-        vm.test = function(a){
-            alert(a);
-        }
 
         /******************************/
         /* RESET POPUP ON THUMB CLICK */

@@ -36,7 +36,6 @@ module.exports = {
             'src/app/ctrls/*.js',
             'src/app/panels/*.js',
             'src/assets/js/vendor/dirPagination.js',
-            'src/assets/js/vendor/dirPagination.js',
         ],
         dest: 'src/app/map-app.js'
     },

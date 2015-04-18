@@ -46,8 +46,8 @@
             'angularUtils.directives.dirPagination',
             'ui.router',
         ])
-        .run(['$log', '$rootScope', '$state', '$stateParams', '$location',
-            function ($log, $rootScope, $state, $stateParams, $location) {
+        .run(['$timeout', '$log', '$rootScope', '$state', '$stateParams', '$location',
+            function ($timeout, $log, $rootScope, $state, $stateParams, $location) {
 
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
@@ -70,19 +70,19 @@
                     description: "An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.",
                     url: 'http://friendsofsleepingbear.org/sbht-i-map'
                 }
-                $rootScope.thumbsFilter = {};
 
-                $rootScope.thumbsFilterModel = {
-                    dir: 'both'
+                $rootScope.thumbsArrays = {
+                    current: [],
+                    both: [],
+                    north: [],
+                    south: [],
                 }
 
-                $rootScope.setThumbsNorth = function(img) {
-                    return img.diff < 0;
+                $rootScope.updateThumbs = function(direction){
+                    $rootScope.thumbsArrays.current = $rootScope.thumbsArrays[direction];
                 }
 
-                $rootScope.setThumbsSouth = function(img) {
-                    return img.diff > 0;
-                }
+                $rootScope.thumbsDirectionModel = 'both';
 
                 $stateParams.seasons = $rootScope.queryStates.season;
             }
