@@ -6,14 +6,35 @@
         </a>
     </div>
     <div class="popup__footer__tab footer-tab--url" ng-hide="!vm.showThumbSort">
-        <p>Choose an option below to include all nearby results, or just those to the north or south end of the trail relative to this location:</p>
-        <div class="panel--trail__label-cont">
-            <input value="both" ng-model="$root.thumbsDirectionModel" id="thumbs-both" type="radio">
-            <label for="thumbs-both" ng-click="$root.updateThumbs('both')" class="panel--trail__label">Both</label>
-            <input value="north" ng-model="$root.thumbsDirectionModel" id="thumbs-north" type="radio">
-            <label for="thumbs-north" ng-click="$root.updateThumbs('north')" class="panel--trail__label">North</label>
-            <input value="south" ng-model="$root.thumbsDirectionModel" id="thumbs-south" type="radio">
-            <label for="thumbs-south" ng-click="$root.updateThumbs('south')" class="panel--trail__label">South</label>
+        <p>Choose an option below to include all nearby results, or just those heading toward the north or south end of the trail (all distances are relative to the currently selected location).</p>
+        <div class="thumbs-dir-btns">
+            <input value="both" id="thumbs-both" type="radio"
+                ng-model="$root.thumbsDirectionModel"
+                ng-click="$root.updateThumbs('both')">
+            <label for="thumbs-both" class="btn btn--thumbs-sort">
+                <svg class="icon--thumbs-dir" viewBox="0 0 100 100">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-compass-both"></use>
+                </svg>
+                Both
+            </label>
+            <input value="north" id="thumbs-north" type="radio"
+                ng-model="$root.thumbsDirectionModel"
+                ng-click="$root.updateThumbs('north')">
+            <label for="thumbs-north" class="btn btn--thumbs-sort">
+                <svg class="icon--thumbs-dir" viewBox="0 0 100 100">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-compass-north"></use>
+                </svg>
+                North
+            </label>
+            <input value="south" id="thumbs-south" type="radio"
+                ng-model="$root.thumbsDirectionModel"
+                ng-click="$root.updateThumbs('south')">
+            <label for="thumbs-south" class="btn btn--thumbs-sort">
+                <svg class="icon--thumbs-dir" viewBox="0 0 100 100">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-compass-south"></use>
+                </svg>
+                South
+            </label>
         </div>
         <a class="close-tab" href="" ng-click="vm.showThumbSort = !vm.showThumbSort">X</a>
     </div>

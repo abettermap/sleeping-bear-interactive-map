@@ -76,7 +76,7 @@
                 </svg>
                 Share This
             </div>
-            <div class="never-show" ng-class="{'popup__footer__tab footer-tab--url': vm.showLinkContainer}">
+            <div ng-show="vm.showLinkContainer" class="popup__footer__tab footer-tab--url">
                 <p>To visit this location again or share it with others, use the following link or one of the sharing presets below:</p>
                 <a ng-href="{{vm.getCurrentUrl()}}">{{vm.getCurrentUrl()}}</a>
                 <a class="close-tab" href="" ng-click="vm.showLinkContainer = !vm.showLinkContainer">X</a>

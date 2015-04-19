@@ -55,11 +55,7 @@
 
 // The <ul>
 .thumbnail-list {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 0 auto;
+  margin: .075rem auto 0;
   width: 86%;
 }
 
@@ -78,10 +74,15 @@
 // Nearby results tab
 .popup__footer__tab {
 
+  &.ng-hide- {
+    &remove {
+      animation: .5s fadeInUp ease;
+    }
+  }
+
   background-color: rgba($c-panel-header,.65);
   border-radius: 10px 10px 0 0;
   bottom: 3.3rem;
-  // box-shadow: 0 -2px 15px 0 rgba($gray,.6);
   color: $near-white;
   left: .5rem;
   line-height: 1;
@@ -110,15 +111,24 @@
 
 .footer-tab--right {
   left: auto;
-  right: 0;
+  right: .5rem;
   padding: .3rem;
-  font-size: .8rem;
+  font-size: .9rem;
+  z-index: 2;
   .btn {
     padding: 0 .2rem .1rem;
     line-height: 1.25;
-    svg {
-      // vertical-align: top;
-    }
+  }
+}
+
+.btn {
+  .icon--thumbs-dir {
+    $s: 3.5rem;
+    display: block;
+    margin: 0 auto;
+    fill: $near-white;
+    height: $s;
+    width: $s;
   }
 }
 
@@ -130,6 +140,46 @@
   vertical-align: bottom;
 }
 
+/* Footer tab buttons */
+.thumbs-dir-btns {
+  justify-content: space-between;
+  margin: 1rem 0 .5rem;
+  display: flex;
+  input + .btn {
+    color: lighten($gray, 45%);
+    display: flex;
+    flex-flow: column;
+    padding: .3rem .4rem .4rem;
+    flex: 0 31%;
+    // margin-top: .2rem;
+    border-color: lighten($c-btn-bg,6%);
+    border-radius: 5px;
+    text-decoration: none;
+    text-shadow: none;
+  }
+
+  input:checked + .btn {
+    background-color: lighten($c-btn-bg,10%);
+    border-color: $near-white;
+    border-width: 2px;
+    color: $near-white;
+    cursor: pointer;
+    text-shadow: none;
+  }
+
+  input:not(:checked) + .btn {
+    // border-color:
+    border-width: 2px;
+    color: lighten($gray, 12%);
+    @include mq($from:desktop){
+      &:hover {
+        background-color: lighten($c-btn-bg, 20%);
+        border-color: darken($near-white, 10%);
+      }
+    }
+  }
+
+}
 /* List items */
 .pagination-arrow-container {
 
@@ -185,6 +235,8 @@
   .pagination-arrow-container {
     a {
       height: 3.4rem;
+      line-height: .75rem;
+      // padding-top: .5rem;
       // background-color: transparent;
     }
     &:first-of-type {
@@ -221,10 +273,8 @@
 
 /* <li> (where the repeat happens) */
 .thumb {
-  // flex: 0 20%;
-  flex-grow: 1;
+  display: inline-block;
   min-width: 20%;
-  text-align: center;
 }
 
 /* <a> elements */
@@ -245,9 +295,9 @@
 }
 
 .thumb-distance {
-  background-color: darken($c-panel-header, 10%);
+  background-color: darken($c-panel-header, 22%);
   color: $near-white;
-  font-size: .6rem;
+  font-size: .7rem;
   padding: 0 0 0 .2rem;
   border-top-left-radius: 5px;
   position: absolute;

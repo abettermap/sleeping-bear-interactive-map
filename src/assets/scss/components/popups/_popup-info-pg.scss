@@ -63,7 +63,7 @@
   div:last-of-type:after {
     content: "";
     display: block;
-    height: 4rem;
+    height: 2rem;
   }
 }
 
@@ -221,23 +221,27 @@ $c-season-avail: darken($c-panel-header,18%);
   display: block;
   padding: .75rem 25px;
   right: .5rem;
+  z-index: 3;
   // width: calc(100% - 50px);
   p {
     margin: 0 0 .5rem;
   }
   a {
     color: $near-white;
-    display: inline-block;
+    display: block;
+    margin-left: -1rem;
+    margin-right: -1rem;
     font-size: $f;
     text-align: center;
   }
 }
 
-.close-tab {
+a.close-tab {
   line-height: .75;
   background-color: $c-btn-bg;
   border-radius: 15px;
   padding: 6px;
+  margin: 0;
   font-weight: bold;
   position: absolute;
   right: 4px;
