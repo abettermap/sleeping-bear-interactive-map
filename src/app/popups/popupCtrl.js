@@ -173,35 +173,11 @@
 
 
         /******************************/
-        /****** TEMP CAMERA ICON ******/
+        /****** PAN TO SELECTION ******/
         /******************************/
 
         var map = mapFactory.map,
             mapLayers = map._layers;
-
-        /***** Have marker ready but don't add to map *****/
-        var tempMarker = L.marker([vm.selFeatData.lat, vm.selFeatData.lon],{
-            temp: true,
-            icon: L.divIcon({
-                className: 'temp-div-icon',
-                html: "<svg viewBox='0 0 100 100'>" +
-                    "<use xlink:href='#icon-camera'></use></svg>"
-            }),
-            // iconAnchor: [-216, 16]
-        });
-
-        popupFactory.clearTempMarker(map, mapLayers);
-
-        /***** Add if trail_pix *****/
-        if (vm.selFeatData.layer === 'trail_pix'){
-            tempMarker.addTo(map);
-        }
-        /***** Need similar for faces *****/
-
-
-        /******************************/
-        /****** PAN TO SELECTION ******/
-        /******************************/
 
         map.panTo([vm.selFeatData.lat, vm.selFeatData.lon]);
 
@@ -214,6 +190,33 @@
             targetLatLng = map.containerPointToLatLng([xOffset, y]);
             map.panTo(targetLatLng);
         }
+
+
+        /******************************/
+        /*** TEMP CAMERA/FACE ICON ****/
+        /******************************/
+
+        /***** Clear if already present *****/
+        popupFactory.clearTempMarker(map, mapLayers);
+
+        /***** Add if trail_pix or faces *****/
+        if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces'){
+
+            /***** Have marker ready but don't add to map *****/
+            var tempMarker = L.marker([vm.selFeatData.lat, vm.selFeatData.lon],{
+                temp: true,
+                icon: L.divIcon({
+                    className: 'temp-div-icon',
+                    html: "<svg viewBox='0 0 100 100'>" +
+                        "<use xlink:href='#icon-" + vm.selFeatData.type + "'></use></svg>"
+                }),
+                // iconAnchor: [-216, 16]
+            });
+
+            tempMarker.addTo(map);
+
+        }
+
 
 
         /******************************/
