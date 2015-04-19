@@ -85,6 +85,8 @@
                     " AND substring(seasons," + states.season + ",1) = 'y'" +
                     " AND cartodb_id != " + params.cartodb_id;
 
+            // HOW TO AVOID SKIPPING CDB ID'S THAT MATCH CURRENT ONE?
+
 
             // Commercial (HOW TO AVOID OMITTING FEATURES WHEN CDBID MATCHES FEAT, & VICE VERSA??)
             // var commQuery = shared +
@@ -101,8 +103,18 @@
                     " WHERE substring(seasons," + states.season + ",1) = 'y'" +
                     " AND cartodb_id != " + params.cartodb_id;
 
-            if (states.trail_pix){
+            // Faces
+            var facesQuery = ' UNION ALL ' + sql +
+                    " 'faces' AS layer" +
+                    " FROM faces" +
+                    " WHERE cartodb_id != " + params.cartodb_id;
+
+            if (states.trail_pix && !states.faces){
                 query = shared.url + featQuery + trailPicsQuery + end;
+            } else if (states.trail_pix && states.faces){
+                query = shared.url + featQuery + trailPicsQuery + facesQuery + end;
+            } else if (!states.trail_pix && states.faces){
+                query = shared.url + featQuery + facesQuery + end;
             } else {
                 query = shared.url + featQuery + end;
             }

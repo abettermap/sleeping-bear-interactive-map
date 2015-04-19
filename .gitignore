@@ -29,10 +29,13 @@ src/assets/spatial/qgis
 ##########
 img-prod
 src/assets/img/svg/shared
-src/assets/img/svg/project/icons/min
+src/assets/img/svg/project/min
+src/assets/img/svg/project/defs
+src/assets/img/svg/project/bad-src
 src/assets/img/svg/QGIS-default
 
 # Grunt #
 ##########
 .sublime-grunt-cache
 src/assets/img/raster/src-junk
+img_prod alias

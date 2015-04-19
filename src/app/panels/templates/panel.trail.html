@@ -26,7 +26,8 @@
 						Trail Pics
 					</label>
 					<!-- Faces -->
-					<input ng-checked="vm.queryStates.faces" type="checkbox" id="faces-toggle">
+					<input ng-checked="vm.facesState" type="checkbox" id="faces-toggle"
+						ng-click="vm.toggleFacesState()">
 					<label class="panel--trail__label" for="faces-toggle">
 						<svg viewBox="0 0 100 100">
 							<use xlink:href="#icon-face"></use>

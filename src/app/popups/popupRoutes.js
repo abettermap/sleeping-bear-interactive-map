@@ -35,6 +35,7 @@
                         filepath: '',
                     },
                     resolve: {
+
                         selFeatData: ['$http', '$stateParams', function($http, $stateParams) {
 
                             // Common
@@ -73,7 +74,12 @@
                                 var queries = {
                                     features: featQuery,
                                     commercial: 'similar to features',
-                                    faces: '',
+                                    faces: "" +
+                                        sharedPrefix +
+                                        " 'faces' AS type," +
+                                        " 'Faces' AS name," +
+                                        " 'Faces Along the Trail' AS type_name" +
+                                        sharedSuffix,
                                     trail_pix: "" +
                                         sharedPrefix +
                                         " 'camera' AS type," +

@@ -174,6 +174,9 @@
         // Trail pics state
         vm.trailPicsState = $rootScope.queryStates.trail_pix;
 
+        // Faces state
+        vm.facesState = $rootScope.queryStates.faces;
+
         // Grade/caution model attempt
         vm.lineOverlayStates = [
             {name: 'Grade', layer: 'sbht_grade', on: false, icon: '#icon-grade'},
@@ -218,6 +221,18 @@
                 $rootScope.queryStates.trail_pix = false;
             } else {
                 $rootScope.queryStates.trail_pix = true;
+            }
+
+        };
+
+        vm.toggleFacesState = function(){
+
+            popupFactory.clearTempMarker(panelsFactory.map, panelsFactory.map._layers);
+
+            if ($rootScope.queryStates.faces){
+                $rootScope.queryStates.faces = false;
+            } else {
+                $rootScope.queryStates.faces = true;
             }
 
         };
