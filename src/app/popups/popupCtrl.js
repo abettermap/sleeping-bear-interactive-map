@@ -149,6 +149,30 @@
         // Directions
         vm.directionsUrl = 'https://maps.google.com/maps?daddr=' + vm.selFeatData.lat + ',' + vm.selFeatData.lon;
 
+        // Distances from Dune Climb
+        vm.distFromDuneClimb = function(dist){
+
+            var difference = 27975 - dist,
+                text;
+
+            // North/South
+            if (difference >= 0) {
+                text = 'south';
+            } else {
+                text = 'north';
+            }
+
+            // Labels
+            if (Math.abs(difference) < 528){
+                text = Math.abs(difference) + ' feet ' + text;
+            } else {
+                text = Math.abs(Math.round(difference / 5280 * 100)/100) + ' miles ' + text;
+            }
+
+            return "Approximately " + text + " of the Dune Climb";
+
+        }
+
         // Description/Narrative - enable HTML
         vm.toTrusted = function(html_code) {
             return $sce.trustAsHtml(html_code);

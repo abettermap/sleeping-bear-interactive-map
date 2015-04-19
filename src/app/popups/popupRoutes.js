@@ -77,8 +77,8 @@
                                     faces: "" +
                                         sharedPrefix +
                                         " 'faces' AS type," +
-                                        " 'Faces' AS name," +
-                                        " 'Faces Along the Trail' AS type_name" +
+                                        " 'Faces Along the Trail' AS name," +
+                                        " 'Faces' AS type_name" +
                                         sharedSuffix,
                                     trail_pix: "" +
                                         sharedPrefix +

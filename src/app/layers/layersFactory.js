@@ -65,6 +65,8 @@
             var coords = [latlng[0], latlng[1]],
                 states = $rootScope.queryStates;
 
+            $rootScope.cautionText = '';
+
             // Only do this if something other than a POI layer is visible
             // if (states.trail_pix || states.faces || states.trail_condition){
 
@@ -108,8 +110,11 @@
             layer.createSubLayer({
               cartocss: cdbValues.cautionSublayer.cartocss,
               sql: cdbValues.cautionSublayer.sql,
+              interactivity: cdbValues.cautionSublayer.interactivity,
             }).on('featureClick', function(e, latlng, pos, data){
                 doThisWhenTrailClicked(e, latlng, pos, data);
+                var type = data.type;
+                $rootScope.cautionText = type;
             });;
 
             /***** POINTS *****/

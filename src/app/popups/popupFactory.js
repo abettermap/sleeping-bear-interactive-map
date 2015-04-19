@@ -206,8 +206,33 @@
                 " WHERE " + seasonsString +
                 " AND cartodb_id " + nonPoiOperators.trail_pix + "0";
 
-            if (states.trail_pix){
+            // Faces
+            var facesQuery = "" +
+                " UNION ALL" +
+                " SELECT" +
+                    " cartodb_id," +
+                    " the_geom," +
+                    " the_geom_webmercator," +
+                    " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist," +
+                    " ST_X(the_geom) AS lon," +
+                    " ST_Y(the_geom) AS lat," +
+                    " lin_dist, " +
+                    " filepath, " +
+                    " '' AS seasons," +
+                    " 'faces' AS type," +
+                    " 'Faces Along the Trail' AS name," +
+                    " 'Faces' AS type_name," +
+                    " 'faces' AS layer" +
+                " FROM" +
+                    " faces" +
+                " WHERE cartodb_id " + nonPoiOperators.faces + "0";
+
+            if (states.trail_pix && !states.faces){
                 query = shared.url + featQuery + trailPicsQuery + end;
+            } else if (states.trail_pix && states.faces){
+                query = shared.url + featQuery + trailPicsQuery + facesQuery + end;
+            } else if (!states.trail_pix && states.faces){
+                query = shared.url + featQuery + facesQuery + end;
             } else {
                 query = shared.url + featQuery + end;
             }

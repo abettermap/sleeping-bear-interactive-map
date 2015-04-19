@@ -11,30 +11,6 @@
                 <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
             </svg>
         </p>
-        <span class="popup-info-pg__coords" ng-show="{{vm.selFeatData.cartodb_id != 60}}">{{vm.distFromDuneClimb(vm.selFeatData.lin_dist)}}<br></span>
-        <span class="popup-info-pg__coords">{{vm.selFeatData.lat}}, {{vm.selFeatData.lon}}</span>
     </header>
-
-    <!-- DIRECTIONS -->
-    <div class="directions">
-        <h4 class="popup-info-pg__heading">
-            <svg class="icon--heading" viewBox="0 0 100 100">
-                <use xlink:href="#icon-directions"</use>
-            </svg>
-            Driving Directions
-        </h4>
-        <p><a target="_blank" ng-href="{{vm.directionsUrl}}">Click here</a> for Google Maps directions to this location (opens in a new tab).</p>
-    </div>
-
-    <!-- CAUTION -->
-    <div>
-        <h4 class="popup-info-pg__heading">
-            <svg class="icon--heading" viewBox="0 0 100 100">
-                <use xlink:href="#icon-caution"</use>
-            </svg>
-            Cautionary Concerns
-        </h4>
-        <p ng-bind="$root.cautionText"></p>
-    </div>
-
+    <p>This location is part of the "faces along the trail" photo library, which is a collection of images of visitors enjoying the Trail. Thank you to all the participants who submitted their photos, and if you have any of your own that you would like to submit then please email ROSS THE BOSS.</p>
 </div>

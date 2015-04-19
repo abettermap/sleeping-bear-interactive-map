@@ -64,6 +64,7 @@
                       "text-placement: line;" +
                       // "text-placement-type: dummy;" +
                     "}",
+                interactivity: 'cartodb_id, type',
                 sql: "SELECT the_geom_webmercator, cartodb_id, type FROM sbht_caution WHERE cartodb_id = 0",
             },
             commSublayer: {
