@@ -55,6 +55,12 @@
               echo $contents;
             ?>
         </span>
+        <span id="mss-commercial" class="never-show">
+            <?php
+              $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-commercial.mss');
+              echo $contents;
+            ?>
+        </span>
         <span id="mss-lines" class="never-show">
             <?php
               $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-trail.mss');

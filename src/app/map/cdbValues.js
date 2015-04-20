@@ -67,14 +67,13 @@
                 interactivity: 'cartodb_id, type',
                 sql: "SELECT the_geom_webmercator, cartodb_id, type FROM sbht_caution WHERE cartodb_id = 0",
             },
-            commSublayer: {
-                sql: "SELECT the_geom_webmercator, cartodb_id FROM commercial",
-                cartocss: "#trail_pix_digitize{marker-fill:orange;marker-placement:point;marker-type:ellipse;marker-width:.1;marker-allow-overlap:true;}",
-                // interactivity: 'cartodb_id',
-            }, // end COMMERCIAL
+            commSublayer: { // COMMERCIAL
+                cartocss: getMss('commercial'),
+                interactivity: 'cartodb_id, type, filepath, layer, seasons, lin_dist',
+                sql: "SELECT 'commercial' AS layer, commercial.lin_dist, commercial.the_geom_webmercator, commercial.seasons, commercial.cartodb_id, commercial.type, commercial.filepath, commercial_types.name AS type_name, commercial_types.priority FROM commercial INNER JOIN commercial_types ON commercial.type=commercial_types.type WHERE commercial.cartodb_id = 0",
+            },
             featSublayer: { // FEATURES
                 cartocss: getMss('features'),
-                // cartocss: "#features[cartodb_id=2]{marker-width: 14}",
                 interactivity: 'cartodb_id, type, filepath, layer, seasons, lin_dist',
                 sql: "SELECT 'features' AS layer, features.lin_dist, features.the_geom_webmercator, features.seasons, features.cartodb_id, features.type, features.filepath, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons,3,1) = 'y' AND features.type = 'mainpoints' ORDER BY priority DESC",
             },

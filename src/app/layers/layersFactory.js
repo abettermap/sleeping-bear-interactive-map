@@ -141,12 +141,34 @@
 
             });
 
+            // Commercial (index: 4)
+            layer.createSubLayer({
+              cartocss: cdbValues.commSublayer.cartocss,
+              interactivity: cdbValues.commSublayer.interactivity,
+              name: 'commercial',
+              sql: cdbValues.commSublayer.sql,
+            }).on('featureClick', function(e, pos, latlng, data){
+
+                $state.go('popup.poi', {
+                    cartodb_id: data.cartodb_id,
+                    filepath: data.filepath,
+                    layer: 'commercial',
+                    lat: pos[0],
+                    lon: pos[1],
+                },{
+                    reload: true
+                });
+
+                $rootScope.$broadcast('featureClicked', '');
+
+            });
+
             /* Assign variables to reference sublayer based on index */
             layersFactory.sublayers.sbht     = layer.getSubLayer(0);
             layersFactory.sublayers.sbht_grade     = layer.getSubLayer(1);
             layersFactory.sublayers.sbht_caution   = layer.getSubLayer(2);
             layersFactory.sublayers.features  = layer.getSubLayer(3);
-            // layersFactory.commercial = layer.getSubLayer(4);
+            layersFactory.sublayers.commercial = layer.getSubLayer(4);
             // layersFactory.trailCond = layer.getSubLayer(7);
 
             /***** CLICK FUNCTIONALITY *****/

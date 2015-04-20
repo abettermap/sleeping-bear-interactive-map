@@ -71,9 +71,32 @@
                                     " features.type=feature_types.type" +
                                 " WHERE features.cartodb_id = " + sp.cartodb_id;
 
+                            // Commercial
+                            var commQuery = "" +
+                                queryPrefix +
+                                " commercial.cartodb_id," +
+                                " commercial.the_geom," +
+                                " ROUND(ST_X(commercial.the_geom)::numeric, 5) AS lon," +
+                                " ROUND(ST_Y(commercial.the_geom)::numeric, 5) AS lat," +
+                                " commercial.filepath," +
+                                " commercial.lin_dist," +
+                                " commercial.seasons," +
+                                " commercial.type," +
+                                " commercial.name," +
+                                " narrative, video_link, audio_link," +
+                                " commercial_types.name AS type_name," +
+                                " 'commercial' AS layer" +
+                                " FROM" +
+                                    " commercial" +
+                                " INNER JOIN" +
+                                    " commercial_types" +
+                                " ON" +
+                                    " commercial.type=commercial_types.type" +
+                                " WHERE commercial.cartodb_id = " + sp.cartodb_id;
+
                                 var queries = {
                                     features: featQuery,
-                                    commercial: 'similar to features',
+                                    commercial: commQuery,
                                     faces: "" +
                                         sharedPrefix +
                                         " 'faces' AS type," +

@@ -64,8 +64,8 @@
 				<ul class="poi-type-list">
 					<li class="poi-type" ng-repeat="feattype in subgroup.types">
 						<input class="poi-type__checkbox" type="checkbox"
-							ng-checked="vm.selectedTypes.indexOf(feattype.type) > -1"
-							ng-click="vm.toggleFeatures(feattype.type, 'features')"
+							ng-checked="vm.selectedFeatTypes.indexOf(feattype.type) > -1"
+							ng-click="vm.toggleFeatures(feattype.type)"
 							id="{{::feattype.id}}" />
 						<label for="{{::feattype.id}}" class="poi-type__label clearfix">
 							<svg class="poi-type__icon poi-type__icon--feat" viewBox="0 0 100 100">
@@ -89,8 +89,8 @@
 				<ul class="poi-type-list">
 					<li class="poi-type" ng-repeat="commtype in subgroup.types">
 						<input class="poi-type__checkbox" type="checkbox"
-							ng-checked="vm.selectedTypes.indexOf(commtype.type) > -1"
-							ng-click="vm.toggleFeatures(commtype.type, 'commercial')"
+							ng-checked="vm.selectedCommTypes.indexOf(commtype.category_int) > -1"
+							ng-click="vm.toggleCommercial(commtype.category_int)"
 							id="{{::commtype.id}}" />
 						<label for="{{::commtype.id}}" class="poi-type__label clearfix">
 							<svg class="poi-type__icon poi-type__icon--comm" viewBox="0 0 100 100">

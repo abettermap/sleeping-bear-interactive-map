@@ -138,31 +138,49 @@
         };
 
         // Update SQL when feature toggled
-        vm.selectedTypes = [];
+        vm.selectedCommTypes = [];
+        vm.selectedFeatTypes = [];
 
-        vm.toggleFeatures = function(type, layer){
+        vm.toggleFeatures = function(type){
 
             var withQuotes = "'" + type + "'";
-            var idx = vm.selectedTypes.indexOf(withQuotes),
-                mainPtsCheck = vm.selectedTypes.indexOf("'mainpoints'");
+            var idx = vm.selectedFeatTypes.indexOf(withQuotes),
+                mainPtsCheck = vm.selectedFeatTypes.indexOf("'mainpoints'");
 
             // is currently selected
             if (idx > -1) {
-                vm.selectedTypes.splice(idx, 1);
+                vm.selectedFeatTypes.splice(idx, 1);
             }
 
             // is newly selected
             else {
-                vm.selectedTypes.push("'" + type + "'");
+                vm.selectedFeatTypes.push("'" + type + "'");
             }
 
             // Put mainpoints back in if features array empty
-            // if (layer === 'features' && vm.selectedTypes.length <= 0) {
-            if (layer === 'features' && mainPtsCheck <= 0) {
-                vm.selectedTypes.push("'mainpoints'");
+            if (mainPtsCheck <= 0) {
+                vm.selectedFeatTypes.push("'mainpoints'");
             }
 
-            panelsFactory.toggleFeatures(vm.selectedTypes, layer);
+            panelsFactory.toggleFeatures(vm.selectedFeatTypes);
+
+        }
+
+        vm.toggleCommercial = function(type){
+
+            var idx = vm.selectedCommTypes.indexOf(type);
+
+            // is currently selected
+            if (idx > -1) {
+                vm.selectedCommTypes.splice(idx, 1);
+            }
+
+            // is newly selected
+            else {
+                vm.selectedCommTypes.push(type);
+            }
+
+            panelsFactory.toggleCommercial(vm.selectedCommTypes);
 
         }
 
