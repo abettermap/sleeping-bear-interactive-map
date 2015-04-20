@@ -413,7 +413,7 @@
 
                 // Thumbs labels
                 if (Math.abs(difference) < 528){
-                    label = Math.abs(difference) + ' ft';
+                    label = Math.floor(Math.abs(difference)) + ' ft';
                 } else {
                     label = Math.abs(Math.round(difference / 5280 * 100)/100) + ' mi';
                     label = label.replace(/^[0]+/g,"");
