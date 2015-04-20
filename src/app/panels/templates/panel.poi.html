@@ -29,7 +29,7 @@
 							ng-click="vm.setActivePoiPage(t.sub_group)">
 							<span class="poi-subgroup__name">{{t.sub_group}}  >></span>
 							<span class="poi-subgroup__preview">
-								{{t.types[0].name}}, {{t.types[1].name}}
+								{{t.types[0].name}}, {{t.types[1].name}}...
 							</span>
 						</a>
 					</li>
@@ -44,13 +44,13 @@
 							ng-click="vm.setActivePoiPage(t.sub_group)">
 							<span class="poi-subgroup__name">{{t.sub_group}}  >></span>
 							<span class="poi-subgroup__preview">
-								{{t.types[0].name}}, {{t.types[1].name}}
+								{{t.types[0].name}}, {{t.types[1].name}}...
 							</span>
 						</a>
 					</li>
 				</ul>
 				<div class="panel__narrative">
-					<p>Sleeping Bear is home to a variety of unique shops, historic landmarks, and trail-friendly amenities for visitors and locals alike. Choose a category above to set which types are displayed.</p>
+					<p>Sleeping Bear is home to a variety of unique shops, historic landmarks, and trail-friendly amenities for visitors and locals alike. Select a category above to set which types are displayed.</p>
 				</div>
 			</div>
 		</div>
@@ -73,7 +73,7 @@
 							</svg>
 							{{::feattype.name}}
 							<br>
-							<em class="poi-type__desc">{{::feattype.type_desc}}</em>
+							<small class="poi-type__desc">{{::feattype.type_desc}}</small>
 						</label>
 					</li>
 				</ul>
@@ -98,7 +98,7 @@
 							</svg>
 							{{::commtype.name}}
 							<br>
-							<em class="poi-type__desc">{{::commtype.type_desc}}</em>
+							<small class="poi-type__desc">{{::commtype.type_desc}}</small>
 						</label>
 					</li>
 				</ul>

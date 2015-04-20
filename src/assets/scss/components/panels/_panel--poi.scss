@@ -106,6 +106,7 @@ $a-long-trans: 5000ms;
     line-height: 1;
     text-decoration: underline;
   }
+
   // Preview list (assumes more than 1 per category)
   &__preview {
     color: $gray;
@@ -113,10 +114,10 @@ $a-long-trans: 5000ms;
     font-size: .8rem;
     line-height: 1.5;
     text-decoration: none;
-    width: 50%;
-    white-space: nowrap;
+    // width: 50%;
+    // white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    // text-overflow: ellipsis;
   }
 }
 
@@ -144,8 +145,8 @@ $a-long-trans: 5000ms;
   align-items: center;
   // display: flex;
 
-  @include mq($from: tablet){
     margin-bottom: .4rem;
+  @include mq($from: tablet){
   }
 
   /* Labels */
@@ -197,7 +198,7 @@ $a-long-trans: 5000ms;
   }
   &__desc {
     // display: inline;
-    color: gray;
+    color: lighten($gray, 10%);
     flex: 0 35%;
     font-size: .6em;
     line-height: .9;

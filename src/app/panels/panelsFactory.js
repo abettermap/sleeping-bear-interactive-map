@@ -133,7 +133,7 @@
 
         /* Load help data */
         function getHelpData(){
-            var query = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT subject, narrative, priority FROM help ORDER BY priority DESC';
+            var query = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT subject, narrative, priority FROM help ORDER BY priority';
             return $http({
                 method: 'GET',
                 url: query

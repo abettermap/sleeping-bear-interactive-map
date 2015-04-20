@@ -49,7 +49,7 @@
     margin-top: 0;
   }
   &__header {
-    font-size: 1.2rem;
+    // font-size: 1.2rem;
   }
 }
 
@@ -62,9 +62,11 @@
   flex: 0 48%;
   display: box;
   display: flex;
+  font-size: 1.05rem;
   padding: .3rem 4px;
   &.trail-cond {
-    flex: 0 100%;
+    align-self: center;
+    flex: 0 70%;
   }
   svg {
     margin-right: 5px;
@@ -81,6 +83,11 @@
     justify-content: center;
   }
 
+}
+
+// Make condition button centered
+.trail__label-cont--cond {
+  justify-content: center;
 }
 
 // Line symbols in legend \\

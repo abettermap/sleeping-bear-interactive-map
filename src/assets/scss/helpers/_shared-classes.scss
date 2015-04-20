@@ -32,25 +32,31 @@
     background-color: $c-panel-unchecked-fill;
     border-radius: 10px;
     border: solid $c-panel-unchecked-border 1px;
-    color: $c-panel-unchecked-text;
+    color: lighten($c-panel-unchecked-text, 13%);
     @include mq($from: desktop){
       transition: $a-all-hover-transition;
 
       &:hover {
-        background-color: $c-seasons-label-fill-checked;
+        background-color: lighten($c-seasons-label-fill-checked, 2%);
         border-color: $c-panel-checked-border;
-        color: $near-white;
+        color: lighten($near-black, 5%);
+        box-shadow: inset 0 0 5px $c-panel-unchecked-border;
+        // text-shadow: 1px 1px darken($dark-gray, 1%);
       }
     }
   }
 
   /* Checked labels */
   input:checked + label {
-    background-color: $c-panel-checked-fill;
-    border: solid $c-panel-checked-border 1px;
+    background-color: darken($c-panel-checked-fill, 7%);
+    border: solid darken($c-panel-checked-border, 7%) 1px;
     border-radius: 10px;
     color: $c-panel-checked-text;
     text-shadow: 1px 1px 1px $near-black;
+    /* Descriptions beneath main text */
+    .poi-type__desc {
+      color: lighten($near-black, 4%);
+    }
   }
 
 }
