@@ -59,7 +59,7 @@
 
                 $rootScope.queryStates = {
                     sbht_caution: false,
-                    commercial: [],
+                    commercial: [50],
                     faces: false,
                     features: ["'mainpoints'"],
                     sbht_grade: false,

@@ -59,25 +59,11 @@
         /* Set up commercial substring */
         function toggleCommercial(types){
 
-            var selTypes = types,
-                string = '';
-
             var query,
-                states = $rootScope.queryStates;
-
-
-            // generate categories query
-
-            if (states.commercial_types){
-                for (var i = 0; i < selTypes.length; i++) {
-                    string = string + " substring(commercial.categories," + selTypes[i] + ",1) = 'y' OR";
-                    // sg[i].types = [];
-                }
-            } else {
-                string = " substring(commercial.categories,2550,1) = 'y' OR";
-            }
-
-                var commQuery = {
+                states = $rootScope.queryStates,
+                string = '',
+                arr = [],
+                commQuery = {
                     start: "SELECT 'commercial' AS layer," +
                         " commercial.lin_dist," +
                         " commercial.the_geom_webmercator," +
@@ -88,21 +74,49 @@
                         " commercial.filepath," +
                         " commercial_types.name AS type_name," +
                         " commercial_types.priority," +
-                        " commercial_types.category_int FROM commercial INNER JOIN commercial_types ON commercial.type=commercial_types.type" +
-                        " WHERE" + string + " commercial.cartodb_id = 0",
+                        " commercial_types.category_int FROM commercial INNER JOIN commercial_types ON commercial.type=commercial_types.type", // +
+                        // " WHERE commercial.cartodb_id = 0",  ADD BACK IN IF PROBLEMS, BUT MAY NOT NEED SINCE 50 IS PLACEHOLDER
                     end: " AND substring(seasons," + states.season + ",1) = 'y' ORDER BY priority DESC",
                     all: ""
                 };
 
-            /* When not called from setSeason()... */
-                commQuery.all = commQuery.start + commQuery.end;
-            // if ( types ){
-            //     commQuery.all = commQuery.start + commQuery.end;
-            // } else {
-            // }
+            /* Make sure 50 always present */
+            if ( types && states.commercial.indexOf(50) < 0){
+                types.push(50);
+            }
 
-            // alert(commQuery.all);
-            states.commercial = types;
+            if ( types ){
+
+                for (var i = 0; i < types.length; i++) {
+
+                    if (i === 0) {
+                        // arr.push(" OR (substring(commercial.categories," + types[i] + ",1) = 'y'");
+                        arr.push(" WHERE (substring(commercial.categories," + types[i] + ",1) = 'y'");
+                    } else {
+                        arr.push(" OR substring(commercial.categories," + types[i] + ",1) = 'y'");
+                    }
+                }
+
+                states.commercial = types;
+
+            } else {  /* When not called from setSeason()... */
+
+                for (var n = 0; n < states.commercial.length; n++) {
+
+                    if (n === 0) {
+                        // arr.push(" OR (substring(commercial.categories," + states.commercial[n] + ",1) = 'y'");
+                        arr.push(" WHERE (substring(commercial.categories," + states.commercial[n] + ",1) = 'y'");
+                    } else {
+                        arr.push(" OR substring(commercial.categories," + states.commercial[n] + ",1) = 'y'");
+                    }
+                }
+
+            }
+
+            string = arr.join("") + ")";
+
+            commQuery.all = commQuery.start + string + commQuery.end;
+            // console.log(commQuery.all);
             sublayers.commercial.setSQL(commQuery.all);
 
         }
@@ -113,6 +127,8 @@
             $rootScope.activeSeason = newSeason;
             toggleFeatures();
             toggleCommercial();
+
+
         }
 
         /* Load help data */

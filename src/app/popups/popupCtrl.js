@@ -250,8 +250,7 @@
         // If features, set feat red, clear comm
         if (vm.selFeatData.layer === 'features'){
             layersFactory.setSelFeatColor('features', vm.selFeatData.cartodb_id);
-            /* PUT BACK WHEN COMM */
-            // layersFactory.setSelFeatColor('commercial', null);
+            layersFactory.setSelFeatColor('commercial', null);
         }
 
         // If comm, set comm red, clear feat
@@ -263,8 +262,7 @@
         // If faces, pics, or trail_con, clear comm & feat
         // if (vm.selFeatData === 'trail_pix' || vm.selFeatData === 'faces' || vm.selFeatData === 'trail_condition') {
         if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces' || vm.selFeatData.layer === 'trail_condition') {
-            /* PUT BACK WHEN COMM */
-            // layersFactory.setSelFeatColor('commercial', null);
+            layersFactory.setSelFeatColor('commercial', null);
             layersFactory.setSelFeatColor('features', null);
         }
 

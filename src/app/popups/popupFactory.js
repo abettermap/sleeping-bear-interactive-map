@@ -70,54 +70,69 @@
                 coords = [params.lat, params.lon],
                 states = $rootScope.queryStates,
                 shared = cdbValues.sharedQueries,
-                sql = shared.sql + " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist, lin_dist,",
+                sharedSeasons = "substring(seasons," + states.season + ",1) = 'y'",
+                sql = shared.sql + " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist,",
                 end = " ORDER BY dist LIMIT 50",
                 nonPoiStatus = {
                     faces: states.faces,
                     trail_condition: '',
                     trail_pix: '',
+                },
+                queries = {
+                    commercial: "",
+                    faces: "",
+                    trail_pix: "",
+                    trail_condition: "",
+                },
+                skipCurrentCdbId = {
+                    commercial: "",
+                    faces: "",
+                    features: "",
+                    trail_pix: "",
+                    trail_condition: "",
                 };
+
+            skipCurrentCdbId[params.layer] = " AND cartodb_id != " + params.cartodb_id;
 
             // Features
             var featQuery = sql +
                     " 'features' AS layer" +
                     " FROM features WHERE type IN(" + states.features + ")" +
-                    " AND substring(seasons," + states.season + ",1) = 'y'" +
-                    " AND cartodb_id != " + params.cartodb_id;
+                    " AND " + sharedSeasons + skipCurrentCdbId.features;
+                    // " AND " + params.layer + ".cartodb_id != " + params.cartodb_id;
 
             // HOW TO AVOID SKIPPING CDB ID'S THAT MATCH CURRENT ONE?
 
-
-            // Commercial (HOW TO AVOID OMITTING FEATURES WHEN CDBID MATCHES FEAT, & VICE VERSA??)
-            // var commQuery = shared +
-            //         " 'commercial' AS layer" +
-            //         " FROM commercial WHERE type IN(" + states.commercial + ")" +
-            //         " AND substring(seasons," + states.season + ",1) = 'y'" +
-            //         " AND cartodb_id != " + params.data.cartodb_id +
-            //         " UNION ALL ";
+            // Commercial
+            // if (states.commercial.length > 1){
+            //     // queries.commercial =
+            //     queries.commercial = ' UNION ALL ' + sql +
+            //             " 'commercial' AS layer" +
+            //             " FROM commercial" +
+            //             " WHERE " + sharedSeasons +
+            //             " AND cartodb_id != " + params.cartodb_id;
+            // }
 
             // Trail pics
-            var trailPicsQuery = ' UNION ALL ' + sql +
+            if (states.trail_pix){
+                queries.trail_pix = ' UNION ALL ' + sql +
                     " 'trail_pix' AS layer" +
                     " FROM trail_pix" +
-                    " WHERE substring(seasons," + states.season + ",1) = 'y'" +
-                    " AND cartodb_id != " + params.cartodb_id;
+                    " WHERE " + sharedSeasons + skipCurrentCdbId.trail_pix;
+                    // " AND " + params.layer + ".cartodb_id != " + params.cartodb_id;
+            }
 
             // Faces
-            var facesQuery = ' UNION ALL ' + sql +
-                    " 'faces' AS layer" +
-                    " FROM faces" +
-                    " WHERE cartodb_id != " + params.cartodb_id;
-
-            if (states.trail_pix && !states.faces){
-                query = shared.url + featQuery + trailPicsQuery + end;
-            } else if (states.trail_pix && states.faces){
-                query = shared.url + featQuery + trailPicsQuery + facesQuery + end;
-            } else if (!states.trail_pix && states.faces){
-                query = shared.url + featQuery + facesQuery + end;
-            } else {
-                query = shared.url + featQuery + end;
+            if (states.faces){
+                queries.faces = ' UNION ALL ' + sql +
+                " 'faces' AS layer" +
+                " FROM faces" +
+                // " WHERE " + params.layer + ".cartodb_id != " + params.cartodb_id;
+                " WHERE " + skipCurrentCdbId.faces;
             }
+
+            query = shared.url + featQuery + queries.commercial + queries.faces + queries.trail_pix + queries.trail_condition + end;
+            // console.log(featQuery + queries.commercial + queries.faces + queries.trail_pix + queries.trail_condition + end);
 
             return $http({
                 method: 'GET',
