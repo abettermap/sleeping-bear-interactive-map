@@ -23,6 +23,16 @@
                     },
                     template: '<div ui-view></div>',
                 })
+                .state('position', {
+                    url: '/position/:lat/:lon',
+                    controller: 'PositionCtrl',
+                    controllerAs: 'vm',
+                    resolve: {
+                        currentPositionLatLng: ['$stateParams', function($stateParams) {
+                            return [$stateParams.lat, $stateParams.lon];
+                        }]
+                    }
+                })
                 .state('popup.poi', {
                     url: 'popup/:layer/:cartodb_id',
                     templateUrl: 'src/app/popups/templates/popup.html',

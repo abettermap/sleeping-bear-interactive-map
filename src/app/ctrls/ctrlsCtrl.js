@@ -23,6 +23,7 @@
         addGps(map);
 
         var gpsBtn = angular.element( document.querySelector( '.gps-button' ) );
+
         gpsBtn.bind('click', function() {
             $scope.$apply(function(){
                 vm.gpsIsActive = !vm.gpsIsActive;
@@ -30,25 +31,26 @@
         });
 
 
-        // Back/history
+        /***** Back/history *****/
         vm.historyControl = new L.HistoryControl({
             useExternalControls: true,
         }).addTo(map);
 
+        // Enabled
         map.on('historybackenabled',function(){
             $scope.safeApply(function(){
                 vm.backEnabled = !vm.backEnabled;
-                console.log(vm.backEnabled);
             });
         });
 
+        // Disabled
         map.on('historybackdisabled',function(){
             $scope.safeApply(function(){
                 vm.backEnabled = !vm.backEnabled;
-                console.log(vm.backEnabled);
             });
         });
 
+        // Get rid of the 'digest cycle' errors
         $scope.safeApply = function(fn) {
           var phase = this.$root.$$phase;
           if(phase == '$apply' || phase == '$digest') {
