@@ -77,7 +77,6 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    color: darken($gray,5%);
     color: darken($c-panel-header,5%);
     line-height: .75;
     margin: 0;
@@ -96,9 +95,9 @@
     height: 1rem;
     display: block;
     margin-top: 0;
-    color: $gray;
+    color: darken($gray,7%);
     &:first-of-type {
-      margin-top: .3rem;
+      margin-top: .25rem;
     }
   }
 }
@@ -287,13 +286,15 @@ a.close-tab {
 }
 
 .caution-present {
-  margin-top: -.4rem;
+  margin-top: -0.5rem;
   color: $c-season-avail;
-  font-size: 1.3rem;
+  .narrative-text {
+    font-size: 1.2rem;
+  }
   svg {
     display: block;
     fill: $c-season-avail;
-    $s: 3.75rem;
+    $s: 4rem;
     height: $s;
     width: $s;
   }
@@ -302,4 +303,9 @@ a.close-tab {
 // Cover all the bases, whether <p> or none
 .narrative-text {
   font-size: .9rem;
+
+  p {
+    white-space: pre-wrap;
+  }
+
 }

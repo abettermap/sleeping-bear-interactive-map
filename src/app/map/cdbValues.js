@@ -44,12 +44,13 @@
             ],
             gradeSublayer: {
                 cartocss: "" +
-                    "#sbht_grade{line-color: red; line-width: 4; line-opacity: .76; line-join: round;}",
+                    "#sbht_grade{line-color: red; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
                 sql: "SELECT the_geom_webmercator, cartodb_id, grade FROM sbht_grade WHERE cartodb_id = 0",
             },
             cautionSublayer: {
                 cartocss: "" +
-                    "#sbht_caution{line-color: yellow; line-width: 4; line-opacity: .76; line-join: round;}" +
+                    "#sbht_caution{line-color: yellow; line-width: 4; line-opacity: .76; line-smooth: .25; line-join: round;}" +
+                    "#sbht_caution::bottom {line-width:12; line-opacity: .1; line-color: yellow;}" +
                     "#sbht_caution::labels[zoom >= 14]{" +
                       "text-name: [type_name];" +
                       "text-face-name: 'DejaVu Sans Book';" +

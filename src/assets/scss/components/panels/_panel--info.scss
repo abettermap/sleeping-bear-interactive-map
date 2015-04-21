@@ -39,6 +39,11 @@
       @extend %h4;
     }
 
+    // Wrap if using no <p>
+    p {
+      white-space: pre-wrap;
+    }
+
   }
 }
 
