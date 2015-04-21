@@ -237,3 +237,9 @@ $a-trans-fill: fill 250ms ease;
 #test {
   z-index: 5;
 }
+
+// Back btn disabled
+.back-disabled {
+  fill: rgba($near-white, .5);
+  cursor: not-allowed;
+}

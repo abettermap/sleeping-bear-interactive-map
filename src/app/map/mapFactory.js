@@ -55,20 +55,20 @@
             // var screenHt = $(window).height();
             // alert(screenHt);
 
-            // Unless it's an iPhone...
-            if (navigator.userAgent.match(/iPhone/i)){
-                // screenHt = screenHt + 72;
-                // $('#map-wrapper').css("height",screenHt);
-                // if
-                // $('#map-wrapper').addClass('iphone');
-            }
+            // // Unless it's an iPhone...
+            // if (navigator.userAgent.match(/iPhone/i)){
+            //     // screenHt = screenHt + 72;
+            //     // $('#map-wrapper').css("height",screenHt);
+            //     // if
+            //     // $('#map-wrapper').addClass('iphone');
+            // }
 
-            // iPad
-            if (navigator.userAgent.match(/iPad/i)){
-                // screenHt = screenHt + 72;
-                // $('#map-wrapper').css("height",screenHt);
-                // $('#map-wrapper').addClass('ipad');
-            }
+            // // iPad
+            // if (navigator.userAgent.match(/iPad/i)){
+            //     // screenHt = screenHt + 72;
+            //     // $('#map-wrapper').css("height",screenHt);
+            //     // $('#map-wrapper').addClass('ipad');
+            // }
 
             mapFactory.map = L.map('map', leafletDefaults);
 

@@ -16,7 +16,7 @@
 
         var ctrlsFactory = {
             getZoom: getZoom,
-            fullScreen: fullScreen,
+            // fullScreen: fullScreen,
             locate: locate,
             map: map,
             tileLayers: mapFactory.tileLayers,
@@ -48,11 +48,11 @@
             });
         }
 
-        function fullScreen(){
-            angular.element('#map-wrapper').toggleClass('fullscreen');
-            map.invalidateSize();
-            $('#map-wrapper')[0].scrollIntoView(true);
-        }
+        // function fullScreen(){
+        //     angular.element('#map-wrapper').toggleClass('fullscreen');
+        //     map.invalidateSize();
+        //     $('#map-wrapper')[0].scrollIntoView(true);
+        // }
 
         // function changeTiles(current) {
         // function changeTiles() {

@@ -6,9 +6,9 @@
         .module('ctrlsModule')
         .controller('CtrlsCtrl', CtrlsCtrl);
 
-    CtrlsCtrl.$inject = ['ctrlsFactory', 'basePath', '$rootScope', '$scope'];
+    CtrlsCtrl.$inject = ['ctrlsFactory', 'basePath', '$scope'];
 
-    function CtrlsCtrl(ctrlsFactory, basePath, $rootScope, $scope){
+    function CtrlsCtrl(ctrlsFactory, basePath, $scope){
 
         var vm = this,
             map = ctrlsFactory.map,
@@ -29,6 +29,36 @@
             });
         });
 
+
+        // Back/history
+        vm.historyControl = new L.HistoryControl({
+            useExternalControls: true,
+        }).addTo(map);
+
+        map.on('historybackenabled',function(){
+            $scope.safeApply(function(){
+                vm.backEnabled = !vm.backEnabled;
+                console.log(vm.backEnabled);
+            });
+        });
+
+        map.on('historybackdisabled',function(){
+            $scope.safeApply(function(){
+                vm.backEnabled = !vm.backEnabled;
+                console.log(vm.backEnabled);
+            });
+        });
+
+        $scope.safeApply = function(fn) {
+          var phase = this.$root.$$phase;
+          if(phase == '$apply' || phase == '$digest') {
+            if(fn && (typeof(fn) === 'function')) {
+              fn();
+            }
+          } else {
+            this.$apply(fn);
+          }
+        };
 
         // Others
         vm.zoomHome = ctrlsFactory.zoomHome;

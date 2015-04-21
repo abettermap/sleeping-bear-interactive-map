@@ -55,6 +55,9 @@ module.exports = {
         // ESRI/Leaflet Baselayer only
         'src/assets/js/vendor/bower_components/esri-leaflet-baselayer-only/esri-leaflet-basemaps.js',
 
+        // Leaflet History
+        'src/assets/js/vendor/leaflet-history-src.js',
+
         // Leaflet GPS
         'src/assets/js/vendor/bower_components/leaflet-gps/src/leaflet-gps.js',
         // Angular Fullscreen

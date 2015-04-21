@@ -33,10 +33,12 @@
         <a class="controls__menu-item" href="javascript:;"></a>
         <a class="controls__menu-item" href="javascript:;"></a>
     </div>
-    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.changeTiles()">
+    <a href="javascript:;" class="css-tooltip-right color-blue"
+        ng-click="vm.historyControl.goBack()"
+        ng-class="{'back-disabled': !vm.backEnabled}">
         <span class="tooltip">Zoom to previous extent</span>
     </a>
-    <svg class="controls__icon" viewBox="0 0 100 100">
+    <svg class="controls__icon" ng-class="{'back-disabled': !vm.backEnabled}" viewBox="0 0 100 100">
         <use xlink:href="#icon-back"></use>
     </svg>
     <a id="test" href="javascript:;" class="css-tooltip-right color-blue">
