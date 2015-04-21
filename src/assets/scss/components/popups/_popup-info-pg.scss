@@ -55,12 +55,15 @@
   background-color: rgba($c-panel-bg, .9);
   min-height: calc(100% - 3.3rem);
 
+  p {
+    font-size: .9rem;
+  }
 
   header {
     text-align: center;
     margin-bottom: .5rem;
   }
-  div:last-of-type:after {
+  > div:last-of-type:after {
     content: "";
     display: block;
     height: 4rem;
@@ -74,7 +77,6 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    font-size: 1.2rem;
     color: darken($gray,5%);
     color: darken($c-panel-header,5%);
     line-height: .75;
@@ -104,6 +106,7 @@
 .subtitle__text {
   margin: 0 .25rem;
   font-family: Brawler;
+  font-size: 1.2rem;
 }
 
 .icon--heading {
@@ -284,7 +287,9 @@ a.close-tab {
 }
 
 .caution-present {
+  margin-top: -.4rem;
   color: $c-season-avail;
+  font-size: 1.3rem;
   svg {
     display: block;
     fill: $c-season-avail;
@@ -292,4 +297,9 @@ a.close-tab {
     height: $s;
     width: $s;
   }
+}
+
+// Cover all the bases, whether <p> or none
+.narrative-text {
+  font-size: .9rem;
 }

@@ -6,9 +6,9 @@
         .module('layersModule')
         .factory('layersFactory', layersFactory);
 
-    layersFactory.$inject = ['cdbValues', '$state', '$stateParams', '$rootScope', 'popupFactory', '$timeout'];
+    layersFactory.$inject = ['cdbValues', '$state', '$stateParams', '$rootScope', 'popupFactory', '$timeout', '$sce'];
 
-    function layersFactory(cdbValues, $state, $stateParams, $rootScope, popupFactory, $timeout){
+    function layersFactory(cdbValues, $state, $stateParams, $rootScope, popupFactory, $timeout, $sce){
 
         // Set empty objects for easy access later
         var sublayers = {
@@ -29,6 +29,10 @@
             sublayers: sublayers,
     	};
 
+        function toTrusted(html_code){
+            return $sce.trustAsHtml(html_code);
+        }
+
         /* Create the CDB layer w/initial sublayer (trail) and add to map */
     	function addCdbLayer(map){
 
@@ -47,11 +51,19 @@
                 cdb.vis.Vis.addCursorInteraction(map, layer);
 
                 layer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data){
+
                     doThisWhenTrailClicked(e, latlng, pos, data);
+
                     if ($rootScope.queryStates.sbht_caution){
-                        $rootScope.cautionInfo.text = 'None present, but please exercise general safety measures outlined in the "Help & Info" section.';
-                        $rootScope.cautionInfo.icon = '';
+
+                        // Get non-poi narrative from help table
+                        popupFactory.getNonPoiNarrative('sbht_caution').then(function(dataResponse) {
+                            $rootScope.cautionInfo.text = dataResponse.data.rows[0].narrative;
+                            $rootScope.cautionInfo.icon = '';
+                        });
+
                     }
+
                 });
 
                 // Create remaining sublayers

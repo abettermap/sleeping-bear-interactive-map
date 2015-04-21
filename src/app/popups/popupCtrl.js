@@ -139,13 +139,6 @@
             return $sce.trustAsHtml(html_code);
         }
 
-        // Get non-poi narratives from help table
-        popupFactory.getNonPoiNarrative(vm.selFeatData.layer).then(function(dataResponse) {
-
-            vm.nonPoiNarrative = dataResponse.data.rows[0].narrative;
-            console.log(vm.nonPoiNarrative);
-
-        });
 
         /***** Header *****/
         vm.popupHeader = vm.selFeatData.name;
@@ -273,10 +266,20 @@
         }
 
         // If faces, pics, or trail_con, clear comm & feat
-        // if (vm.selFeatData === 'trail_pix' || vm.selFeatData === 'faces' || vm.selFeatData === 'trail_condition') {
         if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces' || vm.selFeatData.layer === 'trail_condition') {
             layersFactory.setSelFeatColor('commercial', null);
             layersFactory.setSelFeatColor('features', null);
+
+
+            // Get non-poi narratives from help table (nothing to do w/selection, just don't want to
+            // have another if statement)
+
+            popupFactory.getNonPoiNarrative(vm.selFeatData.layer).then(function(dataResponse) {
+
+                vm.selFeatData.narrative = dataResponse.data.rows[0].narrative;
+
+            });
+
         }
 
         /******************************/

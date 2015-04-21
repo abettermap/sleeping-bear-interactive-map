@@ -6,9 +6,9 @@
         .module('popupsModule')
         .factory('popupFactory', popupFactory);
 
-    popupFactory.$inject = ['$rootScope', '$http', 'basePath', '$timeout', '$state', '$stateParams', 'cdbValues', '$location'];
+    popupFactory.$inject = ['$rootScope', '$http', 'basePath', '$timeout', '$state', '$stateParams', 'cdbValues', '$location', '$sce'];
 
-    function popupFactory($rootScope, $http, basePath, $timeout, $state, $stateParams, cdbValues, $location){
+    function popupFactory($rootScope, $http, basePath, $timeout, $state, $stateParams, cdbValues, $location, $sce){
 
         var defaultImg = 'sbht-i-map/img_prod/features/mid_size/n00/wdune-climb/image00009.jpg';
 
@@ -16,6 +16,7 @@
             clearTempMarker: clearTempMarker,
             defaultImg: defaultImg,
             findSecondary: findSecondary,
+            toTrusted: toTrusted,
             getNearest: getNearest,
             getNonPoiNarrative: getNonPoiNarrative,
             setSecondary: setSecondary,
@@ -280,6 +281,11 @@
         function encodeUrls(){
 
         }
+
+        /* Trust URL */
+        function toTrusted (html_code){
+            return $sce.trustAsHtml(html_code);
+        };
 
 
         /* Social links */
