@@ -51,7 +51,7 @@
                 cartocss: "" +
                     "#sbht_caution{line-color: yellow; line-width: 4; line-opacity: .76; line-join: round;}" +
                     "#sbht_caution::labels[zoom >= 14]{" +
-                      "text-name: [type];" +
+                      "text-name: [type_name];" +
                       "text-face-name: 'DejaVu Sans Book';" +
                       "text-size: 11;" +
                       "text-opacity: .85;" +
@@ -64,8 +64,8 @@
                       "text-placement: line;" +
                       // "text-placement-type: dummy;" +
                     "}",
-                interactivity: 'cartodb_id, type',
-                sql: "SELECT the_geom_webmercator, cartodb_id, type FROM sbht_caution WHERE cartodb_id = 0",
+                interactivity: 'cartodb_id, type_name, type',
+                sql: "SELECT the_geom_webmercator, cartodb_id, type_name, type FROM sbht_caution WHERE cartodb_id = 0",
             },
             commSublayer: { // COMMERCIAL
                 cartocss: getMss('commercial'),

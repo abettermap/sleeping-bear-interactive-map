@@ -152,7 +152,7 @@
         // Distances from Dune Climb
         vm.distFromDuneClimb = function(dist){
 
-            var difference = 27975 - dist,
+            var difference = 28500 - dist,
                 text;
 
             // North/South
@@ -192,7 +192,7 @@
             vm.overlayStatus.grade = vm.selFeatData.grade;
         }
         if (vm.selFeatData.layer === 'sbht_caution') {
-            vm.overlayStatus.grade = vm.selFeatData.type;
+            vm.overlayStatus.grade = vm.selFeatData.type_name;
         }
 
 

@@ -16,6 +16,7 @@
         popupFactory.clearTempMarker(map, mapLayers);
 
         map.panTo(currentPositionLatLng);
+        map.setZoom(14);
 
         var positionMarker = L.marker(currentPositionLatLng,{
             temp: true,

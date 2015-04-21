@@ -108,7 +108,15 @@
                 /******************************/
                 /******** CAUTION TEXT ********/
                 /******************************/
-                $rootScope.cautionText = '';
+                $rootScope.cautionInfo = {
+                    text: '',
+                    icon: '',
+                };
+
+                $rootScope.$on('cautionClicked',function(){
+                    $rootScope.cautionInfo.text = $rootScope.cautionInfo.text;
+                    $rootScope.cautionInfo.icon = $rootScope.cautionInfo.icon;
+                });
 
             }
         ]);

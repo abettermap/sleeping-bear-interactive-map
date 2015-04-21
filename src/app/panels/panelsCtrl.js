@@ -217,7 +217,7 @@
                     sbht_grade: "" +
                         " grade, 'sbht_grade' as layer",
                     sbht_caution: "" +
-                        " type, 'sbht_caution' as layer",
+                        " type_name, type, 'sbht_caution' as layer",
                     suffix: "" +
                         " FROM " + overlay.layer +
                         " WHERE cartodb_id " + operator + " 0"

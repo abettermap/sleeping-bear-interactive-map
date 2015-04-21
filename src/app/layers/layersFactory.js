@@ -48,6 +48,10 @@
 
                 layer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data){
                     doThisWhenTrailClicked(e, latlng, pos, data);
+                    if ($rootScope.queryStates.sbht_caution){
+                        $rootScope.cautionInfo.text = 'None present, but please exercise general safety measures outlined in the "Help & Info" section.';
+                        $rootScope.cautionInfo.icon = '';
+                    }
                 });
 
                 // Create remaining sublayers
@@ -104,7 +108,7 @@
               sql: cdbValues.gradeSublayer.sql,
             }).on('featureClick', function(e, latlng, pos, data){
                 doThisWhenTrailClicked(e, latlng, pos, data);
-            });;
+            });
 
             // Caution overlay (index: 2)
             layer.createSubLayer({
@@ -113,9 +117,21 @@
               interactivity: cdbValues.cautionSublayer.interactivity,
             }).on('featureClick', function(e, latlng, pos, data){
                 doThisWhenTrailClicked(e, latlng, pos, data);
-                var type = data.type;
-                $rootScope.cautionText = type;
-            });;
+
+                var text = data.type_name,
+                    icon = data.type;
+
+                var cautionInfo = {
+                    text: text,
+                    icon: '#icon-' + icon,
+                };
+
+                $rootScope.cautionInfo.text = cautionInfo.text;
+                $rootScope.cautionInfo.icon = cautionInfo.icon;
+
+                $rootScope.$broadcast('cautionClicked', '');
+
+            });
 
             /***** POINTS *****/
 

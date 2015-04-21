@@ -11,8 +11,9 @@
                 <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
             </svg>
         </p>
-        <span class="popup-info-pg__coords" ng-show="{{vm.selFeatData.cartodb_id != 60}}">{{vm.distFromDuneClimb(vm.selFeatData.lin_dist)}}<br></span>
         <span class="popup-info-pg__coords">{{vm.selFeatData.lat}}, {{vm.selFeatData.lon}}</span>
+        <span class="popup-info-pg__coords" ng-show="{{vm.selFeatData.cartodb_id != 211}}">{{vm.distFromDuneClimb(vm.selFeatData.lin_dist)}}</span>
+        <span class="popup-info-pg__coords" ng-show="{{vm.selFeatData.cartodb_id != 211}}">(Trail Mile Marker 0)</span>
     </header>
 
     <!-- DIRECTIONS -->
@@ -27,14 +28,19 @@
     </div>
 
     <!-- CAUTION -->
-    <div>
+    <div ng-show="{{$root.queryStates.sbht_caution}}">
         <h4 class="popup-info-pg__heading">
             <svg class="icon--heading" viewBox="0 0 100 100">
                 <use xlink:href="#icon-caution"</use>
             </svg>
             Cautionary Concerns
         </h4>
-        <p ng-bind="$root.cautionText"></p>
+        <div class="caution" ng-class="{'caution-present': $root.cautionInfo.icon}">
+            <svg viewBox="0 0 100 100">
+                <use ng-attr-xlink:href="{{$root.cautionInfo.icon}}" xlink:href=""></use>
+            </svg>
+            <span class="">{{$root.cautionInfo.text}}</span>
+        </div>
     </div>
 
 </div>

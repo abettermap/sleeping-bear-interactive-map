@@ -119,16 +119,20 @@
                     " 'trail_pix' AS layer" +
                     " FROM trail_pix" +
                     " WHERE " + sharedSeasons + skipCurrentCdbId.trail_pix;
-                    // " AND " + params.layer + ".cartodb_id != " + params.cartodb_id;
             }
 
             // Faces
             if (states.faces){
-                queries.faces = ' UNION ALL ' + sql +
-                " 'faces' AS layer" +
-                " FROM faces" +
-                // " WHERE " + params.layer + ".cartodb_id != " + params.cartodb_id;
-                " WHERE " + skipCurrentCdbId.faces;
+                if (params.layer === 'faces'){
+                    queries.faces = ' UNION ALL ' + sql +
+                    " 'faces' AS layer" +
+                    " FROM faces" +
+                    " WHERE cartodb_id != " + params.cartodb_id;
+                } else {
+                    queries.faces = ' UNION ALL ' + sql +
+                    " 'faces' AS layer" +
+                    " FROM faces";
+                }
             }
 
             query = shared.url + featQuery + queries.commercial + queries.faces + queries.trail_pix + queries.trail_condition + end;

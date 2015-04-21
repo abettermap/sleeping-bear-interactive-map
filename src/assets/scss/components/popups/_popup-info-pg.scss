@@ -95,6 +95,9 @@
     display: block;
     margin-top: 0;
     color: $gray;
+    &:first-of-type {
+      margin-top: .3rem;
+    }
   }
 }
 
@@ -282,4 +285,26 @@ a.close-tab {
   height: $s;
   width: $s;
   vertical-align: middle;
+}
+
+// Caution
+.caution {
+  align-items: center;
+  justify-content: center;
+  // color: $c-season-avail;
+  display: flex;
+  svg {
+    display: none;
+  }
+}
+
+.caution-present {
+  color: $c-season-avail;
+  svg {
+    display: block;
+    fill: $c-season-avail;
+    $s: 3.75rem;
+    height: $s;
+    width: $s;
+  }
 }

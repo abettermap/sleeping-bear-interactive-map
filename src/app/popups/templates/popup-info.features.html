@@ -11,8 +11,9 @@
 			    <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
 			</svg>
 		</p>
-		<span class="popup-info-pg__coords" ng-show="{{vm.selFeatData.cartodb_id != 60}}">{{vm.distFromDuneClimb(vm.selFeatData.lin_dist)}}<br></span>
 		<span class="popup-info-pg__coords">{{vm.selFeatData.lat}}, {{vm.selFeatData.lon}}</span>
+		<span class="popup-info-pg__coords" ng-show="{{vm.selFeatData.cartodb_id != 211}}">{{vm.distFromDuneClimb(vm.selFeatData.lin_dist)}}</span>
+		<span class="popup-info-pg__coords" ng-show="{{vm.selFeatData.cartodb_id != 211}}">(Trail Mile Marker 0)</span>
 	</header>
 
 	<!-- SEASONS -->
