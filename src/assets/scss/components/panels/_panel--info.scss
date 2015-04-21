@@ -35,6 +35,10 @@
       opacity: 0;
     }
 
+    h5 {
+      @extend %h4;
+    }
+
   }
 }
 
@@ -46,7 +50,7 @@
   margin: 0;
   padding: 0;
   > li {
-    flex: 0 25%;
+    flex: 0 22%;
   }
 }
 

@@ -1,18 +1,19 @@
-/* Get ride of CDB dpi console debugs */
-@media
-  only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (   min--moz-device-pixel-ratio: 2),
-  only screen and (     -o-min-device-pixel-ratio: 2/1),
-  only screen and (        min-device-pixel-ratio: 2),
-  only screen and (                min-resolution: 192dpi),
-  only screen and (                min-resolution: 2dppx) {
-}
+/* Get rid of CDB dpi console debugs */
+// @media
+//   &(-webkit-min-device-pixel-ratio: 2),
+//   &(   min--moz-device-pixel-ratio: 2),
+//   &(     -o-min-device-pixel-ratio: 2/1),
+//   &(        min-device-pixel-ratio: 2),
+//   &(                min-resolution: 192dpi),
+//   &(                min-resolution: 2dppx);
+
 
 %full {
   height: 100%;
   width: 100%;
   // min-height: 100%;
 }
+
 html {
   @extend %full;
   overflow-x: hidden;
@@ -47,6 +48,32 @@ h3 {
   margin: 0 0 .3rem;
 }
 
+%h4 {
+  color: #38629c;
+  fill: darken(desaturate($c-panel-header, 25%), 15%);
+  font-family: Brawler, serif;
+  font-size: 1.4rem;
+  font-weight: normal;
+  margin: 1rem auto .4rem;
+  vertical-align: bottom;
+}
+
+h4 {
+  @extend %h4;
+}
+
+h5 {
+  color: #38629c;
+  font-family: 'Average Sans', sans-serif;
+  font-size: 1.2rem;
+  font-weight: normal;
+  margin: .6rem auto .2rem;
+  + p {
+    margin-top: 0;
+  }
+}
+
+
 a {
   color: $c-panel-header;
   text-decoration: underline;
@@ -65,12 +92,6 @@ p {
   font-size: 1rem;
   margin-top: .8rem;
 }
-
-// No top margin on paragraphs preceded by h4
-h4 + p {
-  margin-top: 0;
-}
-
 
 // Attribution
 .leaflet-container .leaflet-control-attribution {
@@ -97,14 +118,10 @@ h4 + p {
 // Clearfix (included in desktop theme, not mobile)
 .clearfix:after {
   clear: both;
-  content: " ";
+  content: ' ';
   display: block;
   font-size: 0;
   height: 0;
   // visibility: hidden;
   overflow: hidden;
 }
-
-* html .clearfix             { zoom: 1; } /* IE6 */
-
-*:first-child + html .clearfix { zoom: 1; } /* IE7 */

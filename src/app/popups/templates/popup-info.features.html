@@ -17,24 +17,26 @@
 	</header>
 
 	<!-- SEASONS -->
-	<h4 class="popup-info-pg__heading">
-		<svg class="icon--heading" viewBox="0 0 100 100">
-		    <use xlink:href="#icon-calendar"></use>
-		</svg>
-		Seasonal Availability
-	</h4>
-	<ul class="available-seasons">
-		<li ng-repeat="season in vm.availableSeasons">
-			<svg ng-class="season.classNm" viewBox="0 0 100 100">
-			    <use ng-attr-xlink:href="{{season.icon}}" xlink:href=""></use>
+	<div ng-show="vm.selFeatData.seasons">
+		<h4>
+			<svg class="icon--heading" viewBox="0 0 100 100">
+			    <use xlink:href="#icon-calendar"></use>
 			</svg>
-			<span class="available-seasons__text" ng-class="{'season-available': season.open}">{{season.name}}</span>
-		</li>
-	</ul>
+			Seasonal Availability
+		</h4>
+		<ul class="available-seasons">
+			<li ng-repeat="season in vm.availableSeasons">
+				<svg ng-class="season.classNm" viewBox="0 0 100 100">
+				    <use ng-attr-xlink:href="{{season.icon}}" xlink:href=""></use>
+				</svg>
+				<span class="available-seasons__text" ng-class="{'season-available': season.open}">{{season.name}}</span>
+			</li>
+		</ul>
+	</div>
 
 	<!-- DIRECTIONS -->
-	<div class="directions">
-		<h4 class="popup-info-pg__heading">
+	<div class="directions" ng-hide="vm.selFeatData.layer === 'faces'">
+		<h4>
 			<svg class="icon--heading" viewBox="0 0 100 100">
 			    <use xlink:href="#icon-directions"</use>
 			</svg>
@@ -43,9 +45,25 @@
 		<p><a target="_blank" ng-href="{{vm.directionsUrl}}">Click here</a> for Google Maps directions to this location (opens in a new tab).</p>
 	</div>
 
+	<!-- CAUTION -->
+	<div ng-show="$root.queryStates.sbht_caution">
+	    <h4>
+	        <svg class="icon--heading" viewBox="0 0 100 100">
+	            <use xlink:href="#icon-caution"</use>
+	        </svg>
+	        Cautionary Concerns
+	    </h4>
+	    <div class="caution" ng-class="{'caution-present': $root.cautionInfo.icon}">
+	        <svg viewBox="0 0 100 100">
+	            <use ng-attr-xlink:href="{{$root.cautionInfo.icon}}" xlink:href=""></use>
+	        </svg>
+	        <span class="">{{$root.cautionInfo.text}}</span>
+	    </div>
+	</div>
+
 	<!-- AUDIO CLIP -->
 	<div ng-show="vm.selFeatData.audio_link">
-		<h4 class="popup-info-pg__heading">
+		<h4>
 			<svg class="icon--heading" viewBox="0 0 100 100">
 			    <use xlink:href="#icon-audio_link"></use>
 			</svg>
@@ -56,7 +74,7 @@
 
 	<!-- VIDEO CLIP -->
 	<div ng-show="vm.selFeatData.video_link">
-		<h4 class="popup-info-pg__heading">
+		<h4>
 			<svg class="icon--heading" viewBox="0 0 100 100">
 			    <use xlink:href="#icon-video_link"></use>
 			</svg>
@@ -64,14 +82,17 @@
 		</h4>
 		<iframe width="100%" ng-src="{{vm.videoUrl}}" frameborder="0" allowfullscreen></iframe>
 	</div>
+
 	<!-- NARRATIVE -->
-	<div ng-show="vm.selFeatData.narrative">
-		<h4 class="popup-info-pg__heading">
+	<div>
+		<h4>
 			<svg class="icon--heading" viewBox="0 0 100 100">
 			    <use xlink:href="#icon-list"></use>
 			</svg>
 			Description
 		</h4>
-		<div ng-bind-html="vm.toTrusted(vm.selFeatData.narrative)"></div>
+		<div ng-show="vm.selFeatData.narrative" ng-bind-html="vm.toTrusted(vm.selFeatData.narrative)"></div>
+		<div ng-hide="vm.selFeatData.narrative" ng-bind-html="vm.toTrusted(vm.nonPoiNarrative)"></div>
 	</div>
+
 </div>

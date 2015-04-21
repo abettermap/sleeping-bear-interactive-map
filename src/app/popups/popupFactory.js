@@ -17,6 +17,7 @@
             defaultImg: defaultImg,
             findSecondary: findSecondary,
             getNearest: getNearest,
+            getNonPoiNarrative: getNonPoiNarrative,
             setSecondary: setSecondary,
             setSeason: setSeason,
             setShareUrl: setShareUrl,
@@ -303,6 +304,17 @@
 
             return shareUrl[medium];
 
+        }
+
+        /* Load help data */
+        function getNonPoiNarrative(layer){
+            var query = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT name_id, narrative FROM help" +
+                " WHERE name_id = '" + layer + "'";
+
+            return $http({
+                method: 'GET',
+                url: query
+            });
         }
 
 

@@ -134,6 +134,19 @@
             vm.allowAudio(audio);
         }
 
+        // Enable HTML
+        vm.toTrusted = function(html_code) {
+            return $sce.trustAsHtml(html_code);
+        }
+
+        // Get non-poi narratives from help table
+        popupFactory.getNonPoiNarrative(vm.selFeatData.layer).then(function(dataResponse) {
+
+            vm.nonPoiNarrative = dataResponse.data.rows[0].narrative;
+            console.log(vm.nonPoiNarrative);
+
+        });
+
         /***** Header *****/
         vm.popupHeader = vm.selFeatData.name;
 
@@ -166,7 +179,7 @@
             if (Math.abs(difference) < 528){
                 text = Math.abs(difference) + ' feet ' + text;
             } else {
-                text = Math.abs(Math.round(difference / 5280 * 100)/100) + ' miles ' + text;
+                text = Math.abs(Math.round(difference / 5280 * 100)/100) + ' mile(s) ' + text;
             }
 
             return "Approximately " + text + " of the Dune Climb";

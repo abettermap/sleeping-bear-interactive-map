@@ -63,7 +63,7 @@
   div:last-of-type:after {
     content: "";
     display: block;
-    height: 2rem;
+    height: 4rem;
   }
 }
 
@@ -105,21 +105,6 @@
   margin: 0 .25rem;
   font-family: Brawler;
 }
-
-
-/* Before each info section */
-.popup-info-pg__heading {
-  font-family: Brawler, serif;
-  font-size: 1.4rem;
-  // color: darken(desaturate($c-panel-header,15%),15%);
-  color: #38629c;
-  fill: darken(desaturate($c-panel-header,25%),15%);
-  font-weight: normal;
-  margin: 1rem auto .4rem;
-  display: inline-block;
-  vertical-align: bottom;
-}
-
 
 .icon--heading {
   display: inline-block;
