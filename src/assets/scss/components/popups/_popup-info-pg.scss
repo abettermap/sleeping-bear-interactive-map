@@ -42,7 +42,7 @@
   left: 0;
   right: 0;
   bottom: 1px;
-  filter: sepia(.75) blur(1px);
+  filter: sepia(.75) blur(0);
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -52,7 +52,7 @@
   top: 0;
   position: absolute;
   width: 100%;
-  background-color: rgba($c-panel-bg, .9);
+  background-color: rgba($c-panel-bg, .925);
   min-height: calc(100% - 3.3rem);
 
   p {

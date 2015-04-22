@@ -61,20 +61,15 @@
                             // Features
                             var featQuery = "" +
                                 queryPrefix +
-                                " features.cartodb_id," +
-                                " features.the_geom," +
+                                " features.cartodb_id, features.the_geom," +
                                 " ROUND(ST_X(features.the_geom)::numeric, 5) AS lon," +
                                 " ROUND(ST_Y(features.the_geom)::numeric, 5) AS lat," +
-                                " features.filepath," +
-                                " features.lin_dist," +
-                                " features.seasons," +
-                                " features.type," +
-                                " features.name," +
+                                " features.filepath, features.lin_dist, features.seasons," +
+                                " features.type, features.name," +
                                 " narrative, video_link, audio_link," +
                                 " feature_types.name AS type_name," +
                                 " 'features' AS layer" +
-                                " FROM" +
-                                    " features" +
+                                " FROM features" +
                                 " INNER JOIN" +
                                     " feature_types" +
                                 " ON" +
@@ -84,20 +79,15 @@
                             // Commercial
                             var commQuery = "" +
                                 queryPrefix +
-                                " commercial.cartodb_id," +
-                                " commercial.the_geom," +
+                                " commercial.cartodb_id, commercial.the_geom," +
                                 " ROUND(ST_X(commercial.the_geom)::numeric, 5) AS lon," +
                                 " ROUND(ST_Y(commercial.the_geom)::numeric, 5) AS lat," +
-                                " commercial.filepath," +
-                                " commercial.lin_dist," +
-                                " commercial.seasons," +
-                                " commercial.type," +
-                                " commercial.name," +
+                                " commercial.filepath, commercial.lin_dist, commercial.seasons," +
+                                " commercial.type, commercial.name," +
                                 " narrative, video_link, audio_link," +
                                 " commercial_types.name AS type_name," +
                                 " 'commercial' AS layer" +
-                                " FROM" +
-                                    " commercial" +
+                                " FROM commercial" +
                                 " INNER JOIN" +
                                     " commercial_types" +
                                 " ON" +
@@ -119,7 +109,12 @@
                                         " 'Trail Snapshot' AS name," +
                                         " 'Trail Snapshot' AS type_name" +
                                         sharedSuffix,
-                                    trail_condition: ''
+                                    trail_condition: "" +
+                                        sharedPrefix +
+                                        " 'trail-cond' AS type," +
+                                        " 'Current Trail Condition' AS name," +
+                                        " 'Winter Trail Conditions' AS type_name" +
+                                        sharedSuffix,
                                 };
 
                             query = queries[sp.layer];

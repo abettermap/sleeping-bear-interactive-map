@@ -18,7 +18,7 @@
 				<div class="panel--trail__label-cont">
 					<!-- Trail Pics -->
 					<input ng-checked="vm.trailPicsState" type="checkbox" id="trail-pics-toggle"
-						ng-click="vm.toggleTrailPicsState()">
+						ng-click="vm.togglePicsState('trail_pix')">
 					<label class="panel--trail__label" for="trail-pics-toggle">
 						<svg viewBox="0 0 100 100">
 							<use xlink:href="#icon-camera"></use>
@@ -27,7 +27,7 @@
 					</label>
 					<!-- Faces -->
 					<input ng-checked="vm.facesState" type="checkbox" id="faces-toggle"
-						ng-click="vm.toggleFacesState()">
+						ng-click="vm.togglePicsState('faces')">
 					<label class="panel--trail__label" for="faces-toggle">
 						<svg viewBox="0 0 100 100">
 							<use xlink:href="#icon-faces"></use>
@@ -39,9 +39,9 @@
 				<div class="panel--trail__label-cont">
 					<!-- GRADE -->
 					<input type="checkbox"
-						ng-repeat-start="overlay in vm.lineOverlayStates"
+						ng-repeat-start="overlay in vm.overlayStates"
 						id="{{overlay.layer}}-toggle"
-						ng-change='vm.toggleLineOverlay(overlay)' ng-model="overlay.on">
+						ng-change="vm.toggleOverlayState(overlay.layer)" ng-model="overlay.on">
 					<label class="panel--trail__label space-around" for="{{overlay.layer}}-toggle"
 						ng-repeat-end>
 						<svg viewBox="0 0 100 100">
@@ -57,7 +57,8 @@
 				<h3 class="panel--trail__header" ng-show="vm.queryStates.season == 1">Trail Condition</h3>
 				<div class="panel--trail__label-cont trail__label-cont--cond" ng-show="vm.queryStates.season == 1">
 					<input type="checkbox" id="trail-cond-toggle"
-						ng-checked="vm.queryStates.trail_condition">
+						ng-model="vm.trailCondState"
+						ng-change="vm.toggleOverlayState('trail_condition')">
 					<label class="panel--trail__label trail-cond" for="trail-cond-toggle">
 						<svg viewBox="0 0 100 100" class="toggle__icon--trail-cond">
 							<use xlink:href="#icon-trail-cond"></use>

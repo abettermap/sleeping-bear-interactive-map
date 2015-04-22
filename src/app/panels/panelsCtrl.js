@@ -14,9 +14,6 @@
 
         //////// PANELS \\\\\\\\
 
-        // The active panel
-        // vm.activePanel = 'features';
-
         // Close it when any feature clicked
         $rootScope.$on('featureClicked',function(){
             vm.activePanel = '';
@@ -196,62 +193,50 @@
         vm.facesState = $rootScope.queryStates.faces;
 
         // Grade/caution model attempt
-        vm.lineOverlayStates = [
+        vm.overlayStates = [
             {name: 'Grade', layer: 'sbht_grade', on: false, icon: '#icon-grade'},
             {name: 'Caution', layer: 'sbht_caution', on: false, icon: '#icon-caution'},
         ];
 
-        vm.toggleLineOverlay = function(overlay){
+        // vm.trailCondState = false;
 
-            var operator;
+        // Toggle Grade/caution
+        vm.toggleOverlayState = function(overlay){
 
-            if (overlay.on){
-                operator = ">";
-            } else {
-                operator = "=";
-            }
+            var states = $rootScope.queryStates;
+
+            $rootScope.queryStates[overlay] = !$rootScope.queryStates[overlay];
 
             var query,
                 queries = {
                     prefix: "SELECT the_geom_webmercator, cartodb_id,",
+                    trail_condition: "" +
+                        " filepath, 'trail_condition' as layer",
                     sbht_grade: "" +
                         " grade, 'sbht_grade' as layer",
                     sbht_caution: "" +
                         " type_name, type, 'sbht_caution' as layer",
-                    suffix: "" +
-                        " FROM " + overlay.layer +
-                        " WHERE cartodb_id " + operator + " 0"
+                    suffix: " WHERE cartodb_id = 0"
                 };
 
-            query = queries.prefix + queries[overlay.layer] + queries.suffix;
+            query = queries.prefix + queries[overlay] + " FROM " + overlay;
 
-            $rootScope.queryStates[overlay.layer] = !$rootScope.queryStates[overlay.layer];
+            if (states[overlay]){
+                query = query;
+            } else {
+                query = query + queries.suffix;
+            }
 
-            layersFactory.sublayers[overlay.layer].setSQL(query);
+            layersFactory.sublayers[overlay].setSQL(query);
 
         };
 
-        vm.toggleTrailPicsState = function(){
+        // Toggle trail pics and faces
+        vm.togglePicsState = function(layer){
 
             popupFactory.clearTempMarker(panelsFactory.map, panelsFactory.map._layers);
 
-            if ($rootScope.queryStates.trail_pix){
-                $rootScope.queryStates.trail_pix = false;
-            } else {
-                $rootScope.queryStates.trail_pix = true;
-            }
-
-        };
-
-        vm.toggleFacesState = function(){
-
-            popupFactory.clearTempMarker(panelsFactory.map, panelsFactory.map._layers);
-
-            if ($rootScope.queryStates.faces){
-                $rootScope.queryStates.faces = false;
-            } else {
-                $rootScope.queryStates.faces = true;
-            }
+            $rootScope.queryStates[layer] = !$rootScope.queryStates[layer];
 
         };
 

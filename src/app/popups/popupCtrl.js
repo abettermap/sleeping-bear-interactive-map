@@ -201,6 +201,11 @@
             vm.overlayStatus.grade = vm.selFeatData.type_name;
         }
 
+        // Hide caution when any feature clicked
+        $rootScope.$on('featureClicked',function(){
+            $rootScope.cautionInfo.text = '';
+        });
+
 
         /******************************/
         /****** PAN TO SELECTION ******/

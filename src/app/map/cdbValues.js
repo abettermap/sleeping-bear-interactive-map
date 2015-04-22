@@ -47,6 +47,12 @@
                     "#sbht_grade{line-color: red; line-width: 4; line-opacity: .76; line-join: round; line-smooth: .25;}",
                 sql: "SELECT the_geom_webmercator, cartodb_id, grade FROM sbht_grade WHERE cartodb_id = 0",
             },
+            trailCondSublayer: {
+                interactivity: 'cartodb_id',
+                cartocss: "" +
+                    "#trail_condition{marker-fill: #eee; marker-width: 14;}",
+                sql: "SELECT the_geom_webmercator, cartodb_id FROM trail_condition WHERE cartodb_id = 0",
+            },
             cautionSublayer: {
                 cartocss: "" +
                     "#sbht_caution{line-color: yellow; line-width: 4; line-opacity: .76; line-smooth: .25; line-join: round;}" +

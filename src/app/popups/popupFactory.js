@@ -38,10 +38,6 @@
                 query;
 
                 query = phpQuery;
-            // if (data.layer === 'features'){
-            // } else {
-            //     query = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT cartodb_id, the_geom, filepath, 'trail_pix' AS layer FROM trail_pix WHERE cartodb_id = null";
-            // }
 
             return $http({
                 method: 'GET',
@@ -117,10 +113,31 @@
 
             // Trail pics
             if (states.trail_pix){
-                queries.trail_pix = ' UNION ALL ' + sql +
+                if (params.layer === 'trail_pix'){
+                    queries.trail_pix = ' UNION ALL ' + sql +
                     " 'trail_pix' AS layer" +
                     " FROM trail_pix" +
-                    " WHERE " + sharedSeasons + skipCurrentCdbId.trail_pix;
+                    " WHERE cartodb_id != " + params.cartodb_id +
+                    " AND " + sharedSeasons;
+                } else {
+                    queries.trail_pix = ' UNION ALL ' + sql +
+                    " 'trail_pix' AS layer" +
+                    " FROM trail_pix WHERE " + sharedSeasons;
+                }
+            }
+
+            // Trail condition
+            if (states.trail_condition){
+                if (params.layer === 'trail_condition'){
+                    queries.trail_condition = ' UNION ALL ' + sql +
+                    " 'trail_condition' AS layer" +
+                    " FROM trail_condition" +
+                    " WHERE cartodb_id != " + params.cartodb_id;
+                } else {
+                    queries.trail_condition = ' UNION ALL ' + sql +
+                    " 'trail_condition' AS layer" +
+                    " FROM trail_condition";
+                }
             }
 
             // Faces
@@ -149,114 +166,69 @@
         /* When trail is clicked on... */
         function getNearest (coords){
 
-            var query,
+            var query = ' ',
                 states = $rootScope.queryStates,
                 shared = cdbValues.sharedQueries,
                 sql = shared.sql + " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist,",
                 seasonsString = "substring(seasons," + states.season + ",1) = 'y'",
                 end = " ORDER BY dist LIMIT 1",
-                nonPoiOperators = {
-                    faces: '',
-                    trail_condition: '',
-                    trail_pix: '',
-                };
+                nonPoiQueries = {
+                    faces: "" +
+                        " '' AS seasons, 'faces' AS type," +
+                        " 'Faces Along the Trail' AS name," +
+                        " 'Faces' AS type_name," +
+                        " 'faces' AS layer FROM faces",
+                    trail_pix: "" +
+                        " seasons, 'camera' AS type," +
+                        " 'Trail Snapshot' AS name," +
+                        " 'Trail Snapshot' AS type_name," +
+                        " 'trail_pix' AS layer" +
+                        " FROM trail_pix WHERE " + seasonsString,
+                    trail_condition: "" +
+                        " '' AS seasons, 'trail-cond' AS type," +
+                        " 'Current Trail Condition' AS name," +
+                        " 'Winter Trail Conditions' AS type_name," +
+                        " 'trail_condition' AS layer FROM trail_condition"
+                },
+                nonPoiShared = "" +
+                    " UNION ALL" +
+                    " SELECT" +
+                        " cartodb_id, the_geom, the_geom_webmercator," +
+                        " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist," +
+                        " ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat," +
+                        " lin_dist, filepath, ";
 
-            /* Ghetto, but use > or = when non-POI enabled/disabled to look for CDB = 0 */
-            if (states.faces){
-                nonPoiOperators.faces = '>';
-            } else {
-                nonPoiOperators.faces = '=';
+            // Loop through non-POI queries, keep query if state is on, otherwise ""
+            for (var n in nonPoiQueries){
+
+                if (states[n]){
+                    nonPoiQueries[n] = nonPoiShared + nonPoiQueries[n];
+                } else {
+                    nonPoiQueries[n] = "";
+                }
+
+                query = query + nonPoiQueries[n];
+
             }
 
-            if (states.trail_pix){
-                nonPoiOperators.trail_pix = '>';
-            } else {
-                nonPoiOperators.trail_pix = '=';
-            }
-
-            if (states.trail_condition){
-                nonPoiOperators.trail_condition = '>';
-            } else {
-                nonPoiOperators.trail_condition = '=';
-            }
 
             // Features
             var featQuery = "" +
                 "SELECT" +
-                    " features.cartodb_id," +
-                    " features.the_geom," +
-                    " features.the_geom_webmercator," +
+                    " features.cartodb_id, features.the_geom, features.the_geom_webmercator," +
                     " FLOOR(ST_Distance(features.the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist," +
-                    " ST_X(features.the_geom) AS lon," +
-                    " ST_Y(features.the_geom) AS lat," +
-                    " features.lin_dist, " +
-                    " features.filepath, " +
-                    " features.seasons," +
+                    " ST_X(features.the_geom) AS lon, ST_Y(features.the_geom) AS lat," +
+                    " features.lin_dist, features.filepath, features.seasons," +
                     " features.type," +
                     " features.name," +
                     " feature_types.name AS type_name," +
                     " 'features' AS layer" +
-                " FROM" +
-                    " features" +
-                " INNER JOIN" +
-                    " feature_types" +
-                " ON" +
-                    " features.type=feature_types.type" +
+                " FROM features INNER JOIN feature_types" +
+                " ON features.type=feature_types.type" +
                 " WHERE " + seasonsString +
                 " AND features.type IN(" + states.features + ")";
 
-            // Trail pics
-            var trailPicsQuery = "" +
-                " UNION ALL" +
-                " SELECT" +
-                    " cartodb_id," +
-                    " the_geom," +
-                    " the_geom_webmercator," +
-                    " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist," +
-                    " ST_X(the_geom) AS lon," +
-                    " ST_Y(the_geom) AS lat," +
-                    " lin_dist, " +
-                    " filepath, " +
-                    " seasons," +
-                    " 'camera' AS type," +
-                    " 'Trail Snapshot' AS name," +
-                    " 'Trail Snapshot' AS type_name," +
-                    " 'trail_pix' AS layer" +
-                " FROM" +
-                    " trail_pix" +
-                " WHERE " + seasonsString +
-                " AND cartodb_id " + nonPoiOperators.trail_pix + "0";
-
-            // Faces
-            var facesQuery = "" +
-                " UNION ALL" +
-                " SELECT" +
-                    " cartodb_id," +
-                    " the_geom," +
-                    " the_geom_webmercator," +
-                    " FLOOR(ST_Distance(the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist," +
-                    " ST_X(the_geom) AS lon," +
-                    " ST_Y(the_geom) AS lat," +
-                    " lin_dist, " +
-                    " filepath, " +
-                    " '' AS seasons," +
-                    " 'faces' AS type," +
-                    " 'Faces Along the Trail' AS name," +
-                    " 'Faces' AS type_name," +
-                    " 'faces' AS layer" +
-                " FROM" +
-                    " faces" +
-                " WHERE cartodb_id " + nonPoiOperators.faces + "0";
-
-            if (states.trail_pix && !states.faces){
-                query = shared.url + featQuery + trailPicsQuery + end;
-            } else if (states.trail_pix && states.faces){
-                query = shared.url + featQuery + trailPicsQuery + facesQuery + end;
-            } else if (!states.trail_pix && states.faces){
-                query = shared.url + featQuery + facesQuery + end;
-            } else {
-                query = shared.url + featQuery + end;
-            }
+            query = shared.url + featQuery + query + end;
 
             return $http({
                 method: 'GET',
