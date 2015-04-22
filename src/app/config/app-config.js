@@ -15,28 +15,7 @@
     angular
         .module('popupsModule', []);
 
-    function getBasePath(suffix){
-
-        var path = '';
-
-        if (window.location.host === 'friendsofsleepingbear.org'){
-            path = window.location.origin + '/wp-content/plugins/wp-fosb-map/' + suffix;
-        } else {
-            path = window.location.origin + '/fosb/wp-content/plugins/wp-fosb-map/' + suffix;
-        }
-
-        return path;
-
-    }
-
-    angular
-        .module('basePathModule',[])
-        .constant('basePath',{
-            url: getBasePath
-        });
-
     angular.module('mapApp', [
-            'basePathModule',
             'metaInfoModule',
             'ctrlsModule',
             'panelsModule',
@@ -58,11 +37,9 @@
                 /******************************/
 
                 $rootScope.queryStates = {
-                    sbht_caution: false,
                     commercial: [50],
                     faces: false,
                     features: ["'mainpoints'"],
-                    sbht_grade: false,
                     season: 3,
                     trail_condition: false,
                     trail_pix: true

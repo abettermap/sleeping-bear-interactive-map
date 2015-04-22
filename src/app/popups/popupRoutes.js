@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('mapApp')
-        .config(['paginationTemplateProvider', '$stateProvider', '$urlRouterProvider', 'basePath', function(paginationTemplateProvider, $stateProvider, $urlRouterProvider, basePath) {
+        .config(['paginationTemplateProvider', '$stateProvider', '$urlRouterProvider', function(paginationTemplateProvider, $stateProvider, $urlRouterProvider) {
 
             // Nothing to do w/routes, but set pagination template:
             var pagPath = 'src/app/vendor/dirPagination.tpl.html';

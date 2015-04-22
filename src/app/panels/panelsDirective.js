@@ -6,9 +6,7 @@
         .module('panelsModule')
         .directive('panels', panels);
 
-    panels.$inject = ['basePath'];
-
-    function panels(basePath){
+    function panels(){
         return {
             restrict: 'E',
             scope: {},

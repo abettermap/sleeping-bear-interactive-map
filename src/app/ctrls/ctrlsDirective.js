@@ -6,9 +6,7 @@
         .module('ctrlsModule')
         .directive('mapControls', mapControls);
 
-    mapControls.$inject = ['basePath'];
-
-    function mapControls(basePath){
+    function mapControls(){
         return {
             restrict: 'E',
             templateUrl: 'src/app/ctrls/templates/ctrlsTemplate.html',

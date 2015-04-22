@@ -6,16 +6,12 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$sce', '$timeout', '$rootScope', '$scope', '$stateParams', 'selFeatData', 'basePath', 'popupFactory', 'layersFactory', '$state', 'mapFactory', '$location', 'paginationService'];
+    PopupCtrl.$inject = ['$sce', '$rootScope', 'selFeatData', 'popupFactory', 'layersFactory', '$state', '$location', 'paginationService'];
 
-    function PopupCtrl($sce, $timeout, $rootScope, $scope, $stateParams, selFeatData, basePath, popupFactory, layersFactory, $state, mapFactory, $location, paginationService){
+    function PopupCtrl($sce, $rootScope, selFeatData, popupFactory, layersFactory, $state, $location, paginationService){
 
-        var vm = this,
-            sp = $stateParams;
+        var vm = this;
 
-
-        // Current seasons
-        vm.currentSeason = $rootScope.queryStates.season;
 
         /********** DATA FOR SELECTED FEATURE **********/
 
@@ -32,35 +28,9 @@
         /****** FEATURES POPUPS *******/
         /******************************/
 
-        /* Active popup */
-        vm.imgPgVisible = true;
-
-        // Show image page when true
-        vm.showPopupInfo = 'false';
-
-        // Does this always work?
-
-        vm.setPopupPg = function(){
-
-            if (vm.imgPgVisible){       // Info page
-
-                vm.imgPgVisible = false;
-
-            } else {                    // Home/img page
-
-                vm.imgPgVisible = true;
-
-            }
-
-        };
-
-
-        // Get seasons ready
-        var seasons = vm.selFeatData.seasons;
-
-        // Run if it exists (POI only)
-        if (seasons){
-            seasonsAvailable(seasons);
+        // Get seasons ready, run if it exists (POI only)
+        if (vm.selFeatData.seasons){
+            seasonsAvailable(vm.selFeatData.seasons);
         }
 
         function seasonsAvailable(seasons){
@@ -112,11 +82,9 @@
           vm.videoUrl = $sce.trustAsResourceUrl(url);
         }
 
-        var video = vm.selFeatData.video_link;
-
         // Run if it exists (POI only)
-        if (video){
-            vm.allowVideo(video);
+        if (vm.selFeatData.video_link){
+            vm.allowVideo(vm.selFeatData.video_link);
         }
 
         /***** Trust audio URLs *****/
@@ -205,7 +173,7 @@
         /****** PAN TO SELECTION ******/
         /******************************/
 
-        var map = mapFactory.map,
+        var map = layersFactory.map,
             mapLayers = map._layers;
 
         map.panTo([vm.selFeatData.lat, vm.selFeatData.lon]);
@@ -507,15 +475,16 @@
 
         vm.resetPopup = function(path, attribs){
 
-            $state.go('popup.poi', {
-                cartodb_id: attribs.cartodb_id,
-                layer: attribs.layer,
-                lat: attribs.lat,
-                lon: attribs.lon,
-                filepath: attribs.filepath,
-            },{
-                reload: true
-            });
+            popupFactory.resetPopup(path, attribs);
+            // $state.go('popup.poi', {
+            //     cartodb_id: attribs.cartodb_id,
+            //     layer: attribs.layer,
+            //     lat: attribs.lat,
+            //     lon: attribs.lon,
+            //     filepath: attribs.filepath,
+            // },{
+            //     reload: true
+            // });
 
         };
 

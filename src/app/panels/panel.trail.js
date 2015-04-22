@@ -6,9 +6,7 @@
         .module('panelsModule')
         .directive('panelTrail', panelTrail);
 
-    panelTrail.$inject = ['basePath'];
-
-    function panelTrail(basePath){
+    function panelTrail(){
         return {
             restrict: 'E',
             templateUrl: 'src/app/panels/templates/panel.trail.html',

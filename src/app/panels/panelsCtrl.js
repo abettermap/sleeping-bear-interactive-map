@@ -6,9 +6,9 @@
         .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
-    PanelsCtrl.$inject = ['panelsFactory', '$rootScope', '$http', '$scope', '$stateParams', '$state', 'layersFactory', '$sce', 'popupFactory'];
+    PanelsCtrl.$inject = ['panelsFactory', '$rootScope', '$http', '$state', 'layersFactory', '$sce', 'popupFactory'];
 
-    function PanelsCtrl(panelsFactory, $rootScope, $http, $scope, $stateParams, $state, layersFactory, $sce, popupFactory){
+    function PanelsCtrl(panelsFactory, $rootScope, $http, $state, layersFactory, $sce, popupFactory){
 
     	var vm = this;
 
@@ -205,7 +205,9 @@
 
             var states = $rootScope.queryStates;
 
-            $rootScope.queryStates[overlay] = !$rootScope.queryStates[overlay];
+            if (overlay === 'trail_condition'){
+                $rootScope.queryStates[overlay] = !$rootScope.queryStates[overlay];
+            }
 
             layersFactory.sublayers[overlay].toggle();
 

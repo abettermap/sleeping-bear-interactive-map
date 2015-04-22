@@ -6,9 +6,9 @@
         .module('popupsModule')
         .factory('popupFactory', popupFactory);
 
-    popupFactory.$inject = ['$rootScope', '$http', 'basePath', '$timeout', '$state', '$stateParams', 'cdbValues', '$location', '$sce'];
+    popupFactory.$inject = ['$rootScope', '$http', '$state', 'cdbValues', '$location', '$sce'];
 
-    function popupFactory($rootScope, $http, basePath, $timeout, $state, $stateParams, cdbValues, $location, $sce){
+    function popupFactory($rootScope, $http, $state, cdbValues, $location, $sce){
 
         var defaultImg = 'sbht-i-map/img_prod/features/mid_size/n00/wdune-climb/image00009.jpg';
 
@@ -19,15 +19,21 @@
             toTrusted: toTrusted,
             getNearest: getNearest,
             getNonPoiNarrative: getNonPoiNarrative,
-            setSecondary: setSecondary,
-            setSeason: setSeason,
+            resetPopup: resetPopup,
             setShareUrl: setShareUrl,
             setThumbs: setThumbs,
         };
 
-        function setSeason(query){
-            var newSeason = query;
-            sublayers.features.setSQL(newSeason);
+        function resetPopup(path, attribs){
+            $state.go('popup.poi', {
+                cartodb_id: attribs.cartodb_id,
+                layer: attribs.layer,
+                lat: attribs.lat,
+                lon: attribs.lon,
+                filepath: attribs.filepath,
+            },{
+                reload: true
+            });
         }
 
         /* Look for secondary images */
@@ -43,22 +49,6 @@
                 method: 'GET',
                 url: query,
             });
-
-        }
-
-        /* Set secondary images */
-        function setSecondary(secondImgFiles) {
-
-            var activeImages = [];
-            var suffix = 'img_prod\/' + $stateParams.layer + '\/mid_size' + $stateParams.filepath;
-
-            for( var i in secondImgFiles ) {
-
-                activeImages.push(suffix + secondImgFiles[i]);
-
-            }
-
-            return activeImages;
 
         }
 

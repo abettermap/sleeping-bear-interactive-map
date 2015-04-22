@@ -6,9 +6,9 @@
         .module('ctrlsModule')
         .controller('CtrlsCtrl', CtrlsCtrl);
 
-    CtrlsCtrl.$inject = ['ctrlsFactory', 'basePath', '$scope'];
+    CtrlsCtrl.$inject = ['ctrlsFactory', '$scope'];
 
-    function CtrlsCtrl(ctrlsFactory, basePath, $scope){
+    function CtrlsCtrl(ctrlsFactory, $scope){
 
         var vm = this,
             map = ctrlsFactory.map,

@@ -6,9 +6,7 @@
         .module('panelsModule')
         .directive('panelInfo', panelInfo);
 
-    panelInfo.$inject = ['basePath'];
-
-    function panelInfo(basePath){
+    function panelInfo(){
         return {
             restrict: 'E',
             templateUrl: 'src/app/panels/templates/panel.info.html',

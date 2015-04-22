@@ -1,8 +1,8 @@
-<div class="popup" ng-class="{'no-scrollbars': vm.imgPgVisible}">
+<div class="popup" ng-class="{'no-scrollbars': !vm.imgPgVisible}">
     <!-- FADED BG IMAGE -->
-    <div class="flip popup__page--img" ng-show="vm.imgPgVisible">
+    <div class="flip popup__page--img" ng-hide="vm.imgPgVisible">
         <h2 class="popup__header">
-            <a class="btn btn--left" href="" ng-click="vm.setPopupPg()">
+            <a class="btn btn--left" href="" ng-click="vm.imgPgVisible = !vm.imgPgVisible">
                 <svg class="popup-icon--type no-hover" viewBox="0 0 100 100">
                     <use xlink:href="#icon-info"></use>
                 </svg>
@@ -47,10 +47,10 @@
         </div>
     </div>
     <!-- INFO PAGE -->
-    <div class="flip popup__page-info" ng-show="!vm.imgPgVisible">
+    <div class="flip popup__page-info" ng-hide="!vm.imgPgVisible">
         <div class="blurred-bg" ng-style="{'background-image':'url(' + vm.activeImages[0] + ')'}"></div>
         <h2 class="popup__header popup__header--opaque">
-            <a class="btn btn--left" href="" ng-click="vm.setPopupPg()">
+            <a class="btn btn--left" href="" ng-click="vm.imgPgVisible = !vm.imgPgVisible">
                 <svg class="popup-icon--type no-hover" viewBox="0 0 100 100">
                     <use xlink:href="#icon-camera"></use>
                 </svg>

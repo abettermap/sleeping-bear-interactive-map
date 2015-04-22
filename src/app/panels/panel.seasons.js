@@ -6,9 +6,7 @@
         .module('panelsModule')
         .directive('panelSeasons', panelSeasons);
 
-    panelSeasons.$inject = ['basePath'];
-
-    function panelSeasons(basePath){
+    function panelSeasons(){
         return {
             restrict: 'E',
             templateUrl: 'src/app/panels/templates/panel.seasons.html',

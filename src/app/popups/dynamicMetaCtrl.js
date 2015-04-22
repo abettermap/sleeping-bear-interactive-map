@@ -6,9 +6,9 @@
         .module('popupsModule')
         .controller('DynamicMetaCtrl', DynamicMetaCtrl);
 
-    DynamicMetaCtrl.$inject = ['$sce', '$timeout', '$rootScope', '$scope', '$stateParams', 'basePath', 'popupFactory', 'layersFactory', '$state', 'mapFactory', 'MetaInfoService', 'PageTitle'];
+    DynamicMetaCtrl.$inject = ['$sce', '$timeout', '$rootScope', '$scope', '$stateParams', 'popupFactory', 'layersFactory', '$state', 'mapFactory', 'MetaInfoService', 'PageTitle'];
 
-    function DynamicMetaCtrl($sce, $timeout, $rootScope, $scope, $stateParams, basePath, popupFactory, layersFactory, $state, mapFactory, MetaInfoService, PageTitle){
+    function DynamicMetaCtrl($sce, $timeout, $rootScope, $scope, $stateParams, popupFactory, layersFactory, $state, mapFactory, MetaInfoService, PageTitle){
 
         var vm = this;
 
