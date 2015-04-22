@@ -59,6 +59,11 @@
     font-size: .9rem;
   }
 
+  h4 {
+    display: flex;
+    align-items: center;
+  }
+
   header {
     text-align: center;
     margin-bottom: .5rem;
@@ -110,13 +115,15 @@
 
 .icon--heading {
   display: inline-block;
-  fill: darken(desaturate($c-panel-header,25%),15%);
+  fill: #38629c;
   height: 1.8rem;
   vertical-align: middle;
-  // margin-right: 5px;
   // vertical-align: bottom;
   width: 1.8rem;
+}
 
+h4 .icon--heading {
+  margin-right: .3rem;
 }
 
 .icon--subtitle {
@@ -299,6 +306,26 @@ a.close-tab {
     width: $s;
   }
 }
+
+// Commercial contact list
+.contact-info-list {
+  font-size: .9rem;
+  list-style-type: none;
+  margin: .5rem 0 0 1.25rem;
+  padding: 0;
+  svg {
+    $s: 1.4rem;
+    fill: lighten(desaturate($c-season-avail, 20%), 10%);
+    height: $s;
+    margin-right: .65rem;
+    width: $s;
+  }
+  > li {
+    display: flex;
+    align-items: center;
+  }
+}
+
 
 // Cover all the bases, whether <p> or none
 .narrative-text {

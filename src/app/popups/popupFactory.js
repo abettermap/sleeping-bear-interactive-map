@@ -65,6 +65,8 @@
         function setThumbs(params){
 
             var query,
+                commArr = [],
+                commQuery,
                 coords = [params.lat, params.lon],
                 states = $rootScope.queryStates,
                 shared = cdbValues.sharedQueries,
@@ -97,19 +99,24 @@
                     " 'features' AS layer" +
                     " FROM features WHERE type IN(" + states.features + ")" +
                     " AND " + sharedSeasons + skipCurrentCdbId.features;
-                    // " AND " + params.layer + ".cartodb_id != " + params.cartodb_id;
-
-            // HOW TO AVOID SKIPPING CDB ID'S THAT MATCH CURRENT ONE?
 
             // Commercial
-            // if (states.commercial.length > 1){
-            //     // queries.commercial =
-            //     queries.commercial = ' UNION ALL ' + sql +
-            //             " 'commercial' AS layer" +
-            //             " FROM commercial" +
-            //             " WHERE " + sharedSeasons +
-            //             " AND cartodb_id != " + params.cartodb_id;
-            // }
+            for (var n = 0; n < states.commercial.length; n++) {
+
+                if (n === 0) {
+                    commArr.push(" WHERE (substring(commercial.categories," + states.commercial[n] + ",1) = 'y'");
+                } else {
+                    commArr.push(" OR substring(commercial.categories," + states.commercial[n] + ",1) = 'y'");
+                }
+            }
+
+            commQuery = commArr.join("") + ")";
+
+            commQuery = ' UNION ALL ' + sql +
+                    " 'commercial' AS layer" +
+                    " FROM commercial" + commQuery +
+                    " AND " + sharedSeasons + skipCurrentCdbId.commercial;
+
 
             // Trail pics
             if (states.trail_pix){
@@ -154,8 +161,8 @@
                 }
             }
 
-            query = shared.url + featQuery + queries.commercial + queries.faces + queries.trail_pix + queries.trail_condition + end;
-            // console.log(featQuery + queries.commercial + queries.faces + queries.trail_pix + queries.trail_condition + end);
+            query = shared.url + featQuery + commQuery + queries.faces + queries.trail_pix + queries.trail_condition + end;
+
 
             return $http({
                 method: 'GET',

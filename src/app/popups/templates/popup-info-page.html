@@ -11,7 +11,7 @@
 			    <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
 			</svg>
 		</p>
-		<span class="popup-info-pg__coords">{{vm.selFeatData.lat}}, {{vm.selFeatData.lon}}</span>
+		<span class="popup-info-pg__coords">{{vm.selFeatData.lat}}&deg; N, {{vm.selFeatData.lon}}&deg; W</span>
 		<span class="popup-info-pg__coords" ng-show="{{vm.selFeatData.cartodb_id != 211}}">{{vm.distFromDuneClimb(vm.selFeatData.lin_dist)}}</span>
 		<span class="popup-info-pg__coords" ng-show="{{vm.selFeatData.cartodb_id != 211}}">(Trail Mile Marker 0)</span>
 	</header>
@@ -34,15 +34,37 @@
 		</ul>
 	</div>
 
-	<!-- DIRECTIONS -->
-	<div class="directions" ng-hide="vm.selFeatData.layer === 'faces'">
+	<!-- COMMERCIAL CONTACT INFO -->
+	<div ng-show="vm.selFeatData.layer === 'commercial'">
 		<h4>
 			<svg class="icon--heading" viewBox="0 0 100 100">
-			    <use xlink:href="#icon-directions"</use>
+			    <use xlink:href="#icon-contact"</use>
 			</svg>
-			Driving Directions
+			Contact Information
 		</h4>
-		<p><a target="_blank" ng-href="{{vm.directionsUrl}}">Click here</a> for Google Maps directions to this location (opens in a new tab).</p>
+		<ul class="contact-info-list">
+			<li>
+				<svg class="icon--heading" viewBox="0 0 100 100">
+				    <use xlink:href="#icon-phone"</use>
+				</svg>
+				<span>{{vm.selFeatData.phone}}</span>
+			</li>
+			<li class="address">
+				<svg class="icon--heading" viewBox="0 0 100 100">
+				    <use xlink:href="#icon-mailbox"</use>
+				</svg>
+				<span>
+					{{vm.selFeatData.address}}<br>
+					{{vm.selFeatData.city}}, MI {{vm.selFeatData.zip}}
+				</span>
+			</li>
+			<li ng-show="vm.selFeatData.website">
+				<svg class="icon--heading" viewBox="0 0 100 100">
+				    <use xlink:href="#icon-globe"</use>
+				</svg>
+				<a href="{{vm.selFeatData.website}}" target="_blank">Website</a>
+			</li>
+		</ul>
 	</div>
 
 	<!-- CAUTION -->
@@ -81,6 +103,17 @@
 			Video
 		</h4>
 		<iframe width="100%" ng-src="{{vm.videoUrl}}" frameborder="0" allowfullscreen></iframe>
+	</div>
+
+	<!-- DIRECTIONS -->
+	<div class="directions" ng-hide="vm.selFeatData.layer === 'faces'">
+		<h4>
+			<svg class="icon--heading" viewBox="0 0 100 100">
+			    <use xlink:href="#icon-directions"</use>
+			</svg>
+			Driving Directions
+		</h4>
+		<p><a target="_blank" ng-href="{{vm.directionsUrl}}">Click here</a> for Google Maps directions to this location (opens in a new tab).</p>
 	</div>
 
 	<!-- NARRATIVE -->

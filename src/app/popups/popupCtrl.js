@@ -416,7 +416,7 @@
                 arr = [], path, layer, difference, label,
                 southArr = [],
                 northArr = [];
-
+                console.table(thumbsData);
             for (var n = 0; n < thumbsData.length; n++) {
 
                 // Thumbs paths
@@ -440,7 +440,7 @@
 
                 arr.push({
                     path: path,
-                    diff: difference,
+                    diff: Math.abs(difference),
                     label: label,
                     attribs: thumbsData[n],
                 });
@@ -463,22 +463,39 @@
 
             }
 
-            vm.thumbsData = arr;
+
+            function dynamicSort(property) {
+                var sortOrder = 1;
+                if(property[0] === "-") {
+                    sortOrder = -1;
+                    property = property.substr(1);
+                }
+                return function (a,b) {
+                    var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+                    return result * sortOrder;
+                }
+            }
+
+            arr.sort(dynamicSort("diff"));
+            northArr.sort(dynamicSort("-diff"));
+            southArr.sort(dynamicSort("diff"));
 
             $rootScope.thumbsArrays.north = northArr;
             $rootScope.thumbsArrays.south = southArr;
+            $rootScope.thumbsArrays.both = arr;
 
-            var forPromise = northArr.concat(southArr);
-            $rootScope.thumbsArrays.both = northArr.concat(southArr);
+            // console.table(arr);
+            // console.table(southArr);
+            // console.table(northArr);
 
-            return forPromise;
+        }).then(function(){
 
-        }).then(function(result){
             if ($rootScope.thumbsArrays.current.length < 1){
                 $rootScope.updateThumbs('both');
             } else {
                 $rootScope.updateThumbs($rootScope.thumbsDirectionModel);
             }
+
         });
 
 

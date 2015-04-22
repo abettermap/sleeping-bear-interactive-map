@@ -83,6 +83,7 @@
                                 " ROUND(ST_X(commercial.the_geom)::numeric, 5) AS lon," +
                                 " ROUND(ST_Y(commercial.the_geom)::numeric, 5) AS lat," +
                                 " commercial.filepath, commercial.lin_dist, commercial.seasons," +
+                                " address, city, phone, website, zip," +
                                 " commercial.type, commercial.name," +
                                 " narrative, video_link, audio_link," +
                                 " commercial_types.name AS type_name," +

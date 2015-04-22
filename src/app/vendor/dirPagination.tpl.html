@@ -38,11 +38,11 @@
         </div>
         <a class="close-tab" href="" ng-click="vm.showThumbSort = !vm.showThumbSort">X</a>
     </div>
-    <ul class="pagination" ng-if="1 < pages.length">
-        <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }" class="ng-scope pagination-arrow-container">
+    <ul class="pagination" ng-show="1 < pages.length">
+        <li ng-show="directionLinks" ng-class="{ disabled : pagination.current == 1 }" class="ng-scope pagination-arrow-container">
             <a class="pagination-arrow" href="javascript:;" ng-click="setCurrent(pagination.current - 1)" class="ng-binding">‹</a>
         </li>
-        <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }" class="ng-scope pagination-arrow-container">
+        <li ng-show="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }" class="ng-scope pagination-arrow-container">
             <a class="pagination-arrow" href="javascript:;" ng-click="setCurrent(pagination.current + 1)" class="ng-binding">›</a>
         </li>
     </ul>
