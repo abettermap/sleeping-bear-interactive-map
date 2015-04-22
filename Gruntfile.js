@@ -52,7 +52,7 @@ module.exports = function(grunt) {
     grunt.registerTask('ug', ['newer:uglify']);
 
     // VECTOR \\
-    grunt.registerTask('combine-svg', ['svgmin', 'svgstore']); // Change subtask as needed
+    grunt.registerTask('combine-svg', ['newer:svgmin', 'newer:svgstore']); // Change subtask as needed
 
     // BUILD
     grunt.registerTask('build', [

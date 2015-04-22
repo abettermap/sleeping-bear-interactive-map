@@ -118,6 +118,13 @@
                     $rootScope.cautionInfo.icon = $rootScope.cautionInfo.icon;
                 });
 
+                $rootScope.tempSublayerIndexes = {
+                    // commercial: [50],
+                    sbht_caution: -1,
+                    sbht_grade: -1,
+                    trail_condition: -1,
+                };
+
             }
         ]);
 

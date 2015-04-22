@@ -194,12 +194,6 @@
         /******** GRADE/CAUTION *******/
         /******************************/
 
-        if (vm.selFeatData.layer === 'sbht_grade') {
-            vm.overlayStatus.grade = vm.selFeatData.grade;
-        }
-        if (vm.selFeatData.layer === 'sbht_caution') {
-            vm.overlayStatus.grade = vm.selFeatData.type_name;
-        }
 
         // Hide caution when any feature clicked
         $rootScope.$on('featureClicked',function(){
@@ -416,7 +410,7 @@
                 arr = [], path, layer, difference, label,
                 southArr = [],
                 northArr = [];
-                console.table(thumbsData);
+
             for (var n = 0; n < thumbsData.length; n++) {
 
                 // Thumbs paths

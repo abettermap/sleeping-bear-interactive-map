@@ -126,6 +126,9 @@
             layer.createSubLayer({
               cartocss: cdbValues.cautionSublayer.cartocss,
               sql: cdbValues.cautionSublayer.sql,
+              options: {
+                visible: false,
+              },
               interactivity: cdbValues.cautionSublayer.interactivity,
             }).on('featureClick', function(e, latlng, pos, data){
                 doThisWhenTrailClicked(e, latlng, pos, data);
@@ -151,7 +154,6 @@
             layer.createSubLayer({
               cartocss: cdbValues.featSublayer.cartocss,
               interactivity: cdbValues.featSublayer.interactivity,
-              name: 'features',
               sql: cdbValues.featSublayer.sql,
             }).on('featureClick', function(e, pos, latlng, data){
 
@@ -173,7 +175,6 @@
             layer.createSubLayer({
               cartocss: cdbValues.commSublayer.cartocss,
               interactivity: cdbValues.commSublayer.interactivity,
-              name: 'commercial',
               sql: cdbValues.commSublayer.sql,
             }).on('featureClick', function(e, pos, latlng, data){
 
@@ -195,7 +196,6 @@
             layer.createSubLayer({
               cartocss: cdbValues.trailCondSublayer.cartocss,
               interactivity: cdbValues.trailCondSublayer.interactivity,
-              name: 'commercial',
               sql: cdbValues.trailCondSublayer.sql,
             }).on('featureClick', function(e, pos, latlng, data){
 
@@ -220,6 +220,10 @@
             layersFactory.sublayers.features  = layer.getSubLayer(3);
             layersFactory.sublayers.commercial = layer.getSubLayer(4);
             layersFactory.sublayers.trail_condition = layer.getSubLayer(5);
+
+            layer.getSubLayer(1).hide();
+            layer.getSubLayer(2).hide();
+            layer.getSubLayer(5).hide();
 
             /***** CLICK FUNCTIONALITY *****/
             /* Set interaction for all sublayers */

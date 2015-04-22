@@ -207,27 +207,7 @@
 
             $rootScope.queryStates[overlay] = !$rootScope.queryStates[overlay];
 
-            var query,
-                queries = {
-                    prefix: "SELECT the_geom_webmercator, cartodb_id,",
-                    trail_condition: "" +
-                        " filepath, 'trail_condition' as layer",
-                    sbht_grade: "" +
-                        " grade, 'sbht_grade' as layer",
-                    sbht_caution: "" +
-                        " type_name, type, 'sbht_caution' as layer",
-                    suffix: " WHERE cartodb_id = 0"
-                };
-
-            query = queries.prefix + queries[overlay] + " FROM " + overlay;
-
-            if (states[overlay]){
-                query = query;
-            } else {
-                query = query + queries.suffix;
-            }
-
-            layersFactory.sublayers[overlay].setSQL(query);
+            layersFactory.sublayers[overlay].toggle();
 
         };
 
@@ -259,12 +239,12 @@
         vm.setActiveInfoPg = function(page){
 
             if (page === 'Home'){
-                vm.isInfoHomePage = true;
                 vm.activeInfoPgHeader = 'Help & Info'
             } else {
-                vm.isInfoHomePage = false;
                 vm.activeInfoPgHeader = page;
             }
+
+            vm.isInfoHomePage = !vm.isInfoHomePage;
 
             vm.activeInfoPg = page;
 

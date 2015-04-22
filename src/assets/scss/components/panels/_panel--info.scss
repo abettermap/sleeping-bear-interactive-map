@@ -49,19 +49,15 @@
 
 /* Logos list */
 .logos {
+  align-items: center;
   display: flex;
   justify-content: space-around;
   list-style-type: none;
-  margin: 0;
+  margin: .4rem 0 -.2rem;
   padding: 0;
   > li {
     flex: 0 22%;
   }
-}
-
-/* Individual logos */
-.logo {
-    width: 100%;
 }
 
 /* Credits */

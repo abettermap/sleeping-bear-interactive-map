@@ -6,9 +6,9 @@
         .module('panelsModule')
         .factory('panelsFactory', panelsFactory);
 
-    panelsFactory.$inject = ['mapFactory', '$rootScope', '$http', 'layersFactory', 'popupFactory'];
+    panelsFactory.$inject = ['mapFactory', '$rootScope', '$http', 'layersFactory', 'popupFactory', 'cdbValues'];
 
-    function panelsFactory(mapFactory, $rootScope, $http, layersFactory, popupFactory){
+    function panelsFactory(mapFactory, $rootScope, $http, layersFactory, popupFactory, cdbValues){
 
         var hey;
 
@@ -20,7 +20,18 @@
         var sublayers = layersFactory.sublayers;
 
         var selectedTypes = [],
-            mainPtsOnlyQuery = "SELECT features.the_geom_webmercator, features.cartodb_id, features.type, features.mile, features.name_id, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE features.type = 'mainpoints' ORDER BY priority DESC";
+            map = mapFactory.map;
+
+        // Get CDB map layer (this assumes it's last)
+        var i = [];
+
+        for (var x in map._layers) {
+           i.push(x);
+        }
+
+        var cdbMapLayer = map._layers[i[1]];
+
+
 
         function toggleFeatures(types){
 
@@ -121,13 +132,34 @@
 
         }
 
+        /* Toggle trail_condition, grade, caution */
+        function toggleCdbSublayer(overlay){
+
+            // it's already on, so remove it
+            if (!$rootScope.queryStates[overlay]){
+
+            } else {
+                cdbMapLayer.createSubLayer({
+                    cartocss: cdbValues[overlay].cartocss,
+                    sql: cdbValues[overlay].sql,
+                    layer: overlay,
+                    interactivity: cdbValues[overlay].interactivity,
+                }).on('featureClick', function(e, latlng, pos, data){
+                    layersFactory.doThisWhenTrailClicked(e, latlng, pos, data);
+                });
+            }
+
+            console.log(cdbMapLayer);
+
+        }
+
         /* Will need to be run by router to keep season toggle accurate*/
         function setSeason(season){
+
             var newSeason = season;
             $rootScope.activeSeason = newSeason;
             toggleFeatures();
             toggleCommercial();
-
 
         }
 
@@ -183,8 +215,9 @@
             getPoiPages: getPoiPages,
             getSubGroups: getSubGroups,
             hey: hey,
-            map: mapFactory.map,
+            map: map,
             setSeason: setSeason,
+            toggleCdbSublayer: toggleCdbSublayer,
             toggleCommercial: toggleCommercial,
             toggleFeatures: toggleFeatures,
     	};
