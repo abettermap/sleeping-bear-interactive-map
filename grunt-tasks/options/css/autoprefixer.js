@@ -1,8 +1,8 @@
 module.exports = {
 
-    // options: {
-    //   browsers: ['last 2 versions']
-    // },
+    options: {
+      browsers: ['last 2 versions']
+    },
     build: {
       src: 'build/src/assets/css/map-style.css',
       dest: 'build/src/assets/css/map-style.css'

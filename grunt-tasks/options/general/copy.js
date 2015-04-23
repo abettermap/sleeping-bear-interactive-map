@@ -15,6 +15,13 @@ module.exports = {
         dest: 'build'
         // filter: 'isFile'
     },
+    fastClick: {
+        expand: true,
+        // flatten: true,
+        src: 'src/assets/js/vendor/fastclick.js',
+        dest: 'build'
+        // filter: 'isFile'
+    },
     // license: {
     //     expand: true,
     //     // flatten: true,

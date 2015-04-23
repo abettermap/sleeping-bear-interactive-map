@@ -1,7 +1,9 @@
 module.exports = function(grunt) {
 
     require('time-grunt')(grunt);
-    require('jit-grunt')(grunt);
+    require('jit-grunt')(grunt,{
+        useminPrepare: 'grunt-usemin'
+    });
 
     // Utility to load the different option files based on name
     function loadConfig(path) {
@@ -24,6 +26,7 @@ module.exports = function(grunt) {
     // Include subfolders to satisfy OCD
     grunt.util._.extend(config, loadConfig('./grunt-tasks/options/css/'));
     grunt.util._.extend(config, loadConfig('./grunt-tasks/options/general/'));
+    grunt.util._.extend(config, loadConfig('./grunt-tasks/options/html/'));
     grunt.util._.extend(config, loadConfig('./grunt-tasks/options/js/'));
     grunt.util._.extend(config, loadConfig('./grunt-tasks/options/raster/'));
     grunt.util._.extend(config, loadConfig('./grunt-tasks/options/sass/'));
@@ -35,41 +38,26 @@ module.exports = function(grunt) {
 
     /// REGISTER TASKS \\\
 
-    // DESIGN \\
-    grunt.registerTask('design', ['browserSync', 'watch']);
-    grunt.registerTask('build-css', ['sass', 'uncss', 'cssmin']);
-
-    // DEVELOP \\
-    grunt.registerTask('build-scripts', ['concat:ng']);
-    grunt.registerTask('copy-html', ['copy:html']);
-    grunt.registerTask('copy-svg', ['copy:svg']);
-    // grunt.registerTask('concat-vendor-dev', ['newer:concat:vendorDev']);
-
-    // RASTER \\
-    grunt.registerTask('image-opt', ['responsive_images', 'imageoptim']);
-    grunt.registerTask('image-deep', ['image']);
-    grunt.registerTask('yahoo', ['smushit']);
-    grunt.registerTask('ug', ['newer:uglify']);
-
     // VECTOR \\
     grunt.registerTask('combine-svg', ['newer:svgmin', 'newer:svgstore']); // Change subtask as needed
 
     // BUILD
     grunt.registerTask('build', [
+        'useminPrepare',
+        'concat:generated',
+        'uglify:generated',
+        'cssmin:generated',
+        'newer:copy',
         'newer:svgmin',
         'newer:svgstore',
-        'copy',
-        // HTML MINIFY
-        // 'concat:kioskScript',
-        'uglify',
-        // 'concat:kioskStyle',
-        'cssmin',
-        'autoprefixer:build'
+        'autoprefixer:build',
+        'usemin',
+        'htmlmin',
     ]);
 
     // DEFAULT ()
     grunt.registerTask('default', [
-        'newer:concat:vendorScripts',
+        // 'newer:concat:vendorScripts',
         'browserSync',
         'watch'
     ]);

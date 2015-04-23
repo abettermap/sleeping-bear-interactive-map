@@ -22,14 +22,13 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
         <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
         <!-- Place favicon.ico in the root directory -->
 
+        <!-- build:css src/assets/css/map-style.css -->
         <link rel="stylesheet" href="src/assets/css/map-style.css">
-        <!-- <script src="js/vendor/modernizr-2.8.3.min.js"></script> -->
+        <!-- endbuild -->
 
-        <!-- // Fastclick needs to load before other stuff -->
         <script type="text/javascript" src="src/assets/js/vendor/fastclick.js"></script>
         <script type="text/javascript">
 
@@ -46,12 +45,12 @@
         </script>
     </head>
     <body>
-      <div id="map-wrapper" class="map-wrapper">
-        <interactive-map></interactive-map>
-        <panels></panels>
-        <map-controls></map-controls>
-        <div ui-view></div>
-      </div>
+          <div id="map-wrapper" class="map-wrapper">
+            <interactive-map></interactive-map>
+            <panels></panels>
+            <map-controls></map-controls>
+            <div ui-view></div>
+          </div>
 
       <span class="never-show">
         <?php include('src/assets/img/svg/project/defs/fosb-svg-defs.svg'); ?>
@@ -96,24 +95,19 @@
       </svg>
 
       <!-- CartoDB CDN -->
-      <!-- <script type="text/javascript" src="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.js"></script> -->
-      <script type="text/javascript" src="src/assets/js/vendor/cartodb.uncompressed.js"></script>
+      <script type="text/javascript" src="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.js"></script>
+      <!-- <script type="text/javascript" src="src/assets/js/vendor/cartodb.uncompressed.js"></script> -->
 
-      <!-- AngularJS -->
-      <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
-
-      <!-- Angular ui.router -->
-      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
-
-      <!-- Angular animate -->
-      <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.min.js"></script>
-
-      <!-- Vendor scripts UNminified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, bindonce, others? -->
-      <script type="text/javascript" src="src/assets/js/vendor/map-vendors.js"></script>
-
-      <!-- Map App -->
-      <script type="text/javascript" src="src/app/map-app.js"></script>
-
+      <!-- build:js src/app/map-app.js -->
+      <script type="text/javascript" src="./src/assets/js/vendor/angular.js"></script>
+      <script type="text/javascript" src="./src/assets/js/vendor/angular-animate.js"></script>
+      <script type="text/javascript" src="./src/assets/js/vendor/angular-ui-router.js"></script>
+      <script type="text/javascript" src="./src/assets/js/vendor/svg4everybody.ie8.js"></script>
+      <script type="text/javascript" src="./src/assets/js/vendor/esri-leaflet-basemaps.js"></script>
+      <script type="text/javascript" src="./src/assets/js/vendor/leaflet-history-src.js"></script>
+      <script type="text/javascript" src="./src/assets/js/vendor/leaflet-gps.js"></script>
+      <script type="text/javascript" src="./src/app/map-app.js"></script>
+      <!-- endbuild -->
 
     </body>
 </html>

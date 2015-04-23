@@ -1,55 +1,55 @@
 <div class="panel" ng-show="vm.activePanel == 'seasons'">
-	<h2 class="panel__header">
-		<svg viewBox="0 0 100 100" class="no-hover">
-	    	<use ng-attr-xlink:href="{{vm.activeSeasonIcon}}" xlink:href=""></use>
-		</svg>
-		Seasons
-		</span>
-		<a href="javascript:;" class="panel__close btn" ng-click="vm.changePanel('')">
-			<svg viewBox="0 0 100 100">
-    			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
-			</svg>
-		</a>
-	</h2>
-	<div class="panel__inner">
-		<div class="panel__box">
-			<div class="panel__row">
-				<h3>Choose a Season:</h3>
-				<div class="seasons-container">
-					<input class="panel__radio" name="seasons-toggle" type="radio" id="winter-toggle" ng-model="vm.activeSeason" value="1" ng-click="vm.setSeason('1')">
-					<label class="input-hover label--seasons" for="winter-toggle">
-						<svg class="winter" viewBox="0 0 100 100">
-							<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-winter"></use>
-						</svg>
-					<span>Winter</span>
-					</label>
-					<input class="panel__radio" name="seasons-toggle" type="radio" id="spring-toggle" ng-model="vm.activeSeason" value="2" ng-click="vm.setSeason('2')">
-					<label class="input-hover label--seasons" for="spring-toggle">
-						<svg class="spring" viewBox="0 0 100 100">
-							<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-spring"></use>
-						</svg>
-					<span>Spring</span>
-					</label>
-					<input class="panel__radio" name="seasons-toggle" type="radio" id="summer-toggle" ng-model="vm.activeSeason" value="3" ng-click="vm.setSeason('3')">
-					<label class="input-hover label--seasons" for="summer-toggle">
-						<svg class="summer" viewBox="0 0 100 100">
-							<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-summer"></use>
-						</svg>
-					<span>Summer</span>
-					</label>
-					<input class="panel__radio" name="seasons-toggle" type="radio" id="fall-toggle" ng-model="vm.activeSeason" value="4" ng-click="vm.setSeason('4')">
-					<label class="input-hover label--seasons" for="fall-toggle">
-						<svg class="fall" viewBox="0 0 100 100">
-							<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fall"></use>
-						</svg>
-					<span>Fall</span>
-					</label>
-				</div>
-				<div class="panel__narrative">
-					<p>The Heritage Trail is a dynamic landscape that changes throughout the year. Select a season above, then click on the Trail to see how it looks during that season.</p>
-					<p>Your selection also displays only the corresponding businesses and facilities that operate seasonally.</p>
-				</div>
-			</div>
-		</div>
-	</div>
+    <h2 class="panel__header">
+        <svg viewBox="0 0 100 100" class="no-hover">
+            <use ng-attr-xlink:href="{{vm.activeSeasonIcon}}" xlink:href=""></use>
+        </svg>
+        Seasons
+        </span>
+        <a href="javascript:;" class="panel__close btn" ng-click="vm.changePanel('')">
+            <svg viewBox="0 0 100 100">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
+            </svg>
+        </a>
+    </h2>
+    <div class="panel__inner">
+        <div class="panel__box">
+            <div class="panel__row">
+                <h3>Choose a Season:</h3>
+                <div class="seasons-container">
+                    <input class="panel__radio" name="seasons-toggle" type="radio" id="winter-toggle" ng-model="vm.activeSeason" value="1" ng-click="vm.setSeason('1')">
+                    <label class="input-hover label--seasons" for="winter-toggle">
+                        <svg class="winter" viewBox="0 0 100 100">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-winter"></use>
+                        </svg>
+                    <span>Winter</span>
+                    </label>
+                    <input class="panel__radio" name="seasons-toggle" type="radio" id="spring-toggle" ng-model="vm.activeSeason" value="2" ng-click="vm.setSeason('2')">
+                    <label class="input-hover label--seasons" for="spring-toggle">
+                        <svg class="spring" viewBox="0 0 100 100">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-spring"></use>
+                        </svg>
+                    <span>Spring</span>
+                    </label>
+                    <input class="panel__radio" name="seasons-toggle" type="radio" id="summer-toggle" ng-model="vm.activeSeason" value="3" ng-click="vm.setSeason('3')">
+                    <label class="input-hover label--seasons" for="summer-toggle">
+                        <svg class="summer" viewBox="0 0 100 100">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-summer"></use>
+                        </svg>
+                    <span>Summer</span>
+                    </label>
+                    <input class="panel__radio" name="seasons-toggle" type="radio" id="fall-toggle" ng-model="vm.activeSeason" value="4" ng-click="vm.setSeason('4')">
+                    <label class="input-hover label--seasons" for="fall-toggle">
+                        <svg class="fall" viewBox="0 0 100 100">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-fall"></use>
+                        </svg>
+                    <span>Fall</span>
+                    </label>
+                </div>
+                <div class="panel__narrative">
+                    <p>The Heritage Trail is a dynamic landscape that changes throughout the year. Select a season above, then click on the Trail to see how it looks during that season.</p>
+                    <p>Your selection also displays only the corresponding businesses and facilities that operate seasonally.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
