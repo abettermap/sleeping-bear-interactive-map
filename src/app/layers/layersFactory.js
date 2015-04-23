@@ -10,55 +10,101 @@
 
     function layersFactory(cdbValues, $state, $rootScope, popupFactory){
 
-        // Set empty objects for easy access later
-        var sublayers = {};
-
     	var layersFactory = {
-            addCdbLayer: addCdbLayer,
-    		createSublayers: createSublayers,
+            createCdbLayers: createCdbLayers,
             setSelFeatColor: setSelFeatColor,
-            sublayers: sublayers,
+            sublayers: {},
             map: {}
     	};
 
         /* Create the CDB layer w/initial sublayer (trail) and add to map */
-    	function addCdbLayer(map){
+    	function createCdbLayers(map){
 
             // Make map accesible to dependents
             layersFactory.map = map;
 
-            var cdbLayer = cdbValues.baseInfo;
-
-            // Need at least one sublayer to start, so use trail
-            // This means its index = 0
-            cdbLayer["sublayers"] = cdbValues.trailSublayer;
-
             // Create and add to map
-    	    cartodb.createLayer(map, cdbLayer)
-    	    .addTo(map)
-    	    .on('done', function(layer){
+            cartodb.createLayer(map, cdbValues.lineLayer)
+            .addTo(map)
+            .on('done', function(lineLayer){
+
+                // Hide grade and caution
+                lineLayer.getSubLayer(1).hide();
+                lineLayer.getSubLayer(2).hide();
 
                 // Add interaction
-                cdb.vis.Vis.addCursorInteraction(map, layer);
+                cdb.vis.Vis.addCursorInteraction(map, lineLayer);
 
-                layer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data){
+                lineLayer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data){
 
-                    doThisWhenTrailClicked(e, latlng, pos, data);
+                    featureWasClicked(e, latlng, pos, data, true);
 
+                    // Get non-poi narrative from help table
                     if ($rootScope.queryStates.sbht_caution){
-
-                        // Get non-poi narrative from help table
                         popupFactory.getNonPoiNarrative('sbht_caution').then(function(dataResponse) {
+
                             $rootScope.cautionInfo.text = dataResponse.data.rows[0].narrative;
                             $rootScope.cautionInfo.icon = '';
                         });
-
                     }
 
                 });
 
-                // Create remaining sublayers
-    	        createSublayers(map, layer);
+                // When caution is clicked
+                lineLayer.getSubLayer(2).on('featureClick', function(e, latlng, pos, data){
+
+                    featureWasClicked(e, latlng, pos, data, true);
+
+                    var cautionInfo = {
+                        text: data.type_name,
+                        icon: '#icon-' + data.type,
+                    };
+
+                    $rootScope.cautionInfo.text = cautionInfo.text;
+                    $rootScope.cautionInfo.icon = cautionInfo.icon;
+
+                    $rootScope.$broadcast('cautionClicked');
+
+                });
+
+                /* Assign variables to reference sublayer based on index */
+                layersFactory.sublayers.sbht_grade     = lineLayer.getSubLayer(1);
+                layersFactory.sublayers.sbht_caution   = lineLayer.getSubLayer(2);
+
+                /* Set interaction for all sublayers */
+                for (var i = 0; i < lineLayer.layers.length; i++) {
+                    lineLayer.getSubLayer(i).setInteraction(true);
+                }
+
+            })
+            .on('error', function() {
+                console.log("Ayo nayo! Could not add LINE layer");
+            });
+
+
+            // Create and add point layer to map
+    	    cartodb.createLayer(map, cdbValues.pointLayer)
+    	    .addTo(map)
+    	    .on('done', function(pointLayer){
+
+                // Add interaction
+                cdb.vis.Vis.addCursorInteraction(map, pointLayer);
+
+                /* Set interaction for all sublayers */
+                for (var i = 0; i < pointLayer.layers.length; i++) {
+                    pointLayer.getSubLayer(i).setInteraction(true);
+                    pointLayer.getSubLayer(i).on('featureClick', function(e, latlng, pos, data){
+                        featureWasClicked(e, latlng, pos, data);
+                    });
+                }
+
+                /* Assign variables to reference sublayer based on index */
+                layersFactory.sublayers.features  = pointLayer.getSubLayer(0);
+                layersFactory.sublayers.commercial = pointLayer.getSubLayer(1);
+                layersFactory.sublayers.trail_condition = pointLayer.getSubLayer(2);
+
+                // Hide trail_condition
+                pointLayer.getSubLayer(2).hide();
 
     	    })
     	    .on('error', function() {
@@ -67,144 +113,58 @@
 
     	}
 
-
-        /* Create remaining sublayers individually for more flexibility */
-    	function createSublayers(map, layer){
-
-            /***** LINES *****/
-
-            // Grade overlay (index: 1)
-            layer.createSubLayer({
-              cartocss: cdbValues.gradeSublayer.cartocss,
-              sql: cdbValues.gradeSublayer.sql,
-            }).on('featureClick', function(e, latlng, pos, data){
-                doThisWhenTrailClicked(e, latlng, pos, data);
-            });
-
-            // Caution overlay (index: 2)
-            layer.createSubLayer({
-              cartocss: cdbValues.cautionSublayer.cartocss,
-              sql: cdbValues.cautionSublayer.sql,
-              options: {
-                visible: false,
-              },
-              interactivity: cdbValues.cautionSublayer.interactivity,
-            }).on('featureClick', function(e, latlng, pos, data){
-                doThisWhenTrailClicked(e, latlng, pos, data);
-
-                var text = data.type_name,
-                    icon = data.type;
-
-                var cautionInfo = {
-                    text: text,
-                    icon: '#icon-' + icon,
-                };
-
-                $rootScope.cautionInfo.text = cautionInfo.text;
-                $rootScope.cautionInfo.icon = cautionInfo.icon;
-
-                $rootScope.$broadcast('cautionClicked', '');
-
-            });
-
-            /***** POINTS *****/
-
-            // Features (index: 3)
-            layer.createSubLayer({
-              cartocss: cdbValues.featSublayer.cartocss,
-              interactivity: cdbValues.featSublayer.interactivity,
-              sql: cdbValues.featSublayer.sql,
-            }).on('featureClick', function(e, pos, latlng, data){
-                doThisWhenFeatClicked(e, pos, latlng, data);
-            });
-
-            // Commercial (index: 4)
-            layer.createSubLayer({
-              cartocss: cdbValues.commSublayer.cartocss,
-              interactivity: cdbValues.commSublayer.interactivity,
-              sql: cdbValues.commSublayer.sql,
-            }).on('featureClick', function(e, pos, latlng, data){
-                doThisWhenFeatClicked(e, pos, latlng, data);
-            });
-
-            // Trail Condition (index: 4)
-            layer.createSubLayer({
-              cartocss: cdbValues.trailCondSublayer.cartocss,
-              interactivity: cdbValues.trailCondSublayer.interactivity,
-              sql: cdbValues.trailCondSublayer.sql,
-            }).on('featureClick', function(e, pos, latlng, data){
-                doThisWhenFeatClicked(e, pos, latlng, data);
-            });
-
-
-            /* Assign variables to reference sublayer based on index */
-            layersFactory.sublayers.sbht_grade     = layer.getSubLayer(1);
-            layersFactory.sublayers.sbht_caution   = layer.getSubLayer(2);
-            layersFactory.sublayers.features  = layer.getSubLayer(3);
-            layersFactory.sublayers.commercial = layer.getSubLayer(4);
-            layersFactory.sublayers.trail_condition = layer.getSubLayer(5);
-
-            // Hide grade, caution, trail_condition
-            layer.getSubLayer(1).hide();
-            layer.getSubLayer(2).hide();
-            layer.getSubLayer(5).hide();
-
-            /* Set interaction for all sublayers */
-            var sublayers = layer.layers;
-            for (var i = 0; i < sublayers.length; i++) {
-
-                var sublayer = layer.getSubLayer(i);
-                sublayer.setInteraction(true);
-
-            }
-
+        // Consolidate w/cdbValues later if possible
+        function getMss(css){
+            var elem = '#mss-' + css,
+                mss = $(elem).text();
+            return mss;
         }
 
+        /* When any point or line is clicked */
+        function featureWasClicked(e, latlng, pos, data, isItLine){
 
-        /* When trail clicked */
-        function doThisWhenTrailClicked(e, latlng, pos, data){
+            var params = {};
 
-            var coords = [latlng[0], latlng[1]];
+            if (isItLine){
 
-            $rootScope.cautionText = '';
+                $rootScope.cautionText = '';
 
-            popupFactory.getNearest(coords)
-            .then(function(result){
+                popupFactory.getNearest([latlng[0], latlng[1]])
+                .then(function(result){
 
-                var closest = result.data.rows[0];
+                    var closest = result.data.rows[0];
 
-                $state.go('popup.poi', {
-                    cartodb_id: closest.cartodb_id,
-                    filepath: closest.filepath,
-                    layer: closest.layer,
-                    lat: latlng[0],
-                    lon: latlng[1],
-                },{
-                    reload: true
+                    params = {
+                        cartodb_id: closest.cartodb_id,
+                        filepath: closest.filepath,
+                        layer: closest.layer,
+                        lat: latlng[0],
+                        lon: latlng[1],
+                    };
+
+                    return params;
+
+                }).then(function(result){
+
+                    var re = result;
+                    $state.go('popup.poi', re, {reload: true});
+
                 });
 
-            });
+            } else {
+                params = {
+                    cartodb_id: data.cartodb_id,
+                    filepath: data.filepath,
+                    layer: data.layer,
+                    lat: pos[0],
+                    lon: pos[1],
+                }
+                $state.go('popup.poi', params, {reload: true});
+            }
 
-            $rootScope.$broadcast('featureClicked', '');
+            $rootScope.$broadcast('featureClicked');
 
         }
-
-        /* When point clicked */
-        function doThisWhenFeatClicked(e, latlng, pos, data){
-
-            $state.go('popup.poi', {
-                cartodb_id: data.cartodb_id,
-                filepath: data.filepath,
-                layer: data.layer,
-                lat: pos[0],
-                lon: pos[1],
-            },{
-                reload: true
-            });
-
-            $rootScope.$broadcast('featureClicked', '');
-
-        };
 
         /***** SET SELECTED FEATURE COLOR *****/
         function setSelFeatColor(tableNm, cartodb_id){

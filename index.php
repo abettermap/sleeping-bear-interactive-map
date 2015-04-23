@@ -46,71 +46,73 @@
         </script>
     </head>
     <body>
-        <span class="never-show">
-          <?php include('src/assets/img/svg/project/defs/fosb-svg-defs.svg'); ?>
-        </span>
-        <span id="mss-features" class="never-show">
-            <?php
-              $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-features.mss');
-              echo $contents;
-            ?>
-        </span>
-        <span id="mss-commercial" class="never-show">
-            <?php
-              $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-commercial.mss');
-              echo $contents;
-            ?>
-        </span>
-        <span id="mss-lines" class="never-show">
-            <?php
-              $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-trail.mss');
-              echo $contents;
-            ?>
-        </span>
-        <div class="never-show" ng-include="src/assets/img/svg/project/defs/fosb-svg-defs.svg"></div>
-          <div id="map-wrapper" class="map-wrapper">
-            <interactive-map></interactive-map>
-            <panels></panels>
-            <map-controls></map-controls>
-            <div ui-view></div>
-          </div>
-          <!-- <playground></playground> -->
-        <svg class="never-show" xmlns="http://www.w3.org/2000/svg" version="1.1">
-            <defs>
-              <filter id="shadowed-goo">
-                  <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
-                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-                  <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
-                  <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
-                  <feOffset in="shadow" dx="1" dy="1" result="shadow" />
-                  <feComposite in2="shadow" in="goo" result="goo" />
-                  <feComposite in2="goo" in="SourceGraphic" result="mix" />
-              </filter>
-              <filter id="goo">
-                  <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
-                  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
-                  <feComposite in2="goo" in="SourceGraphic" result="mix" />
-              </filter>
-            </defs>
-        </svg>
-        <!-- AngularJS -->
-        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js"></script>
+      <div id="map-wrapper" class="map-wrapper">
+        <interactive-map></interactive-map>
+        <panels></panels>
+        <map-controls></map-controls>
+        <div ui-view></div>
+      </div>
 
-        <!-- Angular ui.router -->
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
+      <span class="never-show">
+        <?php include('src/assets/img/svg/project/defs/fosb-svg-defs.svg'); ?>
+      </span>
+      <span id="mss-features" class="never-show">
+          <?php
+            $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-features.mss');
+            echo $contents;
+          ?>
+      </span>
+      <span id="mss-commercial" class="never-show">
+          <?php
+            $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-commercial.mss');
+            echo $contents;
+          ?>
+      </span>
+      <span id="mss-lines" class="never-show">
+          <?php
+            $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-trail.mss');
+            echo $contents;
+          ?>
+      </span>
+      <div class="never-show" ng-include="src/assets/img/svg/project/defs/fosb-svg-defs.svg"></div>
 
-        <!-- Angular animate -->
-        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.min.js"></script>
+      <svg class="never-show" xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <defs>
+            <filter id="shadowed-goo">
+                <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                <feGaussianBlur in="goo" stdDeviation="3" result="shadow" />
+                <feColorMatrix in="shadow" mode="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 -0.2" result="shadow" />
+                <feOffset in="shadow" dx="1" dy="1" result="shadow" />
+                <feComposite in2="shadow" in="goo" result="goo" />
+                <feComposite in2="goo" in="SourceGraphic" result="mix" />
+            </filter>
+            <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                <feComposite in2="goo" in="SourceGraphic" result="mix" />
+            </filter>
+          </defs>
+      </svg>
 
-        <!-- CartoDB CDN -->
-        <script type="text/javascript" src="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.js"></script>
-        <!-- <script type="text/javascript" src="src/assets/js/vendor/cartodb.uncompressed.js"></script> -->
+      <!-- CartoDB CDN -->
+      <!-- <script type="text/javascript" src="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.js"></script> -->
+      <script type="text/javascript" src="src/assets/js/vendor/cartodb.uncompressed.js"></script>
 
-        <!-- Vendor scripts UNminified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, bindonce, others? -->
-        <script type="text/javascript" src="src/assets/js/vendor/map-vendors.js"></script>
+      <!-- AngularJS -->
+      <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
 
-        <!-- Map App -->
-        <script type="text/javascript" src="src/app/map-app.js"></script>
+      <!-- Angular ui.router -->
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
+
+      <!-- Angular animate -->
+      <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.min.js"></script>
+
+      <!-- Vendor scripts UNminified: leaflet BUILD, cartodb build?, leaflet-directive, fastclick, fancybox, picturefill, bindonce, others? -->
+      <script type="text/javascript" src="src/assets/js/vendor/map-vendors.js"></script>
+
+      <!-- Map App -->
+      <script type="text/javascript" src="src/app/map-app.js"></script>
 
 
     </body>

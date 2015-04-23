@@ -96,17 +96,20 @@
   }
 
   &coords {
-    font-size: .75rem;
     height: 1rem;
+    font-size: .75rem;
     display: block;
     margin-top: 0;
-    color: darken($gray,7%);
-    &:first-of-type {
-      margin-top: .25rem;
-    }
   }
 }
 
+// Distance from DC
+.dist-from-dc {
+    color: darken($gray,7%);
+      margin-top: .25rem;
+    font-size: .85rem;
+
+}
 .subtitle__text {
   margin: 0 .25rem;
   font-family: Brawler;

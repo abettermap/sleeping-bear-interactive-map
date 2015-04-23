@@ -37,15 +37,14 @@
         };
 
         //////// SEASONS PANEL \\\\\\\\
-        // The active season
         vm.activeSeason = $rootScope.queryStates.season;
-
         vm.activeSeasonIcon = '#icon-summer';
 
         // Close Seasons panel when season is clicked
         vm.setSeason = function(season){
             vm.activePanel   = '';
             $rootScope.queryStates.season = season;
+
             var seasonsQueries = {
                 1: 'winter',
                 2: 'spring',
@@ -205,7 +204,7 @@
 
             var states = $rootScope.queryStates;
 
-            if (overlay === 'trail_condition'){
+            if (overlay === 'trail_condition' || overlay === 'sbht_caution'){
                 $rootScope.queryStates[overlay] = !$rootScope.queryStates[overlay];
             }
 

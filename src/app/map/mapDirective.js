@@ -16,12 +16,8 @@
             replace: true,
             controller: function(){
 
-                function init(){
-                    mapFactory.createMap();
-                    layersFactory.addCdbLayer(mapFactory.map);
-                }
-
-                init();
+                mapFactory.createMap();
+                layersFactory.createCdbLayers(mapFactory.map);
 
             }
         };

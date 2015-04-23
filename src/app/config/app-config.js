@@ -41,6 +41,7 @@
                     faces: false,
                     features: ["'mainpoints'"],
                     season: 3,
+                    sbht_caution: false,
                     trail_condition: false,
                     trail_pix: true
                 };
