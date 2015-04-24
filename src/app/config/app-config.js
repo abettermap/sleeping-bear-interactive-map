@@ -21,6 +21,7 @@
             'panelsModule',
             'popupsModule',
             'layersModule',
+            'ngDialog',
             'ngAnimate',
             'angularUtils.directives.dirPagination',
             'ui.router',

@@ -45,6 +45,7 @@
         </script>
     </head>
     <body>
+
           <div id="map-wrapper" class="map-wrapper">
             <interactive-map></interactive-map>
             <panels></panels>
@@ -106,6 +107,7 @@
 
         <!-- build:js src/app/map-app.js -->
         <script type="text/javascript" src="./src/assets/js/vendor/angular.js"></script>
+        <script type="text/javascript" src="./src/assets/js/vendor/ngDialog.js"></script>
         <script type="text/javascript" src="./src/assets/js/vendor/angular-animate.js"></script>
         <script type="text/javascript" src="./src/assets/js/vendor/angular-ui-router.js"></script>
         <script type="text/javascript" src="./src/assets/js/vendor/svg4everybody.ie8.js"></script>
