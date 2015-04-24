@@ -2,7 +2,8 @@ module.exports = {
 
     options: {
         prefix: 'icon-',
-        cleanup: ['fill', 'stroke']
+        cleanup: ['fill', 'stroke'],
+        includeTitleElement: false
     },
     all: {
         files: {

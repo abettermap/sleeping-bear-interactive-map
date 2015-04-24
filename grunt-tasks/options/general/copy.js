@@ -32,14 +32,14 @@ module.exports = {
         expand: true,
         dest: 'build/src/assets/spatial/carto-css/'
     },
-    // logos: {
-    //     cwd: 'src/',
-    //     filter: 'isFile',
-    //     flatten: true,
-    //     src: ['assets/img/raster/*.png'],
-    //     expand: true,
-    //     dest: 'assets/img/raster/'
-    // },
+    logos: {
+        cwd: 'src/',
+        filter: 'isFile',
+        flatten: true,
+        src: ['assets/img/raster/logos/*.png', 'assets/img/raster/logos/*.jpg'],
+        expand: true,
+        dest: 'build/src/assets/img/raster/logos/'
+    },
     svgDefs: {
         cwd: 'src/',
         filter: 'isFile',

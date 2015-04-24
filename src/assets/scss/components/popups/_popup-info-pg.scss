@@ -79,9 +79,7 @@
 .popup-info-pg__ {
 
   &subtitle {
-    align-items: center;
-    justify-content: center;
-    display: flex;
+    @extend %flex-centered;
     color: darken($c-panel-header,5%);
     line-height: .75;
     margin: 0;
@@ -253,9 +251,7 @@ a.close-tab {
 
 // Link list and buttons
 .link-sharing-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @extend %flex-centered;
   height: 100%;
   margin: 0;
   padding: 0;

@@ -15,10 +15,7 @@
 .label--seasons {
 
   border-radius: 10px;
-  display: box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @extend %flex-centered;
   flex-flow: column;
   flex: 0 28%;
   padding: .25rem .5rem;

@@ -1,17 +1,21 @@
-// will need to dequeue theme style if using this
-// probably don't need to mess with this, not a huge stylesheet
-
 module.exports = {
 
   build: {
     options: {
-      urls: [
-        'http://wpmulti.dev/fosb/sbht-interactive-map'
-      ],
-      report: 'min'
+      report: 'min',
+      /* Exact classes did not work for ignore, but regex did: */
+      /* FUTURE JASON: this is not worth it unless you're using large/many 3rd-party CSSs */
+      ignore: [/ng/, /available/, /no-scrollbars/, /popup/, /icon/]
     },
     files: {
-      'src/assets/css/tidy.css': ['src/assets/css/empty.html']
+      'build/src/assets/css/map-style.css': [
+        'http://sbht.dev/sbht-i-map',
+        'http://sbht.dev/sbht-i-map/#/popup/features/63',
+        'http://sbht.dev/sbht-i-map/#/popup/commercial/1',
+        'http://sbht.dev/sbht-i-map/#/popup/faces/19',
+        'http://sbht.dev/sbht-i-map/#/trail_pix/19',
+        'http://sbht.dev/sbht-i-map/#/position/45/23',
+      ]
     }
   }
 

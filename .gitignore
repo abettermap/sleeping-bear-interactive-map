@@ -40,3 +40,4 @@ src/assets/img/svg/QGIS-default
 src/assets/img/raster/src-junk
 img_prod alias
 map-app.js
+*.ini

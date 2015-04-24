@@ -46,12 +46,12 @@ module.exports = function(grunt) {
         'useminPrepare',
         'concat:generated',
         'uglify:generated',
-        'cssmin:generated',
         'newer:copy',
         'newer:svgmin',
         'newer:svgstore',
-        'autoprefixer:build',
         'usemin',
+        'cssmin',
+        'autoprefixer:build',
         'htmlmin',
     ]);
 

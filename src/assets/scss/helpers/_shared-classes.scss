@@ -101,23 +101,12 @@
 
 
 /* FLEXEH */
-.flex {
-  display: box;
+%flex-centered {
+  align-items: center;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
 }
 
-.flex-between {
-  display: box;
-  display: flex;
-  justify-content: space-around;
-}
-
-.flex-vert {
-  display: box;
-  display: flex;
-  flex-direction: column;
-}
 
 %l-flex-column {
   display: box;
@@ -133,17 +122,6 @@
   fill: $near-white;
   transition: $a-icon-fill-trans;
   vertical-align: text-bottom;
-}
-
-
-/* HALF-WIDTH COLUMNS */
-.column-50 {
-  float: left;
-  width: 49%;
-
-  &:first-of-type {
-    margin-right: 2%;
-  }
 }
 
 /* No pointer events or fill changes */

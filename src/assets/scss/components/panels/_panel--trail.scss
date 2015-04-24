@@ -1,40 +1,3 @@
-/***********************************/
-/*********** TRAIL PANEL ***********/
-/***********************************/
-
-/* Grade, caution, trail condition toggles
-
-  // Shared \\
-  .panel--trail: set all svg fill?
-  .toggle--trail (outer container, label element)
-  .toggle--trail__header (pronounced, span element)
-    svg: same color as header?
-
-  .legend-line (span container, maybe do SVG instead?)
-
-  // Grade \\
-  .legend-line__overlay--grade
-  Only overlay color changes
-
-  // Caution \\
-  .legend-line__overlay--caution
-  Only overlay color changes
-
-  // Trail condition \\
-  .toggle__icon--trail-cond: goes before header
-
-*/
-
-/* Trail pics/faces toggles
-
-  // Shared \\
-  .toggle--pics (outer container, label element)
-  .toggle--pics__header (pronounced, span element)
-    svg: same color as header?
-
-*/
-
-/***********************************/
 
 /* Top-level panel assignments */
 .panel--trail {
@@ -57,11 +20,8 @@
 
 // Shared \\
 .panel--trail__label {
-  align-items: center;
-  justify-content: center;
+  @extend %flex-centered;
   flex: 0 48%;
-  display: box;
-  display: flex;
   font-size: 1.05rem;
   padding: .3rem 4px;
   &.trail-cond {
