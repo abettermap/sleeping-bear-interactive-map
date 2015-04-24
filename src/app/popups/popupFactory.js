@@ -6,43 +6,30 @@
         .module('popupsModule')
         .factory('popupFactory', popupFactory);
 
-    popupFactory.$inject = ['$rootScope', '$http', '$state', 'cdbValues', '$location', '$sce'];
+    popupFactory.$inject = ['$rootScope', '$http', 'cdbValues', '$location', '$sce'];
 
-    function popupFactory($rootScope, $http, $state, cdbValues, $location, $sce){
+    function popupFactory($rootScope, $http, cdbValues, $location, $sce){
 
         var defaultImg = 'sbht-i-map/img_prod/features/mid_size/n00/wdune-climb/image00009.jpg';
 
-        var popups = {
+        var factory = {
             clearTempMarker: clearTempMarker,
             defaultImg: defaultImg,
+            distFromDuneClimb: distFromDuneClimb,
             findSecondary: findSecondary,
-            toTrusted: toTrusted,
             getNearest: getNearest,
             getNonPoiNarrative: getNonPoiNarrative,
-            resetPopup: resetPopup,
             setShareUrl: setShareUrl,
             setThumbs: setThumbs,
+            trustHtml: trustHtml,
+            trustMedia: trustMedia,
         };
-
-        function resetPopup(path, attribs){
-            $state.go('popup.poi', {
-                cartodb_id: attribs.cartodb_id,
-                layer: attribs.layer,
-                lat: attribs.lat,
-                lon: attribs.lon,
-                filepath: attribs.filepath,
-            },{
-                reload: true
-            });
-        }
 
         /* Look for secondary images */
         function findSecondary(data){
 
             var suffix = data.layer + '\/mid_size' + data.filepath,
                 phpQuery = 'get-images.php?dir=' + suffix,
-                query;
-
                 query = phpQuery;
 
             return $http({
@@ -251,10 +238,39 @@
 
         }
 
-        /* Trust URL */
-        function toTrusted (html_code){
+        /* Trust URLs */
+        function trustMedia (html_code){
+            return $sce.trustAsResourceUrl(html_code);
+        }
+
+        /* Trust HTMLs */
+        function trustHtml (html_code){
             return $sce.trustAsHtml(html_code);
-        };
+        }
+
+        /* Distance from Dune Climb */
+        function distFromDuneClimb(dist){
+
+            var difference = 28500 - dist,
+                text;
+
+            // North/South
+            if (difference >= 0) {
+                text = 'south';
+            } else {
+                text = 'north';
+            }
+
+            // Labels
+            if (Math.abs(difference) < 528){
+                text = Math.abs(difference) + ' feet ' + text;
+            } else {
+                text = Math.abs(Math.round(difference / 5280 * 100)/100) + ' mile(s) ' + text;
+            }
+
+            return "Approximately " + text + " of the Dune Climb";
+
+        }
 
 
         /* Social links */
@@ -292,9 +308,7 @@
             });
         }
 
-
-
-    	return popups;
+    	return factory;
     }
 
 })();

@@ -24,21 +24,21 @@ module.exports = {
     // //     ],
     // //     dest: 'build/src/app/map-app-kiosk.js'
     // // },
-    // ng: {
-    //     options: {
-    //         sourceMap: true
-    //     },
-    //     src: [
-    //         'src/app/config/app-config.js', // should work as long as app-config comes first
-    //         'src/app/map/*.js',
-    //         'src/app/layers/*.js',
-    //         'src/app/popups/*js',
-    //         'src/app/ctrls/*.js',
-    //         'src/app/panels/*.js',
-    //         'src/assets/js/vendor/dirPagination.js',
-    //     ],
-    //     dest: 'src/app/map-app.js'
-    // },
+    ng: {
+        options: {
+            sourceMap: true
+        },
+        src: [
+            'src/app/config/app-config.js', // should work as long as app-config comes first
+            'src/app/map/*.js',
+            'src/app/layers/*.js',
+            'src/app/popups/*js',
+            'src/app/ctrls/*.js',
+            'src/app/panels/*.js',
+            'src/assets/js/vendor/dirPagination.js',
+        ],
+        dest: 'src/app/map-app.js'
+    },
     // vendorScripts: {
     //   src: [
     //      // CartoDB, no jQuery, unminified

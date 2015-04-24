@@ -81,7 +81,7 @@
             <svg viewBox="0 0 100 100">
                 <use ng-attr-xlink:href="{{$root.cautionInfo.icon}}" xlink:href=""></use>
             </svg>
-            <div class="narrative-text" ng-bind-html="vm.toTrusted($root.cautionInfo.text)"></div>
+            <div class="narrative-text" ng-bind-html="vm.trustHtml($root.cautionInfo.text)"></div>
         </div>
     </div>
 
@@ -126,7 +126,7 @@
             </svg>
             Description
         </h4>
-        <div class="narrative-text" ng-bind-html="vm.toTrusted(vm.selFeatData.narrative)"></div>
+        <div class="narrative-text" ng-bind-html="vm.trustHtml(vm.selFeatData.narrative)"></div>
     </div>
 
 </div>

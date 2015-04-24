@@ -11,10 +11,12 @@
     function layersFactory(cdbValues, $state, $rootScope, popupFactory){
 
     	var layersFactory = {
+            addTempMarker: addTempMarker,
             createCdbLayers: createCdbLayers,
+            map: {},
+            panToSelection: panToSelection,
             setSelFeatColor: setSelFeatColor,
             sublayers: {},
-            map: {}
     	};
 
         /* Create the CDB layer w/initial sublayer (trail) and add to map */
@@ -113,13 +115,6 @@
 
     	}
 
-        // Consolidate w/cdbValues later if possible
-        function getMss(css){
-            var elem = '#mss-' + css,
-                mss = $(elem).text();
-            return mss;
-        }
-
         /* When any point or line is clicked */
         function featureWasClicked(e, latlng, pos, data, isItLine){
 
@@ -167,36 +162,76 @@
         }
 
         /***** SET SELECTED FEATURE COLOR *****/
-        function setSelFeatColor(tableNm, cartodb_id){
+        function setSelFeatColor(sublayer, cartodb_id){
 
-            var newCss,
-                layer = layersFactory.sublayers[tableNm];
+            var newCss, sub, subs = layersFactory.sublayers,
+                featCommCondArr = ['features', 'commercial', 'trail_condition'];
 
-            // Clear if no CDB id passed
-            if (cartodb_id){
-                newCss = getMss(tableNm, cartodb_id);
+            if (sublayer === 'trail_pix' || sublayer === 'faces'){
+                for (var i = 0; i < 3; i++) {
+                    sub = featCommCondArr[i];
+                    subs[sub].setCartoCSS(getMss(sub));
+                }
             } else {
-                newCss = getMss(tableNm);
-                newCss = getMss(tableNm, cartodb_id);
+                for (var n = 0; n < 3; n++) {
+                    sub = featCommCondArr[n];
+                    if (sub === sublayer){
+                        subs[sub].setCartoCSS(getMss(sub, cartodb_id));
+                    } else {
+                        subs[sub].setCartoCSS(getMss(sub));
+                    }
+                }
             }
-
-            layer.setCartoCSS(newCss);
 
         }
 
-        function getMss(layer, cartodb_id){
+        function getMss(sublayer, cartodb_id){
 
-            var mss = $('#mss-' + layer).text(),
-                newString = '#' + layer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
-                      'bg/marker-fill: @c-sel-feat-fill;' +
-                      'bg/marker-line-color: @c-sel-feat-stroke;' +
-                    '}';
+            var newString = '',
+                mss = $('#mss-' + sublayer).text();
 
             if (cartodb_id){
+                newString = '#' + sublayer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
+                  'bg/marker-fill: @c-sel-feat-fill; bg/marker-line-color: @c-sel-feat-stroke;}';
             }
-                mss = mss + newString;
 
             return mss + newString;
+        }
+
+        /****** PAN TO SELECTION ******/
+        function panToSelection(coords){
+
+            var map = layersFactory.map,
+                targetPoint, targetLatLng,
+                viewportWidth = document.documentElement.clientWidth;
+
+            map.panTo(coords);
+
+            if (viewportWidth > 740){
+                var y = map.getSize().y / 2;
+                var xOffset = map.getSize().x / 3 * 2;
+                targetLatLng = map.containerPointToLatLng([xOffset, y]);
+                map.panTo(targetLatLng);
+            }
+
+        }
+
+
+        /*** TEMP CAMERA/FACE ICON ****/
+        function addTempMarker(coords, type){
+
+            /***** Have marker ready but don't add to map *****/
+            var tempMarker = L.marker(coords,{
+                temp: true,
+                icon: L.divIcon({
+                    className: 'temp-div-icon',
+                    html: "<svg viewBox='0 0 100 100'>" +
+                        "<use xlink:href='#icon-" + type + "'></use></svg>"
+                }),
+            });
+
+            tempMarker.addTo(layersFactory.map);
+
         }
 
     	return layersFactory;

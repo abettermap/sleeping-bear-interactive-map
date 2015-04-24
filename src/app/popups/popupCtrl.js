@@ -6,16 +6,13 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$sce', '$rootScope', 'selFeatData', 'popupFactory', 'layersFactory', '$state', '$location', 'paginationService'];
+    PopupCtrl.$inject = ['$rootScope', 'selFeatData', 'popupFactory', 'layersFactory', '$state', '$location'];
 
-    function PopupCtrl($sce, $rootScope, selFeatData, popupFactory, layersFactory, $state, $location, paginationService){
+    function PopupCtrl($rootScope, selFeatData, popupFactory, layersFactory, $state, $location){
 
         var vm = this;
 
-
         /********** DATA FOR SELECTED FEATURE **********/
-
-        /* Only need first row */
         vm.selFeatData = selFeatData.rows[0];
 
         if (vm.selFeatData.narrative) {
@@ -28,7 +25,7 @@
         /****** FEATURES POPUPS *******/
         /******************************/
 
-        // Get seasons ready, run if it exists (POI only)
+        // Get seasons ready, run if it exists (POI and trail pics only)
         if (vm.selFeatData.seasons){
             seasonsAvailable(vm.selFeatData.seasons);
         }
@@ -66,7 +63,6 @@
                 if (seasons.substring(i,i+1) === 'y'){
                     obj[i].open = true;
                     obj[i].classNm = 'available-seasons__icon available';
-                    // obj[i].classNm = 'available-seasons__icon ' + obj[i].classNm;
                 } else {
                     obj[i].open = false;
                     obj[i].classNm = 'available-seasons__icon';
@@ -78,35 +74,19 @@
         }
 
         /***** Trust video URLs *****/
-        vm.allowVideo = function (url) {
-          vm.videoUrl = $sce.trustAsResourceUrl(url);
+        if (vm.selFeatData.video_link){
+            vm.videoUrl = popupFactory.trustMedia(vm.selFeatData.video_link);
         }
 
-        // Run if it exists (POI only)
-        if (vm.selFeatData.video_link){
-            vm.allowVideo(vm.selFeatData.video_link);
-        }
 
         /***** Trust audio URLs *****/
-        vm.allowAudio = function (url) {
-
-          vm.audioUrl = $sce.trustAsResourceUrl(url);
-
-        };
-
         var audio = vm.selFeatData.audio_link;
 
         // Run if it exists (POI only)
         if (audio){
             audio = "https://w.soundcloud.com/player/?url=" + audio + "&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false";
-            vm.allowAudio(audio);
+            vm.audioUrl = popupFactory.trustMedia(audio);
         }
-
-        // Enable HTML
-        vm.toTrusted = function(html_code) {
-            return $sce.trustAsHtml(html_code);
-        }
-
 
         /***** Header *****/
         vm.popupHeader = vm.selFeatData.name;
@@ -125,43 +105,16 @@
 
         // Distances from Dune Climb
         vm.distFromDuneClimb = function(dist){
-
-            var difference = 28500 - dist,
-                text;
-
-            // North/South
-            if (difference >= 0) {
-                text = 'south';
-            } else {
-                text = 'north';
-            }
-
-            // Labels
-            if (Math.abs(difference) < 528){
-                text = Math.abs(difference) + ' feet ' + text;
-            } else {
-                text = Math.abs(Math.round(difference / 5280 * 100)/100) + ' mile(s) ' + text;
-            }
-
-            return "Approximately " + text + " of the Dune Climb";
-
+            return popupFactory.distFromDuneClimb(dist);
         }
 
         // Description/Narrative - enable HTML
-        vm.toTrusted = function(html_code) {
-            return $sce.trustAsHtml(html_code);
-        };
-
-
-        // Tooltip
-        vm.popupNavTooltip = 'View feature info';
-
+        vm.trustHtml = popupFactory.trustHtml;
 
 
         /******************************/
         /******** GRADE/CAUTION *******/
         /******************************/
-
 
         // Hide caution when any feature clicked
         $rootScope.$on('featureClicked',function(){
@@ -172,21 +125,7 @@
         /******************************/
         /****** PAN TO SELECTION ******/
         /******************************/
-
-        var map = layersFactory.map,
-            mapLayers = map._layers;
-
-        map.panTo([vm.selFeatData.lat, vm.selFeatData.lon]);
-
-        var targetPoint, targetLatLng, centerPoint,
-            viewportWidth = document.documentElement.clientWidth;
-
-        if (viewportWidth > 740){
-            var y = map.getSize().y / 2;
-            var xOffset = map.getSize().x / 3 * 2;
-            targetLatLng = map.containerPointToLatLng([xOffset, y]);
-            map.panTo(targetLatLng);
-        }
+        layersFactory.panToSelection([vm.selFeatData.lat, vm.selFeatData.lon]);
 
 
         /******************************/
@@ -194,60 +133,23 @@
         /******************************/
 
         /***** Clear if already present *****/
-        popupFactory.clearTempMarker(map, mapLayers);
+        popupFactory.clearTempMarker(layersFactory.map, layersFactory.map._layers);
 
-        /***** Add if trail_pix or faces *****/
+        /***** If trail pics/faces *****/
         if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces'){
 
-            /***** Have marker ready but don't add to map *****/
-            var tempMarker = L.marker([vm.selFeatData.lat, vm.selFeatData.lon],{
-                temp: true,
-                icon: L.divIcon({
-                    className: 'temp-div-icon',
-                    html: "<svg viewBox='0 0 100 100'>" +
-                        "<use xlink:href='#icon-" + vm.selFeatData.type + "'></use></svg>"
-                }),
-                // iconAnchor: [-216, 16]
-            });
+            /***** Add marker *****/
+            layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
 
-            tempMarker.addTo(map);
-
-        }
-
-
-
-        /******************************/
-        /****** MAKE SELECTED RED *****/
-        /******************************/
-
-        // If features, set feat red, clear comm
-        if (vm.selFeatData.layer === 'features'){
-            layersFactory.setSelFeatColor('features', vm.selFeatData.cartodb_id);
-            layersFactory.setSelFeatColor('commercial', null);
-        }
-
-        // If comm, set comm red, clear feat
-        if (vm.selFeatData.layer === 'commercial'){
-            layersFactory.setSelFeatColor('commercial', vm.selFeatData.cartodb_id);
-            layersFactory.setSelFeatColor('features', null);
-        }
-
-        // If faces, pics, or trail_con, clear comm & feat
-        if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces' || vm.selFeatData.layer === 'trail_condition') {
-            layersFactory.setSelFeatColor('commercial', null);
-            layersFactory.setSelFeatColor('features', null);
-
-
-            // Get non-poi narratives from help table (nothing to do w/selection, just don't want to
-            // have another if statement)
-
+            // Get non-poi narratives from help table
             popupFactory.getNonPoiNarrative(vm.selFeatData.layer).then(function(dataResponse) {
-
                 vm.selFeatData.narrative = dataResponse.data.rows[0].narrative;
-
             });
 
         }
+
+        /****** MAKE SELECTED RED *****/
+        layersFactory.setSelFeatColor(vm.selFeatData.layer, vm.selFeatData.cartodb_id);
 
         /******************************/
         /****** SECONDARY IMAGES ******/
@@ -258,7 +160,6 @@
         .then(function(result) {
 
             var imgObj = result.data,
-                secondaryImages,
                 arr = [],
                 layer = vm.selFeatData.layer,
                 suffix = 'img_prod\/' + layer + '\/mid_size' + vm.selFeatData.filepath;
@@ -304,8 +205,6 @@
             $rootScope.metaInfo.title = vm.selFeatData.name + ' - SBHT Interactive Map';
 
             /********** UPDATE META **********/
-
-
             /* Upate meta URL */
             $rootScope.metaInfo.url = $location.$$absUrl;
                 // popupFactory.setShareUrl(act)
@@ -446,10 +345,6 @@
             $rootScope.thumbsArrays.south = southArr;
             $rootScope.thumbsArrays.both = arr;
 
-            // console.table(arr);
-            // console.table(southArr);
-            // console.table(northArr);
-
         }).then(function(){
 
             if ($rootScope.thumbsArrays.current.length < 1){
@@ -459,34 +354,6 @@
             }
 
         });
-
-
-        $rootScope.$watch('thumbsDirectionModel', function(direction) {
-
-            paginationService.setCurrentPage('thumbs', 1);
-
-        });
-
-
-
-        /******************************/
-        /* RESET POPUP ON THUMB CLICK */
-        /******************************/
-
-        vm.resetPopup = function(path, attribs){
-
-            popupFactory.resetPopup(path, attribs);
-            // $state.go('popup.poi', {
-            //     cartodb_id: attribs.cartodb_id,
-            //     layer: attribs.layer,
-            //     lat: attribs.lat,
-            //     lon: attribs.lon,
-            //     filepath: attribs.filepath,
-            // },{
-            //     reload: true
-            // });
-
-        };
 
     }
 
