@@ -197,9 +197,30 @@
         })
         .then(function(activeImage){
 
-            var activeImg = 'http://friendsofsleepingbear.org/sbht-i-map/' + activeImage;
+            var description,
+                defaultDescription = encodeURIComponent("An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.");
 
-            $rootScope.metaInfo.image = encodeURIComponent(activeImg);
+            if (vm.selFeatData.narrative){
+                if(vm.selFeatData.layer === 'commercial' || vm.selFeatData.layer === 'features'){
+                    description = vm.selFeatData.narrative.replace(/<\/?[^>]+(>|$)/g, "");
+                    console.log("STRIPPED OF HTML: " + description);
+                    description = encodeURIComponent(description);
+                } else {
+                    description = defaultDescription;
+                }
+            } else {
+                description = defaultDescription;
+            }
+
+            var urlShareParams = {
+                img: encodeURIComponent('http://friendsofsleepingbear.org/sbht-i-map/' + activeImage),
+                description: description,
+                name: vm.selFeatData.name,
+                url: encodeURIComponent($location.$$absUrl),
+                caption: encodeURIComponent('Sleeping Bear Heritage Trail -- Interactive Map'),
+            };
+
+            $rootScope.metaInfo.image = encodeURIComponent(activeImage);
 
             // Update page title
             $rootScope.metaInfo.title = vm.selFeatData.name + ' - SBHT Interactive Map';
@@ -214,35 +235,35 @@
                     name: 'email',
                     caption: 'via email',
                     icon: '#icon-email',
-                    url: popupFactory.setShareUrl('email'),
+                    url: popupFactory.setShareUrl('email', urlShareParams),
                     click: null,
                 },
                 {
                     name: 'facebook',
                     caption: 'on Facebook',
                     icon: '#icon-facebook',
-                    url: popupFactory.setShareUrl('facebook'),
+                    url: popupFactory.setShareUrl('facebook', urlShareParams),
                     click: null,
                 },
                 {
                     name: 'twitter',
                     caption: 'on Twitter',
                     icon: '#icon-twitter',
-                    url: popupFactory.setShareUrl('twitter'),
+                    url: popupFactory.setShareUrl('twitter', urlShareParams),
                     click: null,
                 },
                 {
                     name: 'google',
                     caption: 'on Google Plus',
                     icon: '#icon-google',
-                    url: popupFactory.setShareUrl('google'),
+                    url: popupFactory.setShareUrl('google', urlShareParams),
                     click: null,
                 },
                 {
                     name: 'pinterest',
                     caption: 'on Pinterest',
                     icon: '#icon-pinterest',
-                    url: popupFactory.setShareUrl('pinterest'),
+                    url: popupFactory.setShareUrl('pinterest', urlShareParams),
                     click: null,
                 },
                 {

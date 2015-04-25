@@ -233,11 +233,6 @@
 
         }
 
-        /* Encode URLs */
-        function encodeUrls(){
-
-        }
-
         /* Trust URLs */
         function trustMedia (html_code){
             return $sce.trustAsResourceUrl(html_code);
@@ -273,10 +268,17 @@
         }
 
 
-        /* Social links */
-        function setShareUrl(medium) {
+        /* Encode URLs */
+        function encodeUrls(url){
+            var test = encodeURIComponent(url);
+            return test;
+        }
 
-            var test = $location.$$absUrl;
+        /* Social links */
+        function setShareUrl(medium, shareParams) {
+
+            var test = $location.$$absUrl,
+                friendsUri = encodeUrls('http://friendsofsleepingbear.org/sbht-i-map/');
             var twitterString = 'https://twitter.com/intent/tweet?url=' + test + '&text=' + $rootScope.metaInfo.description,
                 metaUri = {
                     description: encodeURIComponent($rootScope.metaInfo.description.substr(0,116)),
@@ -286,8 +288,16 @@
                 }, shareUrl = {
                     email: "mailto:?subject=" + $rootScope.metaInfo.title +
                     "&body=Check out this location on the Sleeping Bear Heritage Trail Interactive Map: " + $location.$$absUrl,
-                    facebook: 'http://www.facebook.com/sharer.php?u=' + $location.$$absUrl,
-                    google: 'https://plus.google.com/share?url=' + $location.$$absUrl,
+                    // facebook: 'http://www.facebook.com/sharer.php?u=' + $location.$$absUrl,
+                    facebook: 'http://www.facebook.com/dialog/feed?' +
+                        'app_id=1402814523372321' +
+                        '&link=' + shareParams.url +
+                        '&redirect_uri=' + shareParams.url +
+                        '&picture=' + shareParams.img +
+                        '&caption=' + shareParams.caption +
+                        '&name=' + shareParams.name +
+                        '&description=' + shareParams.description,
+                    google: 'https://plus.google.com/share?url=' +  $location.$$absUrl,
                     link: '#',
                     pinterest: 'http://pinterest.com/pin/create/button/?url=' + metaUri.url + '&media=' + metaUri.img + '&description=' + metaUri.url,
                     twitter: "https://twitter.com/share?url=" + metaUri.url + "&text=" + metaUri.description,

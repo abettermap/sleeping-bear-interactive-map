@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('mapApp')
-        .config(['paginationTemplateProvider', '$stateProvider', '$urlRouterProvider', function(paginationTemplateProvider, $stateProvider, $urlRouterProvider) {
+        .config(['paginationTemplateProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', function(paginationTemplateProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
 
             // Nothing to do w/routes, but set pagination template:
             var pagPath = 'src/app/vendor/dirPagination.tpl.html';
@@ -125,6 +125,10 @@
                         }],
                     },
                 });
+            // $locationProvider.html5Mode({
+            //   enabled: true,
+            //   // requireBase: false
+            // });
         }]);
 
 })();
