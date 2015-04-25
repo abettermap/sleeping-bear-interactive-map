@@ -2,7 +2,8 @@ module.exports = function(grunt) {
 
     require('time-grunt')(grunt);
     require('jit-grunt')(grunt,{
-        useminPrepare: 'grunt-usemin'
+        useminPrepare: 'grunt-usemin',
+        buildcontrol: 'grunt-build-control',
     });
 
     // Utility to load the different option files based on name
@@ -53,6 +54,7 @@ module.exports = function(grunt) {
         'cssmin',
         'autoprefixer:build',
         'htmlmin',
+        'shell',
     ]);
 
     // DEFAULT ()
