@@ -55,8 +55,10 @@
   list-style-type: none;
   margin: .4rem 0 -.2rem;
   padding: 0;
-  > li {
+  img, svg {
     flex: 0 22%;
+    // height: 72px;
+    width: 72px;
   }
 }
 

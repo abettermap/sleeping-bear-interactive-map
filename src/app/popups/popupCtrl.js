@@ -203,7 +203,6 @@
             if (vm.selFeatData.narrative){
                 if(vm.selFeatData.layer === 'commercial' || vm.selFeatData.layer === 'features'){
                     description = vm.selFeatData.narrative.replace(/<\/?[^>]+(>|$)/g, "");
-                    console.log("STRIPPED OF HTML: " + description);
                     description = encodeURIComponent(description);
                 } else {
                     description = defaultDescription;

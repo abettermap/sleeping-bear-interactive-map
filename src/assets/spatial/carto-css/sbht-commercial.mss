@@ -54,6 +54,10 @@
 // WHITE ICON FILL \\
 @c-icon-fill: #f9f9f9;
 
+// SELECTED FEATURE \\
+@c-sel-feat-fill: red;
+@c-sel-feat-stroke: darken(@c-sel-feat-fill, 25%);
+
 #commercial{
   bg/marker-allow-overlap: true;
   bg/marker-file: @path-pin-feat;

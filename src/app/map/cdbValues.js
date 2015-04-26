@@ -11,17 +11,8 @@
     angular
         .module('mapApp')
         .value('cdbValues',{
-            attribution: false,
-            cartodb_logo: false,
-            user_name: 'remcaninch',
             lineLayer: {
                 attribution: false,
-                sql_domain: "cartodb.com",
-                sql_port: "443",
-                sql_protocol: "https",
-                tiler_protocol: "https",
-                tiler_domain: "cartodb.com",
-                tiler_port: "443",
                 type: 'CartoDB',
                 user_name: 'remcaninch',
                 sublayers: [{
@@ -55,12 +46,6 @@
             },
             pointLayer: {
                 attribution: false,
-                sql_domain: "cartodb.com",
-                sql_port: "443",
-                sql_protocol: "https",
-                tiler_protocol: "https",
-                tiler_domain: "cartodb.com",
-                tiler_port: "443",
                 type: 'CartoDB',
                 user_name: 'remcaninch',
                 sublayers: [
@@ -70,16 +55,23 @@
                         sql: "SELECT 'features' AS layer, features.lin_dist, features.the_geom_webmercator, features.seasons, features.cartodb_id, features.type, features.filepath, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons,3,1) = 'y' AND features.type = 'mainpoints' ORDER BY priority DESC",
                         },
                     {
-                        cartocss: getMss('commercial'),
-                        interactivity: 'cartodb_id, type, filepath, layer',
-                        sql: "SELECT 'commercial' AS layer, commercial.lin_dist, commercial.the_geom_webmercator, commercial.seasons, commercial.cartodb_id, commercial.type, commercial.filepath, commercial_types.name AS type_name, commercial_types.priority FROM commercial INNER JOIN commercial_types ON commercial.type=commercial_types.type WHERE commercial.cartodb_id = 0",
-                    },
-                    {
                         interactivity: 'cartodb_id',
                         cartocss: "" +
                             "#trail_condition{marker-fill: #eee; marker-width: 14;}",
                         sql: "SELECT the_geom_webmercator, cartodb_id FROM trail_condition",
                     }
+                ]
+            },
+            commLayer: {
+                attribution: false,
+                type: 'CartoDB',
+                user_name: 'remcaninch',
+                sublayers: [
+                    {
+                        cartocss: getMss('commercial'),
+                        interactivity: 'cartodb_id, type, filepath, layer, lin_dist',
+                        sql: "SELECT 'commercial' AS layer, commercial.lin_dist, commercial.the_geom_webmercator, commercial.seasons, commercial.cartodb_id, commercial.type, commercial.filepath, commercial_types.name AS type_name, commercial_types.priority FROM commercial INNER JOIN commercial_types ON commercial.type=commercial_types.type WHERE commercial.cartodb_id = 0",
+                    },
                 ]
             },
             sharedQueries: {

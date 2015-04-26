@@ -17,7 +17,7 @@
   border-radius: 10px;
   @extend %flex-centered;
   flex-flow: column;
-  flex: 0 28%;
+  flex: 0 30%;
   padding: .25rem .5rem;
 
   &:hover {
@@ -40,6 +40,11 @@
     }
 
   }
+
+}
+
+/* Individual */
+.panel input:not(:checked) + .label--seasons {
   svg {
     pointer-events: none;
     fill: $c-panel-icon;
@@ -47,11 +52,6 @@
     height: 3.7rem;
     width: 3.7rem;
   }
-
-}
-
-/* Individual */
-.panel input:not(:checked) + .label--seasons {
   &:hover {
     background-color: $c-seasons-label-fill-checked;
   }
@@ -67,7 +67,6 @@
 
 
   svg {
-    fill: $c-panel-icon;
     height: 4rem;
     width: 4rem;
     margin-right: 0.5rem;
