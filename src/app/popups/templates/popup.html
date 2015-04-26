@@ -36,7 +36,9 @@
                         <li dir-paginate="img in $root.thumbsArrays.current | itemsPerPage: 5 | orderBy:img.diff"
                         pagination-id="thumbs" class="thumb">
                             <a class="thumbnail" title="{{img.path}}"
-                                ui-sref="popup.poi({cartodb_id: img.attribs.cartodb_id, layer: img.attribs.layer, lat: img.attribs.lat, lon: img.attribs.lon, filepath: img.attribs.filepath})" ui-sref-opts="{reload: true}"
+                                ui-sref="popup.poi({cartodb_id: img.attribs.cartodb_id, layer: img.attribs.layer, lat: img.attribs.lat, lon: img.attribs.lon, filepath: img.attribs.filepath})"
+                                ui-sref-opts="{reload: true}"
+                                ng-click="$root.cautionInfo.text = ''"
                                 ng-style="{'background-image': 'url(' + img.path + ')'}">
                                 <span class="thumb-distance">{{img.label}}</span>
                             </a>

@@ -163,8 +163,8 @@
         /* Add layers to map */
         function addLayersToMap(map){
             factory.layers.lineLayer.addTo(map);
-            factory.layers.commLayer.addTo(map);
             factory.layers.pointLayer.addTo(map);
+            factory.layers.commLayer.addTo(map);
         }
 
         /* When any point or line is clicked */
@@ -229,10 +229,7 @@
                 for (var n = 0; n < 3; n++) {
                     sub = featCommCondArr[n];
                     if (sub === sublayer){
-                        var hey = getMss(sub, cartodb_id);
-                        console.log(hey);
-                        subs[sub].setCartoCSS(hey);
-                        // subs[sub].setCartoCSS(getMss(sub, cartodb_id));
+                        subs[sub].setCartoCSS(getMss(sub, cartodb_id));
                     } else {
                         subs[sub].setCartoCSS(getMss(sub));
                     }
