@@ -59,7 +59,7 @@
                             // Features
                             var featQuery = "" +
                                 queryPrefix +
-                                " features.cartodb_id, features.the_geom," +
+                                " features.cartodb_id, features.the_geom, features.the_geom_webmercator," +
                                 " ROUND(ST_X(features.the_geom)::numeric, 5) AS lon," +
                                 " ROUND(ST_Y(features.the_geom)::numeric, 5) AS lat," +
                                 " features.filepath, features.lin_dist, features.seasons," +
@@ -77,7 +77,7 @@
                             // Commercial
                             var commQuery = "" +
                                 queryPrefix +
-                                " commercial.cartodb_id, commercial.the_geom," +
+                                " commercial.cartodb_id, commercial.the_geom, commercial.the_geom_webmercator," +
                                 " ROUND(ST_X(commercial.the_geom)::numeric, 5) AS lon," +
                                 " ROUND(ST_Y(commercial.the_geom)::numeric, 5) AS lat," +
                                 " commercial.filepath, commercial.lin_dist, commercial.seasons," +

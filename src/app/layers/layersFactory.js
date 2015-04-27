@@ -6,9 +6,9 @@
         .module('layersModule')
         .factory('layersFactory', layersFactory);
 
-    layersFactory.$inject = ['cdbValues', '$state', '$rootScope', 'popupFactory'];
+    layersFactory.$inject = ['$timeout', 'cdbValues', '$state', '$rootScope', 'popupFactory'];
 
-    function layersFactory(cdbValues, $state, $rootScope, popupFactory){
+    function layersFactory($timeout, cdbValues, $state, $rootScope, popupFactory){
 
     	var factory = {
             addTempMarker: addTempMarker,
@@ -81,13 +81,13 @@
                     lineLayer.getSubLayer(i).setInteraction(true);
                 }
 
-                createFeatLayer(map);
 
             })
             .on('error', function() {
                 console.log("Ayo nayo! Could not add LINE layer");
             });
 
+            createFeatLayer(map);
 
     	}
 
@@ -119,13 +119,14 @@
                 // Hide trail_condition
                 pointLayer.getSubLayer(1).hide();
 
-                // Create comm layer
-                createCommLayer(map);
 
             })
             .on('error', function() {
                 console.log("Ayo nayo! Could not add POINT layer");
             });
+
+            // Create comm layer
+            createCommLayer(map);
 
         }
 
@@ -161,10 +162,12 @@
         }
 
         /* Add layers to map */
-        function addLayersToMap(map){
+        function addLayersToMap(map,layer,sublayer,layerName){
             factory.layers.lineLayer.addTo(map);
-            factory.layers.pointLayer.addTo(map);
-            factory.layers.commLayer.addTo(map);
+            $timeout(function() {
+                factory.layers.pointLayer.addTo(map);
+                factory.layers.commLayer.addTo(map);
+            }, 500);
         }
 
         /* When any point or line is clicked */
@@ -216,7 +219,7 @@
         /***** SET SELECTED FEATURE COLOR *****/
         function setSelFeatColor(sublayer, cartodb_id){
 
-            var sub, subs = factory.sublayers,
+            var sub, subs = factory.sublayers, mss,
                 featCommCondArr = ['features', 'commercial', 'trail_condition'];
 
             // If trail_pix or faces, clear others

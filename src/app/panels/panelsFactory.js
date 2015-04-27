@@ -6,11 +6,10 @@
         .module('panelsModule')
         .factory('panelsFactory', panelsFactory);
 
-    panelsFactory.$inject = ['mapFactory', '$rootScope', '$http', 'layersFactory', 'popupFactory', 'cdbValues'];
+    panelsFactory.$inject = ['$rootScope', '$http', 'layersFactory', 'cdbValues'];
 
-    function panelsFactory(mapFactory, $rootScope, $http, layersFactory, popupFactory, cdbValues){
+    function panelsFactory($rootScope, $http, layersFactory, cdbValues){
 
-        var hey;
 
         /******************************/
         /****** TOGGLE POI TYPES ******/
@@ -20,17 +19,7 @@
         var sublayers = layersFactory.sublayers;
 
         var selectedTypes = [],
-            map = mapFactory.map;
-
-        // Get CDB map layer (this assumes it's last)
-        var i = [];
-
-        for (var x in map._layers) {
-           i.push(x);
-        }
-
-        var cdbMapLayer = map._layers[i[1]];
-
+            map = layersFactory.map;
 
 
         function toggleFeatures(types){
@@ -51,13 +40,13 @@
                     all: ""
                 };
 
-            /* Make sure mainpoints always present */
-            if ( types && states.features.indexOf("'mainpoints'") < 0){
-                types.push("'mainpoints'");
-            }
-
             /* When not called from setSeason()... */
             if ( types ){
+                /* Make sure mainpoints always present */
+                if (states.features.indexOf("'mainpoints'") < 0){
+                    types.push("'mainpoints'");
+                    $rootScope.queryStates.features = types;
+                }
                 states.features = types;
                 featQuery.all = featQuery.start + types + featQuery.end;
             } else {
@@ -85,18 +74,18 @@
                         " commercial.filepath," +
                         " commercial_types.name AS type_name," +
                         " commercial_types.priority," +
-                        " commercial_types.category_int FROM commercial INNER JOIN commercial_types ON commercial.type=commercial_types.type", // +
-                        // " WHERE commercial.cartodb_id = 0",  ADD BACK IN IF PROBLEMS, BUT MAY NOT NEED SINCE 50 IS PLACEHOLDER
+                        " commercial_types.category_int FROM commercial INNER JOIN commercial_types ON commercial.type=commercial_types.type",
                     end: " AND substring(seasons," + states.season + ",1) = 'y' ORDER BY priority DESC",
                     all: ""
                 };
 
-            /* Make sure 50 always present */
-            if ( types && states.commercial.indexOf(50) < 0){
-                types.push(50);
-            }
-
             if ( types ){
+
+                /* Make sure 50 always present */
+                if (states.commercial.indexOf(50) < 0){
+                    types.push(50);
+                    $rootScope.queryStates.commercial = types;
+                }
 
                 for (var i = 0; i < types.length; i++) {
 
@@ -127,29 +116,9 @@
             string = arr.join("") + ")";
 
             commQuery.all = commQuery.start + string + commQuery.end;
-            // console.log(commQuery.all);
+
             sublayers.commercial.setSQL(commQuery.all);
 
-        }
-
-        /* Toggle trail_condition, grade, caution */
-        function toggleCdbSublayer(overlay){
-
-            // it's already on, so remove it
-            if (!$rootScope.queryStates[overlay]){
-
-            } else {
-                cdbMapLayer.createSubLayer({
-                    cartocss: cdbValues[overlay].cartocss,
-                    sql: cdbValues[overlay].sql,
-                    layer: overlay,
-                    interactivity: cdbValues[overlay].interactivity,
-                }).on('featureClick', function(e, latlng, pos, data){
-                    layersFactory.doThisWhenTrailClicked(e, latlng, pos, data);
-                });
-            }
-
-            console.log(cdbMapLayer);
 
         }
 
@@ -214,10 +183,8 @@
             getHelpData: getHelpData,
             getPoiPages: getPoiPages,
             getSubGroups: getSubGroups,
-            hey: hey,
             map: map,
             setSeason: setSeason,
-            toggleCdbSublayer: toggleCdbSublayer,
             toggleCommercial: toggleCommercial,
             toggleFeatures: toggleFeatures,
     	};

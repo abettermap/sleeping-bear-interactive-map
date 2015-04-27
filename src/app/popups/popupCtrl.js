@@ -6,9 +6,9 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$rootScope', 'selFeatData', 'popupFactory', 'layersFactory', '$state', '$location'];
+    PopupCtrl.$inject = ['$timeout', '$rootScope', 'selFeatData', 'popupFactory', 'layersFactory', '$state', '$location'];
 
-    function PopupCtrl($rootScope, selFeatData, popupFactory, layersFactory, $state, $location){
+    function PopupCtrl($timeout, $rootScope, selFeatData, popupFactory, layersFactory, $state, $location){
 
         var vm = this;
 
@@ -89,10 +89,6 @@
         }
 
         /***** Header *****/
-        vm.popupHeader = vm.selFeatData.name;
-
-        // Pages nav icon
-        vm.popupNavIcon = '#icon-info';
 
         // Type icon -- header
         vm.headerTypeIcon = '#icon-' + vm.selFeatData.type;
@@ -146,10 +142,19 @@
                 vm.selFeatData.narrative = dataResponse.data.rows[0].narrative;
             });
 
+        } else if (vm.selFeatData.layer === 'trail_condition'){
+            // Trail condition
+        } else if (vm.selFeatData.layer === 'commercial'){
+
+            // if ($rootScope.queryStates.commercial.length == 1){
+            //     layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
+            // }
+        } else {
+            // if ($rootScope.queryStates.commercial.length = 1){
+            //     layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
+            // }
         }
 
-        /****** MAKE SELECTED RED *****/
-        layersFactory.setSelFeatColor(vm.selFeatData.layer, vm.selFeatData.cartodb_id);
 
         /******************************/
         /****** SECONDARY IMAGES ******/
@@ -279,17 +284,13 @@
         });
 
         vm.getCurrentUrl = function(){
-            return $location.$$absUrl;
+            var test = "http://" + $location.$$host + "/sbht-i-map/#" + $location.$$url;
+            return test;
         };
 
         /******************************/
         /****** SET THUMBNAILS *******/
         /******************************/
-
-        vm.currentPage = 1; //current page
-        vm.pageSize = 5; //pagination max size
-        vm.entryLimit = 50; //max rows for data table
-        vm.totalThumbs = 0;
 
         popupFactory.setThumbs(vm.selFeatData).then(function(dataResponse) {
 
@@ -374,6 +375,21 @@
             }
 
         });
+
+
+        /****** MAKE SELECTED RED *****/
+
+        var keys = [];
+        for (var key in layersFactory.layers){
+            keys.push(key);
+        }
+        if (keys.length < 3){
+            $timeout(function() {
+                layersFactory.setSelFeatColor(vm.selFeatData.layer, vm.selFeatData.cartodb_id);
+            }, 1000);
+        } else {
+            layersFactory.setSelFeatColor(vm.selFeatData.layer, vm.selFeatData.cartodb_id);
+        }
 
     }
 

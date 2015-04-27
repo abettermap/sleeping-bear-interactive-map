@@ -36,7 +36,9 @@ module.exports = {
         cwd: 'src/',
         filter: 'isFile',
         flatten: true,
-        src: ['assets/img/raster/logos/*.png', 'assets/img/raster/logos/*.jpg'],
+        src: ['assets/img/raster/logos/*.png',
+        'assets/img/raster/logos/*.svg',
+        'assets/img/raster/logos/*.jpg'],
         expand: true,
         dest: 'build/src/assets/img/raster/logos/'
     },

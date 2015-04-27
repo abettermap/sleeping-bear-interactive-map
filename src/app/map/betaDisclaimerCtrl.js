@@ -35,6 +35,7 @@
             var visitedStatus = getCookie("map visited");
             if (visitedStatus !== "") {
                 console.log("Welcome again");
+                // ngDialog.open({ template: 'src/app/map/beta-disclaimer.html' });
             } else {
                 ngDialog.open({ template: 'src/app/map/beta-disclaimer.html' });
                 console.log("first timer");
