@@ -1,4 +1,4 @@
-<div class="popup" ng-class="{'no-scrollbars': !vm.imgPgVisible}">
+<div class="popup">
     <!-- FADED BG IMAGE -->
     <div class="flip popup__page--img" ng-hide="vm.imgPgVisible">
         <h2 class="popup__header">
@@ -17,7 +17,7 @@
                 <svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use></svg>
             </a>
         </h2>
-        <div class="popup__inner popup__inner--img-pg">
+        <div class="popup__inner popup__inner--img-pg no-scrollbars">
             <div class="popup__box">
                 <!-- IMAGE PAGE -->
                 <div class="active-img-container"
@@ -84,7 +84,7 @@
             </div>
             <ul class="link-sharing-list">
                 <li ng-repeat="link in vm.socialLinkList">
-                    <a class="btn btn--share" target='_blank' ng-click="link.click()" ng-href="{{link.url}}" title="Share this location {{link.caption}}">
+                    <a class="btn btn--share" target="link.target" ng-click="link.click('test')" ng-href="{{link.url}}" title="Share this location {{link.caption}}">
                         <svg class="icon--share" viewBox="0 0 100 100" >
                             <use ng-attr-xlink:href="{{link.icon}}" xlink:href=""></use>
                         </svg>

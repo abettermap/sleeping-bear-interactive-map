@@ -1,24 +1,11 @@
 /* Same as panels, almost... */
 .popup {
 
-  @include mq($from: tablet) {
-    // border-radius: 1px;
-  }
-
-  &.no-scrollbars {
-    overflow: hidden;
-    .popup__inner {
-      overflow: hidden;
-    }
-  }
-
   background-color: lighten($c-panel-header, 20%);
 
   &__inner {
     @extend %panel__inner;
-    // top: 0;
     display: block;
-    // overflow-y: auto;
   }
 
   &__box {
@@ -26,6 +13,23 @@
     min-height: 100%;
   }
 
+}
+
+// No bars on img page
+.popup__inner.no-scrollbars {
+  overflow: hidden;
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    border: 1px solid rgba($gray, 0.35);
+    background-color: rgba(225, 225, 225, .9);
+  }
+  &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      background-color: #eee;
+  }
 }
 
 .flip {

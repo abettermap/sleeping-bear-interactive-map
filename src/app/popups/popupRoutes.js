@@ -106,13 +106,13 @@
                                         sharedPrefix +
                                         " 'camera' AS type," +
                                         " 'Trail Snapshot' AS name," +
-                                        " 'Trail Snapshot' AS type_name" +
+                                        " 'Trail Photos' AS type_name" +
                                         sharedSuffix,
                                     trail_condition: "" +
                                         sharedPrefix +
                                         " 'trail-cond' AS type," +
                                         " 'Current Trail Condition' AS name," +
-                                        " 'Winter Trail Conditions' AS type_name" +
+                                        " 'Trail Conditions' AS type_name" +
                                         sharedSuffix,
                                 };
 

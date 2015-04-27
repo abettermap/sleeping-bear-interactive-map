@@ -16,6 +16,7 @@
             clearTempMarker: clearTempMarker,
             defaultImg: defaultImg,
             distFromDuneClimb: distFromDuneClimb,
+            fbShareDialog: fbShareDialog,
             findSecondary: findSecondary,
             getNearest: getNearest,
             getNonPoiNarrative: getNonPoiNarrative,
@@ -165,13 +166,13 @@
                     trail_pix: "" +
                         " seasons, 'camera' AS type," +
                         " 'Trail Snapshot' AS name," +
-                        " 'Trail Snapshot' AS type_name," +
+                        " 'Trail Photos' AS type_name," +
                         " 'trail_pix' AS layer" +
                         " FROM trail_pix WHERE " + seasonsString,
                     trail_condition: "" +
                         " '' AS seasons, 'trail-cond' AS type," +
                         " 'Current Trail Condition' AS name," +
-                        " 'Winter Trail Conditions' AS type_name," +
+                        " 'Trail Conditions' AS type_name," +
                         " 'trail_condition' AS layer FROM trail_condition"
                 },
                 nonPoiShared = "" +
@@ -274,33 +275,51 @@
             return test;
         }
 
+        /* FB Share Prompt */
+        function fbShareDialog(params) {
+
+            console.log(params.url);
+
+            FB.ui({
+                link: params.url,
+                picture: decodeURIComponent(params.img),
+                caption: params.caption,
+                name: params.name,
+                description: params.description,
+                method: 'feed',
+                display: 'popup'
+               },
+               function(response) {
+                 // if (response && response.post_id) {
+                 //   alert('Post was published.');
+                 // } else {
+                 //   alert('Post was not published.');
+                 // }
+               }
+             );
+         }
+
         /* Social links */
         function setShareUrl(medium, shareParams) {
 
-            var test = $location.$$absUrl,
-                friendsUri = encodeUrls('http://friendsofsleepingbear.org/sbht-i-map/');
-            var twitterString = 'https://twitter.com/intent/tweet?url=' + test + '&text=' + $rootScope.metaInfo.description,
-                metaUri = {
-                    description: encodeURIComponent($rootScope.metaInfo.description.substr(0,116)),
-                    img: encodeURIComponent($rootScope.metaInfo.image),
-                    title: encodeURIComponent($rootScope.metaInfo.title),
-                    url: encodeURIComponent($location.$$absUrl),
-                }, shareUrl = {
+            var shareUrl = {
                     email: "mailto:?subject=" + $rootScope.metaInfo.title +
                     "&body=Check out this location on the Sleeping Bear Heritage Trail Interactive Map: " + $location.$$absUrl,
-                    // facebook: 'http://www.facebook.com/sharer.php?u=' + $location.$$absUrl,
-                    facebook: 'http://www.facebook.com/dialog/feed?' +
-                        'app_id=1402814523372321' +
-                        '&link=' + shareParams.url +
-                        '&redirect_uri=' + shareParams.url +
-                        '&picture=' + shareParams.img +
-                        '&caption=' + shareParams.caption +
-                        '&name=' + shareParams.name +
-                        '&description=' + shareParams.description,
-                    google: 'https://plus.google.com/share?url=' +  $location.$$absUrl,
+                    // facebook: 'http://www.facebook.com/dialog/feed?' +
+                    //     'app_id=1402814523372321' +
+                    //     '&link=' + metaUri.url +
+                    //     // '&redirect_uri=' + metaUri.url +
+                    //     '&picture=' + shareParams.img +
+                    //     '&caption=' + shareParams.caption +
+                    //     '&name=' + shareParams.name,// +
+                    //     // '&description=' + shareParams.description,
+                    google: 'https://plus.google.com/share?url=' + shareParams.url,
                     link: '#',
-                    pinterest: 'http://pinterest.com/pin/create/button/?url=' + metaUri.url + '&media=' + metaUri.img + '&description=' + metaUri.url,
-                    twitter: "https://twitter.com/share?url=" + metaUri.url + "&text=" + metaUri.description,
+                    pinterest: 'http://pinterest.com/pin/create/button/?url=' + encodeURIComponent(shareParams.url) +
+                        '&media=' + shareParams.img +
+                        '&description=' + shareParams.description,
+                    twitter: "https://twitter.com/intent/tweet?text=" + shareParams.description.substr(0,92) + "..." +
+                        "&url=" + encodeURIComponent(shareParams.url) + "&hashtags=SleepingBear,Michigan"
                 };
 
             return shareUrl[medium];

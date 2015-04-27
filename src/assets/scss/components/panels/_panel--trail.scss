@@ -27,7 +27,8 @@
   padding: .3rem 4px;
   &.trail-cond {
     align-self: center;
-    flex: 0 70%;
+    flex: 0 60%;
+    max-width: 60%;
   }
   svg {
     margin-right: 5px;

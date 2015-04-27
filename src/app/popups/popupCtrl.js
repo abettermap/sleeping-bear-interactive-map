@@ -89,7 +89,6 @@
         }
 
         /***** Header *****/
-
         // Type icon -- header
         vm.headerTypeIcon = '#icon-' + vm.selFeatData.type;
 
@@ -208,7 +207,7 @@
             if (vm.selFeatData.narrative){
                 if(vm.selFeatData.layer === 'commercial' || vm.selFeatData.layer === 'features'){
                     description = vm.selFeatData.narrative.replace(/<\/?[^>]+(>|$)/g, "");
-                    description = encodeURIComponent(description);
+                    // description = encodeURIComponent(description);
                 } else {
                     description = defaultDescription;
                 }
@@ -220,8 +219,8 @@
                 img: encodeURIComponent('http://friendsofsleepingbear.org/sbht-i-map/' + activeImage),
                 description: description,
                 name: vm.selFeatData.name,
-                url: encodeURIComponent($location.$$absUrl),
-                caption: encodeURIComponent('Sleeping Bear Heritage Trail -- Interactive Map'),
+                url: $location.$$absUrl,
+                caption: 'Sleeping Bear Heritage Trail -- Interactive Map',
             };
 
             $rootScope.metaInfo.image = encodeURIComponent(activeImage);
@@ -240,44 +239,46 @@
                     caption: 'via email',
                     icon: '#icon-email',
                     url: popupFactory.setShareUrl('email', urlShareParams),
-                    click: null,
+                    target: '_blank',
                 },
                 {
                     name: 'facebook',
                     caption: 'on Facebook',
                     icon: '#icon-facebook',
-                    url: popupFactory.setShareUrl('facebook', urlShareParams),
-                    click: null,
+                    target: '_self',
+                    url: "",
+                    click: function(){
+                        popupFactory.fbShareDialog(urlShareParams);
+                    }
                 },
                 {
                     name: 'twitter',
                     caption: 'on Twitter',
                     icon: '#icon-twitter',
                     url: popupFactory.setShareUrl('twitter', urlShareParams),
-                    click: null,
+                    target: '_blank',
                 },
                 {
                     name: 'google',
                     caption: 'on Google Plus',
                     icon: '#icon-google',
                     url: popupFactory.setShareUrl('google', urlShareParams),
-                    click: null,
+                    target: '_blank',
                 },
                 {
                     name: 'pinterest',
                     caption: 'on Pinterest',
                     icon: '#icon-pinterest',
                     url: popupFactory.setShareUrl('pinterest', urlShareParams),
-                    click: null,
+                    target: '_blank',
                 },
                 {
                     name: 'link',
                     caption: 'get link',
                     icon: '#icon-link',
                     url: '',
-                    click: function(){
-                        vm.showLinkContainer = !vm.showLinkContainer;
-                    }
+                    target: '_self',
+                    click: function(){vm.showLinkContainer = !vm.showLinkContainer;}
                 },
             ];
 

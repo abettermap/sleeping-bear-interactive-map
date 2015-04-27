@@ -47,10 +47,12 @@
         </script>
     </head>
     <body>
+        <!-- <div id="fb-root"></div> -->
         <script>
           window.fbAsyncInit = function() {
             FB.init({
-              appId      : '1402814523372321',
+              // appId      : '1402814523372321',
+              appId      : '1440362136274547',
               xfbml      : true,
               version    : 'v2.3'
             });
@@ -60,7 +62,7 @@
              var js, fjs = d.getElementsByTagName(s)[0];
              if (d.getElementById(id)) {return;}
              js = d.createElement(s); js.id = id;
-             js.src = "//connect.facebook.net/en_US/sdk.js";
+             js.src = "http://connect.facebook.net/en_US/sdk.js";
              fjs.parentNode.insertBefore(js, fjs);
            }(document, 'script', 'facebook-jssdk'));
         </script>
@@ -133,12 +135,5 @@
         <script type="text/javascript" src="./src/assets/js/vendor/leaflet-gps.js"></script>
         <script type="text/javascript" src="./src/app/map-app.js"></script>
         <!-- endbuild -->
-        <script type="text/javascript">
-        // FB.ui({
-        //   method: 'feed',
-        //   link: 'https://developers.facebook.com/docs/',
-        //   caption: 'An example caption',
-        // }, function(response){});
-    </script>
     </body>
 </html>
