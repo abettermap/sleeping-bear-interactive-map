@@ -18,9 +18,6 @@
 
                 mapFactory.createMap();
                 layersFactory.createCdbLayers(mapFactory.map);
-                // layersFactory.createCommLayer(mapFactory.map);
-                // layersFactory.createFeatLayer(mapFactory.map);
-                // layersFactory.addLayersToMap(mapFactory.map);
 
             }
         };

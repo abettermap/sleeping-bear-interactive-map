@@ -167,7 +167,7 @@
             $timeout(function() {
                 factory.layers.pointLayer.addTo(map);
                 factory.layers.commLayer.addTo(map);
-            }, 500);
+            }, 1000);
         }
 
         /* When any point or line is clicked */

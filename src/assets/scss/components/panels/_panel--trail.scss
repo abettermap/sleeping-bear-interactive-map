@@ -21,7 +21,8 @@
 // Shared \\
 .panel--trail__label {
   @extend %flex-centered;
-  flex: 0 45%;
+  flex: 0 48%;
+  max-width: 48%;
   font-size: 1.05rem;
   padding: .3rem 4px;
   &.trail-cond {

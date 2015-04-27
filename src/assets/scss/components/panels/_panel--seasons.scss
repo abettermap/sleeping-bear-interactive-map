@@ -17,8 +17,12 @@
   border-radius: 10px;
   @extend %flex-centered;
   flex-flow: column;
-  flex: 0 25%;
-  padding: .25rem .5rem;
+  // display: flex;
+  // flex: 0 auto;
+  border: none;
+  box-shadow: 0 0 2px #a6a6a6 inset;
+  flex-basis: 31%;
+  padding: .45rem;
 
   &:hover {
     border-radius: 10px;
@@ -45,6 +49,11 @@
 
 /* Individual */
 .panel input:not(:checked) + .label--seasons {
+  $s: 5.2rem;
+  border: none;
+  max-width: 31.5%;
+  // height: $s;
+  // width: $s;
   svg {
     pointer-events: none;
     fill: $c-panel-icon;
@@ -59,6 +68,7 @@
 .panel input:checked + .label--seasons {
 
   flex: 1 100%;
+  box-shadow: none;
   flex-flow: row nowrap;
   margin-top: .7rem;
   order: 4;
