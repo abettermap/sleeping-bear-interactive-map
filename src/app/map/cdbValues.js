@@ -55,18 +55,9 @@
                         sql: "SELECT 'features' AS layer, features.lin_dist, features.the_geom_webmercator, features.seasons, features.cartodb_id, features.type, features.filepath, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons,3,1) = 'y' AND features.type = 'mainpoints' ORDER BY priority DESC",
                         },
                     {
-                        interactivity: 'cartodb_id',
-                        cartocss: "" +
-                            "#trail_condition{" +
-                            "bg/marker-fill: #fff;" +
-                            "bg/marker-width: 34;" +
-                            "bg/marker-allow-overlap: true;" +
-                            "fg/marker-allow-overlap: true;" +
-                            "fg/marker-width: 15;" +
-                            "fg/marker-fill: blue;" +
-                            "fg/marker-file: url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/trail-cond.svg)" +
-                        "}",
-                        sql: "SELECT the_geom_webmercator, cartodb_id FROM trail_condition",
+                        interactivity: 'cartodb_id, filepath, layer, lin_dist',
+                        cartocss: getMss('trail_condition'),
+                        sql: "SELECT the_geom_webmercator, lin_dist, cartodb_id, filepath, 'trail_condition' as layer FROM trail_condition",
                     }
                 ]
             },

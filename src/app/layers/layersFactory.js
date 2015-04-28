@@ -181,7 +181,7 @@
 
                 popupFactory.getNearest([latlng[0], latlng[1]])
                 .then(function(result){
-
+                    console.log("LOOKING FOR NEAREST");
                     var closest = result.data.rows[0];
 
                     params = {
@@ -209,6 +209,7 @@
                     lat: pos[0],
                     lon: pos[1],
                 };
+
                 $state.go('popup.poi', params, {reload: true});
             }
 
@@ -243,12 +244,24 @@
 
         function getMss(sublayer, cartodb_id){
 
-            var newString = '',
-                mss = $('#mss-' + sublayer).text();
+            var newString = '', mss = $('#mss-' + sublayer).text();
+
+            /* Not using mss file for trail condition, so specifiy from cdbvalues*/
+            // if (sublayer === 'trail_condition'){
+            //     mss = cdbValues.pointLayer.sublayers[1].cartocss;
+            //     // console.log(mss);
+            // } else {
+            // }
+
 
             if (cartodb_id){
-                newString = '#' + sublayer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
-                  'bg/marker-fill: @c-sel-feat-fill; bg/marker-line-color: @c-sel-feat-stroke;}';
+                if (sublayer === 'trail_condition'){
+                    newString = '#' + sublayer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
+                      'bg/marker-fill: @c-sel-feat-fill; bg/marker-line-color: @c-sel-feat-stroke; fg/marker-fill: #fff;}';
+                } else {
+                    newString = '#' + sublayer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
+                      'bg/marker-fill: @c-sel-feat-fill; bg/marker-line-color: @c-sel-feat-stroke;}';
+                }
             }
 
             return mss + newString;
@@ -256,7 +269,7 @@
 
         /****** PAN TO SELECTION ******/
         function panToSelection(coords){
-
+            console.log(coords);
             var map = factory.map,
                 targetPoint, targetLatLng,
                 viewportWidth = document.documentElement.clientWidth;

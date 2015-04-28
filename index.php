@@ -77,6 +77,12 @@
         <span class="never-show">
           <?php include('src/assets/img/svg/project/defs/fosb-svg-defs.svg'); ?>
         </span>
+        <span id="mss-trail_condition" class="never-show">
+            <?php
+              $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-trail_condition.mss');
+              echo $contents;
+            ?>
+        </span>
         <span id="mss-features" class="never-show">
             <?php
               $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-features.mss');
