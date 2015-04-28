@@ -57,7 +57,15 @@
                     {
                         interactivity: 'cartodb_id',
                         cartocss: "" +
-                            "#trail_condition{marker-fill: #eee; marker-width: 14;}",
+                            "#trail_condition{" +
+                            "bg/marker-fill: #fff;" +
+                            "bg/marker-width: 34;" +
+                            "bg/marker-allow-overlap: true;" +
+                            "fg/marker-allow-overlap: true;" +
+                            "fg/marker-width: 15;" +
+                            "fg/marker-fill: blue;" +
+                            "fg/marker-file: url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/trail-cond.svg)" +
+                        "}",
                         sql: "SELECT the_geom_webmercator, cartodb_id FROM trail_condition",
                     }
                 ]

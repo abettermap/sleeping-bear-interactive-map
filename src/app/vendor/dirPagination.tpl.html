@@ -11,7 +11,7 @@
             <input value="both" id="thumbs-both" type="radio"
                 ng-model="$root.thumbsDirectionModel"
                 ng-click="$root.updateThumbs('both')">
-            <label for="thumbs-both" class="btn btn--thumbs-sort">
+            <label for="thumbs-both" class="btn btn--thumbs-sort" ng-click="vm.showThumbSort = !vm.showThumbSort">
                 <svg class="icon--thumbs-dir" viewBox="0 0 100 100">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-compass-both"></use>
                 </svg>
@@ -20,7 +20,7 @@
             <input value="north" id="thumbs-north" type="radio"
                 ng-model="$root.thumbsDirectionModel"
                 ng-click="$root.updateThumbs('north')">
-            <label for="thumbs-north" class="btn btn--thumbs-sort">
+            <label for="thumbs-north" class="btn btn--thumbs-sort" ng-click="vm.showThumbSort = !vm.showThumbSort">
                 <svg class="icon--thumbs-dir" viewBox="0 0 100 100">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-compass-north"></use>
                 </svg>
@@ -29,7 +29,7 @@
             <input value="south" id="thumbs-south" type="radio"
                 ng-model="$root.thumbsDirectionModel"
                 ng-click="$root.updateThumbs('south')">
-            <label for="thumbs-south" class="btn btn--thumbs-sort">
+            <label for="thumbs-south" class="btn btn--thumbs-sort" ng-click="vm.showThumbSort = !vm.showThumbSort">
                 <svg class="icon--thumbs-dir" viewBox="0 0 100 100">
                     <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-compass-south"></use>
                 </svg>

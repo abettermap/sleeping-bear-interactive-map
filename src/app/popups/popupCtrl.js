@@ -122,16 +122,14 @@
         /******************************/
         layersFactory.panToSelection([vm.selFeatData.lat, vm.selFeatData.lon]);
 
-
         /******************************/
         /*** TEMP CAMERA/FACE ICON ****/
         /******************************/
 
-        /***** Clear if already present *****/
-        popupFactory.clearTempMarker(layersFactory.map, layersFactory.map._layers);
-
         /***** If trail pics/faces *****/
         if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces'){
+
+            popupFactory.clearTempMarker(layersFactory.map, layersFactory.map._layers);
 
             /***** Add marker *****/
             layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
@@ -141,17 +139,23 @@
                 vm.selFeatData.narrative = dataResponse.data.rows[0].narrative;
             });
 
-        } else if (vm.selFeatData.layer === 'trail_condition'){
-            // Trail condition
-        } else if (vm.selFeatData.layer === 'commercial'){
-
-            // if ($rootScope.queryStates.commercial.length == 1){
-            //     layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
-            // }
         } else {
-            // if ($rootScope.queryStates.commercial.length = 1){
-            //     layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
-            // }
+
+            popupFactory.clearTempMarker(layersFactory.map, layersFactory.map._layers);
+
+            var refBy = document.referrer,
+                hostNm = window.location.hostname,
+                idx = refBy.indexOf(hostNm);
+
+            /* Ghetto, but basically: if the page was not referred by something other than itself, and
+            it's not mainpoints (b/c they do fine w/setSelFeatColor), and it's the first link in that tab (aka
+            history.length = 1, THEN add the marker. This will not work with "open link in new tab", but fine with
+            copy/paste. GROSS GROSS GROSS. */
+
+            if (refBy && idx < 1 && vm.selFeatData.type !== 'mainpoints' && history.length < 2){
+                layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
+            }
+
         }
 
 

@@ -8,7 +8,7 @@
 @path-bikepark    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/bikepark.svg);
 @path-commserv    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/commserv.svg);
 @path-conc        :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/conc.svg);
-@path-event      :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/event.svg);
+@path-event       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/event.svg);
 @path-historic    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/historic.svg);
 @path-parking     :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/parking.svg);
 @path-other       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/other.svg);

@@ -26,8 +26,8 @@
             'angularUtils.directives.dirPagination',
             'ui.router',
         ])
-        .run(['$timeout', '$log', '$rootScope', '$state', '$stateParams', '$location',
-            function ($timeout, $log, $rootScope, $state, $stateParams, $location) {
+        .run(['$rootScope', '$state', '$stateParams', '$location',
+            function ($rootScope, $state, $stateParams, $location) {
 
                 $rootScope.$state = $state;
                 $rootScope.$stateParams = $stateParams;
