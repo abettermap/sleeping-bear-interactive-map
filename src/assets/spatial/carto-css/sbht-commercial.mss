@@ -73,33 +73,43 @@
   fg/marker-transform: translate(0,@pin-shift-y-mid*1.25);
 
   [type="bb"]             {fg/marker-file: @path-bb;}
-  [type="cottage"]        {fg/marker-file: @path-cottage;}
+  [type="cottage"]        {fg/marker-file: @path-cottage; fg/marker-height: @icon-h-mid * .9;}
   [type="financial"]      {fg/marker-file: @path-financial;}
   [type="food"]           {fg/marker-file: @path-food;}
   [type="gallery"]        {fg/marker-file: @path-gallery;}
-  [type="grocery"]        {fg/marker-file: @path-grocery;}
-  [type="hardware"]       {fg/marker-file: @path-hardware;}
+  [type="grocery"]        {fg/marker-file: @path-grocery; fg/marker-height: @icon-h-mid * .85; fg/marker-transform: translate(0,@pin-shift-y-mid - 3);}
+  [type="hardware"]       {fg/marker-file: @path-hardware; fg/marker-height: @icon-h-mid * .9;}
   [type="health"]         {fg/marker-file: @path-health;}
-  [type="motel"]          {fg/marker-file: @path-motel;}
-  [type="organization"]   {fg/marker-file: @path-organization;}
+  [type="motel"]          {fg/marker-file: @path-motel; fg/marker-height: @icon-h-mid * .6;}
+  [type="organization"]   {fg/marker-file: @path-organization; fg/marker-height: @icon-h-mid * .7; fg/marker-transform: translate(0,@pin-shift-y-mid - 5);}
   [type="professional"]   {fg/marker-file: @path-professional;}
-  [type="realestate"]     {fg/marker-file: @path-realestate;}
-  [type="recreation"]     {fg/marker-file: @path-recreation;}
-  [type="rental"]         {fg/marker-file: @path-rental;}
+  [type="realestate"]     {fg/marker-file: @path-realestate; fg/marker-height: @icon-h-mid * .9;}
+  [type="recreation"]     {fg/marker-file: @path-recreation; fg/marker-height: @icon-h-mid * .9;}
+  [type="rental"]         {fg/marker-file: @path-rental; fg/marker-height: @icon-h-mid * .75;}
   [type="shops"]          {fg/marker-file: @path-shops;}
 
   /* Second-to-closest zoom level group; set sizes only */
-  [zoom>=15][zoom<17]{
-    bg/marker-height: @pin-h-close;
-    bg/marker-transform: translate(0,@pin-shift-y-close);
-    fg/marker-height: @icon-h-close;
-    fg/marker-transform: translate(0,@pin-shift-y-close*1.25);
-  }
+  // [zoom>=15][zoom<17]{
+  //   bg/marker-height: @pin-h-close;
+  //   bg/marker-transform: translate(0,@pin-shift-y-close);
+  //   [type="grocery"]        {fg/marker-height: @icon-h-close * .85;}
+  //   [type="motel"]          {fg/marker-height: @icon-h-close * .65;}
+  //   [type="organization"]   {fg/marker-height: @icon-h-close * .7;}
+  //   [type="rental"]         {fg/marker-height: @icon-h-close * .8; fg/marker-transform: translate(0,@pin-shift-y-mid - 5);}
+  //   [type="recreation"]     {fg/marker-height: @icon-h-close * .9;}
+  //   fg/marker-height: @icon-h-close;
+  //   fg/marker-transform: translate(0,@pin-shift-y-close*1.25);
+  // }
   /* Closest zoom level group; set sizes only (same as mid?) */
-  [zoom>=17]{
-    bg/marker-height: @pin-h-mid;
-    bg/marker-transform: translate(0,@pin-shift-y-mid);
-    fg/marker-height: @icon-h-mid;
-    fg/marker-transform: translate(0,@pin-shift-y-mid*1.2);
-  }
+  // [zoom>=17]{
+  //   bg/marker-height: @pin-h-mid;
+  //   bg/marker-transform: translate(0,@pin-shift-y-mid);
+  //   [type="grocery"]        {fg/marker-height: @icon-h-mid * .85;}
+  //   [type="motel"]          {fg/marker-height: @icon-h-mid * .65; fg/marker-transform: translate(0,@pin-shift-y-mid - 5);}
+  //   [type="organization"]   {fg/marker-height: @icon-h-mid * .7; fg/marker-transform: translate(0,@pin-shift-y-mid - 5);}
+  //   [type="recreation"]     {fg/marker-height: @icon-h-mid * .9;}
+  //   [type="rental"]         {fg/marker-height: @icon-h-mid * .7; fg/marker-transform: translate(0,@pin-shift-y-mid - 5);}
+  //   fg/marker-height: @icon-h-mid;
+  //   fg/marker-transform: translate(0,@pin-shift-y-mid*1.2);
+  // }
 }
