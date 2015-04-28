@@ -81,11 +81,11 @@
   &subtitle {
     @extend %flex-centered;
     color: darken($c-panel-header,5%);
-    line-height: .75;
+    line-height: .95;
     margin: 0;
 
     .icon--heading {
-      $s: 1.5rem;
+      $s: 1.4rem;
       height: $s;
       width: $s;
       fill: darken($c-panel-header,5%);
@@ -111,7 +111,7 @@
 .subtitle__text {
   margin: 0 .25rem;
   font-family: Brawler;
-  font-size: 1.2rem;
+  font-size: 1.07rem;
 }
 
 .icon--heading {

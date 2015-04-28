@@ -106,6 +106,16 @@
         // Description/Narrative - enable HTML
         vm.trustHtml = popupFactory.trustHtml;
 
+        if (vm.selFeatData.layer === 'commercial'){
+            popupFactory.getCommTypes(vm.selFeatData.categories).then(function(result){
+                vm.commTypesArr = result.data.rows;
+                for (var i = 0; i < vm.commTypesArr.length; i++) {
+                    vm.commTypesArr[i].type = "#icon-" + vm.commTypesArr[i].type;
+                }
+                console.log(vm.commTypesArr);
+            });
+        }
+
 
         /******************************/
         /******** GRADE/CAUTION *******/

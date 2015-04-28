@@ -2,7 +2,7 @@
     <header>
         <h3 class="popup-info-pg__title">{{vm.selFeatData.name}}</h3>
         <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 399.904 20" width="399.9" class="divider"><path d="M191.6 10.7c5.218 6.63 26.29-2.085 10.28-3.39-2.638.303-10.97-.97-10.28 3.39zm-370.94 500.473c-6.524.836-16.88-1.114-3.594-1.77 1.03.358 3.302.206 3.594 1.77zM3.2 10.4c60.22.757 120.4 1.876 180.7 2.405C199.18 9 176.315 5.25 170.83 7.41c-56.92.927-113.9.93-170.8 2.436.1 1.336 3.09-.352 3.21.554zm-202.1 500.787h-115.4c14.14-1.457 28.8-.496 43.16-.975 23.54.03 47.13-.89 70.64-.252l1.495.89.09.337zM396.67 10.4c-60.22.757-120.4 1.876-180.7 2.405C200.69 9 223.555 5.25 229.04 7.41c56.92.927 113.9.93 170.8 2.436-.1 1.336-3.088-.352-3.208.554zm-567.7 500.787h115.4c-14.14-1.457-28.8-.496-43.15-.975-23.54.03-47.13-.89-70.64-.252l-1.494.89-.09.337z"/></svg>
-        <p class="popup-info-pg__subtitle">
+        <p class="popup-info-pg__subtitle" ng-hide="vm.selFeatData.layer === 'commercial'">
             <svg class="icon--heading" viewBox="0 0 100 100" >
                 <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
             </svg>
@@ -11,6 +11,18 @@
                 <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
             </svg>
         </p>
+        <div ng-show="vm.selFeatData.layer === 'commercial'">
+            <p class="popup-info-pg__subtitle"
+                ng-repeat="type in vm.commTypesArr">
+                <svg class="icon--heading" viewBox="0 0 100 100" >
+                    <use ng-attr-xlink:href="{{type.type}}" xlink:href=""></use>
+                </svg>
+                <span class="subtitle__text">{{type.name}}</span>
+                <svg class="icon--heading" viewBox="0 0 100 100" >
+                    <use ng-attr-xlink:href="{{type.type}}" xlink:href=""></use>
+                </svg>
+            </p>
+        </div>
         <div class="dist-from-dc">
             <span class="popup-info-pg__coords">{{vm.selFeatData.lat}}&deg; N, {{vm.selFeatData.lon}}&deg; W</span>
             <span ng-show="{{vm.selFeatData.cartodb_id != 211}}">{{vm.distFromDuneClimb(vm.selFeatData.lin_dist)}}<br>

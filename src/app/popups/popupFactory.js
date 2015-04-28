@@ -18,6 +18,7 @@
             distFromDuneClimb: distFromDuneClimb,
             fbShareDialog: fbShareDialog,
             findSecondary: findSecondary,
+            getCommTypes: getCommTypes,
             getNearest: getNearest,
             getNonPoiNarrative: getNonPoiNarrative,
             setShareUrl: setShareUrl,
@@ -242,6 +243,29 @@
         /* Trust HTMLs */
         function trustHtml (html_code){
             return $sce.trustAsHtml(html_code);
+        }
+
+        /* Get Commercial types */
+        function getCommTypes(types){
+
+            var commTypesArr = [];
+
+            for (var i = 0; i < types.length; i++) {
+                if (types.charAt(i) === 'y'){
+                    commTypesArr.push(i);
+                }
+            }
+
+            var query = "" +
+                "https://remcaninch.cartodb.com/api/v2/sql?q=" +
+                "SELECT category_int, name, type FROM commercial_types" +
+                " WHERE category_int IN (" + commTypesArr + ")";
+
+            return $http({
+                method: 'GET',
+                url: query
+            });
+
         }
 
         /* Distance from Dune Climb */
