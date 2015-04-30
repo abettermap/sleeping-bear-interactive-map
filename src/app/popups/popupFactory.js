@@ -18,6 +18,7 @@
             distFromDuneClimb: distFromDuneClimb,
             fbShareDialog: fbShareDialog,
             findSecondary: findSecondary,
+            getCurrentUrl: getCurrentUrl,
             getCommTypes: getCommTypes,
             getNearest: getNearest,
             getNonPoiNarrative: getNonPoiNarrative,
@@ -289,7 +290,7 @@
                 text = Math.abs(Math.round(difference / 5280 * 100)/100) + ' mile(s) ' + text;
             }
 
-            return "Approx. " + text + " of the Dune Climb";
+            return "Approx." + text + " of the Dune Climb ";
 
         }
 
@@ -313,23 +314,21 @@
                 description: params.description,
                 method: 'feed',
                 display: 'popup'
-               },
-               function(response) {
-                 // if (response && response.post_id) {
-                 //   alert('Post was published.');
-                 // } else {
-                 //   alert('Post was not published.');
-                 // }
-               }
-             );
+            });
          }
+
+        /* Get correct URL, even if via FB */
+        function getCurrentUrl(){
+            var test = "http://" + $location.$$host + "/sbht-i-map/#" + $location.$$url;
+            return test;
+        };
 
         /* Social links */
         function setShareUrl(medium, shareParams) {
 
             var shareUrl = {
                     email: "mailto:?subject=" + $rootScope.metaInfo.title +
-                    "&body=Check out this location on the Sleeping Bear Heritage Trail Interactive Map: " + shareParams.url,
+                    "&body=Check out this location on the Sleeping Bear Heritage Trail Interactive Map: " + getCurrentUrl(),
                     // facebook: 'http://www.facebook.com/dialog/feed?' +
                     //     'app_id=1402814523372321' +
                     //     '&link=' + metaUri.url +

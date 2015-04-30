@@ -45,8 +45,8 @@ module.exports = function(grunt) {
     // BUILD
     grunt.registerTask('build', [
         'useminPrepare',
-        'concat',
-        'uglify',
+        'concat:generated',
+        'uglify:generated',
         'newer:copy',
         'newer:svgmin',
         'newer:svgstore',

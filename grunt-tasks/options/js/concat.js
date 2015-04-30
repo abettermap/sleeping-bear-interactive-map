@@ -3,27 +3,6 @@ module.exports = {
     // options: {
     //   // separator: ';'
     // },
-    // buildStyles: {
-    //     src: [
-    //         'src/assets/js/vendor/bower_components/cartodb.js/dist/themes/css/cartodb.css',
-    //         'src/assets/css/map-style.css'
-    //     ],
-    //     dest: 'build/src/assets/css/map-style.css'
-    // },
-    // // kioskStyle: {
-    // //     src: [
-    // //         'src/assets/css/map-style.css',
-    // //         'src/assets/css/map-style-kiosk.css'
-    // //     ],
-    // //     dest: 'build/src/assets/css/map-style-kiosk.css'
-    // // },
-    // // kioskScript: {
-    // //     src: [
-    // //         'src/app/map-app.js',
-    // //         'src/app/kiosk/map-kiosk.js'
-    // //     ],
-    // //     dest: 'build/src/app/map-app-kiosk.js'
-    // // },
     ng: {
         options: {
             sourceMap: true

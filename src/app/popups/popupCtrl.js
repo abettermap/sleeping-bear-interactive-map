@@ -297,11 +297,11 @@
 
         });
 
-        vm.getCurrentUrl = function(){
-            var test = "http://" + $location.$$host + "/sbht-i-map/#" + $location.$$url;
-            return test;
-        };
-
+        // vm.getCurrentUrl = function(){
+        //     var test = "http://" + $location.$$host + "/sbht-i-map/#" + $location.$$url;
+        //     return test;
+        // };
+        vm.getCurrentUrl = popupFactory.getCurrentUrl;
         /******************************/
         /****** SET THUMBNAILS *******/
         /******************************/
