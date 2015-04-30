@@ -112,7 +112,6 @@
                 for (var i = 0; i < vm.commTypesArr.length; i++) {
                     vm.commTypesArr[i].type = "#icon-" + vm.commTypesArr[i].type;
                 }
-                console.log(vm.commTypesArr);
             });
         }
 

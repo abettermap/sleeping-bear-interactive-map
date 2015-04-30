@@ -1,8 +1,8 @@
 module.exports = {
 
-    php: 'index.php',
-    options: {
-        dest: 'build'
-    }
+    html: 'src/index.php',
+    // options: {
+    //     dest: 'build'
+    // }
 
 };

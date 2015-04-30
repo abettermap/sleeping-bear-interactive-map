@@ -252,9 +252,10 @@
 
             for (var i = 0; i < types.length; i++) {
                 if (types.charAt(i) === 'y'){
-                    commTypesArr.push(i);
+                    commTypesArr.push(i + 1);
                 }
             }
+            console.log(commTypesArr);
 
             var query = "" +
                 "https://remcaninch.cartodb.com/api/v2/sql?q=" +
@@ -288,7 +289,7 @@
                 text = Math.abs(Math.round(difference / 5280 * 100)/100) + ' mile(s) ' + text;
             }
 
-            return "Approximately " + text + " of the Dune Climb";
+            return "Approx. " + text + " of the Dune Climb";
 
         }
 
@@ -328,7 +329,7 @@
 
             var shareUrl = {
                     email: "mailto:?subject=" + $rootScope.metaInfo.title +
-                    "&body=Check out this location on the Sleeping Bear Heritage Trail Interactive Map: " + $location.$$absUrl,
+                    "&body=Check out this location on the Sleeping Bear Heritage Trail Interactive Map: " + shareParams.url,
                     // facebook: 'http://www.facebook.com/dialog/feed?' +
                     //     'app_id=1402814523372321' +
                     //     '&link=' + metaUri.url +
