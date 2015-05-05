@@ -26,8 +26,8 @@
         /******************************/
 
         // Get seasons ready, run if it exists (POI and trail pics only)
-        if (vm.selFeatData.seasons){
-            seasonsAvailable(vm.selFeatData.seasons);
+        if (vm.selFeatData.available){
+            seasonsAvailable(vm.selFeatData.available);
         }
 
         function seasonsAvailable(seasons){
@@ -68,7 +68,7 @@
                     obj[i].classNm = 'available-seasons__icon';
                 }
             }
-
+            console.log(obj);
             vm.availableSeasons = obj;
 
         }

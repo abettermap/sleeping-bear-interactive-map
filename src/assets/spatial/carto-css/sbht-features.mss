@@ -5,14 +5,15 @@
 
 // ICONS \\
 @path-beach       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/beach.svg);
-@path-bikepark    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/bikepark.svg);
+@path-benches     :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/benches.svg);
+@path-bpark       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/bpark.svg);
 @path-commserv    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/commserv.svg);
 @path-conc        :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/conc.svg);
 @path-event       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/event.svg);
 @path-historic    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/historic.svg);
-@path-parking     :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/parking.svg);
-@path-other       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/other.svg);
 @path-mainpoints  :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/mainpoints.svg);
+@path-other       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/other.svg);
+@path-parking     :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/parking.svg);
 @path-ranger      :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/ranger.svg);
 @path-restroom    :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/restroom.svg);
 @path-signs       :   url(http://friendsofsleepingbear.org/sbht-i-map/src/assets/img/svg/project/min/signs.svg);
@@ -93,7 +94,8 @@
   fg/marker-height: @icon-h-mid;
   fg/marker-transform: translate(0,@pin-shift-y-mid*1.25);
   [type="beach"]    {fg/marker-file: @path-beach; fg/marker-height: @icon-h-mid*.5;}
-  [type="bikepark"] {fg/marker-file: @path-bikepark; }
+  [type="benches"]  {fg/marker-file: @path-benches; fg/marker-height: @icon-h-mid*.35;}
+  [type="bpark"]    {fg/marker-file: @path-bpark; }
   [type="commserv"] {fg/marker-file: @path-commserv;}
   [type="conc"]     {fg/marker-file: @path-conc; fg/marker-height: 13; fg/marker-transform: translate(0,@pin-shift-y-mid - 6);}
   [type="event"]    {fg/marker-file: @path-event; fg/marker-height: 14; fg/marker-transform: translate(0,@pin-shift-y-mid - 6);}
@@ -116,6 +118,7 @@
 
     /* Adjust height again for wider icons*/
     [type="beach"]    {fg/marker-height: @icon-h-mid*.5;}
+    [type="benches"]    {fg/marker-height: @icon-h-mid*.35;}
     [type="conc"]     {fg/marker-height: 12; fg/marker-transform: translate(0,@pin-shift-y-mid - 5);}
     [type="historic"] {fg/marker-height: 12;}
     [type="parking"]  {fg/marker-transform: translate(1,@pin-shift-y-mid*1.1);}
@@ -128,6 +131,7 @@
     fg/marker-height: @icon-h-mid;
     fg/marker-transform: translate(0,@pin-shift-y-mid*1.2);
     [type="beach"]    {fg/marker-height: @icon-h-mid*.5;}
+    [type="benches"]    {fg/marker-height: @icon-h-mid*.35;}
     [type="conc"]     {fg/marker-height: 14;}
     [type="historic"] {fg/marker-height: 14;}
     [type="restroom"] {fg/marker-height: 15;}

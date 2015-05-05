@@ -38,7 +38,7 @@
 
         //////// SEASONS PANEL \\\\\\\\
         vm.activeSeason = $rootScope.queryStates.season;
-        vm.activeSeasonIcon = '#icon-summer';
+        vm.activeSeasonIcon = '#icon-winter';
 
         // Close Seasons panel when season is clicked
         vm.setSeason = function(season){

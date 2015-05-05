@@ -290,7 +290,7 @@
                 text = Math.abs(Math.round(difference / 5280 * 100)/100) + ' mile(s) ' + text;
             }
 
-            return "Approx." + text + " of the Dune Climb ";
+            return "Approx. " + text + " of the Dune Climb ";
 
         }
 

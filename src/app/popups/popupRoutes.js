@@ -62,7 +62,7 @@
                                 " features.cartodb_id, features.the_geom, features.the_geom_webmercator," +
                                 " ROUND(ST_X(features.the_geom)::numeric, 5) AS lon," +
                                 " ROUND(ST_Y(features.the_geom)::numeric, 5) AS lat," +
-                                " features.filepath, features.lin_dist, features.seasons," +
+                                " features.filepath, features.lin_dist, features.available," +
                                 " features.type, features.name," +
                                 " narrative, video_link, audio_link," +
                                 " feature_types.name AS type_name," +
@@ -80,7 +80,7 @@
                                 " commercial.cartodb_id, commercial.the_geom, commercial.the_geom_webmercator," +
                                 " ROUND(ST_X(commercial.the_geom)::numeric, 5) AS lon," +
                                 " ROUND(ST_Y(commercial.the_geom)::numeric, 5) AS lat," +
-                                " commercial.filepath, commercial.lin_dist, commercial.seasons," +
+                                " commercial.filepath, commercial.lin_dist, commercial.available," +
                                 " address, city, phone, website, zip, commercial.categories," +
                                 " commercial.type, commercial.name," +
                                 " narrative, video_link, audio_link," +

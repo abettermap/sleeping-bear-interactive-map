@@ -41,7 +41,7 @@
                     commercial: [50],
                     faces: false,
                     features: ["'mainpoints'"],
-                    season: 3,
+                    season: 1,
                     sbht_caution: false,
                     trail_condition: false,
                     trail_pix: true
