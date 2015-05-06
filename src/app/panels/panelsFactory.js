@@ -163,7 +163,7 @@
         function getPoiPages (table){
 
 
-            var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT name, sub_group, type, type_desc",
+            var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT name, sub_group, type, type_desc, priority",
                 query;
 
             if (table == 'feat'){
@@ -174,7 +174,7 @@
 
             return $http({
                 method: 'GET',
-                url: query,
+                url: query + " ORDER BY priority",
             });
         }
 

@@ -19,6 +19,19 @@
     <div class="poi-page--home panel__inner" ng-show="vm.activePoiPage == 'Home'">
         <div class="panel__box">
             <div class="panel__row">
+                <h3>Main Access Points</h3>
+                <ul class="poi-subgroup-list">
+                    <li class="poi-subgroup">
+                        <svg class="poi-type__icon poi-type__icon--access" viewBox="0 0 100 100">
+                            <use xlink:href="#icon-mainpoints"></use>
+                        </svg>
+                        <a class="poi-subgroup-link poi-subgroup-link--access clearfix" href="javascript:;">
+                            <span class="poi-subgroup__preview">
+                                While the Trail can be accessed from many locations, these icons represent its primary entrance points and community hubs, and are always displayed until the map is zoomed in.
+                            </span>
+                        </a>
+                    </li>
+                </ul>
                 <h3>Features</h3>
                 <ul class="poi-subgroup-list">
                     <li class="poi-subgroup" ng-repeat="t in vm.featSubGroups">
@@ -29,7 +42,7 @@
                             ng-click="vm.setActivePoiPage(t.sub_group)">
                             <span class="poi-subgroup__name">{{t.sub_group}}  >></span>
                             <span class="poi-subgroup__preview">
-                                {{t.types[0].name}}, {{t.types[1].name}}...
+                                {{t.types[0].name}}, {{t.types[1].name}}, {{t.types[2].name}}
                             </span>
                         </a>
                     </li>
@@ -44,7 +57,7 @@
                             ng-click="vm.setActivePoiPage(t.sub_group)">
                             <span class="poi-subgroup__name">{{t.sub_group}}  >></span>
                             <span class="poi-subgroup__preview">
-                                {{t.types[0].name}}, {{t.types[1].name}}...
+                                {{t.types[0].name}}, {{t.types[1].name}}, {{t.types[2].name}}
                             </span>
                         </a>
                     </li>

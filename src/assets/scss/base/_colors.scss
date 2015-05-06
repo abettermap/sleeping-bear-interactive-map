@@ -79,22 +79,13 @@ $c-features-icon: $green;
 $c-feat-toggle-nav-hover: darken($c-panel-checked-fill,15%);
 
 // Features toggles -- map pins
+$c-access-pin-bg: #7caad4;
 $c-feat-pin-bg: #a7588e;
 $c-comm-pin-bg: #f7892e;
+$c-access-pin-stroke: darken($c-access-pin-bg, 25%);
 $c-feat-pin-stroke: darken($c-feat-pin-bg, 25%);
 $c-comm-pin-stroke: darken($c-comm-pin-bg, 25%);
 
-// Features
-%c-poi-toggles-icon--feat {
-  background-color: $c-feat-pin-bg;
-  border: solid 2px $c-feat-pin-stroke;
-}
-
-// Commercial
-%c-poi-toggles-icon--comm {
-  background-color: $c-comm-pin-bg;
-  border: solid 2px $c-comm-pin-stroke;
-}
 
 /* TRAIL PANEL */
 $c-panel--trail__header: $c-h3-color;

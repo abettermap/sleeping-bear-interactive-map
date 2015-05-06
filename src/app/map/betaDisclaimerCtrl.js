@@ -6,9 +6,9 @@
         .module('popupsModule')
         .controller('BetaDisclaimerCtrl', BetaDisclaimerCtrl);
 
-    BetaDisclaimerCtrl.$inject = ['ngDialog'];
+    BetaDisclaimerCtrl.$inject = ['ngDialog', '$timeout'];
 
-    function BetaDisclaimerCtrl(ngDialog){
+    function BetaDisclaimerCtrl(ngDialog, $timeout){
 
         $('.leaflet-tile-container.leaflet-zoom-animated').click();
 
@@ -34,12 +34,14 @@
         function checkCookie() {
             var visitedStatus = getCookie("map visited");
             if (visitedStatus !== "") {
-                console.log("Welcome again");
+                console.log("Welcome back");
                 // ngDialog.open({ template: 'src/app/map/beta-disclaimer.html' });
             } else {
                 ngDialog.open({ template: 'src/app/map/beta-disclaimer.html' });
-                console.log("first timer");
-               setCookie("map visited", 1);
+                setCookie("map visited", 1);
+                $timeout(function() {
+                    $('#ngdialog1').scrollTop(0);
+                }, 500);
             }
         }
 
