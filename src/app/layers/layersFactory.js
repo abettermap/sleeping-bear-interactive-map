@@ -181,7 +181,6 @@
 
                 popupFactory.getNearest([latlng[0], latlng[1]])
                 .then(function(result){
-                    console.log("LOOKING FOR NEAREST");
                     var closest = result.data.rows[0];
 
                     params = {
@@ -269,7 +268,7 @@
 
         /****** PAN TO SELECTION ******/
         function panToSelection(coords){
-            console.log(coords);
+
             var map = factory.map,
                 targetPoint, targetLatLng,
                 viewportWidth = document.documentElement.clientWidth;

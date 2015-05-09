@@ -10,8 +10,6 @@
 
     function BetaDisclaimerCtrl(ngDialog, $timeout){
 
-        $('.leaflet-tile-container.leaflet-zoom-animated').click();
-
         // Cookies for temp map beta disclaimer
         function setCookie(cname,cvalue) {
             var expires = "expires=Fri, 22 May 2015 00:00:00 UTC";
@@ -34,7 +32,7 @@
         function checkCookie() {
             var visitedStatus = getCookie("map visited");
             if (visitedStatus !== "") {
-                console.log("Welcome back");
+                // console.log("Welcome back");
                 // ngDialog.open({ template: 'src/app/map/beta-disclaimer.html' });
             } else {
                 ngDialog.open({ template: 'src/app/map/beta-disclaimer.html' });

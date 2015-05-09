@@ -13,19 +13,19 @@
 
 #sbht{
   ::bottom {
-    line-width: 12;
+    line-width: 10;
     line-opacity: .15;
     line-color: #fff;
     line-join: round;
   }
   ::next {
-    line-width: 11;
+    line-width: 9;
     line-opacity: .3;
     line-color: #fff;
     line-join: round;
   }
   ::mid {
-    line-width: 10;
+    line-width: 8;
     opacity: .3;
     line-color: @c-shadow;
     line-join: round;

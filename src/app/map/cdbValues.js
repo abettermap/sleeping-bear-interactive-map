@@ -49,6 +49,11 @@
                 type: 'CartoDB',
                 user_name: 'remcaninch',
                 sublayers: [
+                    // {
+                    //     cartocss: '#poly_buffer{polygon-opacity:.01; polygon-fill: #fff;}',
+                    //     interactivity: 'cartodb_id',
+                    //     sql: 'SELECT cartodb_id, the_geom_webmercator FROM poly_buffer',
+                    // },
                     {
                         cartocss: getMss('features'),
                         interactivity: 'cartodb_id, type, filepath, layer, lin_dist',

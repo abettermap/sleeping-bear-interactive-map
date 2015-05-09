@@ -273,7 +273,7 @@
         /* Distance from Dune Climb */
         function distFromDuneClimb(dist){
 
-            var difference = 28500 - dist,
+            var difference = 35460 - dist,
                 text;
 
             // North/South

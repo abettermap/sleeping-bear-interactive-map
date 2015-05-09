@@ -132,7 +132,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
 
         <!-- build:js src/app/map-app.js -->
-        <!-- <script type="text/javascript" src="./src/assets/js/vendor/angular.js"></script> -->
         <script type="text/javascript" src="./src/assets/js/vendor/ngDialog.js"></script>
         <script type="text/javascript" src="./src/assets/js/vendor/angular-animate.js"></script>
         <script type="text/javascript" src="./src/assets/js/vendor/angular-ui-router.js"></script>

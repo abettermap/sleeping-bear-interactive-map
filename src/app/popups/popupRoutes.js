@@ -18,7 +18,7 @@
             $stateProvider
                 .state('popup', {
                     url: '/',
-                    controller: 'BetaDisclaimerCtrl',
+                    // controller: 'BetaDisclaimerCtrl',
                     template: '<div ui-view></div>',
                 })
                 .state('position', {
