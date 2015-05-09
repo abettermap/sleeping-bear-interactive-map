@@ -54,17 +54,19 @@
                     </label>
                 </div>
                 <!-- TRAIL CONDITION -->
-                <h3 class="panel--trail__header" ng-show="vm.queryStates.season == 1">Trail Condition</h3>
-                <div class="panel--trail__label-cont trail__label-cont--cond" ng-show="vm.queryStates.season == 1">
-                    <input type="checkbox" id="trail-cond-toggle"
-                        ng-model="vm.trailCondState"
-                        ng-change="vm.toggleOverlayState('trail_condition')">
-                    <label class="panel--trail__label trail-cond" for="trail-cond-toggle">
-                        <svg viewBox="0 0 100 100" class="toggle__icon--trail-cond">
-                            <use xlink:href="#icon-trail-cond"></use>
-                        </svg>
-                        Trail Condition
-                    </label>
+                <div ng-show="vm.showTrailCondition()">
+                    <h3 class="panel--trail__header">Trail Condition</h3>
+                    <div class="panel--trail__label-cont trail__label-cont--cond">
+                        <input type="checkbox" id="trail-cond-toggle"
+                            ng-model="vm.trailCondState"
+                            ng-change="vm.toggleOverlayState('trail_condition')">
+                        <label class="panel--trail__label trail-cond" for="trail-cond-toggle">
+                            <svg viewBox="0 0 100 100" class="toggle__icon--trail-cond">
+                                <use xlink:href="#icon-trail-cond"></use>
+                            </svg>
+                            Trail Condition
+                        </label>
+                    </div>
                 </div>
                 <div class="panel__narrative">
                     <p>The map has a large image library of trail scenes and visitors enjoying the Trail. Select one or both options, then click the Trail to view photos.</p>

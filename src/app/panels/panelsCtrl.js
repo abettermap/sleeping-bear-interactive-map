@@ -197,7 +197,6 @@
             {name: 'Caution', layer: 'sbht_caution', on: false, icon: '#icon-caution'},
         ];
 
-        // vm.trailCondState = false;
 
         // Toggle Grade/caution
         vm.toggleOverlayState = function(overlay){
@@ -220,6 +219,20 @@
             $rootScope.queryStates[layer] = !$rootScope.queryStates[layer];
 
         };
+
+        // Show trail condition button if winter is selected and current month Nov - Mar
+        vm.showTrailCondition = function(){
+
+            var d = new Date(),
+                month = d.getMonth();
+
+            if (vm.queryStates.season == 1 && ((month <= 2 ) || (month >= 10 ))){
+                return true;
+            } else {
+                return false;
+            }
+
+        }
 
 
         //////// INFO PANEL \\\\\\\\
