@@ -111,8 +111,8 @@
                                     trail_condition: "" +
                                         sharedPrefix +
                                         " 'trail-cond' AS type," +
-                                        " 'Current Trail Condition' AS name," +
-                                        " 'Trail Conditions' AS type_name" +
+                                        " 'Current Ski Conditions' AS name," +
+                                        " 'Ski Conditions' AS type_name" +
                                         sharedSuffix,
                                 };
 

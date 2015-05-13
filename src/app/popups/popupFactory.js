@@ -173,8 +173,8 @@
                         " FROM trail_pix WHERE " + seasonsString,
                     trail_condition: "" +
                         " '' AS seasons, 'trail-cond' AS type," +
-                        " 'Current Trail Condition' AS name," +
-                        " 'Trail Conditions' AS type_name," +
+                        " 'Current Ski Conditions' AS name," +
+                        " 'Ski Conditions' AS type_name," +
                         " 'trail_condition' AS layer FROM trail_condition"
                 },
                 nonPoiShared = "" +

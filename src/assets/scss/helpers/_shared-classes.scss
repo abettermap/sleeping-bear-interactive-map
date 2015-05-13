@@ -146,8 +146,10 @@
 }
 
 %panel__header {
+  align-items: center;
   background-color: $c-panel-header;
   color: $near-white;
+  display: flex;
   font-size: $l-panel-header-ht;
   height: 3.3rem;
   left: 0;
@@ -163,7 +165,7 @@
     height: $l-panel-header-ht + .2rem;
     width: $l-panel-header-ht + .2rem;
     transition: $a-icon-fill-trans;
-    vertical-align: bottom;
+    // vertical-align: bottom;
     // @include mq($from: desktop) {
     //   &:hover {
     //     fill: $c-panel-icon;

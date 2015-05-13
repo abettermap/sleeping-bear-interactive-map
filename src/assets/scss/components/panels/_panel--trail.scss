@@ -12,6 +12,7 @@
     margin-top: 0;
   }
   &__header {
+    margin-top: .9rem;
     // font-size: 1.2rem;
   }
 }
@@ -26,9 +27,8 @@
   font-size: 1.05rem;
   padding: .3rem 4px;
   &.trail-cond {
-    align-self: center;
-    flex: 0 60%;
-    max-width: 60%;
+    flex: 0 70%;
+    max-width: 70%;
   }
   svg {
     margin-right: 5px;
@@ -37,7 +37,7 @@
   &-cont {
     display: flex;
     justify-content: space-between;
-    ~ h3 {
+    + h3 {
       margin-top: .9rem;
     }
   }

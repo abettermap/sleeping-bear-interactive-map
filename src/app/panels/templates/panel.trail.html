@@ -1,9 +1,11 @@
 <div class="panel panel--trail" ng-show="vm.activePanel == 'trail'">
     <h2 class="panel__header">
-        <svg viewBox="0 0 100 100" class="no-hover">
-            <use xlink:href="#icon-trail"></use>
-        </svg>
-        <span>The Trail</span>
+        <span class="popup__header--inner">
+            <svg viewBox="0 0 100 100" class="no-hover">
+                <use xlink:href="#icon-cyclist"></use>
+            </svg>
+            <span>The Trail</span>
+        </span>
         <a href="javascript:;" class="panel__close btn" ng-click="vm.changePanel('')">
             <svg viewBox="0 0 100 100">
                 <use xlink:href="#icon-chevron-down"></use>
@@ -14,7 +16,7 @@
         <div class="panel__box">
             <div class="panel__row">
                 <!-- TRAIL PICS & FACES -->
-                <h3 class="panel--trail__header">Trail Images</h3>
+                <h3>Trail Images</h3>
                 <div class="panel--trail__label-cont">
                     <!-- Trail Pics -->
                     <input ng-checked="vm.trailPicsState" type="checkbox" id="trail-pics-toggle"
@@ -53,9 +55,9 @@
                         </span>
                     </label>
                 </div>
-                <!-- TRAIL CONDITION -->
+                <!-- SKI CONDITIONS -->
                 <div ng-show="vm.showTrailCondition()">
-                    <h3 class="panel--trail__header">Trail Condition</h3>
+                    <h3 class="panel--trail__header">Current Ski Conditions</h3>
                     <div class="panel--trail__label-cont trail__label-cont--cond">
                         <input type="checkbox" id="trail-cond-toggle"
                             ng-model="vm.trailCondState"
@@ -64,14 +66,14 @@
                             <svg viewBox="0 0 100 100" class="toggle__icon--trail-cond">
                                 <use xlink:href="#icon-trail-cond"></use>
                             </svg>
-                            Trail Condition
+                            Current Ski Conditions
                         </label>
                     </div>
                 </div>
                 <div class="panel__narrative">
                     <p>The map has a large image library of trail scenes and visitors enjoying the Trail. Select one or both options, then click the Trail to view photos.</p>
                     <p>While the Trail is mostly flat, there are a few hills and a handful of cautionary segments. Click the "Grade" and "Caution" buttons to turn these on or off.</p>
-                    <p>Enable the "Trail Condition" option to display the most current Trail photos (winter only).</p>
+                    <p>Enable the "Current Ski Conditions" option to display the most current Trail photos (winter only).</p>
                 </div>
             </div>
         </div>

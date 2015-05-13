@@ -5,10 +5,12 @@
                 <use xlink:href="#icon-back"></use>
             </svg>
         </a>
-        <svg viewBox="0 0 100 100">
-            <use xlink:href="#icon-map-pin"></use>
-        </svg>
-        <span>{{vm.activePoiPageTitle}}</span>
+        <span class="popup__header--inner">
+            <svg viewBox="0 0 100 100">
+                <use xlink:href="#icon-map-pin"></use>
+            </svg>
+            <span>{{vm.activePoiPageTitle}}</span>
+        </span>
         <a href="javascript:;" class="panel__close btn" ng-click="vm.changePanel('')">
             <svg viewBox="0 0 100 100">
                 <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
@@ -117,5 +119,5 @@
                 </ul>
             </div>
         </div>
-    </div>++
+    </div>
 </div>

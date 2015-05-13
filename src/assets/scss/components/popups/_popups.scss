@@ -105,14 +105,17 @@
   }
 
   &--inner {
-    width: calc(100% - 5.1rem);
-    display: block;
-    float: left;
-    margin: 0 auto;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-left: 3px;
+    }
+    svg {
+    }
   }
 
 }
