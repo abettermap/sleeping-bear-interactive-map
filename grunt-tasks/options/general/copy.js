@@ -1,29 +1,15 @@
 module.exports = {
 
-    plugin: {
-        expand: true,
-        src: 'index.php',
-        dest: 'build'
-    },
-    getImages: {
-        expand: true,
-        src: 'get-images.php',
-        dest: 'build'
+    php: {
+        files: [
+            {expand: true, src: ['*.php'], dest: 'build/', filter: 'isFile'},
+        ]
     },
     fastClick: {
         expand: true,
         src: 'src/assets/js/vendor/fastclick.js',
         dest: 'build'
     },
-    // html: {
-    //     expand: true,
-    //     cwd: 'src/',
-    //     // flatten: true,
-    //     // src: 'src/app/config/map.html',
-    //     filter: 'isFile',
-    //     src: ['app/**/*.html'],
-    //     dest: 'build/src'
-    // },
     mss: {
         cwd: 'src/',
         filter: 'isFile',
@@ -41,6 +27,14 @@ module.exports = {
         'assets/img/raster/logos/*.jpg'],
         expand: true,
         dest: 'build/src/assets/img/raster/logos/'
+    },
+    help: {
+        cwd: 'src/',
+        filter: 'isFile',
+        flatten: true,
+        src: ['assets/img/raster/help-pics/*.jpg'],
+        expand: true,
+        dest: 'build/src/assets/img/raster/help-pics/'
     },
     svgDefs: {
         cwd: 'src/',

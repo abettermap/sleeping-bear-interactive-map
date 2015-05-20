@@ -10,6 +10,7 @@ module.exports = {
         src: [
             'src/app/config/app-config.js', // should work as long as app-config comes first
             'src/app/map/*.js',
+            '!src/app/map/betaDisclaimerCtrl.js',
             'src/app/layers/*.js',
             'src/app/popups/*js',
             'src/app/ctrls/*.js',
