@@ -21,7 +21,7 @@
             'panelsModule',
             'popupsModule',
             'layersModule',
-            'ngDialog',
+            // 'ngDialog',
             'ngAnimate',
             'angularUtils.directives.dirPagination',
             'ui.router',
@@ -41,7 +41,7 @@
                     commercial: [50],
                     faces: false,
                     features: ["'mainpoints'"],
-                    season: 1,
+                    season: 2,
                     sbht_caution: false,
                     trail_condition: false,
                     trail_pix: true

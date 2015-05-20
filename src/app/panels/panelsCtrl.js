@@ -4,6 +4,24 @@
 
     angular
         .module('panelsModule')
+        .filter('svgIconCardHref', SvgFilter);
+
+    SvgFilter.$inject = ['$sce'];
+
+    function SvgFilter ($sce){
+      return function(iconCardId) {
+        return $sce.trustAsResourceUrl('#icon-' + iconCardId);
+      };
+    }
+
+})();
+
+(function() {
+
+    'use strict';
+
+    angular
+        .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
     PanelsCtrl.$inject = ['panelsFactory', '$rootScope', '$http', '$state', 'layersFactory', '$sce', 'popupFactory'];
@@ -38,7 +56,7 @@
 
         //////// SEASONS PANEL \\\\\\\\
         vm.activeSeason = $rootScope.queryStates.season;
-        vm.activeSeasonIcon = '#icon-winter';
+        vm.activeSeasonIcon = 'spring';
 
         // Close Seasons panel when season is clicked
         vm.setSeason = function(season){
@@ -52,7 +70,8 @@
                 4: 'fall',
             };
 
-            vm.activeSeasonIcon = '#icon-' + seasonsQueries[$rootScope.queryStates.season];
+            // vm.activeSeasonIcon = '#icon-' + seasonsQueries[$rootScope.queryStates.season];
+            vm.activeSeasonIcon = seasonsQueries[$rootScope.queryStates.season];
 
             panelsFactory.setSeason(season);
 
