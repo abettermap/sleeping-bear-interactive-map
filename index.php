@@ -131,11 +131,12 @@
         <noscript><link rel="stylesheet" href="src/assets/css/map-style.css"></noscript>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
 
+        <!-- <script type="text/javascript" src="./src/assets/js/vendor/ngDialog.js"></script> -->
+        <!-- <script type="text/javascript" src="./src/assets/js/vendor/svg4everybody.ie8.js"></script> -->
+
         <!-- build:js src/app/map-app.js -->
-        <script type="text/javascript" src="./src/assets/js/vendor/ngDialog.js"></script>
         <script type="text/javascript" src="./src/assets/js/vendor/angular-animate.js"></script>
         <script type="text/javascript" src="./src/assets/js/vendor/angular-ui-router.js"></script>
-        <script type="text/javascript" src="./src/assets/js/vendor/svg4everybody.ie8.js"></script>
         <script type="text/javascript" src="./src/assets/js/vendor/esri-leaflet-basemaps.js"></script>
         <script type="text/javascript" src="./src/assets/js/vendor/leaflet-history-src.js"></script>
         <script type="text/javascript" src="./src/assets/js/vendor/leaflet-gps.js"></script>

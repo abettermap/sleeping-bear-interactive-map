@@ -35,6 +35,7 @@
                 // console.log("Welcome back");
                 // ngDialog.open({ template: 'src/app/map/beta-disclaimer.html' });
             } else {
+                // alert("hey guyyyyysss");
                 ngDialog.open({ template: 'src/app/map/beta-disclaimer.html' });
                 setCookie("map visited", 1);
                 $timeout(function() {
