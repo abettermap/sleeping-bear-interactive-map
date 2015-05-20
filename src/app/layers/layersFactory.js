@@ -13,41 +13,51 @@
     	var factory = {
             addTempMarker: addTempMarker,
             createCdbLayers: createCdbLayers,
-            layers: {},
             map: {},
             panToSelection: panToSelection,
             setSelFeatColor: setSelFeatColor,
             sublayers: {},
     	};
 
-        /* Create the CDB layer w/initial sublayer (trail) and add to map */
+        /* CREATE THE CDB LAYER W/INITIAL SUBLAYER (TRAIL) AND ADD TO MAP */
     	function createCdbLayers(map){
 
             // Make map accesible to dependents
             factory.map = map;
 
             // Create and add to map
-            cartodb.createLayer(map, cdbValues.lineLayer)
-            // .addTo(map)
-            .on('done', function(lineLayer){
-
-                factory.layers.lineLayer = lineLayer;
-
-                // Hide grade and caution
-                lineLayer.getSubLayer(1).hide();
-                lineLayer.getSubLayer(2).hide();
+            cartodb.createLayer(map, cdbValues.layerProps)
+            .addTo(map)
+            .on('done', function(layer){
 
                 // Add interaction
-                cdb.vis.Vis.addCursorInteraction(map, lineLayer);
+                cdb.vis.Vis.addCursorInteraction(map, layer);
 
-                lineLayer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data){
+                /* Assign variables to reference sublayer based on index */
+                factory.sublayers.sbht_grade        = layer.getSubLayer(1);
+                factory.sublayers.sbht_caution      = layer.getSubLayer(2);
+                factory.sublayers.features          = layer.getSubLayer(3);
+                factory.sublayers.trail_condition   = layer.getSubLayer(4);
+                factory.sublayers.commercial        = layer.getSubLayer(5);
+
+                // Hide trail_condition, grade, caution
+                factory.sublayers.trail_condition.hide();
+                factory.sublayers.sbht_grade.hide();
+                factory.sublayers.sbht_caution.hide();
+
+                /* Set interaction for all sublayers */
+                for (var i = 0; i < layer.layers.length; i++) {
+                    layer.getSubLayer(i).setInteraction(true);
+                }
+
+                // When trail is clicked
+                layer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data){
 
                     featureWasClicked(e, latlng, pos, data, true);
 
                     // Get non-poi narrative from help table
                     if ($rootScope.queryStates.sbht_caution){
                         popupFactory.getNonPoiNarrative('sbht_caution').then(function(dataResponse) {
-
                             $rootScope.cautionInfo.text = dataResponse.data.rows[0].narrative;
                             $rootScope.cautionInfo.icon = '';
                         });
@@ -56,7 +66,7 @@
                 });
 
                 // When caution is clicked
-                lineLayer.getSubLayer(2).on('featureClick', function(e, latlng, pos, data){
+                factory.sublayers.sbht_caution.on('featureClick', function(e, latlng, pos, data){
 
                     featureWasClicked(e, latlng, pos, data, true);
 
@@ -67,110 +77,33 @@
 
                     $rootScope.cautionInfo.text = cautionInfo.text;
                     $rootScope.cautionInfo.icon = cautionInfo.icon;
-
                     $rootScope.$broadcast('cautionClicked');
 
                 });
 
-                /* Assign variables to reference sublayer based on index */
-                factory.sublayers.sbht_grade     = lineLayer.getSubLayer(1);
-                factory.sublayers.sbht_caution   = lineLayer.getSubLayer(2);
-
-                /* Set interaction for all sublayers */
-                for (var i = 0; i < lineLayer.layers.length; i++) {
-                    lineLayer.getSubLayer(i).setInteraction(true);
-                }
-
-
-            })
-            .on('error', function() {
-                console.log("Ayo nayo! Could not add LINE layer");
-            });
-
-            createFeatLayer(map);
-
-    	}
-
-        /* Create feat/trail_condition layer */
-        function createFeatLayer(map){
-
-            // Create and add point layer to map
-            cartodb.createLayer(map, cdbValues.pointLayer)
-            // .addTo(map)
-            .on('done', function(pointLayer){
-
-                factory.layers.pointLayer = pointLayer;
-
-                // Add interaction
-                cdb.vis.Vis.addCursorInteraction(map, pointLayer);
-
-                /* Set interaction for all sublayers */
-                for (var i = 0; i < pointLayer.layers.length; i++) {
-                    pointLayer.getSubLayer(i).setInteraction(true);
-                    pointLayer.getSubLayer(i).on('featureClick', function(e, latlng, pos, data){
-                        featureWasClicked(e, latlng, pos, data);
-                    });
-                }
-
-                /* Assign variables to reference sublayer based on index */
-                factory.sublayers.features  = pointLayer.getSubLayer(0);
-                factory.sublayers.trail_condition = pointLayer.getSubLayer(1);
-
-                // Hide trail_condition
-                pointLayer.getSubLayer(1).hide();
-
-
-            })
-            .on('error', function() {
-                console.log("Ayo nayo! Could not add POINT layer");
-            });
-
-            // Create comm layer
-            createCommLayer(map);
-
-        }
-
-        /* Create comm layer */
-        function createCommLayer(map){
-
-            // Create and add point layer to map
-            cartodb.createLayer(map, cdbValues.commLayer)
-            .on('done', function(commLayer){
-
-                factory.layers.commLayer = commLayer;
-
-                // Add interaction
-                cdb.vis.Vis.addCursorInteraction(map, commLayer);
-
-                /* Set interaction for all sublayers */
-                commLayer.getSubLayer(0).setInteraction(true);
-                commLayer.getSubLayer(0).on('featureClick', function(e, latlng, pos, data){
+                // When features is clicked
+                factory.sublayers.features.on('featureClick', function(e, latlng, pos, data){
                     featureWasClicked(e, latlng, pos, data);
                 });
 
-                /* Assign variables to reference sublayer based on index */
-                factory.sublayers.commercial  = commLayer.getSubLayer(0);
+                // When trail_condition is clicked
+                factory.sublayers.trail_condition.on('featureClick', function(e, latlng, pos, data){
+                    featureWasClicked(e, latlng, pos, data);
+                });
 
-                // Add layers to map
-                addLayersToMap(map);
+                // When commercial is clicked
+                factory.sublayers.commercial.on('featureClick', function(e, latlng, pos, data){
+                    featureWasClicked(e, latlng, pos, data);
+                });
 
             })
             .on('error', function() {
-                console.log("Ayo nayo! Could not add COMM layer");
+                console.log("Ayo nayo! Could not add layer.");
             });
 
-        }
+    	}
 
-        /* Add layers to map */
-        function addLayersToMap(map,layer,sublayer,layerName){
-            factory.layers.lineLayer.addTo(map);
-            $timeout(function() {
-                factory.layers.pointLayer.addTo(map);
-                factory.layers.commLayer.addTo(map);
-            }, 1000);
-        }
-
-        /* When any point or line is clicked */
+        /* WHEN ANY POINT OR LINE IS CLICKED */
         function featureWasClicked(e, latlng, pos, data, isItLine){
 
             var params = {};
@@ -232,7 +165,8 @@
                 for (var n = 0; n < 3; n++) {
                     sub = featCommCondArr[n];
                     if (sub === sublayer){
-                        subs[sub].setCartoCSS(getMss(sub, cartodb_id));
+                        // subs[sub].setCartoCSS(getMss(sub, cartodb_id));
+                        subs[sub].setCartoCSS(getMss(sub));
                     } else {
                         subs[sub].setCartoCSS(getMss(sub));
                     }
@@ -245,14 +179,7 @@
 
             var newString = '', mss = $('#mss-' + sublayer).text();
 
-            /* Not using mss file for trail condition, so specifiy from cdbvalues*/
-            // if (sublayer === 'trail_condition'){
-            //     mss = cdbValues.pointLayer.sublayers[1].cartocss;
-            //     // console.log(mss);
-            // } else {
-            // }
-
-
+            /* Slightly different symbology for trail_condition */
             if (cartodb_id){
                 if (sublayer === 'trail_condition'){
                     newString = '#' + sublayer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
@@ -293,8 +220,14 @@
                 temp: true,
                 icon: L.divIcon({
                     className: 'temp-div-icon',
-                    html: "<svg viewBox='0 0 100 100'>" +
-                        "<use xlink:href='#icon-" + type + "'></use></svg>"
+                    html: '' +
+                        '<svg class="icon--temp--bg" viewBox="0 0 100 100">' +
+                            '<use xlink:href="#icon-map-pin-wide-empty"></use>' +
+                        '</svg>' +
+                        '<svg class="icon--temp--fg" viewBox="0 0 100 100">' +
+                            '<use xlink:href="#icon-' + type + '"></use>' +
+                            // '<use xlink:href="{{ ' + type + ' | svgIconCardHref }}"></use>' +
+                        '</svg>'
                 }),
             });
 

@@ -11,6 +11,7 @@
     function PopupCtrl($timeout, $rootScope, selFeatData, popupFactory, layersFactory, $state, $location){
 
         var vm = this;
+        $('#map').click();
 
         /********** DATA FOR SELECTED FEATURE **********/
         vm.selFeatData = selFeatData.rows[0];
@@ -68,14 +69,14 @@
                     obj[i].classNm = 'available-seasons__icon';
                 }
             }
-            console.log(obj);
+
             vm.availableSeasons = obj;
 
         }
 
         /***** Trust video URLs *****/
         if (vm.selFeatData.video_link){
-            vm.videoUrl = popupFactory.trustMedia(vm.selFeatData.video_link);
+            vm.videoUrl = popupFactory.trustMedia(vm.selFeatData.video_link, true);
         }
 
 
@@ -137,11 +138,12 @@
 
         /***** If trail pics/faces *****/
         if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces'){
+        // if (vm.selFeatData.layer){
 
-            popupFactory.clearTempMarker(layersFactory.map, layersFactory.map._layers);
+            // popupFactory.clearTempMarker(layersFactory.map, layersFactory.map._layers);
 
             /***** Add marker *****/
-            layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
+            // layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
 
             // Get non-poi narratives from help table
             popupFactory.getNonPoiNarrative(vm.selFeatData.layer).then(function(dataResponse) {
@@ -150,8 +152,10 @@
 
         } else {
 
-            popupFactory.clearTempMarker(layersFactory.map, layersFactory.map._layers);
+            // popupFactory.clearTempMarker(layersFactory.map, layersFactory.map._layers);
 
+            /***** Add marker *****/
+            // layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
             var refBy = document.referrer,
                 hostNm = window.location.hostname,
                 idx = refBy.indexOf(hostNm);
@@ -162,10 +166,15 @@
             copy/paste. GROSS GROSS GROSS. */
 
             if (refBy && idx < 1 && vm.selFeatData.type !== 'mainpoints' && history.length < 2){
-                layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
+                // layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
             }
 
         }
+
+        popupFactory.clearTempMarker(layersFactory.map, layersFactory.map._layers);
+
+        /***** Add marker *****/
+        layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
 
 
         /******************************/
@@ -393,17 +402,17 @@
 
         /****** MAKE SELECTED RED *****/
 
-        var keys = [];
-        for (var key in layersFactory.layers){
-            keys.push(key);
-        }
-        if (keys.length < 3){
-            $timeout(function() {
-                layersFactory.setSelFeatColor(vm.selFeatData.layer, vm.selFeatData.cartodb_id);
-            }, 1000);
-        } else {
+        // var keys = [];
+        // for (var key in layersFactory.layers){
+        //     keys.push(key);
+        // }
+        // if (keys.length < 3){
+        //     $timeout(function() {
+        //         layersFactory.setSelFeatColor(vm.selFeatData.layer, vm.selFeatData.cartodb_id);
+        //     }, 1000);
+        // } else {
+        // }
             layersFactory.setSelFeatColor(vm.selFeatData.layer, vm.selFeatData.cartodb_id);
-        }
 
     }
 
