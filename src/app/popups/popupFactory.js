@@ -237,7 +237,10 @@
         }
 
         /* Trust URLs */
-        function trustMedia (html_code){
+        function trustMedia (html_code, isVideo){
+            if (isVideo) {
+                html_code = html_code + '?rel=0&modestbranding=1&autohide=1'
+            }
             return $sce.trustAsResourceUrl(html_code);
         }
 

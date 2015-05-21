@@ -2,7 +2,7 @@
     <h2 class="panel__header">
         <span class="popup__header--inner">
             <svg viewBox="0 0 100 100" class="no-hover">
-                <use ng-attr-xlink:href="{{vm.activeSeasonIcon}}" xlink:href=""></use>
+                <use xlink:href="{{ vm.activeSeasonIcon | svgIconCardHref }}"></use>
             </svg>
             <span>Seasons</span>
         </span>

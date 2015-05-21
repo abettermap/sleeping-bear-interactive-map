@@ -8,7 +8,7 @@
                 </svg>
             </a>
             <span class="popup__header--inner">
-                <svg class="popup-icon--type no-hover popup-icon-sm" viewBox="0 0 100 100">
+                <svg class="popup-icon--type no-hover" viewBox="0 0 100 100">
                     <use ng-attr-xlink:href="{{vm.headerTypeIcon}}" xlink:href=""></use>
                 </svg>
                 <span>{{vm.selFeatData.name}}</span>
@@ -79,10 +79,10 @@
             </div>
             <div ng-show="vm.showLinkContainer" class="popup__footer__tab footer-tab--url">
                 <p>To visit this location again or share it with others, use the following link or one of the sharing presets below:</p>
-                <a ng-href="{{vm.getCurrentUrl()}}">{{vm.getCurrentUrl()}}</a>
+                <span class="current-url">{{vm.getCurrentUrl()}}</span>
                 <a class="close-tab" href="" ng-click="vm.showLinkContainer = !vm.showLinkContainer">X</a>
             </div>
-            <ul class="link-sharing-list">
+            <ul class="link-sharing-list disable-outbound-links">
                 <li ng-repeat="link in vm.socialLinkList">
                     <a class="btn btn--share" target="link.target" ng-click="link.click('test')" ng-href="{{link.url}}" title="Share this location {{link.caption}}">
                         <svg class="icon--share" viewBox="0 0 100 100" >

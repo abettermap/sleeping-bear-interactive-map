@@ -23,7 +23,7 @@
         <div class="panel__box">
             <div class="panel__row">
                 <h3>Map Credits</h3>
-                <ul class="logos">
+                <ul class="logos disable-outbound-links">
                     <li>
                         <a href="http://abettermap.com" target="_blank">
                             <img src="src/assets/img/svg/project/abm-logo.svg" alt="A Better Map logo">
@@ -42,7 +42,7 @@
                     </li>
                 </ul>
                 <div class="panel__narrative">
-                    <small class="credits">This map was made through a collaborative effort between <a href="http://abettermap.com" target="_blank">A Better Map</a>, <a href="http://friendsofsleepingbear.org" target="_blank">Friends of Sleeping Bear Dunes</a>, and <a href="http://www.visitglenarbor.com/" target="_blank">Glen Lake Chamber of Commerce</a>.</small>
+                    <small class="credits disable-outbound-links">This map was made through a collaborative effort between <a href="http://abettermap.com" target="_blank">A Better Map</a>, <a href="http://friendsofsleepingbear.org" target="_blank">Friends of Sleeping Bear Dunes</a>, and <a href="http://www.visitglenarbor.com/" target="_blank">Glen Lake Chamber of Commerce</a>.</small>
                     <h3>Help & Info</h3>
                     <p>Select a topic below to learn more about the map, Sleeping Bear Dunes National Lakeshore, and The Friends of Sleeping Bear Dunes:</p>
                     <ul class="info-topics-list">
@@ -59,7 +59,7 @@
         ng-repeat="topic in vm.helpData"
         ng-show="vm.activeInfoPg == topic.subject">
         <div class="panel__box">
-            <div class="panel__row">
+            <div class="panel__row disable-outbound-links">
                 <div ng-bind-html="vm.toTrusted(topic.narrative)"></div>
             </div>
         </div>

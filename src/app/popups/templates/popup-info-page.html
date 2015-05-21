@@ -56,7 +56,7 @@
             </svg>
             Contact Information
         </h4>
-        <ul class="contact-info-list">
+        <ul class="contact-info-list disable-outbound-links">
             <li>
                 <svg class="icon--heading" viewBox="0 0 100 100">
                     <use xlink:href="#icon-phone"</use>
@@ -116,11 +116,14 @@
             </svg>
             Video
         </h4>
-        <iframe width="100%" ng-src="{{vm.videoUrl}}" frameborder="0" allowfullscreen></iframe>
+        <div class="prevent-link-container">
+            <div class="prevent-link"></div>
+            <iframe width="100%" ng-src="{{vm.videoUrl}}" controls=0 modestbranding=1 allownetworking="internal" frameborder="0" allowfullscreen></iframe>
+        </div>
     </div>
 
     <!-- DIRECTIONS -->
-    <div class="directions" ng-hide="vm.selFeatData.layer === 'faces'">
+    <div class="directions disable-outbound-links" ng-hide="vm.selFeatData.layer === 'faces'">
         <h4>
             <svg class="icon--heading" viewBox="0 0 100 100">
                 <use xlink:href="#icon-directions"</use>
@@ -138,7 +141,7 @@
             </svg>
             Description
         </h4>
-        <div class="narrative-text" ng-bind-html="vm.trustHtml(vm.selFeatData.narrative)"></div>
+        <div class="narrative-text disable-outbound-links" ng-bind-html="vm.trustHtml(vm.selFeatData.narrative)"></div>
     </div>
 
 </div>
