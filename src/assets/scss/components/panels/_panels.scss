@@ -22,14 +22,6 @@
 
   }
 
-  &__back {
-    // margin-left: -5px;
-  }
-
-  // &__close {
-  //   margin-right: -5px;
-  // }
-
   &__inner {
     @extend %panel__inner;
   }
@@ -71,28 +63,27 @@
 // Container
 .panel__toggles {
   background-color: $c-panel-toggle;
-  box-shadow: 0 -2px 15px 0;
-  display: box;
-  display: flex;
   bottom: 0;
-  left: 0;
-  right: 1px;
-  position: absolute;
+  box-shadow: 0 -2px 15px 0;
+  display: flex;
   height: 3.5rem;
+  left: 0;
+  position: absolute;
+  right: 1px;
 }
 
 // Individual toggles
 .panel__toggle {
+  @extend %flex-centered;
   background-color: $c-panel-toggle;
   border-left: solid darken($c-panel-toggle, 10%) 1px;
   color: $near-white;
+  font-size: 1.3rem;
+  padding: 0;
   text-align: center;
   text-decoration: none;
   text-shadow: 1px 1px 5px #222;
   width: 25%;
-
-  font-size: 1.3rem;
-  padding: $panel-toggle-padding 0;
 
   /* Hover on desktop */
   @include mq($from: desktop) {
@@ -102,15 +93,6 @@
       transition: $a-bg-hover-transition;
     }
   }
-
-  @include mq($from: tablet) {
-
-    $p: $panel-toggle-padding*.5;
-    // Less padding on bigger screens
-    @include rem-fall(padding, $p, 0, $p, 0);
-
-  }
-
 
   &:first-of-type {
     border-left: 0;
@@ -129,28 +111,19 @@
 
   &__icon {
 
-    @include rem-fall(height, $l-panel-toggle-icon-size);
-
-    @include rem-fall(width, $l-panel-toggle-icon-size);
-
     display: inline-block;
     fill: $near-white;
+    height: $l-panel-toggle-icon-size;
     margin-right: 5px;
-    vertical-align: middle;
+    width: $l-panel-toggle-icon-size;
 
     @include mq($from: tablet) {
 
-      $l-icon-p: .25;
-
-      @include rem-fall(padding, $l-icon-p, 0);
-
       $l-panel-toggle-icon-size-big: $panel-toggle-content-ht;
-
-      @include rem-fall(height, $l-panel-toggle-icon-size-big);
-
-      @include rem-fall(width, $l-panel-toggle-icon-size-big);
-
       fill: darken($c-panel-toggle, 30%);
+      height: $l-panel-toggle-icon-size-big;
+      padding: .25rem;
+      width: $l-panel-toggle-icon-size-big;
 
     }
   }

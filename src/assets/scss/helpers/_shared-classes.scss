@@ -81,9 +81,7 @@
       width: $s;
 
     }
-    float: right;
     margin-top: .05rem;
-
   }
 
   &.btn--left {
@@ -163,15 +161,11 @@
   svg {
     fill: $near-white;
     height: $l-panel-header-ht + .2rem;
-    width: $l-panel-header-ht + .2rem;
     transition: $a-icon-fill-trans;
-    // vertical-align: bottom;
-    // @include mq($from: desktop) {
-    //   &:hover {
-    //     fill: $c-panel-icon;
-    //   }
-    // }
+    vertical-align: bottom;
+    width: $l-panel-header-ht + .2rem;
   }
+
 }
 
 %panel__inner {
