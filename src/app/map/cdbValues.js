@@ -69,35 +69,6 @@
                     },
                     ]
             },
-            // pointLayer: {
-            //     attribution: false,
-            //     type: 'CartoDB',
-            //     user_name: 'remcaninch',
-            //     sublayers: [
-            //         {
-            //             cartocss: getMss('features'),
-            //             interactivity: 'cartodb_id, type, filepath, layer, lin_dist',
-            //             sql: "SELECT 'features' AS layer, features.lin_dist, features.the_geom_webmercator, features.seasons, features.cartodb_id, features.type, features.filepath, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons,3,1) = 'y' AND features.type = 'mainpoints' ORDER BY priority DESC",
-            //             },
-            //         {
-            //             interactivity: 'cartodb_id, filepath, layer, lin_dist',
-            //             cartocss: getMss('trail_condition'),
-            //             sql: "SELECT the_geom_webmercator, lin_dist, cartodb_id, filepath, 'trail_condition' as layer FROM trail_condition",
-            //         }
-            //     ]
-            // },
-            // commLayer: {
-            //     attribution: false,
-            //     type: 'CartoDB',
-            //     user_name: 'remcaninch',
-            //     sublayers: [
-            //         {
-            //             cartocss: getMss('commercial'),
-            //             interactivity: 'cartodb_id, type, filepath, layer, lin_dist',
-            //             sql: "SELECT 'commercial' AS layer, commercial.lin_dist, commercial.the_geom_webmercator, commercial.seasons, commercial.cartodb_id, commercial.type, commercial.filepath, commercial_types.name AS type_name, commercial_types.priority FROM commercial INNER JOIN commercial_types ON commercial.type=commercial_types.type WHERE commercial.cartodb_id = 0",
-            //         },
-            //     ]
-            // },
             sharedQueries: {
                 url: "https://remcaninch.cartodb.com/api/v2/sql?q=",
                 sql: "SELECT cartodb_id, lin_dist, the_geom, the_geom_webmercator, filepath, ST_X(the_geom) AS lon, ST_Y(the_geom) AS lat,"
