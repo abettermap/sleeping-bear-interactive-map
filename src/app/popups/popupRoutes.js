@@ -9,16 +9,11 @@
             var pagPath = 'src/app/vendor/dirPagination.tpl.html';
             paginationTemplateProvider.setPath(pagPath);
 
-            // Make these constants later...
-            var queryPrefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT ',
-                midString = ' WHERE cartodb_id = ';
-
             $urlRouterProvider.otherwise('/');
 
             $stateProvider
                 .state('popup', {
                     url: '/',
-                    // controller: 'BetaDisclaimerCtrl',
                     template: '<div ui-view></div>',
                 })
                 .state('position', {
@@ -49,6 +44,7 @@
                             // Common
                             var sp = $stateParams,
                                 query,
+                                queryPrefix = 'https://remcaninch.cartodb.com/api/v2/sql?q=SELECT ',
                                 sharedPrefix = "" +
                                     queryPrefix + "cartodb_id, the_geom, filepath, lin_dist, '" +
                                     sp.layer + "' AS layer," +
@@ -64,14 +60,19 @@
                                 " ROUND(ST_Y(features.the_geom)::numeric, 5) AS lat," +
                                 " features.filepath, features.lin_dist, features.available," +
                                 " features.type, features.name," +
-                                " narrative, video_link, audio_link," +
+                                " video_link, audio_link," +
                                 " feature_types.name AS type_name," +
+                                " narratives.narrative," +
                                 " 'features' AS layer" +
-                                " FROM features" +
-                                " INNER JOIN" +
-                                    " feature_types" +
-                                " ON" +
-                                    " features.type=feature_types.type" +
+                                " FROM features" + '\n' +
+                                " INNER JOIN" + '\n' +
+                                    " feature_types" + '\n' +
+                                " ON" + '\n' +
+                                    " features.type=feature_types.type" + '\n' +
+                                " INNER JOIN" + '\n' +
+                                    " narratives" + '\n' +
+                                " ON" + '\n' +
+                                    " features.filepath=narratives.filepath" + '\n' +
                                 " WHERE features.cartodb_id = " + sp.cartodb_id;
 
                             // Commercial
@@ -83,7 +84,7 @@
                                 " commercial.filepath, commercial.lin_dist, commercial.available," +
                                 " address, city, phone, website, zip, commercial.categories," +
                                 " commercial.type, commercial.name," +
-                                " narrative, video_link, audio_link," +
+                                " video_link, audio_link," +
                                 " commercial_types.name AS type_name," +
                                 " 'commercial' AS layer" +
                                 " FROM commercial" +
@@ -125,10 +126,7 @@
                         }],
                     },
                 });
-            // $locationProvider.html5Mode({
-            //   enabled: true,
-            //   // requireBase: false
-            // });
+
         }]);
 
 })();
