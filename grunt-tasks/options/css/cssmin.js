@@ -4,9 +4,9 @@ module.exports = {
       options: {
         report: 'min'
       },
-      files: {
-        'build/src/assets/css/map-style.css': ['src/assets/css/map-style.css']
-      }
+      // files: {
+      //   // 'build/src/assets/css/map-style.css': ['src/assets/css/map-style.css']
+      // }
     }//,
     // kiosk: {
     //   options: {

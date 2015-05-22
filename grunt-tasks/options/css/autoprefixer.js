@@ -4,8 +4,15 @@ module.exports = {
       options: {
         browsers: ['last 2 versions'],
       },
-      src: 'build/src/assets/css/map-style.css',
-      dest: 'build/src/assets/css/map-style.css'
+      files: [
+        {
+          cwd: 'build/src/assets/css/',
+          src: ['*.css'],
+          dest: 'build/src/assets/css/',
+          filter: 'isFile',
+          expand: true,
+          flatten: true,
+      }],
     },
     dev: {
       options: {
@@ -17,4 +24,4 @@ module.exports = {
       }
     }
 
-}
+};

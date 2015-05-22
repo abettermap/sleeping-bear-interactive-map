@@ -4,19 +4,18 @@ module.exports = {
         files: {src: ['build/index.php']},
         // files: {src: ['build/index.php']},
         options: {
-        //   assetsDirs: ['foo/bar', 'bar']
+            // assetsDirs: [
+            //     'build/src/assets/css',
+            // ],
+            patterns: {
+                html: [
+                    [/loadCSS\(['"]([^"']+)['"]\)/gm, 'Replacing reference to CSS within loadCSS']
+                ]
+            },
             concat: 'generated',
-            uglify: 'generated',
+            cssmin: 'generated',
+            uglify: 'generated'
         }
     },
-    // other: {
-    //     files: {src: ['build/kiosk.php']},
-    //     // files: {src: ['build/index.php']},
-    //     options: {
-    //     //   assetsDirs: ['foo/bar', 'bar']
-    //         concat: 'generated',
-    //         uglify: 'generated',
-    //     }
-    // }
 
-}
+};

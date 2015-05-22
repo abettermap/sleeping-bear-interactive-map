@@ -1,26 +1,18 @@
 <!doctype html>
-<html class="no-js" lang="" ng-app="mapApp">
+<html ng-app="mapApp">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-        <!-- <title ng-bind="$root.metaInfo.title"></title> -->
-        <title>Sleeping Bear Heritage Trail - Interactive Map</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title ng-bind="$root.metaInfo.title"></title>
         <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Average+Sans|Brawler">
 
-        <!-- <meta name="description" ng-attr-content="{{$root.metaInfo.description}}" /> -->
-
         <meta name="description" ng-attr-content="An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country." />
-
         <meta property="og:image" content="http://friendsofsleepingbear.org/wp-content/uploads/2012/06/SBHT-Logo-300x300-192x192.jpg" />
-
         <meta property="og:description" content="An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country." />
         <meta property="og:type" content="website" />
-
         <meta name="twitter:description" content="An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country." />
         <meta name="twitter:title" content="Sleeping Bear Heritage Trail - Interactive Map" />
-
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <style>
             .map {
@@ -70,14 +62,11 @@
 
         <noscript>
             <!-- build:css src/assets/css/map-style.css -->
-            <link id="map-style" rel="stylesheet" href="src/assets/css/map-style.css">
+            <link rel="stylesheet" href="./src/assets/css/map-style.css">
             <!-- endbuild -->
         </noscript>
 
-        <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
-        <!-- Place favicon.ico in the root directory -->
-
-        <script type="text/javascript" src="src/assets/js/vendor/fastclick.js"></script>
+        <script type="text/javascript" src="src/assets/js/vendor/fastclick.js" async></script>
         <script type="text/javascript">
 
           var _gaq = _gaq || [];

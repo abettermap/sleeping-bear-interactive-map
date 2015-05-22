@@ -44,6 +44,7 @@ module.exports = function(grunt) {
 
     // BUILD
     grunt.registerTask('build', [
+        'clean:css',
         'useminPrepare',
         'concat:generated',
         'uglify:generated',
@@ -53,8 +54,8 @@ module.exports = function(grunt) {
         'newer:svgmin',
         'newer:svgstore',
         'usemin',
-        // 'cssmin',
         'autoprefixer:build',
+        // 'cssmin',
         'htmlmin',
         // 'shell',
     ]);
