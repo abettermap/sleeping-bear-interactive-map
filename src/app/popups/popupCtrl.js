@@ -132,45 +132,20 @@
         /******************************/
         layersFactory.panToSelection([vm.selFeatData.lat, vm.selFeatData.lon]);
 
-        /******************************/
-        /*** TEMP CAMERA/FACE ICON ****/
-        /******************************/
+        // Get non-poi narratives from help table
+        if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces' || vm.selFeatData.layer === 'trail_condition'){
 
-        /***** If trail pics/faces *****/
-        if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces'){
-        // if (vm.selFeatData.layer){
-
-            // popupFactory.clearTempMarker(layersFactory.map, layersFactory.map._layers);
-
-            /***** Add marker *****/
-            // layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
-
-            // Get non-poi narratives from help table
             popupFactory.getNonPoiNarrative(vm.selFeatData.layer).then(function(dataResponse) {
                 vm.selFeatData.narrative = dataResponse.data.rows[0].narrative;
             });
 
-        } else {
-
-            // popupFactory.clearTempMarker(layersFactory.map, layersFactory.map._layers);
-
-            /***** Add marker *****/
-            // layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
-            var refBy = document.referrer,
-                hostNm = window.location.hostname,
-                idx = refBy.indexOf(hostNm);
-
-            /* Ghetto, but basically: if the page was not referred by something other than itself, and
-            it's not mainpoints (b/c they do fine w/setSelFeatColor), and it's the first link in that tab (aka
-            history.length = 1, THEN add the marker. This will not work with "open link in new tab", but fine with
-            copy/paste. GROSS GROSS GROSS. */
-
-            if (refBy && idx < 1 && vm.selFeatData.type !== 'mainpoints' && history.length < 2){
-                // layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
-            }
-
         }
 
+        /******************************/
+        /*** TEMP CAMERA/FACE ICON ****/
+        /******************************/
+
+        /***** Clear marker *****/
         popupFactory.clearTempMarker(layersFactory.map, layersFactory.map._layers);
 
         /***** Add marker *****/

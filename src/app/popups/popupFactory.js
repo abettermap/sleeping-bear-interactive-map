@@ -198,7 +198,6 @@
 
             }
 
-
             // Features
             var featQuery = "" +
                 "SELECT" +
