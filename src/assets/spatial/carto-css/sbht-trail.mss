@@ -12,6 +12,10 @@
 /****** TRAIL ******/
 
 #sbht{
+  ::waybottom {
+    line-width: 30;
+    line-opacity: .01;
+  }
   ::bottom {
     line-width: 10;
     line-opacity: .15;
