@@ -162,11 +162,10 @@
         // Get POI toggles data
         function getPoiPages (table){
 
-
             var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT name, sub_group, type, type_desc, priority",
                 query;
 
-            if (table == 'feat'){
+            if (table === 'feat'){
                 query = prefix + " FROM feature_types WHERE type != 'mainpoints'";
             } else {
                 query = prefix + ", category_int FROM commercial_types";
@@ -176,8 +175,8 @@
                 method: 'GET',
                 url: query + " ORDER BY priority",
             });
-        }
 
+        }
 
     	var panelsFactory = {
             getHelpData: getHelpData,

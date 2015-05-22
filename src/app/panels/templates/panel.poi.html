@@ -1,6 +1,6 @@
 <div class="panel" ng-show="vm.activePanel == 'features'">
     <h2 class="panel__header">
-        <a ng-show="vm.activePoiPage !== 'Home'" class="btn btn--left" href="javascript:;" ng-click="vm.setActivePoiPage('Home')">
+        <a class="btn" href="javascript:;" ng-click="vm.setActivePoiPage('Home')" ng-class="{'vis-hidden': vm.activePoiPage === 'Home'}">
             <svg viewBox="0 0 100 100">
                 <use xlink:href="#icon-back"></use>
             </svg>

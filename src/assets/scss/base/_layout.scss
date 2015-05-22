@@ -1,6 +1,4 @@
 .map {
-  height: 90%;
-  height: calc(100% - 3.5rem);
   bottom: 3.5rem;
   position: absolute;
   top: 0;
@@ -9,8 +7,6 @@
 
 // MAP WRAP
 .map-wrapper {
-  // display: flex;
-  // flex-flow: column;
   height: 100%;
   width: 100%;
 }
@@ -23,9 +19,7 @@
 }
 
 // PANELS
-
 .panel {
-  // background-color: lighten($c-panel-header,20%);
   background: url('../img/raster/background.jpg');
   bottom: 3.5rem;
   position: absolute;
@@ -58,21 +52,18 @@
 
 
 // POPUPS
-
-
 .popup {
-
   bottom: 0;
   top: 0;
+
   // fill it up on mobile
   @include mq($from: tablet) {
-    // max-height: 500px;
-    width: 356px;
-    height: 581px;
     bottom: auto;
+    height: 581px;
     left: auto;
     right: $container-spacing/1.5;
     top: $container-spacing/1.7;
+    width: 356px;
   }
 
 }

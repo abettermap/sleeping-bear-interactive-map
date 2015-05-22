@@ -6,7 +6,7 @@
 .panel {
   background-color: $c-panel-bg;
   .panel__header {
-    position: fixed;
+
     @extend %panel__header;
     @include mq($from: tablet) {
       position: absolute;
