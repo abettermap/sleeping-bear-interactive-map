@@ -215,7 +215,24 @@
                 " WHERE " + seasonsString +
                 " AND features.type IN(" + states.features + ")";
 
-            query = shared.url + featQuery + query + end;
+            // Commercial
+            var commQuery = "" +
+                " UNION ALL" +
+                " SELECT" +
+                    " commercial.cartodb_id, commercial.the_geom, commercial.the_geom_webmercator," +
+                    " FLOOR(ST_Distance(commercial.the_geom::geography,CDB_LatLng(" + coords + ")::geography) * 3.28084) AS dist," +
+                    " ST_X(commercial.the_geom) AS lon, ST_Y(commercial.the_geom) AS lat," +
+                    " commercial.lin_dist, commercial.filepath, commercial.seasons," +
+                    " commercial.type," +
+                    " commercial.name," +
+                    " commercial_types.name AS type_name," +
+                    " 'commercial' AS layer" +
+                " FROM commercial" +
+                " INNER JOIN commercial_types ON commercial.type=commercial_types.type" +
+                " WHERE " + seasonsString +
+                " AND category_int IN (" + states.commercial + ")";
+
+            query = shared.url + featQuery + commQuery + query + end;
 
             return $http({
                 method: 'GET',
@@ -259,7 +276,6 @@
                     commTypesArr.push(i + 1);
                 }
             }
-            console.log(commTypesArr);
 
             var query = "" +
                 "https://remcaninch.cartodb.com/api/v2/sql?q=" +
@@ -307,8 +323,6 @@
         /* FB Share Prompt */
         function fbShareDialog(params) {
 
-            console.log(params.url);
-
             FB.ui({
                 link: params.url,
                 picture: decodeURIComponent(params.img),
@@ -318,6 +332,7 @@
                 method: 'feed',
                 display: 'popup'
             });
+
          }
 
         /* Get correct URL, even if via FB */
@@ -332,14 +347,6 @@
             var shareUrl = {
                     email: "mailto:?subject=" + $rootScope.metaInfo.title +
                     "&body=Check out this location on the Sleeping Bear Heritage Trail Interactive Map: " + getCurrentUrl(),
-                    // facebook: 'http://www.facebook.com/dialog/feed?' +
-                    //     'app_id=1402814523372321' +
-                    //     '&link=' + metaUri.url +
-                    //     // '&redirect_uri=' + metaUri.url +
-                    //     '&picture=' + shareParams.img +
-                    //     '&caption=' + shareParams.caption +
-                    //     '&name=' + shareParams.name,// +
-                    //     // '&description=' + shareParams.description,
                     google: 'https://plus.google.com/share?url=' + shareParams.url,
                     link: '#',
                     pinterest: 'http://pinterest.com/pin/create/button/?url=' + encodeURIComponent(shareParams.url) +
