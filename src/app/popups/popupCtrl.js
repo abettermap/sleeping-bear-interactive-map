@@ -6,9 +6,9 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$timeout', '$rootScope', 'selFeatData', 'popupFactory', 'layersFactory', '$state', '$location'];
+    PopupCtrl.$inject = ['$rootScope', 'selFeatData', 'popupFactory', 'layersFactory', '$state', '$location'];
 
-    function PopupCtrl($timeout, $rootScope, selFeatData, popupFactory, layersFactory, $state, $location){
+    function PopupCtrl($rootScope, selFeatData, popupFactory, layersFactory, $state, $location){
 
         var vm = this;
         $('#map').click();
@@ -20,7 +20,7 @@
             $rootScope.metaInfo.description = vm.selFeatData.narrative;
         } else {
             $rootScope.metaInfo.description = "An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.";
-        };
+        }
 
         /******************************/
         /****** FEATURES POPUPS *******/

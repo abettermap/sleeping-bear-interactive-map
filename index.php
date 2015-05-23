@@ -149,9 +149,6 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
 
-        <!-- <script type="text/javascript" src="./src/assets/js/vendor/ngDialog.js"></script> -->
-        <!-- <script type="text/javascript" src="./src/assets/js/vendor/svg4everybody.ie8.js"></script> -->
-
         <!-- build:js src/assets/js/map-vendors.js -->
         <script type="text/javascript" src="./src/assets/js/vendor/angular-animate.js"></script>
         <script type="text/javascript" src="./src/assets/js/vendor/angular-ui-router.js"></script>
@@ -164,39 +161,5 @@
         <script type="text/javascript" src="./src/app/map-app.js"></script>
         <!-- endbuild -->
 
-        <script type="text/javascript">
-
-          // Disable outbound links if kiosk
-          function disableLinks(){
-            var i = window.location.href.indexOf('kiosk');
-
-            if (i < 0){
-              return;
-            } else {
-              var css = '' +
-                '.disable-outbound-links a {' +
-                  'color: inherit !important;' +
-                  'text-decoration: none !important;' +
-                  'pointer-events: none !important;' +
-                '}' +
-                '.prevent-link {' +
-                    'display: block !important;' +
-                '}';
-              var head = document.head || document.getElementsByTagName('head')[0],
-                style = document.createElement('style');
-
-              style.type = 'text/css';
-              if (style.styleSheet){
-                style.styleSheet.cssText = css;
-              } else {
-                style.appendChild(document.createTextNode(css));
-              }
-
-              head.appendChild(style);
-            }
-          }
-          disableLinks();
-
-        </script>
     </body>
 </html>

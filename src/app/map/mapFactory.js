@@ -6,26 +6,28 @@
         .module('mapApp')
         .factory('mapFactory', mapFactory);
 
-    function mapFactory(){
+    mapFactory.$inject = ['$http'];
 
-        var map = {};
+    function mapFactory($http){
 
         var tileLayers = {
             aerial: L.esri.basemapLayer('Imagery'),
             terrain: L.esri.basemapLayer('Topographic')
         };
 
+        var factory = {
+            createMap: createMap,
+            disableLinks: disableLinks,
+            map: {},
+            screenSaver: screenSaver,
+            tileLayers: tileLayers,
+            zoomHome: zoomHome,
+        };
+
         var leafletDefaults = {
             attribution: false,
             zoomControl: false,
             layers: tileLayers.terrain
-        };
-
-        var mapFactory = {
-            createMap: createMap,
-            map: map,
-            tileLayers: tileLayers,
-            zoomHome: zoomHome,
         };
 
         function zoomHome(map){
@@ -39,49 +41,108 @@
         }
 
         function createMap(){
+            factory.map = L.map('map', leafletDefaults);
+            factory.zoomHome(factory.map);
+        }
 
-            mapFactory.map = L.map('map', leafletDefaults);
+        // Disable outbound links if kiosk
+        function disableLinks(){
 
-            mapFactory.zoomHome(mapFactory.map);
+            var i = window.location.href.indexOf('kiosk');
+
+            if (i < 0){
+               return;
+            } else {
+                var css = '' +
+                    '.disable-outbound-links a {' +
+                      'color: inherit !important;' +
+                      'text-decoration: none !important;' +
+                      'pointer-events: none !important;' +
+                    '}' +
+                    '.prevent-link {' +
+                        'display: block !important;' +
+                    '}';
+                var head = document.head || document.getElementsByTagName('head')[0],
+                    style = document.createElement('style');
+
+                style.type = 'text/css';
+
+                if (style.styleSheet){
+                  style.styleSheet.cssText = css;
+                } else {
+                  style.appendChild(document.createTextNode(css));
+                }
+
+                head.appendChild(style);
+                factory.screenSaver();
+            }
 
         }
 
-        // // Cookies for temp map beta disclaimer
-        // function setCookie(cname,cvalue) {
-        //     var expires = "expires=Fri, 22 May 2015 00:00:00 UTC";
-        //     document.cookie = cname+"="+cvalue+"; "+expires;
-        // }
+        /* TAKE THIS BACK OUT AFTER TESTING */
+        screenSaver();
 
-        // function getCookie(cname) {
-        //     var name = cname + "=";
-        //     var ca = document.cookie.split(';');
-        //     for(var i=0; i<ca.length; i++) {
-        //         var c = ca[i];
-        //         while (c.charAt(0)==' ') c = c.substring(1);
-        //         if (c.indexOf(name) == 0) {
-        //             return c.substring(name.length, c.length);
-        //         }
-        //     }
-        //     return "";
-        // }
+        // Start screensaver if kiosk
+        function screenSaver(){
 
-        // function checkCookie() {
-        //     var visitedStatus = getCookie("map visited");
-        //     if (visitedStatus !== "") {
-        //         console.log("Welcome back");
-        //         // ngDialog.open({ template: 'src/app/map/beta-disclaimer.html' });
-        //     } else {
-        //         ngDialog.open({ template: 'src/app/map/beta-disclaimer.html' });
-        //         setCookie("map visited", 1);
-        //         $timeout(function() {
-        //             $('#ngdialog1').scrollTop(0);
-        //         }, 500);
-        //     }
-        // }
+            var mousetimeout,
+                screensaver_active,
+                keepGoing;
 
-        // checkCookie();
+            /* Mouse events */
+            $(document).mousemove(function(){
+                clearInterval(mousetimeout);
+                if (screensaver_active) {
+                    screensaver_active = false;
+                }
+                mousetimeout = setInterval(function(){
+                    screensaver_active = true;
+                    goToPopup();
+                }, 3000);
+            });
 
-        return mapFactory;
+            // mousetimeout = setTimeout(function(){
+            //     screensaver_active = true;
+            //     goToPopup();
+            // }, 2000);
+
+            function goToPopup(){
+                var subs = ['features', 'commercial', 'trail_pix'];
+                var randomSub = Math.floor(Math.random() * 3);
+
+                var cdbId;
+                if (screensaver_active) {
+                    getRandomCdbId(subs[randomSub]).then(function(dataResponse) {
+                        cdbId = dataResponse.data.rows[0].id;
+                        console.log(cdbId);
+
+                        // window.location.href = 'http://friendsofsleepingbear.org/sbht-i-map/kiosk.php';
+                        var newUrl = 'http://localhost:3000/sbht-i-map/#/popup/' + subs[randomSub] + '\/' + cdbId;
+                        window.location.href = newUrl;
+                    });
+                }
+
+            }
+
+            function getRandomCdbId(table){
+                var query = 'https://remcaninch.cartodb.com/api/v2/sql?q=' +
+                    ' SELECT cartodb_id AS id FROM ' + table +
+                    ' WHERE ' +
+                      ' random() < 1000 / (SELECT COUNT(1) FROM ' + table + ')::float' +
+                    ' ORDER by random()' +
+                    ' LIMIT 1';
+
+                return $http({
+                    method: 'GET',
+                    url: query,
+                });
+            }
+
+
+        }
+
+
+        return factory;
 
     }
 

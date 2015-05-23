@@ -6,9 +6,9 @@
         .module('layersModule')
         .factory('layersFactory', layersFactory);
 
-    layersFactory.$inject = ['$timeout', 'cdbValues', '$state', '$rootScope', 'popupFactory'];
+    layersFactory.$inject = ['cdbValues', '$state', '$rootScope', 'popupFactory'];
 
-    function layersFactory($timeout, cdbValues, $state, $rootScope, popupFactory){
+    function layersFactory(cdbValues, $state, $rootScope, popupFactory){
 
     	var factory = {
             addTempMarker: addTempMarker,
