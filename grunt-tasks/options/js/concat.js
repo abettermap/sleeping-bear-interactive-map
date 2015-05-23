@@ -11,6 +11,7 @@ module.exports = {
             '!src/app/map/betaDisclaimerCtrl.js',
             'src/app/layers/*.js',
             'src/app/popups/*js',
+            '!src/app/popups/dynamicMetaCtrl.js',
             'src/app/ctrls/*.js',
             'src/app/panels/*.js',
             'src/assets/js/vendor/dirPagination.js',

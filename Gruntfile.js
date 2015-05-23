@@ -44,21 +44,17 @@ module.exports = function(grunt) {
 
     // BUILD
     grunt.registerTask('build', [
-        // 'clean',
-        'copy',
+        'newer:copy',
         'useminPrepare',
         'concat:generated',
         'cssmin:generated',
         'uglify:generated',
         'filerev',
-        // // 'newer:copy',
         'newer:svgmin',
         'newer:svgstore',
         'usemin',
-        // 'clean:kiosk',
         'copy:kiosk',
         'autoprefixer:build',
-        // 'cssmin',
         'htmlmin',
         // 'shell',
     ]);
