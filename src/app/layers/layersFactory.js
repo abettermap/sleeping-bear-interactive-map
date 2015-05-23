@@ -34,11 +34,13 @@
                 cdb.vis.Vis.addCursorInteraction(map, layer);
 
                 /* Assign variables to reference sublayer based on index */
-                factory.sublayers.sbht_grade        = layer.getSubLayer(1);
-                factory.sublayers.sbht_caution      = layer.getSubLayer(2);
-                factory.sublayers.features          = layer.getSubLayer(3);
-                factory.sublayers.trail_condition   = layer.getSubLayer(4);
-                factory.sublayers.commercial        = layer.getSubLayer(5);
+                factory.sublayers = {
+                    sbht_grade: layer.getSubLayer(1),
+                    sbht_caution: layer.getSubLayer(2),
+                    features: layer.getSubLayer(3),
+                    trail_condition: layer.getSubLayer(4),
+                    commercial: layer.getSubLayer(5),
+                };
 
                 // Hide trail_condition, grade, caution
                 factory.sublayers.trail_condition.hide();
@@ -165,7 +167,6 @@
                 for (var n = 0; n < 3; n++) {
                     sub = featCommCondArr[n];
                     if (sub === sublayer){
-                        // subs[sub].setCartoCSS(getMss(sub, cartodb_id));
                         subs[sub].setCartoCSS(getMss(sub));
                     } else {
                         subs[sub].setCartoCSS(getMss(sub));

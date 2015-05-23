@@ -143,11 +143,11 @@
 
             query = shared.url + featQuery + commQuery + queries.faces + queries.trail_pix + queries.trail_condition + end;
 
-
             return $http({
                 method: 'GET',
                 url: query,
             });
+
         }
 
         /* When trail is clicked on... */
@@ -255,7 +255,7 @@
         /* Trust URLs */
         function trustMedia (html_code, isVideo){
             if (isVideo) {
-                html_code = html_code + '?rel=0&modestbranding=1&autohide=1'
+                html_code = html_code + '?rel=0&modestbranding=1&autohide=1';
             }
             return $sce.trustAsResourceUrl(html_code);
         }
@@ -338,7 +338,7 @@
         function getCurrentUrl(){
             var test = "http://" + $location.$$host + "/sbht-i-map/#" + $location.$$url;
             return test;
-        };
+        }
 
         /* Social links */
         function setShareUrl(medium, shareParams) {

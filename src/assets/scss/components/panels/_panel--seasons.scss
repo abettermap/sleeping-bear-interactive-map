@@ -1,6 +1,5 @@
 /* SEASONS LABELS */
 
-/* Inner seasons panel (delete class if doing flex on all panel__inner's) */
 
 // The keeper of the seasons
 .seasons-container {
@@ -16,32 +15,22 @@
 
   border-radius: 10px;
   @extend %flex-centered;
-  flex-flow: column;
-  // display: flex;
-  // flex: 0 auto;
   border: none;
   box-shadow: 0 0 2px #a6a6a6 inset;
   flex-basis: 31%;
+  flex-flow: column;
   padding: .45rem;
 
   &:hover {
     border-radius: 10px;
 
-    .spring {
-      fill: $spring;
-    }
+    .spring {fill: $spring;}
 
-    .summer {
-      fill: $summer;
-    }
+    .summer {fill: $summer;}
 
-    .fall {
-      fill: $fall;
-    }
+    .fall {fill: $fall;}
 
-    .winter {
-      fill: $winter;
-    }
+    .winter {fill: $winter;}
 
   }
 
@@ -52,8 +41,7 @@
   $s: 5.2rem;
   border: none;
   max-width: 31.5%;
-  // height: $s;
-  // width: $s;
+
   svg {
     pointer-events: none;
     fill: $c-panel-icon;

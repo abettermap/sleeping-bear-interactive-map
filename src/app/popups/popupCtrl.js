@@ -204,7 +204,6 @@
             if (vm.selFeatData.narrative){
                 if(vm.selFeatData.layer === 'commercial' || vm.selFeatData.layer === 'features'){
                     description = vm.selFeatData.narrative.replace(/<\/?[^>]+(>|$)/g, "");
-                    // description = encodeURIComponent(description);
                 } else {
                     description = defaultDescription;
                 }
@@ -220,16 +219,17 @@
                 caption: 'Sleeping Bear Heritage Trail -- Interactive Map',
             };
 
+            /********** UPDATE META **********/
             $rootScope.metaInfo.image = encodeURIComponent(activeImage);
 
             // Update page title
             $rootScope.metaInfo.title = vm.selFeatData.name + ' - SBHT Interactive Map';
 
-            /********** UPDATE META **********/
             /* Upate meta URL */
             $rootScope.metaInfo.url = $location.$$absUrl;
-                // popupFactory.setShareUrl(act)
 
+
+            /* Share buttons */
             vm.socialLinkList = [
                 {
                     name: 'email',
@@ -281,11 +281,9 @@
 
         });
 
-        // vm.getCurrentUrl = function(){
-        //     var test = "http://" + $location.$$host + "/sbht-i-map/#" + $location.$$url;
-        //     return test;
-        // };
         vm.getCurrentUrl = popupFactory.getCurrentUrl;
+
+
         /******************************/
         /****** SET THUMBNAILS *******/
         /******************************/
@@ -373,21 +371,6 @@
             }
 
         });
-
-
-        /****** MAKE SELECTED RED *****/
-
-        // var keys = [];
-        // for (var key in layersFactory.layers){
-        //     keys.push(key);
-        // }
-        // if (keys.length < 3){
-        //     $timeout(function() {
-        //         layersFactory.setSelFeatColor(vm.selFeatData.layer, vm.selFeatData.cartodb_id);
-        //     }, 1000);
-        // } else {
-        // }
-            layersFactory.setSelFeatColor(vm.selFeatData.layer, vm.selFeatData.cartodb_id);
 
     }
 
