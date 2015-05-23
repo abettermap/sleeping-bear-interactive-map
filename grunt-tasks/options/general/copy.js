@@ -1,8 +1,21 @@
 module.exports = {
 
-    php: {
+    index: {
         files: [
             {expand: true, src: ['*.php'], dest: 'build/', filter: 'isFile'},
+        ]
+    },
+    kiosk: {
+        files: [
+            {
+                cwd: 'build/',
+                src: ['index.php'],
+                expand: true,
+                dest: 'build/',
+                rename: function(dest, src) {
+                  return dest + src.replace(/^index/, "kiosk");
+                }
+            }
         ]
     },
     fastClick: {

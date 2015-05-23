@@ -55,16 +55,9 @@
             }
         </style>
 
-        <script type="text/javascript">
-            function loadCSS(a,b,c,d){"use strict";var e=window.document.createElement("link"),f=b||window.document.getElementsByTagName("script")[0],g=window.document.styleSheets;return e.rel="stylesheet",e.href=a,e.media="only x",d&&(e.onload=d),f.parentNode.insertBefore(e,f),e.onloadcssdefined=function(b){for(var c,d=0;d<g.length;d++)g[d].href&&g[d].href.indexOf(a)>-1&&(c=!0);c?b():setTimeout(function(){e.onloadcssdefined(b)})},e.onloadcssdefined(function(){e.media=c||"all"}),e};
-            loadCSS("src/assets/css/map-style.css");
-        </script>
-
-        <noscript>
-            <!-- build:css src/assets/css/map-style.css -->
-            <link rel="stylesheet" href="./src/assets/css/map-style.css">
-            <!-- endbuild -->
-        </noscript>
+        <!-- build:css src/assets/css/map-style.css -->
+        <link rel="stylesheet" href="./src/assets/css/map-style.css">
+        <!-- endbuild -->
 
         <script type="text/javascript" src="src/assets/js/vendor/fastclick.js" async></script>
         <script type="text/javascript">
@@ -86,7 +79,6 @@
         <script>
           window.fbAsyncInit = function() {
             FB.init({
-              // appId      : '1402814523372321',
               appId      : '1440362136274547',
               xfbml      : true,
               version    : 'v2.3'
@@ -172,5 +164,39 @@
         <script type="text/javascript" src="./src/app/map-app.js"></script>
         <!-- endbuild -->
 
+        <script type="text/javascript">
+
+          // Disable outbound links if kiosk
+          function disableLinks(){
+            var i = window.location.href.indexOf('kiosk');
+
+            if (i < 0){
+              return;
+            } else {
+              var css = '' +
+                '.disable-outbound-links a {' +
+                  'color: inherit !important;' +
+                  'text-decoration: none !important;' +
+                  'pointer-events: none !important;' +
+                '}' +
+                '.prevent-link {' +
+                    'display: block !important;' +
+                '}';
+              var head = document.head || document.getElementsByTagName('head')[0],
+                style = document.createElement('style');
+
+              style.type = 'text/css';
+              if (style.styleSheet){
+                style.styleSheet.cssText = css;
+              } else {
+                style.appendChild(document.createTextNode(css));
+              }
+
+              head.appendChild(style);
+            }
+          }
+          disableLinks();
+
+        </script>
     </body>
 </html>

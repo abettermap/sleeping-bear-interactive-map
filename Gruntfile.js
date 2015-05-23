@@ -44,16 +44,19 @@ module.exports = function(grunt) {
 
     // BUILD
     grunt.registerTask('build', [
-        'clean:css',
+        // 'clean',
+        'copy',
         'useminPrepare',
         'concat:generated',
-        'uglify:generated',
         'cssmin:generated',
+        'uglify:generated',
         'filerev',
-        'newer:copy',
+        // // 'newer:copy',
         'newer:svgmin',
         'newer:svgstore',
         'usemin',
+        // 'clean:kiosk',
+        'copy:kiosk',
         'autoprefixer:build',
         // 'cssmin',
         'htmlmin',
