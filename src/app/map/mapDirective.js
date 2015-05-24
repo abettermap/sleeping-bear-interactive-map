@@ -6,9 +6,9 @@
         .module('mapApp')
         .directive('interactiveMap', interactiveMap);
 
-    interactiveMap.$inject = ['mapFactory', 'layersFactory'];
+    interactiveMap.$inject = ['mapFactory', 'layersFactory', 'kioskFactory'];
 
-    function interactiveMap(mapFactory, layersFactory){
+    function interactiveMap(mapFactory, layersFactory, kioskFactory){
 
         return {
             restrict: 'E',
@@ -18,7 +18,7 @@
 
                 mapFactory.createMap();
                 layersFactory.createCdbLayers(mapFactory.map);
-                mapFactory.disableLinks();
+                kioskFactory.disableLinks();
 
             }
         };
