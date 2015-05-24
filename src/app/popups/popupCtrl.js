@@ -17,7 +17,7 @@
         vm.selFeatData = selFeatData.rows[0];
 
         if (vm.selFeatData.narrative) {
-            $rootScope.metaInfo.description = vm.selFeatData.narrative;
+            $rootScope.metaInfo.description = vm.selFeatData.narrative.replace(/<\/?[^>]+(>|$)/g, "");
         } else {
             $rootScope.metaInfo.description = "An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.";
         }
@@ -198,22 +198,25 @@
         })
         .then(function(activeImage){
 
-            var description,
-                defaultDescription = encodeURIComponent("An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.");
+            // var description,
+            //     // defaultDescription = encodeURIComponent("An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.");
+            //     defaultDescription = "An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.";
 
-            if (vm.selFeatData.narrative){
-                if(vm.selFeatData.layer === 'commercial' || vm.selFeatData.layer === 'features'){
-                    description = vm.selFeatData.narrative.replace(/<\/?[^>]+(>|$)/g, "");
-                } else {
-                    description = defaultDescription;
-                }
-            } else {
-                description = defaultDescription;
-            }
+            // if (vm.selFeatData.narrative){
+            //     if(vm.selFeatData.layer === 'commercial' || vm.selFeatData.layer === 'features'){
+            //         // description = vm.selFeatData.narrative.replace(/<\/?[^>]+(>|$)/g, "");
+            //         description = $rootScope.metaInfo.description.replace(/<\/?[^>]+(>|$)/g, "");
+            //     } else {
+            //         description = defaultDescription;
+            //     }
+            // } else {
+            //     description = defaultDescription;
+            // }
 
             var urlShareParams = {
                 img: encodeURIComponent('http://friendsofsleepingbear.org/sbht-i-map/' + activeImage),
-                description: description,
+                // description: description,
+                description: $rootScope.metaInfo.description,
                 name: vm.selFeatData.name,
                 url: $location.$$absUrl,
                 caption: 'Sleeping Bear Heritage Trail -- Interactive Map',
