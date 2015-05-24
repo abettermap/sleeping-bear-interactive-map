@@ -44,7 +44,8 @@ module.exports = function(grunt) {
 
     // BUILD
     grunt.registerTask('build', [
-        'newer:copy',
+        'clean:js',
+        'copy',
         'useminPrepare',
         'concat:generated',
         'cssmin:generated',
@@ -54,9 +55,10 @@ module.exports = function(grunt) {
         'newer:svgstore',
         'usemin',
         'copy:kiosk',
+        'copy:kioskTest',
         'autoprefixer:build',
         'htmlmin',
-        // 'shell',
+        'shell',
     ]);
 
     // DEFAULT ()

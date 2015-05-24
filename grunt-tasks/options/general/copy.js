@@ -18,6 +18,19 @@ module.exports = {
             }
         ]
     },
+    kioskTest: {
+        files: [
+            {
+                cwd: 'build/',
+                src: ['index.php'],
+                expand: true,
+                dest: 'build/',
+                rename: function(dest, src) {
+                  return dest + src.replace(/^index/, "kiosk-test");
+                }
+            }
+        ]
+    },
     fastClick: {
         expand: true,
         src: 'src/assets/js/vendor/fastclick.js',
