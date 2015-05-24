@@ -17,6 +17,7 @@
             panToSelection: panToSelection,
             setSelFeatColor: setSelFeatColor,
             sublayers: {},
+            toggleOverlayState: toggleOverlayState,
     	};
 
         /* CREATE THE CDB LAYER W/INITIAL SUBLAYER (TRAIL) AND ADD TO MAP */
@@ -233,6 +234,17 @@
             });
 
             tempMarker.addTo(factory.map);
+
+        }
+
+        /***** TOGGLE OVERLAY STATE *****/
+        function toggleOverlayState(overlay){
+
+            if (overlay === 'trail_condition' || overlay === 'sbht_caution'){
+                $rootScope.queryStates[overlay] = !$rootScope.queryStates[overlay];
+            }
+
+            factory.sublayers[overlay].toggle();
 
         }
 

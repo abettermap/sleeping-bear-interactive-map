@@ -46,7 +46,6 @@
             }
 
             // Close popup
-            // $state.go('home', {
             $state.go('popup', {
             },{
                 reload: true
@@ -70,7 +69,6 @@
                 4: 'fall',
             };
 
-            // vm.activeSeasonIcon = '#icon-' + seasonsQueries[$rootScope.queryStates.season];
             vm.activeSeasonIcon = seasonsQueries[$rootScope.queryStates.season];
 
             panelsFactory.setSeason(season);
@@ -109,8 +107,8 @@
 
                 var types = dataResponse.data.rows;
 
-                for (var i = 0; i < sg.length; i++) {
-                    sg[i].types = [];
+                for (var z = 0; z < sg.length; z++) {
+                    sg[z].types = [];
                 }
 
                 for (var i = 0; i < sg.length; i++) {
@@ -152,10 +150,10 @@
 
         };
 
-        // Update SQL when feature toggled
         vm.selectedCommTypes = [];
         vm.selectedFeatTypes = [];
 
+        // Update SQL when feature toggled
         vm.toggleFeatures = function(type){
 
             var withQuotes = "'" + type + "'";
@@ -179,7 +177,7 @@
 
             panelsFactory.toggleFeatures(vm.selectedFeatTypes);
 
-        }
+        };
 
         vm.toggleCommercial = function(type){
 
@@ -197,7 +195,7 @@
 
             panelsFactory.toggleCommercial(vm.selectedCommTypes);
 
-        }
+        };
 
         //////// TRAIL PANEL \\\\\\\\
 
@@ -219,16 +217,16 @@
 
         // Toggle Grade/caution
         vm.toggleOverlayState = function(overlay){
-
-            var states = $rootScope.queryStates;
-
-            if (overlay === 'trail_condition' || overlay === 'sbht_caution'){
-                $rootScope.queryStates[overlay] = !$rootScope.queryStates[overlay];
-            }
-
-            layersFactory.sublayers[overlay].toggle();
-
+            layersFactory.toggleOverlayState(overlay);
         };
+
+        $rootScope.$on('setDefaults', function(data){
+
+            vm.overlayStates[0].on = false;
+            vm.overlayStates[1].on = false;
+            vm.trailCondState = false;
+
+        });
 
         // Toggle trail pics and faces
         vm.togglePicsState = function(layer){
@@ -251,7 +249,7 @@
                 return false;
             }
 
-        }
+        };
 
 
         //////// INFO PANEL \\\\\\\\
@@ -262,7 +260,7 @@
         // Enable HTML
         vm.toTrusted = function(html_code) {
             return $sce.trustAsHtml(html_code);
-        }
+        };
 
 
         vm.toggleFeaturesLayer = function(layer){
@@ -272,7 +270,7 @@
         vm.setActiveInfoPg = function(page){
 
             if (page === 'Home'){
-                vm.activeInfoPgHeader = 'Help & Info'
+                vm.activeInfoPgHeader = 'Help & Info';
             } else {
                 vm.activeInfoPgHeader = page;
             }
