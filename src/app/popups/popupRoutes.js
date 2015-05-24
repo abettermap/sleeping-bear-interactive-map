@@ -55,44 +55,38 @@
                             // Features
                             var featQuery = "" +
                                 queryPrefix +
-                                " features.cartodb_id, features.the_geom, features.the_geom_webmercator," +
-                                " ROUND(ST_X(features.the_geom)::numeric, 5) AS lon," +
-                                " ROUND(ST_Y(features.the_geom)::numeric, 5) AS lat," +
-                                " features.filepath, features.lin_dist, features.available," +
-                                " features.type, features.name," +
-                                " video_link, audio_link," +
-                                " feature_types.name AS type_name," +
-                                " narratives.narrative," +
-                                " 'features' AS layer" +
-                                " FROM features" + '\n' +
-                                " INNER JOIN" + '\n' +
-                                    " feature_types" + '\n' +
-                                " ON" + '\n' +
-                                    " features.type=feature_types.type" + '\n' +
-                                " INNER JOIN" + '\n' +
-                                    " narratives" + '\n' +
-                                " ON" + '\n' +
-                                    " features.filepath=narratives.filepath" + '\n' +
-                                " WHERE features.cartodb_id = " + sp.cartodb_id;
+                                ' "features"."cartodb_id", ' +
+                                ' "features"."the_geom", ' +
+                                ' "features"."the_geom_webmercator",' +
+                                ' ROUND(ST_X("features"."the_geom")::numeric, 5) AS lon,' +
+                                ' ROUND(ST_Y("features"."the_geom")::numeric, 5) AS lat,' +
+                                ' "features"."filepath", "features"."lin_dist", "features"."available",' +
+                                ' "features"."type", "features"."name",' +
+                                ' "features"."video_link", "features"."audio_link",' +
+                                ' \'features\' AS layer,' +
+                                ' (SELECT "type" AS type_name FROM feature_types WHERE "features"."type" = "feature_types"."type"),' +
+                                ' (SELECT "narrative" FROM "narratives" WHERE "features"."filepath" = "narratives"."filepath")' +
+                                ' FROM "features"' + '\n' +
+                                ' WHERE "features"."cartodb_id" = ' + sp.cartodb_id + ' AND' +
+                                ' ("features"."type" IS NOT NULL OR "features"."filepath" IS NOT NULL)';
 
                             // Commercial
                             var commQuery = "" +
                                 queryPrefix +
-                                " commercial.cartodb_id, commercial.the_geom, commercial.the_geom_webmercator," +
-                                " ROUND(ST_X(commercial.the_geom)::numeric, 5) AS lon," +
-                                " ROUND(ST_Y(commercial.the_geom)::numeric, 5) AS lat," +
-                                " commercial.filepath, commercial.lin_dist, commercial.available," +
-                                " address, city, phone, website, zip, commercial.categories," +
-                                " commercial.type, commercial.name," +
-                                " video_link, audio_link," +
-                                " commercial_types.name AS type_name," +
-                                " 'commercial' AS layer" +
-                                " FROM commercial" +
-                                " INNER JOIN" +
-                                    " commercial_types" +
-                                " ON" +
-                                    " commercial.type=commercial_types.type" +
-                                " WHERE commercial.cartodb_id = " + sp.cartodb_id;
+                                ' "commercial"."cartodb_id", "commercial"."the_geom",' +
+                                ' "commercial"."the_geom_webmercator",' +
+                                ' ROUND(ST_X("commercial".the_geom)::numeric, 5) AS "lon",' +
+                                ' ROUND(ST_Y("commercial".the_geom)::numeric, 5) AS "lat",' +
+                                ' "commercial"."filepath", "commercial"."lin_dist", "commercial"."available",' +
+                                ' "commercial"."address", "commercial"."city", "commercial"."phone", "commercial"."website", "commercial"."zip", "commercial"."categories",' +
+                                ' "commercial"."type", "commercial"."name",' +
+                                ' "commercial"."video_link", "commercial"."audio_link",' +
+                                ' \'commercial\' AS layer,' +
+                                ' (SELECT "type" AS type_name FROM commercial_types WHERE "commercial"."type" = "commercial_types"."type"),' +
+                                ' (SELECT "narrative" FROM "narratives" WHERE "commercial"."filepath" = "narratives"."filepath")' +
+                                ' FROM "commercial"' +
+                                ' WHERE "commercial"."cartodb_id" = ' + sp.cartodb_id + ' AND' +
+                                ' ("commercial"."type" IS NOT NULL OR "commercial"."filepath" IS NOT NULL)';
 
                                 var queries = {
                                     features: featQuery,
