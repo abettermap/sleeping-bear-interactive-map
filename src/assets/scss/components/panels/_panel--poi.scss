@@ -50,30 +50,57 @@ $a-long-trans: 5000ms;
 // List and list items
 .poi-subgroup {
 
-  // Not the last list item
-  &+.poi-subgroup:before {
-    content: "";
-    display: block;
-    height: .1rem;
-    @include mq($from: tablet){
-      height: .4rem;
-    }
-  }
+  position: relative; // parent for abs-pos'd sel count icon
+
   &-list {
     list-style-type: none;
     margin-bottom: 0;
+    margin-top: .25rem;
     padding-left: .5rem;
-    @include mq($from: tablet){
+
+    @include mq($from: tablet) {
       margin-bottom: .5rem;
     }
-    margin-top: .25rem;
 
     // Override positioning from shared class
     .poi-type__icon {
       margin-right: 10px;
-      // float: none;
     }
+
   }
+
+  // Not the last list item
+  // + .poi-subgroup:before {
+  &:before {
+    content: '';
+    display: block;
+    height: .32rem;
+
+    // @include mq($from: tablet) {
+    //   height: .4rem;
+    // }
+  }
+
+  // Subgroup selected count
+  &-count {
+    $s: 1.2rem;
+    $p: .1rem;
+    background-color: #f00;
+    border: solid 2px darken(#f00, 25%);
+    border-radius: 100%;
+    color: $near-white;
+    font-size: .8rem;
+    font-weight: bold;
+    height: $s;
+    left: -.3rem;
+    line-height: ($s + $p)/2;
+    padding: $p;
+    position: absolute;
+    text-align: center;
+    top: .15rem;
+    width: $s;
+  }
+
   &-link {
     color: $near-black;
     display: block;
@@ -83,6 +110,7 @@ $a-long-trans: 5000ms;
 
     &--access {
       cursor: default;
+
       .poi-subgroup__preview {
         white-space: normal;
         width: auto;
@@ -90,7 +118,7 @@ $a-long-trans: 5000ms;
     }
 
     &--feat {
-      @include mq($from: desktop){
+      @include mq($from: desktop) {
         &:hover {
           color: $c-feat-pin-bg;
         }
@@ -98,21 +126,23 @@ $a-long-trans: 5000ms;
     }
 
     &--comm {
-      @include mq($from: desktop){
+      @include mq($from: desktop) {
         &:hover {
           color: $c-comm-pin-bg;
         }
       }
     }
   }
+
   &__name {
     display: block;
     font-size: 1rem;
-    @include mq($from: tablet){
-      font-size: 1.1rem;
-    }
     line-height: 1;
     text-decoration: underline;
+
+    @include mq($from: tablet) {
+      font-size: 1.1rem;
+    }
   }
 
   // Preview list (assumes more than 1 per category)
@@ -121,11 +151,11 @@ $a-long-trans: 5000ms;
     display: block;
     font-size: .8rem;
     line-height: 1.5;
-    text-decoration: none;
-    width: calc(100% - 2.4rem - .75rem);
-    white-space: nowrap;
     overflow: hidden;
+    text-decoration: none;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    width: calc(100% - 2.4rem - .75rem);
   }
 }
 

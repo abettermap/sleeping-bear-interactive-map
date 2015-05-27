@@ -4,24 +4,6 @@
 
     angular
         .module('panelsModule')
-        .filter('svgIconCardHref', SvgFilter);
-
-    SvgFilter.$inject = ['$sce'];
-
-    function SvgFilter ($sce){
-      return function(iconCardId) {
-        return $sce.trustAsResourceUrl('#icon-' + iconCardId);
-      };
-    }
-
-})();
-
-(function() {
-
-    'use strict';
-
-    angular
-        .module('panelsModule')
         .controller('PanelsCtrl', PanelsCtrl);
 
     PanelsCtrl.$inject = ['panelsFactory', '$rootScope', '$http', '$state', 'layersFactory', '$sce', 'popupFactory'];
@@ -107,29 +89,33 @@
 
                 var types = dataResponse.data.rows;
 
+                // Add a 'types' attribute to each record
+                // and give it an empty array
                 for (var z = 0; z < sg.length; z++) {
                     sg[z].types = [];
                 }
 
+                // Add 'icon' and 'id' attributes and assign subgroup
                 for (var i = 0; i < sg.length; i++) {
                     for (var n = 0; n < types.length; n++) {
                         types[n].icon = "#icon-" + types[n].type;
                         types[n].id = table + "-" + types[n].type;
 
-                        if (sg[i].sub_group == types[n].sub_group){
+                        if (sg[i].sub_group === types[n].sub_group){
                             sg[i].types.push(types[n]);
                         }
                     }
                 }
-                if (table == 'feat'){
+
+                if (table === 'feat'){
                     vm.featSubGroups = sg;
                 } else {
                     vm.commSubGroups = sg;
                 }
+
             });
 
         }
-
 
         // Change POI toggle view
         vm.activePoiPage = 'Home';
@@ -194,6 +180,19 @@
             }
 
             panelsFactory.toggleCommercial(vm.selectedCommTypes);
+
+        };
+
+        vm.selSubGroupCount = function(sublayer, i){
+
+            var selector = '#' + sublayer + '-subgroup-' + i + ' .poi-type__checkbox:checked',
+                count = $(selector);
+
+            if (count) {
+                return count.length;
+            } else {
+                return 0;
+            }
 
         };
 

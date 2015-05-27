@@ -37,6 +37,8 @@
                 <h3>Features</h3>
                 <ul class="poi-subgroup-list">
                     <li class="poi-subgroup" ng-repeat="t in vm.featSubGroups">
+                        <span class="poi-subgroup-count"
+                        ng-show="vm.selSubGroupCount('feat', $index) > 0">{{vm.selSubGroupCount('feat', $index)}}</span>
                         <svg class="poi-type__icon poi-type__icon--feat" viewBox="0 0 100 100">
                             <use ng-attr-xlink:href="{{t.types[0].icon}}" xlink:href=""></use>
                         </svg>
@@ -52,6 +54,9 @@
                 <h3>Businesses</h3>
                 <ul class="poi-subgroup-list">
                     <li class="poi-subgroup" ng-repeat="t in vm.commSubGroups">
+                        <span
+                        class="poi-subgroup-count"
+                        ng-show="vm.selSubGroupCount('comm', $index) > 0">{{vm.selSubGroupCount('comm', $index)}}</span>
                         <svg class="poi-type__icon poi-type__icon--comm" viewBox="0 0 100 100">
                             <use ng-attr-xlink:href="{{t.types[0].icon}}" xlink:href=""></use>
                         </svg>
@@ -73,6 +78,7 @@
     <!-- FEATURES -->
     <div class="poi-page--poi panel__inner"
         ng-repeat="subgroup in vm.featSubGroups"
+        id="{{ 'feat-subgroup-' + $index }}"
         ng-show="vm.activePoiPage == subgroup.sub_group">
         <div class="panel__box">
             <div class="panel__row">
@@ -98,6 +104,7 @@
     <!-- COMMERCIAL -->
     <div class="poi-page--poi panel__inner"
         ng-repeat="subgroup in vm.commSubGroups"
+        id="{{ 'comm-subgroup-' + $index }}"
         ng-show="vm.activePoiPage == subgroup.sub_group">
         <div class="panel__box">
             <div class="panel__row">
