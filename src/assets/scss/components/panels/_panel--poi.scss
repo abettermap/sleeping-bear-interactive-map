@@ -75,10 +75,6 @@ $a-long-trans: 5000ms;
     content: '';
     display: block;
     height: .32rem;
-
-    // @include mq($from: tablet) {
-    //   height: .4rem;
-    // }
   }
 
   // Subgroup selected count

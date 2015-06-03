@@ -178,7 +178,7 @@
 
         }
 
-    	var panelsFactory = {
+    	var factory = {
             getHelpData: getHelpData,
             getPoiPages: getPoiPages,
             getSubGroups: getSubGroups,
@@ -188,7 +188,7 @@
             toggleFeatures: toggleFeatures,
     	};
 
-		return panelsFactory;
+		return factory;
 
     }
 

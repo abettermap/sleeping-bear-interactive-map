@@ -12,8 +12,8 @@
 
         var factory = {
             disableLinks: disableLinks,
-            mousetimeout: null,
-            screensaverActive: false,
+            screensaverInterval: null,
+            screensaverTimer: null,
         };
 
         // Disable outbound links if kiosk
@@ -24,7 +24,7 @@
             var k = window.location.href.indexOf('kiosk');
 
             if (k > 0){
-                console.log("kiosk is in URL");
+
                 var css = '' +
                     '.disable-outbound-links a {' +
                       'color: inherit !important;' +
@@ -47,30 +47,27 @@
 
                 head.appendChild(style);
 
-            }
-
-            // Start screensaver if kiosk
-            if (i > 0){
                 document.getElementById('map-wrapper').addEventListener("touchstart", screenSaver);
                 document.getElementById('map-wrapper').addEventListener("touchend", screenSaver);
                 document.getElementById('map-wrapper').addEventListener("touchmove", screenSaver);
                 document.getElementById('map-wrapper').addEventListener("mousemove", screenSaver);
+
             }
 
         }
 
         function screenSaver(){
 
-            clearInterval(factory.mousetimeout);
+            clearInterval(factory.screensaverInterval);
+            clearTimeout(factory.screensaverTimer);
 
-            if (factory.screensaverActive) {
-                factory.screensaverActive = false;
-            }
+            factory.screensaverTimer = setTimeout(function(){
 
-            factory.mousetimeout = setInterval(function(){
-                factory.screensaverActive = true;
-                resetMapDefaults();
-            }, 5000);
+                factory.screensaverInterval = setInterval(function(){
+                    resetMapDefaults();
+                }, 7000);
+
+            }, 180000);
 
         }
 
