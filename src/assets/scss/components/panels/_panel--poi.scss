@@ -209,19 +209,20 @@ $a-long-trans: 5000ms;
       border-color: $c-comm-pin-stroke;
     }
   }
+
   &__text {
     display: inline;
-    // display: block;
     flex-flow: column;
     float: left;
     background-color: blue;
   }
+
   &__name {
-    display: inline;
     background-color: red;
+    display: inline;
   }
+
   &__desc {
-    // display: inline;
     color: lighten($gray, 10%);
     flex: 0 35%;
     font-size: .6em;
