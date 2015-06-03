@@ -153,11 +153,11 @@ $a-long-trans: 5000ms;
     white-space: nowrap;
     width: calc(100% - 2.4rem - .75rem);
   }
+
 }
 
 /* POI LISTS */
 .poi-type-list {
-  // display: flex;
   flex-flow: column;
   justify-content: stretch;
   list-style-type: none;
@@ -168,22 +168,17 @@ $a-long-trans: 5000ms;
 /* POI LIST ITEMS & DESCENDANTS */
 .poi-type {
   align-items: center;
-  // display: flex;
-
-    margin-bottom: .4rem;
-  @include mq($from: tablet){
-  }
+  margin-bottom: .4rem;
 
   /* Labels */
   &__label {
-    // align-items: center;
     background-color: green;
-    // display: flex;
     flex: 0 100%;
     font-size: 1.2rem;
     line-height: .8;
     padding: .3em .4em .2em;
   }
+
   /* SVG icons */
   &__icon {
     $size: 2rem;
