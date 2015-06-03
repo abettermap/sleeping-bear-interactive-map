@@ -6,9 +6,9 @@
         .module('popupsModule')
         .controller('PopupCtrl', PopupCtrl);
 
-    PopupCtrl.$inject = ['$rootScope', 'selFeatData', 'popupFactory', 'layersFactory', '$state', '$location'];
+    PopupCtrl.$inject = ['$rootScope', 'selFeatData', 'popupFactory', 'layersFactory', '$location'];
 
-    function PopupCtrl($rootScope, selFeatData, popupFactory, layersFactory, $state, $location){
+    function PopupCtrl($rootScope, selFeatData, popupFactory, layersFactory, $location){
 
         var vm = this;
         $('#map').click();
@@ -102,7 +102,7 @@
         // Distances from Dune Climb
         vm.distFromDuneClimb = function(dist){
             return popupFactory.distFromDuneClimb(dist);
-        }
+        };
 
         // Description/Narrative - enable HTML
         vm.trustHtml = popupFactory.trustHtml;
@@ -127,11 +127,6 @@
         });
 
 
-        /******************************/
-        /****** PAN TO SELECTION ******/
-        /******************************/
-        layersFactory.panToSelection([vm.selFeatData.lat, vm.selFeatData.lon]);
-
         // Get non-poi narratives from help table
         if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces' || vm.selFeatData.layer === 'trail_condition'){
 
@@ -142,13 +137,10 @@
         }
 
         /******************************/
-        /*** TEMP CAMERA/FACE ICON ****/
+        /****** PAN TO SELECTION ******/
         /******************************/
 
-        /***** Clear marker *****/
-        popupFactory.clearTempMarker(layersFactory.map, layersFactory.map._layers);
-
-        /***** Add marker *****/
+        /***** Clear existing marker, add new, zoom/pan to selection *****/
         layersFactory.addTempMarker([vm.selFeatData.lat, vm.selFeatData.lon], vm.selFeatData.type);
 
 
@@ -198,28 +190,12 @@
         })
         .then(function(activeImage){
 
-            // var description,
-            //     // defaultDescription = encodeURIComponent("An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.");
-            //     defaultDescription = "An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.";
-
-            // if (vm.selFeatData.narrative){
-            //     if(vm.selFeatData.layer === 'commercial' || vm.selFeatData.layer === 'features'){
-            //         // description = vm.selFeatData.narrative.replace(/<\/?[^>]+(>|$)/g, "");
-            //         description = $rootScope.metaInfo.description.replace(/<\/?[^>]+(>|$)/g, "");
-            //     } else {
-            //         description = defaultDescription;
-            //     }
-            // } else {
-            //     description = defaultDescription;
-            // }
-
             var urlShareParams = {
-                img: encodeURIComponent('http://friendsofsleepingbear.org/sbht-i-map/' + activeImage),
-                // description: description,
+                caption: 'Sleeping Bear Heritage Trail -- Interactive Map',
                 description: $rootScope.metaInfo.description,
+                img: encodeURIComponent('http://friendsofsleepingbear.org/sbht-i-map/' + activeImage),
                 name: vm.selFeatData.name,
                 url: $location.$$absUrl,
-                caption: 'Sleeping Bear Heritage Trail -- Interactive Map',
             };
 
             /********** UPDATE META **********/
@@ -230,7 +206,6 @@
 
             /* Upate meta URL */
             $rootScope.metaInfo.url = $location.$$absUrl;
-
 
             /* Share buttons */
             vm.socialLinkList = [

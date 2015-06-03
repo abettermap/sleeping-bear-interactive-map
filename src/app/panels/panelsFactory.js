@@ -14,8 +14,6 @@
         /******************************/
         /****** TOGGLE POI TYPES ******/
         /******************************/
-
-
         var sublayers = layersFactory.sublayers;
 
         var selectedTypes = [],

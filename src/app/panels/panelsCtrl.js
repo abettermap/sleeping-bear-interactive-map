@@ -12,7 +12,7 @@
 
     	var vm = this;
 
-        //////// PANELS \\\\\\\\\
+        //////// PANELS \\\\\\\\
 
         // Close it when any feature clicked
         $rootScope.$on('featureClicked',function(){

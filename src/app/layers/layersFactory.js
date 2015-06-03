@@ -137,6 +137,7 @@
                 });
 
             } else {
+
                 params = {
                     cartodb_id: data.cartodb_id,
                     filepath: data.filepath,
@@ -196,26 +197,40 @@
         }
 
         /****** PAN TO SELECTION ******/
-        function panToSelection(coords){
+        function panToSelection(coords, type){
 
             var map = factory.map,
                 targetPoint, targetLatLng,
                 viewportWidth = document.documentElement.clientWidth;
 
-            map.panTo(coords);
+            // Zoom in if mainpoints
+            if (type && type === 'mainpoints'){
+                map.setView(coords, 16, {reset: true});
+            } else {
+                map.panTo(coords);
+            }
 
+            // Pan to 1/3 of the viewport on tablets and up
             if (viewportWidth > 740){
                 var y = map.getSize().y / 2;
                 var xOffset = map.getSize().x / 3 * 2;
                 targetLatLng = map.containerPointToLatLng([xOffset, y]);
-                map.panTo(targetLatLng);
+
+                // Animation looks silly if zoom happens first, so omit
+                if (type && type === 'mainpoints'){
+                    map.panTo(targetLatLng, {animate: false});
+                } else {
+                    map.panTo(targetLatLng);
+                }
             }
 
         }
 
-
         /*** TEMP CAMERA/FACE ICON ****/
         function addTempMarker(coords, type){
+
+            // Clear temp marker
+            popupFactory.clearTempMarker(factory.map, factory.map._layers);
 
             /***** Have marker ready but don't add to map *****/
             var tempMarker = L.marker(coords,{
@@ -228,12 +243,13 @@
                         '</svg>' +
                         '<svg class="icon--temp--fg" viewBox="0 0 100 100">' +
                             '<use xlink:href="#icon-' + type + '"></use>' +
-                            // '<use xlink:href="{{ ' + type + ' | svgIconCardHref }}"></use>' +
                         '</svg>'
                 }),
             });
 
             tempMarker.addTo(factory.map);
+
+            panToSelection(coords, type);
 
         }
 
