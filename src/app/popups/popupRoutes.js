@@ -64,12 +64,13 @@
                                 ' "features"."type", "features"."name",' +
                                 ' "features"."video_link", "features"."audio_link",' +
                                 ' \'features\' AS layer,' +
-                                ' (SELECT "type" AS type_name FROM feature_types WHERE "features"."type" = "feature_types"."type"),' +
+                                ' (SELECT "type" AS "type_id" FROM feature_types WHERE "features"."type" = "feature_types"."type"),' +
+                                ' (SELECT "name" AS "type_name" FROM feature_types WHERE "features"."type" = "feature_types"."type"),' +
                                 ' (SELECT "narrative" FROM "narratives" WHERE "features"."filepath" = "narratives"."filepath")' +
                                 ' FROM "features"' + '\n' +
                                 ' WHERE "features"."cartodb_id" = ' + sp.cartodb_id + ' AND' +
                                 ' ("features"."type" IS NOT NULL OR "features"."filepath" IS NOT NULL)';
-
+                                // alert(featQuery);
                             // Commercial
                             var commQuery = "" +
                                 queryPrefix +
@@ -82,7 +83,8 @@
                                 ' "commercial"."type", "commercial"."name",' +
                                 ' "commercial"."video_link", "commercial"."audio_link",' +
                                 ' \'commercial\' AS layer,' +
-                                ' (SELECT "type" AS type_name FROM commercial_types WHERE "commercial"."type" = "commercial_types"."type"),' +
+                                ' (SELECT "type" AS type_id FROM commercial_types WHERE "commercial"."type" = "commercial_types"."type"),' +
+                                ' (SELECT "name" AS type_name FROM commercial_types WHERE "commercial"."type" = "commercial_types"."type"),' +
                                 ' (SELECT "narrative" FROM "narratives" WHERE "commercial"."filepath" = "narratives"."filepath")' +
                                 ' FROM "commercial"' +
                                 ' WHERE "commercial"."cartodb_id" = ' + sp.cartodb_id + ' AND' +
