@@ -2,20 +2,20 @@
     <!-- FADED BG IMAGE -->
     <div class="flip popup__page--img" ng-hide="vm.imgPgVisible">
         <h2 class="popup__header">
-            <a class="btn btn--left" href="" ng-click="vm.imgPgVisible = !vm.imgPgVisible">
-                <svg class="popup-icon--type no-hover" viewBox="0 0 100 100">
-                    <use xlink:href="#icon-info"></use>
-                </svg>
-            </a>
+            <a class="btn btn--info" href="javascript:;" ng-click="vm.imgPgVisible = !vm.imgPgVisible"></a>
+            <span class="css-tooltip-right color-blue">
+                <span class="tooltip">View feature info</span>
+            </span>
             <span class="popup__header--inner">
                 <svg class="popup-icon--type no-hover" viewBox="0 0 100 100">
                     <use ng-attr-xlink:href="{{vm.headerTypeIcon}}" xlink:href=""></use>
                 </svg>
                 <span>{{vm.selFeatData.name}}</span>
             </span>
-            <a class="popup__close btn" ui-sref="popup" ui-sref-opts="{reload: true}" href="#map">
-                <svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-x"></use></svg>
-            </a>
+            <a class="panel__close btn" ui-sref="popup" ui-sref-opts="{reload: true}" href="#map"></a>
+            <span class="css-tooltip-left color-blue">
+                <span class="tooltip">Close popup</span>
+            </span>
         </h2>
         <div class="popup__inner popup__inner--img-pg no-scrollbars">
             <div class="popup__box">
@@ -52,20 +52,20 @@
     <div class="flip popup__page-info" ng-hide="!vm.imgPgVisible">
         <div class="blurred-bg" ng-style="{'background-image':'url(' + vm.activeImages[0] + ')'}"></div>
         <h2 class="popup__header popup__header--opaque">
-            <a class="btn btn--left" href="" ng-click="vm.imgPgVisible = !vm.imgPgVisible">
-                <svg class="popup-icon--type no-hover" viewBox="0 0 100 100">
-                    <use xlink:href="#icon-camera"></use>
-                </svg>
-            </a>
+            <a class="btn btn--camera" href="" ng-click="vm.imgPgVisible = !vm.imgPgVisible"></a>
+            <span class="css-tooltip-right color-blue">
+                <span class="tooltip">Back to images</span>
+            </span>
             <span class="popup__header--inner">
                 <svg class="popup-icon--type no-hover popup-icon-sm" viewBox="0 0 100 100">
                     <use xlink:href="#icon-info"></use>
                 </svg>
                 <span>Location Info</span>
             </span>
-            <a class="popup__close btn" ui-sref="popup" ui-sref-opts="{reload: true}" href="#map">
-                <svg viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-x"></use></svg>
-            </a>
+            <a class="panel__close btn" ui-sref="popup" ui-sref-opts="{reload: true}" href="#map"></a>
+            <span class="css-tooltip-left color-blue">
+                <span class="tooltip">Close popup</span>
+            </span>
         </h2>
         <div class="popup__inner">
             <div class="popup__box" ng-include="'src/app/popups/templates/popup-info-page.html'"></div>

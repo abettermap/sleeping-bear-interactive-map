@@ -1,10 +1,9 @@
 <div class="panel" ng-show="vm.activePanel == 'info'">
     <h2 class="panel__header">
-        <a class="btn" href="javascript:;" ng-click="vm.isInfoHomePage = true; vm.activeInfoPg = 'Home'" ng-class="{'vis-hidden': vm.isInfoHomePage}">
-            <svg viewBox="0 0 100 100">
-                <use xlink:href="#icon-back"></use>
-            </svg>
-        </a>
+        <a class="btn btn--back" href="javascript:;" ng-click="vm.isInfoHomePage = true; vm.activeInfoPg = 'Home'" ng-class="{'vis-hidden': vm.isInfoHomePage}"></a>
+        <span class="css-tooltip-right color-blue">
+            <span class="tooltip">Back to topics list</span>
+        </span>
         <span class="popup__header--inner">
             <svg viewBox="0 0 100 100">
                 <use xlink:href="#icon-info"></use>
@@ -12,12 +11,10 @@
             <span ng-show="vm.activeInfoPg === 'Home'">Help & Info</span>
             <span ng-show="vm.activeInfoPg !== 'Home'">{{vm.activeInfoPgHeader}}</span>
         </span>
-        <a href="javascript:;" class="panel__close btn" ng-click="vm.changePanel('')">
-            <svg viewBox="0 0 100 100">
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-x"></use>
-            </svg>
-        </a>
-
+        <a href="javascript:;" class="panel__close btn" ng-click="vm.changePanel('')"></a>
+        <span class="css-tooltip-left color-blue">
+            <span class="tooltip">Close panel</span>
+        </span>
     </h2>
     <div class="panel__inner info-page--home" ng-hide="!vm.isInfoHomePage">
         <div class="panel__box">
