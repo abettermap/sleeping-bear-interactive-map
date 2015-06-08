@@ -10,14 +10,25 @@
 
     function panelsFactory($rootScope, $http, layersFactory, cdbValues){
 
+        var selectedTypes = [],
+            map = layersFactory.map;
+
+        var factory = {
+            getHelpData: getHelpData,
+            getPoiPages: getPoiPages,
+            getSubGroups: getSubGroups,
+            map: map,
+            setSeason: setSeason,
+            toggleCommercial: toggleCommercial,
+            toggleFeatures: toggleFeatures,
+        };
+
 
         /******************************/
         /****** TOGGLE POI TYPES ******/
         /******************************/
         var sublayers = layersFactory.sublayers;
 
-        var selectedTypes = [],
-            map = layersFactory.map;
 
 
         function toggleFeatures(types){
@@ -175,16 +186,6 @@
             });
 
         }
-
-    	var factory = {
-            getHelpData: getHelpData,
-            getPoiPages: getPoiPages,
-            getSubGroups: getSubGroups,
-            map: map,
-            setSeason: setSeason,
-            toggleCommercial: toggleCommercial,
-            toggleFeatures: toggleFeatures,
-    	};
 
 		return factory;
 

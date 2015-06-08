@@ -70,7 +70,7 @@
                                 ' FROM "features"' + '\n' +
                                 ' WHERE "features"."cartodb_id" = ' + sp.cartodb_id + ' AND' +
                                 ' ("features"."type" IS NOT NULL OR "features"."filepath" IS NOT NULL)';
-                                // alert(featQuery);
+
                             // Commercial
                             var commQuery = "" +
                                 queryPrefix +
