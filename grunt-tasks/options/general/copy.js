@@ -18,7 +18,7 @@ module.exports = {
             }
         ]
     },
-    kioskTest: {
+    splashTest: {
         files: [
             {
                 cwd: 'build/',
@@ -26,7 +26,7 @@ module.exports = {
                 expand: true,
                 dest: 'build/',
                 rename: function(dest, src) {
-                  return dest + src.replace(/^index/, "kiosk-test");
+                  return dest + src.replace(/^index/, "splash");
                 }
             }
         ]
@@ -44,6 +44,14 @@ module.exports = {
         expand: true,
         dest: 'build/src/assets/spatial/carto-css/'
     },
+    appleIcons: {
+        cwd: 'src/assets/img/raster/apple-icons/',
+        filter: 'isFile',
+        flatten: true,
+        src: ['*.png'],
+        expand: true,
+        dest: 'build/src/assets/img/raster/apple-icons/'
+    },
     rasterLogos: {
         cwd: 'src/assets/img/raster/logos/',
         filter: 'isFile',
@@ -52,11 +60,11 @@ module.exports = {
         expand: true,
         dest: 'build/src/assets/img/raster/logos/'
     },
-    abmLogo: {
+    miscSvg: {
         cwd: 'src/assets/img/svg/project/',
         filter: 'isFile',
         flatten: true,
-        src: ['abm-logo.svg',],
+        src: ['*.svg',],
         expand: true,
         dest: 'build/src/assets/img/svg/project/'
     },
@@ -85,4 +93,4 @@ module.exports = {
         dest: 'build/src/assets/img/svg/project/min/'
     }
 
-}
+};

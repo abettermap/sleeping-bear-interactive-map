@@ -55,7 +55,7 @@ module.exports = function(grunt) {
         'newer:svgstore',
         'usemin',
         'copy:kiosk',
-        'copy:kioskTest',
+        'copy:splashTest',
         'autoprefixer:build',
         'htmlmin',
         'shell',

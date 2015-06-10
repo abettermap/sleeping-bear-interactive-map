@@ -1,17 +1,6 @@
-/* Get rid of CDB dpi console debugs */
-// @media
-//   &(-webkit-min-device-pixel-ratio: 2),
-//   &(   min--moz-device-pixel-ratio: 2),
-//   &(     -o-min-device-pixel-ratio: 2/1),
-//   &(        min-device-pixel-ratio: 2),
-//   &(                min-resolution: 192dpi),
-//   &(                min-resolution: 2dppx);
-
-
 %full {
   height: 100%;
   width: 100%;
-  // min-height: 100%;
 }
 
 html {
@@ -22,20 +11,21 @@ html {
 // Overflow on body
 body {
   @extend %full;
-  // background: url($bg-pttn-url);
   background-color: $c-panel-bg;
   margin: 0;
   padding: 0;
 }
 
 // Hide inputs and .never-show
-input, .never-show {
+input,
+.never-show {
   display: none;
 }
 
 .never-show {
   opacity: 0;
 }
+
 h1, h2, h3, h4 {
   font-weight: 500;
 }
@@ -71,6 +61,7 @@ h5 {
   font-size: 1.2rem;
   font-weight: normal;
   margin: .6rem auto .2rem;
+
   + p {
     margin-top: 0;
   }
@@ -80,6 +71,16 @@ h5 {
 a {
   color: $c-panel-header;
   text-decoration: underline;
+  transition: 300ms;
+
+  @include mq($from: desktop) {
+
+    &:hover {
+      color: darken($c-panel-header, 12%);
+    }
+
+  }
+
 }
 
 img {

@@ -25,8 +25,8 @@
                         <svg class="poi-type__icon poi-type__icon--access" viewBox="0 0 100 100">
                             <use xlink:href="#icon-mainpoints"></use>
                         </svg>
-                        <a class="poi-subgroup-link poi-subgroup-link--access clearfix" href="javascript:;">
-                            <span class="poi-subgroup__preview">
+                        <a class="poi-subgroup-link poi-subgroup-link--access" href="javascript:;">
+                            <span class="">
                                 While the Trail can be accessed from many locations, these icons represent its primary entrance points and community hubs, and are always displayed until the map is zoomed in.
                             </span>
                         </a>
@@ -86,7 +86,7 @@
                             ng-checked="vm.selectedFeatTypes.indexOf(feattype.type) > -1"
                             ng-click="vm.toggleFeatures(feattype.type)"
                             id="{{::feattype.id}}" />
-                        <label for="{{::feattype.id}}" class="poi-type__label clearfix">
+                        <label for="{{::feattype.id}}" class="poi-type__label">
                             <svg class="poi-type__icon poi-type__icon--feat" viewBox="0 0 100 100">
                                 <use ng-attr-xlink:href="{{::feattype.icon}}" xlink:href=""></use>
                             </svg>
@@ -112,7 +112,7 @@
                             ng-checked="vm.selectedCommTypes.indexOf(commtype.category_int) > -1"
                             ng-click="vm.toggleCommercial(commtype.category_int)"
                             id="{{::commtype.id}}" />
-                        <label for="{{::commtype.id}}" class="poi-type__label clearfix">
+                        <label for="{{::commtype.id}}" class="poi-type__label">
                             <svg class="poi-type__icon poi-type__icon--comm" viewBox="0 0 100 100">
                                 <use ng-attr-xlink:href="{{::commtype.icon}}" xlink:href=""></use>
                             </svg>

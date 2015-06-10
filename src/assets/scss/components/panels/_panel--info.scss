@@ -37,6 +37,7 @@
 
     h5 {
       @extend %h4;
+      margin-top: .25rem;
     }
 
     // Wrap if using no <p>
@@ -49,18 +50,19 @@
 
 /* Logos list */
 .logos {
-  >li {
-    text-align: center;
-  }
   align-items: center;
   display: flex;
   justify-content: space-around;
   list-style-type: none;
   margin: .4rem 0 -.2rem;
   padding: 0;
+
+  > li {
+    text-align: center;
+  }
+
   img, svg {
     flex: 0 22%;
-    // height: 72px;
     width: 72px;
   }
 }
