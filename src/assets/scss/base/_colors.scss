@@ -24,7 +24,6 @@ $baby-puke: rgb(134, 128, 47);
 // Regular ol' colors \\
 $dark-gray: #808080;
 $gray: #808080;
-// $near-black: #333;
 $near-black: #4d4d4d;
 $near-white: #f9f9f9;
 
@@ -35,13 +34,17 @@ $c-font: $near-black;
 // Map wrapper
 $c-map-wrap-box-shadow: desaturate($steely-blue, 14%);
 
-// Controls
-$c-ball-color: lighten($med-blue, 14%);
-$c-icon-hover: darken($c-ball-color, 15%);
-
 /* ELEMENTS */
 /* Headings */
 $c-h3-color: darken($med-dull-blue, 5%);
+
+
+/* BUTTONS */
+$c-btn-bg: #4284c2;
+
+// Controls
+$c-ball-color: lighten($med-blue, 14%);
+$c-icon-hover: darken($c-btn-bg, 15%);
 
 ///// PANELS \\\\\
 $c-panel-bg: #edede3;
@@ -52,7 +55,6 @@ $c-panel-icon: darken($med-dull-blue, 5%);
 $c-panel-toggle-hover: $primary-color;
 
 // Panel header
-// $c-panel-header: desaturate(lighten($green, 20%), 10%);
 $c-panel-header: $c-panel-toggle;
 
 // Panel checked
@@ -92,6 +94,3 @@ $c-panel--trail__header: $c-h3-color;
 $c-grade-overlay: red;
 $c-caution-overlay: yellow;
 
-
-/* BUTTONS */
-$c-btn-bg: darken(rgba($c-panel-header, 1),20%);

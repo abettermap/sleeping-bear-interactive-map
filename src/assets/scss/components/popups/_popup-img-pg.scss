@@ -27,7 +27,6 @@
 
 /* THUMBS */
 
-// <div> including thumbs pagination
 .popup__footer {
 
   background-color: rgba($c-panel-header, .65);
@@ -110,24 +109,32 @@
 }
 
 .footer-tab--right {
-  left: auto;
-  right: .5rem;
-  padding: .3rem;
+
   font-size: .9rem;
+  left: auto;
+  padding: .3rem;
+  right: .5rem;
   z-index: 2;
+
   .btn {
-    padding: 0 .2rem .1rem;
     line-height: 1.25;
+    padding: 0 .2rem .1rem;
+
+    &:hover {
+      color: inherit;
+    }
+
   }
+
 }
 
 .btn {
   .icon--thumbs-dir {
     $s: 3.5rem;
     display: block;
-    margin: 0 auto;
     fill: $near-white;
     height: $s;
+    margin: 0 auto;
     width: $s;
   }
 }
@@ -142,24 +149,23 @@
 
 /* Footer tab buttons */
 .thumbs-dir-btns {
+  display: flex;
   justify-content: space-between;
   margin: 1rem 0 .5rem;
-  display: flex;
+
   input + .btn {
+    border-radius: 5px;
     color: lighten($gray, 45%);
     display: flex;
+    flex: 0 31%;
     flex-flow: column;
     padding: .3rem .4rem .4rem;
-    flex: 0 31%;
-    // margin-top: .2rem;
-    border-color: lighten($c-btn-bg,6%);
-    border-radius: 5px;
     text-decoration: none;
     text-shadow: none;
   }
 
   input:checked + .btn {
-    background-color: lighten($c-btn-bg,10%);
+    background-color: lighten($c-btn-bg, 10%);
     border-color: $near-white;
     border-width: 2px;
     color: $near-white;
@@ -168,7 +174,6 @@
   }
 
   input:not(:checked) + .btn {
-    // border-color:
     border-width: 2px;
     color: lighten($gray, 12%);
     @include mq($from:desktop){
@@ -189,40 +194,45 @@
 
   @include mq($from: desktop){
     a:hover {
-      background-color: darken($c-btn-bg, 5%);
+      background-color: darken($c-btn-bg, 10%);
     }
   }
 
+  // First nav arrow
   &:first-of-type {
     left: 0;
+
     a {
-        border-radius: 0 2.5rem 2.5rem 0;
-        padding: .94rem .5rem .94rem .3rem;
+      border-radius: 0 2.5rem 2.5rem 0;
+      padding: .94rem .5rem .94rem .3rem;
     }
+
   }
+
+  // Last nav arrow
   &:last-of-type {
-      right: 0;
+    right: 0;
+
     a {
       border-radius: 2.5rem 0 0 2.5rem;
       padding: .94rem .3rem .94rem .5rem;
     }
   }
 
+  // Thumbs' pagination arrows
   a {
+    background-color: rgba($c-btn-bg, .85);
+    border-color: lighten($c-btn-bg, 10%);
+    color: $near-white;
     display: block;
-    transition: background-color 300ms ease;
     font-size: 3.5rem;
     font-weight: 100;
     height: 3.7rem;
-
     line-height: .25;
-
     padding: .94rem .3rem .94rem .5rem;
-    color: $near-white;
-    background-color: rgba(lighten($c-btn-bg, 10%),.85);
-    border-color: lighten($c-btn-bg, 10%);
-      text-decoration: none;
-    }
+    text-decoration: none;
+    transition: background-color 300ms ease;
+  }
 }
 
 .popup__footer {
@@ -236,8 +246,6 @@
     a {
       height: 3.4rem;
       line-height: .75rem;
-      // padding-top: .5rem;
-      // background-color: transparent;
     }
     &:first-of-type {
       left: 0;

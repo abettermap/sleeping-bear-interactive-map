@@ -70,7 +70,6 @@ $a-long-trans: 5000ms;
   }
 
   // Not the last list item
-  // + .poi-subgroup:before {
   &:before {
     content: '';
     display: block;
@@ -104,12 +103,17 @@ $a-long-trans: 5000ms;
     text-decoration: none;
     transition: $a-all-hover-transition;
 
+    // "Main Access Points" blurb
     &--access {
       cursor: default;
-
-      .poi-subgroup__preview {
-        white-space: normal;
-        width: auto;
+      font-size: .9rem;
+      span {
+        color: #808080;
+        display: block;
+        font-size: 0.85rem;
+        overflow: hidden;
+        text-decoration: none;
+        width: calc(100% - 2.4rem - .75rem);
       }
     }
 
@@ -123,29 +127,27 @@ $a-long-trans: 5000ms;
 
     &--comm {
       @include mq($from: desktop) {
+
         &:hover {
           color: $c-comm-pin-bg;
         }
+
       }
     }
   }
 
   &__name {
     display: block;
-    font-size: 1rem;
+    font-size: 1.15rem;
     line-height: 1;
     text-decoration: underline;
-
-    @include mq($from: tablet) {
-      font-size: 1.1rem;
-    }
   }
 
   // Preview list (assumes more than 1 per category)
   &__preview {
     color: $gray;
     display: block;
-    font-size: .8rem;
+    font-size: 0.9rem;
     line-height: 1.5;
     overflow: hidden;
     text-decoration: none;
@@ -172,19 +174,18 @@ $a-long-trans: 5000ms;
 
   /* Labels */
   &__label {
-    background-color: green;
     flex: 0 100%;
     font-size: 1.2rem;
     line-height: .8;
-    padding: .3em .4em .2em;
+    padding: .4em .4em .15em;
   }
 
   /* SVG icons */
   &__icon {
     $size: 2rem;
-    border-width: 2px;
-    border-style: solid;
     border-radius: 25px;
+    border-style: solid;
+    border-width: 2px;
     display: inline;
     fill: $near-white;
     float: left;
@@ -192,42 +193,34 @@ $a-long-trans: 5000ms;
     margin-right: 7px;
     padding: .2rem;
     width: $size;
-    @include mq($from: tablet){
+
+    @include mq($from: tablet) {
       height: $size*1.2;
       width: $size*1.2;
     }
+
     &--access {
       background-color: $c-access-pin-bg;
       border-color: $c-access-pin-stroke;
     }
+
     &--feat {
       background-color: $c-feat-pin-bg;
       border-color: $c-feat-pin-stroke;
     }
+
     &--comm {
       background-color: $c-comm-pin-bg;
       border-color: $c-comm-pin-stroke;
     }
-  }
 
-  &__text {
-    display: inline;
-    flex-flow: column;
-    float: left;
-    background-color: blue;
-  }
-
-  &__name {
-    background-color: red;
-    display: inline;
   }
 
   &__desc {
     color: lighten($gray, 10%);
     flex: 0 35%;
-    font-size: .6em;
-    line-height: .9;
+    font-size: .85rem;
+    line-height: 2;
     text-shadow: none;
   }
 }
-

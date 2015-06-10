@@ -7,7 +7,7 @@ $a-trans-tools: transform 600ms ease;
 $a-trans-fill: fill 250ms ease;
 
 %ball {
-  background: $c-ball-color;
+  background: $c-btn-bg;
   border-radius: 100%;
   position: absolute;
 }
@@ -15,8 +15,8 @@ $a-trans-fill: fill 250ms ease;
 
 // Filters
 %goo {
-  filter: url(../img/svg/project/defs/gooey.svg#shadowed-goo);
   -webkit-filter: url("#shadowed-goo");
+  filter: url('../img/svg/project/defs/gooey.svg#shadowed-goo');
   position: absolute;
 }
 
@@ -54,6 +54,7 @@ $a-trans-fill: fill 250ms ease;
       transform: translate3d(0, round($l-ball-ht * $i), 0);
       transition-duration: 90ms + (80ms * $i);
     }
+
   }
 
 }
@@ -142,13 +143,10 @@ $a-trans-fill: fill 250ms ease;
 
   .controls__icon {
 
-    fill: $c-ball-color;
-    -moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    filter: FlipH;
     -ms-filter: "FlipH";
+    fill: $c-btn-bg;
+    filter: FlipH;
+    transform: scaleX(-1);
     transition: transform 200ms linear, $a-trans-fill, $a-trans-tools;
 
   }
@@ -158,10 +156,10 @@ $a-trans-fill: fill 250ms ease;
 // Individual balls
 .controls__menu-item {
 
-  @extend %ball;
-
-  // box-shadow: 2px 2px 5px $gray;
+  background-color: lighten($c-btn-bg, 14%);
+  border-radius: 100%;
   height: $l-ball-ht;
+  position: absolute;
   transition-duration: 280ms;
   visibility: hidden;
   width: $l-ball-ht;
@@ -177,7 +175,6 @@ $a-trans-fill: fill 250ms ease;
   fill: $near-white;
   height: 50px;
   padding: 9px;
-  // pointer-events: none;
   position: absolute;
   visibility: hidden;
   width: 50px;
@@ -188,6 +185,7 @@ $a-trans-fill: fill 250ms ease;
   display: inline-block !important;
   height: $l-ball-ht;
   width: $l-ball-ht;
+
   @include mq($from: desktop) {
     &:hover+svg {
       fill: $c-icon-hover;
