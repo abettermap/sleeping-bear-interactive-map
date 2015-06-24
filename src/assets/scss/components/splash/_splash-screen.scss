@@ -1,0 +1,21 @@
+#preloader {
+  background-color: rgb(152, 204, 150);
+  height: 100%;
+  left: 0;
+  overflow: visible;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999999;
+
+  div {
+    background: url('../img/svg/project/sbht-splash.svg') no-repeat center center;
+    background-size: contain;
+    height: 80%;
+    left: 10%;
+    position: absolute;
+    top: 10%;
+    width: 80%;
+  }
+
+}
