@@ -1,46 +1,62 @@
-# License #
-###########
-license.txt
-
 # Build #
 #########
 build
 
 # CSS #
 #######
-src/assets/css
+#src/assets/css
 
 # Sass #
 #######
-src/assets/scss/vendor
+#src/assets/scss/vendor
+src/assets/scss/auto
+src/assets/scss/inline
+
+# Beta Disclaimer #
+######
+src/app/map/beta-disclaimer.html
+src/app/map/betaDisclaimerCtrl.js
 
 # JS #
 ######
 src/assets/js/vendor
-src/app/map-app.js
-src/app/map-app.js.map
+src/app/config/handyLeafletFns.js
+!src/assets/js/vendor/angular-animate.js
+!src/assets/js/vendor/angular-ui-router.js
+!src/assets/js/vendor/dirPagination.js
+!src/assets/js/vendor/esri-leaflet-basemaps.js
+!src/assets/js/vendor/fastclick.js
+!src/assets/js/vendor/leaflet-gps.js
+!src/assets/js/vendor/leaflet-history-src.js
+
 
 # Spatial #
 ###########
-src/assets/spatial/data
-src/assets/spatial/qgis
+src/assets/spatial
+!src/assets/spatial/carto-css
 
 # Images #
 ##########
-img-prod
-src/assets/img/svg/shared
+*.ini
+*.picasaoriginals
+img_prod
+src/assets/img/raster/src-junk
+src/assets/img/raster/logos/beta-disclaimer
+#src/assets/img/svg/project/defs
 src/assets/img/svg/project/min/*.svg
-src/assets/img/svg/project/defs
-src/assets/img/svg/project/bad-src
+src/assets/img/svg/project/sbht-splash.svg
 src/assets/img/svg/QGIS-default
+src/assets/img/svg/shared
 
 # Grunt #
 ##########
 .sublime-grunt-cache
-src/assets/img/raster/src-junk
-img_prod alias
-map-app.js
-*.ini
-src/assets/img/raster/help-pics/.picasaoriginals
+
+# Junk #
+###########
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+.sublime-grunt.cache
 .tmp
-sbht-splash.svg
+vagrant-folder

@@ -5,4 +5,4 @@ module.exports = {
       message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%',
       branch: 'master',
     },
-}
+};

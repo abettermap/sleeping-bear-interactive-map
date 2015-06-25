@@ -2,10 +2,6 @@ html {
 
   font-size: 15px;
 
-  // @include mq($from: mobile, $and: '(min-device-height: 481px)') {
-  //   font-size: 15px;
-  // }
-
   @include mq(tablet) {
     font-size: 16px;
   }

@@ -19,7 +19,6 @@
         // Disable outbound links if kiosk
         function disableLinks(){
 
-
             var k = window.location.href.indexOf('kiosk');
 
             if (k > 0){

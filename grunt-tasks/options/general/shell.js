@@ -6,10 +6,9 @@ module.exports = {
             }
         },
         command: [
-            // 'git add -u',
             'git add -A',
             'git commit -m "from grunt shell"',
             'dandelion deploy',
         ].join('&&'),
     }
-}
+};

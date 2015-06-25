@@ -94,7 +94,6 @@
                     html: "<svg viewBox='0 0 100 100'>" +
                         "<use xlink:href='#icon-locate'></use></svg>"
                 }),
-                // iconAnchor: [-216, 16]
             });
 
             var gpsCtrl =  new L.Control.Gps({

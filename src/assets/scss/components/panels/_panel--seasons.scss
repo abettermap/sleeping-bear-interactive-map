@@ -3,7 +3,6 @@
 
 // The keeper of the seasons
 .seasons-container {
-  display: box;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -94,4 +93,3 @@
   pointer-events: none;
 
 }
-

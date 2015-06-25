@@ -8,7 +8,7 @@
             <svg viewBox="0 0 100 100">
                 <use xlink:href="#icon-info"></use>
             </svg>
-            <span ng-show="vm.activeInfoPg === 'Home'">Help & Info</span>
+            <span ng-show="vm.activeInfoPg === 'Home'">Help &amp; Info</span>
             <span ng-show="vm.activeInfoPg !== 'Home'">{{vm.activeInfoPgHeader}}</span>
         </span>
         <a href="javascript:;" class="panel__close btn" ng-click="vm.changePanel('')"></a>
@@ -40,7 +40,7 @@
                 </ul>
                 <div class="panel__narrative">
                     <small class="credits disable-outbound-links">This map was made through a collaborative effort between <a href="http://abettermap.com" target="_blank">A Better Map</a>, <a href="http://friendsofsleepingbear.org" target="_blank">Friends of Sleeping Bear Dunes</a>, and <a href="http://www.visitglenarbor.com/" target="_blank">Glen Lake Chamber of Commerce</a>.</small>
-                    <h3>Help & Info</h3>
+                    <h3>Help &amp; Info</h3>
                     <p>Select a topic below to learn more about the map, Sleeping Bear Dunes National Lakeshore, and The Friends of Sleeping Bear Dunes:</p>
                     <ul class="info-topics-list">
                         <li ng-repeat="t in vm.helpData">

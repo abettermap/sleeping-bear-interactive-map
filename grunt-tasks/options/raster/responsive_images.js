@@ -32,8 +32,7 @@ module.exports = {
           engine: 'im',
           newFilesOnly: false,
           sizes: [{
-            name: '',
-            name: "sm",
+            name: 'sm',
             width: 570
           }]
         },
@@ -48,4 +47,4 @@ module.exports = {
         }]
     },
 
-}
+};

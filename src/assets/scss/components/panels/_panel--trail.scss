@@ -91,10 +91,9 @@
 // Different color for trail cond icon \\
 svg.toggle__icon--trail-cond {
   background-color: $near-white;
-  border-radius: 5px;
   border: solid darken($winter, 25%) 1px;
+  border-radius: 5px;
   fill: darken($winter, 5%);
-  // fill: $winter;
   height: 1.8rem;
   padding: .2rem;
   width: 1.8rem;

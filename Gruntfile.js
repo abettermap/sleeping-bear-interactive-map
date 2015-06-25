@@ -23,7 +23,7 @@ module.exports = function(grunt) {
     // Initial config
     var config = {};
 
-    // Load all the tasks options in tasks/options base on the name:
+    // Load all the tasks options in tasks/options base on the name.
     // Include subfolders to satisfy OCD
     grunt.util._.extend(config, loadConfig('./grunt-tasks/options/css/'));
     grunt.util._.extend(config, loadConfig('./grunt-tasks/options/general/'));
@@ -45,6 +45,7 @@ module.exports = function(grunt) {
     // BUILD
     grunt.registerTask('build', [
         'clean:js',
+        'clean:css',
         'copy',
         'useminPrepare',
         'concat:generated',
@@ -55,10 +56,9 @@ module.exports = function(grunt) {
         'newer:svgstore',
         'usemin',
         'copy:kiosk',
-        'copy:splashTest',
         'autoprefixer:build',
         'htmlmin',
-        'shell',
+        // 'shell',
     ]);
 
     // DEFAULT ()

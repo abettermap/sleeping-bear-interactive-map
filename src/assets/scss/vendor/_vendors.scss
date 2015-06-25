@@ -40,22 +40,15 @@ $mq-static-breakpoint: desktop;
 // ANIMATE.CSS \\
 
 // Use these styles (need to be defined before importing animations) \\
-// $use-zoomInUp: true;
-// $use-zoomOutDown: true;
-// $use-fadeOutRight: true;
-// $use-fadeInLeft: true;
-// $use-rotateInUpLeft: true;
-$use-slideInLeft: true;
-$use-slideOutLeft: true;
-$use-slideInRight: true;
-$use-slideOutRight: true;
-// $use-rotateOut: true;
-$use-fadeOutDown: true;
 $use-fadeInUp: true;
+$use-fadeOutDown: true;
 $use-flipInY: true;
 $use-flipOutY: true;
-// $use-lightSpeedIn: true;
-// $use-lightSpeedOut: true;
+$use-slideInLeft: true;
+$use-slideInRight: true;
+$use-slideOutLeft: true;
+$use-slideOutRight: true;
+
 
 @import 'animate-sass/animate';
 

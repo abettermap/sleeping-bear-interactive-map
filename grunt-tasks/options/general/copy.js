@@ -18,19 +18,6 @@ module.exports = {
             }
         ]
     },
-    splashTest: {
-        files: [
-            {
-                cwd: 'build/',
-                src: ['index.php'],
-                expand: true,
-                dest: 'build/',
-                rename: function(dest, src) {
-                  return dest + src.replace(/^index/, "splash");
-                }
-            }
-        ]
-    },
     fastClick: {
         expand: true,
         src: 'src/assets/js/vendor/fastclick.js',
@@ -59,6 +46,14 @@ module.exports = {
         src: ['*.png', '*.jpg'],
         expand: true,
         dest: 'build/src/assets/img/raster/logos/'
+    },
+    sandyBackground: {
+        cwd: 'src/assets/img/raster/',
+        filter: 'isFile',
+        flatten: true,
+        src: ['*.jpg'],
+        expand: true,
+        dest: 'build/src/assets/img/raster/'
     },
     miscSvg: {
         cwd: 'src/assets/img/svg/project/',

@@ -29,8 +29,6 @@
         /******************************/
         var sublayers = layersFactory.sublayers;
 
-
-
         function toggleFeatures(types){
 
             var query,
@@ -97,9 +95,7 @@
                 }
 
                 for (var i = 0; i < types.length; i++) {
-
                     if (i === 0) {
-                        // arr.push(" OR (substring(commercial.categories," + types[i] + ",1) = 'y'");
                         arr.push(" WHERE (substring(commercial.categories," + types[i] + ",1) = 'y'");
                     } else {
                         arr.push(" OR substring(commercial.categories," + types[i] + ",1) = 'y'");
@@ -111,9 +107,7 @@
             } else {  /* When not called from setSeason()... */
 
                 for (var n = 0; n < states.commercial.length; n++) {
-
                     if (n === 0) {
-                        // arr.push(" OR (substring(commercial.categories," + states.commercial[n] + ",1) = 'y'");
                         arr.push(" WHERE (substring(commercial.categories," + states.commercial[n] + ",1) = 'y'");
                     } else {
                         arr.push(" OR substring(commercial.categories," + states.commercial[n] + ",1) = 'y'");
@@ -152,7 +146,6 @@
 
         // Get feature subgroups
         function getSubGroups (table){
-            // debugger;
             var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT DISTINCT ON (sub_group) sub_group FROM ",
                 query;
 
@@ -165,7 +158,7 @@
             return $http({
                 method: 'GET',
                 url: query,
-             });
+            });
         }
 
         // Get POI toggles data

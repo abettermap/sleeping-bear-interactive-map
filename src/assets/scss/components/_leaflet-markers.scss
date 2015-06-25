@@ -6,6 +6,7 @@
         display: block;
         position: absolute;
     }
+
     .icon--temp--bg {
         fill: $c-fill;
         stroke: darken($c-fill, 20%);
@@ -16,13 +17,13 @@
         top: $s/-1.1;
         width: $s;
     }
+
     .icon--temp--fg {
-        fill: #FFF;
         display: block;
+        fill: #fff;
         height: $s/2.2;
+        left: -.1 * $s + 1px;
         position: absolute;
         top: -.85 * $s + 4px;
-        left: -.1 * $s + 1px;
-        // width: $s/2;
     }
 }

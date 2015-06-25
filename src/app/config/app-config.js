@@ -21,7 +21,6 @@
             'panelsModule',
             'popupsModule',
             'layersModule',
-            // 'ngDialog',
             'ngAnimate',
             'angularUtils.directives.dirPagination',
             'ui.router',
@@ -57,7 +56,7 @@
                     title: 'Sleeping Bear Heritage Trail - Interactive Map',
                     description: "An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.",
                     url: 'http://friendsofsleepingbear.org/sbht-i-map'
-                }
+                };
 
 
                 /******************************/
@@ -69,11 +68,11 @@
                     both: [],
                     north: [],
                     south: [],
-                }
+                };
 
                 $rootScope.updateThumbs = function(direction){
                     $rootScope.thumbsArrays.current = $rootScope.thumbsArrays[direction];
-                }
+                };
 
                 $rootScope.thumbsDirectionModel = 'both';
 
@@ -98,7 +97,6 @@
                 });
 
                 $rootScope.tempSublayerIndexes = {
-                    // commercial: [50],
                     sbht_caution: -1,
                     sbht_grade: -1,
                     trail_condition: -1,

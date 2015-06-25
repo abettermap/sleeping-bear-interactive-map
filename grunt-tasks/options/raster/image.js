@@ -1,6 +1,6 @@
 var imgPaths = {
     home: '/Users/travelampel/Google_Drive/web-projects/abm-website/web/wordpress/wp-content/uploads/raster/home-page/'
-}
+};
 
 module.exports = {
   home: {
@@ -24,9 +24,4 @@ module.exports = {
       dest: imgPaths.home
     }]
   }
-}
-
-      // 'dist/img.png': 'src/img.png',
-      // 'dist/img.jpg': 'src/img.jpg',
-      // 'dist/img.gif': 'src/img.gif',
-      // 'dist/img.svg': 'src/img.svg'
+};
