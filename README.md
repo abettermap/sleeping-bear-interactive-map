@@ -16,12 +16,6 @@ This interactive map was a collaborative effort between [A Better Map](https://a
 ## The Map's Home
 The actual map lives at [http://friendsofsleepingbear.org/sbht-i-map/](http://friendsofsleepingbear.org/sbht-i-map/). Feedback welcome, so please **[email me](mailto:jason@abettermap.com)**.
 
-## Usage
-Feel free to clone this, but most of the images are not included.
-
-## Licensing
-All the dependencies have their own licensing, so refer to their sources for that (basically anything in the `vendors` folders) using the links in the **Credits** section below.
-
 ## Credits
 This map would not be possible without a whole bunch of existing repos, tools, forums, blog posts, APIs, etc. Thanks to all the smarties out there who make this stuff!
 
@@ -47,8 +41,8 @@ The map itself is powered by:
 *   [CartoDB](http://cartodb.com/ "CartoDB") on the back end (and a bit of their JS API for the front)
 *   [LeafletJS](http://leafletjs.com "LeafletJS") on the front end (it's actually included in the CartoDB code)
 *   [Leaflet GPS](https://github.com/stefanocudini/leaflet-gps "Leaflet GPS") to handle the geolocation icon and functionality
-*   [Leaflet History](https://github.com/cscott530/leaflet-history "Leaflet History") to give you the "zoom to previous position" option in the map tools.
-*   [ESRI Leaflet tools](https://github.com/Esri/esri-leaflet "Leaflet ESRI Basemaps") for using ArcGIS services with Leaflet.
+*   [Leaflet History](https://github.com/cscott530/leaflet-history "Leaflet History") to give you the "zoom to previous position" option in the map tools
+*   [ESRI Leaflet tools](https://github.com/Esri/esri-leaflet "Leaflet ESRI Basemaps") for using ArcGIS services with Leaflet
 
 ### Styling
 
@@ -82,3 +76,22 @@ These programs came in handy for various image editing and processing tasks:
 *   Google's [Picasa](https://picasa.google.com/ "Picasa") for enhancing photos.
 *   [Inkscape](https://inkscape.org/en/ "Inkscape") for editing and creating SVG vector graphics. If you're looking for a decent free alternative to Adobe Illustrator, look no further!
 *   [FastStone Photo Resizer](http://www.faststone.org/FSResizerDetail.htm "FastStone Photo Resizer") for optimizing and resizing photos (and this map has A LOT of them).
+
+## Usage
+Feel free to clone this, but most of the images are not included.
+
+## Licensing
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+For the complete terms of the GNU General Public License, please see this URL:
+http://www.gnu.org/licenses/gpl-2.0.html
+
+All the dependencies have their own licensing, so refer to their sources for that (basically anything in the `vendors` folders) using the links in the **Credits** section above.
