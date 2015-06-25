@@ -1,5 +1,7 @@
 # Sleeping Bear Heritage Trail Interactive Map
 
+![SBHT map screenshot](https://github.com/abettermap/sleeping-bear-interactive-map/blob/development/src/assets/img/raster/sbht-screenshot.jpg "SBHT map screenshot")
+
 ## Background
 >The paved, multi-use Sleeping Bear Heritage Trail is the only trail in
 >Sleeping Bear Dunes that allows bicycles. The trail runs 17.5 miles from
@@ -50,9 +52,7 @@ The map itself is powered by:
 
 ### Styling
 
-![Sass logo](http://upload.wikimedia.org/wikipedia/commons/9/96/Sass_Logo_Color.svg "Sass website")
-
-There are several popular CSS preprocessors in the wild, but [Sass](http://sass-lang.com/) was exclusively used in this project.
+[Sass](http://sass-lang.com/) all the way.
 
 ### Workflow
 
