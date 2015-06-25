@@ -1,0 +1,69 @@
+.map {
+  bottom: 3.5rem;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+// MAP WRAP
+.map-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.controls {
+  box-shadow: 2px 2px 5px #808080;
+  left: $container-spacing/1.5;
+  position: absolute;
+  top: $container-spacing/1.5;
+}
+
+// PANELS
+.panel {
+  background: url('../img/raster/background.jpg');
+  bottom: 3.5rem;
+  position: absolute;
+  top: 0;
+
+  @include mq($from: tablet) {
+    height: $l-panel-ht;
+    top: auto;
+    width: 375px;
+
+    &:first-of-type {
+      left: 1%;
+    }
+
+    &:nth-of-type(2) {
+      left: 20%;
+    }
+
+    &:nth-of-type(3) {
+      left: 45%;
+    }
+
+    &:nth-of-type(4) {
+      right: 1%;
+    }
+
+  }
+
+}
+
+
+// POPUPS
+.popup {
+  bottom: 0;
+  top: 0;
+
+  // fill it up on mobile
+  @include mq($from: tablet) {
+    bottom: auto;
+    height: 581px;
+    left: auto;
+    right: $container-spacing/1.5;
+    top: $container-spacing/1.7;
+    width: 356px;
+  }
+
+}

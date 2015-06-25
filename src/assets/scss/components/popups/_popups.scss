@@ -1,0 +1,145 @@
+/* Same as panels, almost... */
+.popup {
+
+  background-color: lighten($c-panel-header, 20%);
+
+  &__inner {
+    @extend %panel__inner;
+    display: block;
+  }
+
+  &__box {
+    @extend %panel__box;
+    min-height: 100%;
+  }
+
+}
+
+// No bars on img page
+.popup__inner.no-scrollbars {
+  overflow: hidden;
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    border: 1px solid rgba($gray, 0.35);
+    background-color: rgba(225, 225, 225, .9);
+  }
+  &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      background-color: #eee;
+  }
+}
+
+.flip {
+
+  transform-style: preserve-3d;
+  transition: 750ms ease-out;
+
+  // Keep it backwards when hidden
+  &.ng-hide {
+    opacity: 0;
+  }
+  opacity: 1;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+
+  &.popup__page--img {
+    &.ng-hide-add.ng-hide-add-active {
+      backface-visibility: visible;
+      transform: rotateY(180deg);
+      .popup__inner {
+        overflow: hidden;
+      }
+    }
+  }
+
+  &.popup__page--info {
+    &.ng-hide-add.ng-hide-add-active {
+      backface-visibility: visible;
+      transform: rotateY(-180deg);
+      .popup__inner {
+        overflow: hidden;
+      }
+    }
+  }
+
+}
+
+.popup__inner--img-pg {
+  @include mq($from: mobile, $and: '(min-device-height: 481px)') {
+   top: 3rem;
+  }
+}
+
+/* The main header */
+.popup__header {
+
+  @extend %panel__header;
+
+  background-color: rgba($c-panel-header, .65);
+  &.popup__header--opaque {
+    background-color: $c-panel-header;
+  }
+  border: solid darken($c-panel-header, 5%) 1px;
+  padding: .5rem;
+  position: absolute;
+  text-shadow: 1px 1px 1px darken($c-panel-header, 15%);
+
+  @include mq($from: mobile, $and: '(min-device-height: 481px)') {
+    background-color: $c-panel-header;
+  }
+
+  @include mq($from: tablet) {
+    height: 3.4rem;
+    right: -1px;
+    top: -1px;
+  }
+
+  &--inner {
+    align-items: center;
+    display: flex;
+    flex: 0 73%;
+    justify-content: center;
+    span {
+      overflow: hidden;
+      padding-left: 3px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+}
+
+.popup-pg-nav {
+
+  @include mq($from: desktop) {
+
+    transition: $a-all-hover-transition;
+
+    &:hover {
+      .css-tooltip-right {
+
+        display: block !important;
+
+        span {
+          left: 40px;
+        }
+
+      }
+
+      svg {
+        fill: $c-panel-icon;
+      }
+
+    }
+
+  }
+
+}
+

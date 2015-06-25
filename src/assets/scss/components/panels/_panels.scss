@@ -1,0 +1,131 @@
+#info {
+  position: absolute;
+  right: 0;
+}
+
+.panel {
+  background-color: $c-panel-bg;
+  .panel__header {
+
+    @extend %panel__header;
+    @include mq($from: tablet) {
+      position: absolute;
+    }
+    .btn {
+      transition: 300ms ease-out;
+      opacity: 1;
+      // Animations
+      &.ng-hide {
+        opacity: 0;
+      }
+    }
+
+  }
+
+  &__inner {
+    @extend %panel__inner;
+  }
+
+  &__box {
+    @extend %panel__box;
+  }
+
+  &__row {
+    @extend %panel__row;
+  }
+
+  &__narrative {
+    border-top: dashed gray 1px;
+    margin-top: 1rem;
+
+    // add space at end so all content shows
+    &:after {
+      content: "";
+      display: block;
+      height: 1rem;
+    }
+
+    h3+p {
+      margin-top: .4rem;
+    }
+  }
+
+  // Animations
+  &.ng-hide- {
+    &remove {
+      animation: .5s fadeInUp ease;
+    }
+  }
+}
+
+/* TOGGLES */
+
+// Container
+.panel__toggles {
+  background-color: $c-panel-toggle;
+  bottom: 0;
+  box-shadow: 0 -2px 15px 0;
+  display: flex;
+  height: 3.5rem;
+  left: 0;
+  position: absolute;
+  right: 1px;
+}
+
+// Individual toggles
+.panel__toggle {
+  @extend %flex-centered;
+  background-color: $c-panel-toggle;
+  border-left: solid darken($c-panel-toggle, 10%) 1px;
+  color: $near-white;
+  font-size: 1.3rem;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 1px 1px 5px #222;
+  width: 25%;
+
+  /* Hover on desktop */
+  @include mq($from: desktop) {
+    &:hover {
+      background-color: $c-panel-toggle-hover;
+      color: $near-white;
+      transition: $a-bg-hover-transition;
+    }
+  }
+
+  &:first-of-type {
+    border-left: 0;
+  }
+
+
+  &__label {
+    display: none;
+
+    @include mq($from: tablet) {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+  }
+
+  &__icon {
+
+    display: inline-block;
+    fill: $near-white;
+    height: $l-panel-toggle-icon-size;
+    margin-right: 5px;
+    width: $l-panel-toggle-icon-size;
+
+    @include mq($from: tablet) {
+
+      $l-panel-toggle-icon-size-big: $panel-toggle-content-ht;
+      fill: darken($c-panel-toggle, 30%);
+      height: $l-panel-toggle-icon-size-big;
+      padding: .25rem;
+      width: $l-panel-toggle-icon-size-big;
+
+    }
+  }
+
+}

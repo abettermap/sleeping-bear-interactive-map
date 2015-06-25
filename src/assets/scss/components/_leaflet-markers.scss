@@ -1,0 +1,29 @@
+.temp-div-icon {
+    $c-fill: rgb(255,0,0);
+    $s: 42px;
+    position: relative;
+    svg {
+        display: block;
+        position: absolute;
+    }
+
+    .icon--temp--bg {
+        fill: $c-fill;
+        stroke: darken($c-fill, 20%);
+        stroke-width: 30px;
+        display: block;
+        height: $s;
+        left: $s/-3 - 1px;
+        top: $s/-1.1;
+        width: $s;
+    }
+
+    .icon--temp--fg {
+        display: block;
+        fill: #fff;
+        height: $s/2.2;
+        left: -.1 * $s + 1px;
+        position: absolute;
+        top: -.85 * $s + 4px;
+    }
+}

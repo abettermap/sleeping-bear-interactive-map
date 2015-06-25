@@ -1,0 +1,147 @@
+<div class="popup-info-pg__content">
+    <header>
+        <h3 class="popup-info-pg__title">{{vm.selFeatData.name}}</h3>
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 399.904 20" width="399.9" class="divider"><path d="M191.6 10.7c5.218 6.63 26.29-2.085 10.28-3.39-2.638.303-10.97-.97-10.28 3.39zm-370.94 500.473c-6.524.836-16.88-1.114-3.594-1.77 1.03.358 3.302.206 3.594 1.77zM3.2 10.4c60.22.757 120.4 1.876 180.7 2.405C199.18 9 176.315 5.25 170.83 7.41c-56.92.927-113.9.93-170.8 2.436.1 1.336 3.09-.352 3.21.554zm-202.1 500.787h-115.4c14.14-1.457 28.8-.496 43.16-.975 23.54.03 47.13-.89 70.64-.252l1.495.89.09.337zM396.67 10.4c-60.22.757-120.4 1.876-180.7 2.405C200.69 9 223.555 5.25 229.04 7.41c56.92.927 113.9.93 170.8 2.436-.1 1.336-3.088-.352-3.208.554zm-567.7 500.787h115.4c-14.14-1.457-28.8-.496-43.15-.975-23.54.03-47.13-.89-70.64-.252l-1.494.89-.09.337z"/></svg>
+        <p class="popup-info-pg__subtitle" ng-hide="vm.selFeatData.layer === 'commercial'">
+            <svg class="icon--heading" viewBox="0 0 100 100" >
+                <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
+            </svg>
+            <span class="subtitle__text">{{vm.selFeatData.type_name}}</span>
+            <svg class="icon--heading" viewBox="0 0 100 100" >
+                <use ng-attr-xlink:href="{{vm.typeIcon}}" xlink:href=""></use>
+            </svg>
+        </p>
+        <div ng-show="vm.selFeatData.layer === 'commercial'">
+            <p class="popup-info-pg__subtitle"
+                ng-repeat="type in vm.commTypesArr">
+                <svg class="icon--heading" viewBox="0 0 100 100" >
+                    <use ng-attr-xlink:href="{{type.type}}" xlink:href=""></use>
+                </svg>
+                <span class="subtitle__text">{{type.name}}</span>
+                <svg class="icon--heading" viewBox="0 0 100 100" >
+                    <use ng-attr-xlink:href="{{type.type}}" xlink:href=""></use>
+                </svg>
+            </p>
+        </div>
+        <div class="dist-from-dc">
+            <span class="popup-info-pg__coords">{{vm.selFeatData.lat}}&deg; N, {{vm.selFeatData.lon}}&deg; W</span>
+            <span ng-show="{{vm.selFeatData.cartodb_id != 211}}">{{vm.distFromDuneClimb(vm.selFeatData.lin_dist)}}<br>
+            (Trail Mile Marker 0)</span>
+        </div>
+    </header>
+
+    <!-- SEASONS -->
+    <div ng-show="vm.selFeatData.available">
+        <h4>
+            <svg class="icon--heading" viewBox="0 0 100 100">
+                <use xlink:href="#icon-calendar"></use>
+            </svg>
+            Seasonal Availability
+        </h4>
+        <ul class="available-seasons">
+            <li ng-repeat="season in vm.availableSeasons">
+                <svg ng-class="season.classNm" viewBox="0 0 100 100">
+                    <use ng-attr-xlink:href="{{season.icon}}" xlink:href=""></use>
+                </svg>
+                <span class="available-seasons__text" ng-class="{'season-available': season.open}">{{season.name}}</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- COMMERCIAL CONTACT INFO -->
+    <div ng-show="vm.selFeatData.layer === 'commercial'">
+        <h4>
+            <svg class="icon--heading" viewBox="0 0 100 100">
+                <use xlink:href="#icon-contact"</use>
+            </svg>
+            Contact Information
+        </h4>
+        <ul class="contact-info-list disable-outbound-links">
+            <li>
+                <svg class="icon--heading" viewBox="0 0 100 100">
+                    <use xlink:href="#icon-phone"</use>
+                </svg>
+                <span>{{vm.selFeatData.phone}}</span>
+            </li>
+            <li class="address">
+                <svg class="icon--heading" viewBox="0 0 100 100">
+                    <use xlink:href="#icon-mailbox"</use>
+                </svg>
+                <span>
+                    {{vm.selFeatData.address}}<br>
+                    {{vm.selFeatData.city}}, MI {{vm.selFeatData.zip}}
+                </span>
+            </li>
+            <li ng-show="vm.selFeatData.website">
+                <svg class="icon--heading" viewBox="0 0 100 100">
+                    <use xlink:href="#icon-globe"</use>
+                </svg>
+                <a href="{{vm.selFeatData.website}}" target="_blank">Website</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- CAUTION -->
+    <div ng-show="$root.cautionInfo.text">
+        <h4>
+            <svg class="icon--heading" viewBox="0 0 100 100">
+                <use xlink:href="#icon-caution"</use>
+            </svg>
+            Cautionary Concerns
+        </h4>
+        <div class="caution" ng-class="{'caution-present': $root.cautionInfo.icon}">
+            <svg viewBox="0 0 100 100">
+                <use ng-attr-xlink:href="{{$root.cautionInfo.icon}}" xlink:href=""></use>
+            </svg>
+            <div class="narrative-text" ng-bind-html="vm.trustHtml($root.cautionInfo.text)"></div>
+        </div>
+    </div>
+
+    <!-- AUDIO CLIP (leaving out until mp3's or SoundCloud ready, too many console errors!) -->
+<!--     <div ng-show="vm.selFeatData.audio_link">
+        <h4>
+            <svg class="icon--heading" viewBox="0 0 100 100">
+                <use xlink:href="#icon-audio_link"></use>
+            </svg>
+            Audio Clip
+        </h4>
+        <iframe width="100%" ng-src="{{vm.audioUrl}}"></iframe>
+    </div> -->
+
+    <!-- VIDEO CLIP -->
+    <div ng-show="vm.selFeatData.video_link">
+        <h4>
+            <svg class="icon--heading" viewBox="0 0 100 100">
+                <use xlink:href="#icon-video_link"></use>
+            </svg>
+            Video
+        </h4>
+        <div class="prevent-link-container">
+            <div class="prevent-link"></div>
+            <iframe width="100%" ng-src="{{vm.videoUrl}}" controls=0 modestbranding=1 allownetworking="internal" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- DIRECTIONS -->
+    <div class="directions disable-outbound-links" ng-hide="vm.selFeatData.layer === 'faces'">
+        <h4>
+            <svg class="icon--heading" viewBox="0 0 100 100">
+                <use xlink:href="#icon-directions"</use>
+            </svg>
+            Driving Directions
+        </h4>
+        <p><a target="_blank" ng-href="{{vm.directionsUrl}}">Click here</a> for Google Maps directions to this location (opens in a new tab).</p>
+    </div>
+
+    <!-- NARRATIVE -->
+    <div ng-show="vm.selFeatData.narrative">
+        <h4>
+            <svg class="icon--heading" viewBox="0 0 100 100">
+                <use xlink:href="#icon-list"></use>
+            </svg>
+            Description
+        </h4>
+        <div class="narrative-text disable-outbound-links" ng-bind-html="vm.trustHtml(vm.selFeatData.narrative)"></div>
+    </div>
+
+</div>

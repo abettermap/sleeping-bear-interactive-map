@@ -1,0 +1,96 @@
+<div class="popup">
+    <!-- FADED BG IMAGE -->
+    <div class="flip popup__page--img" ng-hide="vm.imgPgVisible">
+        <h2 class="popup__header">
+            <a class="btn btn--info" href="javascript:;" ng-click="vm.imgPgVisible = !vm.imgPgVisible"></a>
+            <span class="css-tooltip-right color-blue">
+                <span class="tooltip">View feature info</span>
+            </span>
+            <span class="popup__header--inner">
+                <svg class="popup-icon--type no-hover" viewBox="0 0 100 100">
+                    <use ng-attr-xlink:href="{{vm.headerTypeIcon}}" xlink:href=""></use>
+                </svg>
+                <span>{{vm.selFeatData.name}}</span>
+            </span>
+            <a class="panel__close btn" ui-sref="popup" ui-sref-opts="{reload: true}" href="#map"></a>
+            <span class="css-tooltip-left color-blue">
+                <span class="tooltip">Close popup</span>
+            </span>
+        </h2>
+        <div class="popup__inner popup__inner--img-pg no-scrollbars">
+            <div class="popup__box">
+                <!-- IMAGE PAGE -->
+                <div class="active-img-container"
+                    dir-paginate="img in vm.activeImages | itemsPerPage: 1"
+                    pagination-id="mainImg">
+                    <div class="active-img" ng-style="{'background-image':'url(' + img + ')'}"></div>
+                </div>
+                <dir-pagination-controls pagination-id="mainImg"></dir-pagination-controls>
+                <div class="popup__footer">
+                    <div class="popup__footer__tab">
+                        <svg class="footer__tab__icon" viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-nearby"></use></svg>
+                        Nearby
+                    </div>
+                    <dir-pagination-controls pagination-id="thumbs"></dir-pagination-controls>
+                    <ul class="thumbnail-list">
+                        <li dir-paginate="img in $root.thumbsArrays.current | itemsPerPage: 5 | orderBy:img.diff"
+                        pagination-id="thumbs" class="thumb">
+                            <a class="thumbnail" title="{{img.path}}"
+                                ui-sref="popup.poi({cartodb_id: img.attribs.cartodb_id, layer: img.attribs.layer, lat: img.attribs.lat, lon: img.attribs.lon, filepath: img.attribs.filepath})"
+                                ui-sref-opts="{reload: true}"
+                                ng-click="$root.cautionInfo.text = ''"
+                                ng-style="{'background-image': 'url(' + img.path + ')'}">
+                                <span class="thumb-distance">{{img.label}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- INFO PAGE -->
+    <div class="flip popup__page-info" ng-hide="!vm.imgPgVisible">
+        <div class="blurred-bg" ng-style="{'background-image':'url(' + vm.activeImages[0] + ')'}"></div>
+        <h2 class="popup__header popup__header--opaque">
+            <a class="btn btn--camera" href="" ng-click="vm.imgPgVisible = !vm.imgPgVisible"></a>
+            <span class="css-tooltip-right color-blue">
+                <span class="tooltip">Back to images</span>
+            </span>
+            <span class="popup__header--inner">
+                <svg class="popup-icon--type no-hover popup-icon-sm" viewBox="0 0 100 100">
+                    <use xlink:href="#icon-info"></use>
+                </svg>
+                <span>Location Info</span>
+            </span>
+            <a class="panel__close btn" ui-sref="popup" ui-sref-opts="{reload: true}" href="#map"></a>
+            <span class="css-tooltip-left color-blue">
+                <span class="tooltip">Close popup</span>
+            </span>
+        </h2>
+        <div class="popup__inner">
+            <div class="popup__box" ng-include="'src/app/popups/templates/popup-info-page.html'"></div>
+        </div>
+        <div class="popup__footer popup__footer--opaque">
+            <div class="popup__footer__tab">
+                <svg class="footer__tab__icon" viewBox="0 0 100 100">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-share"></use>
+                </svg>
+                Share This
+            </div>
+            <div ng-show="vm.showLinkContainer" class="popup__footer__tab footer-tab--url">
+                <p>To visit this location again or share it with others, use the following link or one of the sharing presets below:</p>
+                <span class="current-url">{{vm.getCurrentUrl()}}</span>
+                <a class="close-tab" href="" ng-click="vm.showLinkContainer = !vm.showLinkContainer">X</a>
+            </div>
+            <ul class="link-sharing-list disable-outbound-links">
+                <li ng-repeat="link in vm.socialLinkList">
+                    <a class="btn btn--share" target="link.target" ng-click="link.click('test')" ng-href="{{link.url}}" title="Share this location {{link.caption}}">
+                        <svg class="icon--share" viewBox="0 0 100 100" >
+                            <use ng-attr-xlink:href="{{link.icon}}" xlink:href=""></use>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

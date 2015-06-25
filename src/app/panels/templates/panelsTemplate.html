@@ -1,0 +1,32 @@
+<div>
+    <panel-seasons></panel-seasons>
+    <panel-features></panel-features>
+    <panel-trail></panel-trail>
+    <panel-info></panel-info>
+    <div class="panel__toggles" id="panel-toggles">
+        <a href="javascript:;" ng-click="vm.changePanel('seasons')" class="panel__toggle">
+            <svg viewBox="0 0 100 100" class="panel__toggle__icon">
+                <use xlink:href="{{ vm.activeSeasonIcon | svgIconCardHref }}"></use>
+            </svg>
+            <span class="panel__toggle__label">Seasons</span>
+        </a>
+        <a href="javascript:;" ng-click="vm.changePanel('features')" class="panel__toggle">
+            <svg viewBox="0 0 100 100" class="panel__toggle__icon">
+                <use xlink:href="#icon-map-pin"></use>
+            </svg>
+            <span class="panel__toggle__label">Features</span>
+        </a>
+        <a href="javascript:;" ng-click="vm.changePanel('trail')" class="panel__toggle">
+            <svg viewBox="0 0 100 100" class="panel__toggle__icon">
+                <use xlink:href="#icon-cyclist"></use>
+            </svg>
+            <span class="panel__toggle__label">SBHTrail</span>
+        </a>
+        <a href="javascript:;" ng-click="vm.changePanel('info')" class="panel__toggle">
+            <svg viewBox="0 0 100 100" class="panel__toggle__icon">
+                <use xlink:href="#icon-info"></use>
+            </svg>
+            <span class="panel__toggle__label">Help & Info</span>
+        </a>
+    </div>
+</div>

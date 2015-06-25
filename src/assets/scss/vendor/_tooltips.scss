@@ -1,0 +1,175 @@
+// .css-tooltip-top,
+// .css-tooltip-bottom,
+.css-tooltip-right,
+.css-tooltip-left {
+    position: absolute !important;
+    display: none;
+    text-decoration: none !important;
+    z-index: 2;
+}
+
+.css-tooltip-left .tooltip,
+.css-tooltip-right .tooltip {
+// .css-tooltip-top .tooltip,
+// .css-tooltip-bottom .tooltip,
+// .css-tooltip-diagonal-right .tooltip,
+// .css-tooltip-diagonal-left .tooltip {
+    // font-family: 'Average Sans', arial, sans-serif !important;
+    font-size: 1rem;
+    line-height: normal !important;
+    min-width: 160px;
+    opacity: 0;
+    padding: 10px 10px 12px 10px !important;
+    position: absolute;
+    text-align: left;
+    transition-duration: 0.25s;
+    transition-timing-function: cubic-bezier(0.35,0,0.35,1);
+    visibility: hidden;
+    z-index: 9999999 !important;
+}
+
+.css-tooltip-left .tooltip:before,
+.css-tooltip-right .tooltip:before {
+// .css-tooltip-top .tooltip:before,
+// .css-tooltip-bottom .tooltip:before,
+// .css-tooltip-diagonal-right .tooltip:before,
+// .css-tooltip-diagonal-left .tooltip:before {
+    content: "";
+    display: block;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+}
+
+/* tooltip left
+-------------------------------------------------------------- */
+
+// The tooltip itself
+.css-tooltip-left .tooltip {
+    text-align: center;
+    right: 2.2rem;
+    top: -.25rem;
+}
+
+// The little triangle thing
+.css-tooltip-left .tooltip:before {
+    border-left: 8px solid #000;
+    border-right: 0 !important;
+    border-top: 8px solid transparent !important;
+    border-bottom: 8px solid transparent !important;
+    top: 1.2rem;
+    right: -8px;
+}
+
+/* TOOLTIP RIGHT
+-------------------------------------------------------------- */
+
+.css-tooltip-right .tooltip {
+    left: 2.2rem;
+    top: -.25rem;
+    text-align: left;
+}
+
+.css-tooltip-right .tooltip:before {
+    border-left: 0 !important;
+    border-right: 8px solid #000;
+    border-top: 8px solid transparent !important;
+    border-bottom: 8px solid transparent !important;
+    top: 1.2rem;
+    left: -8px;
+}
+
+@include mq($from: desktop) {
+
+
+    .css-tooltip-right:hover .tooltip {
+        visibility: visible;
+        opacity: .93;
+        margin-left: 15px;
+    }
+
+}
+
+/* Tooltip Color */
+.color-blue .tooltip {
+    color: #ffffff !important;
+    background: #31598a;
+    border-radius: 4px;
+    text-shadow: 0px 1px 0px rgba(0,0,0,0.4);
+}
+
+.color-blue .tooltip:before {
+    border-color: #31598a;
+}
+
+.color-blue .tooltip:after {
+    content: "";
+    display: block;
+    border-top: 1px solid #6591c3;
+    position: absolute;
+    left: 0px;
+    top: 1px;
+    width: 100%;
+    height: 10px;
+    border-radius: 4px;
+}
+
+/* LEAVE THE REST IN IF NEEDED LATER */
+
+// /* Tool tip Top */
+// .css-tooltip-top .tooltip {
+//     left: -10px;
+//     bottom: 100%;
+//     margin-bottom: 30px;
+//     -webkit-transition-property: opacity, margin-bottom, visibility;
+//     -moz-transition-property: opacity, margin-bottom, visibility;
+//     -o-transition-property: opacity, margin-bottom, visibility;
+//     -ms-transition-property: opacity, margin-bottom, visibility;
+//     transition-property: opacity, margin-bottom, visibility;
+// }
+
+// .css-tooltip-top .tooltip:before {
+//     border-left: 8px solid transparent !important;
+//     border-right: 8px solid transparent !important;
+//     border-top: 8px solid #000;
+//     border-bottom: 0 !important;
+//     bottom: -8px;
+//     left: 15px;
+// }
+
+// .css-tooltip-top:hover .tooltip {
+//     margin-bottom: 10px;
+//  /* End Position */
+//     visibility: visible;
+//     opacity: 1;
+// }
+
+
+// /*tooltip bottom
+// -------------------------------------------------------------- */
+
+// .css-tooltip-bottom .tooltip {
+//     left: -10px;
+//     top: 100%;
+//     margin-top: 30px;
+//     -webkit-transition-property: opacity, margin-top, visibility;
+//     -moz-transition-property: opacity, margin-top, visibility;
+//     -o-transition-property: opacity, margin-top, visibility;
+//     -ms-transition-property: opacity, margin-top, visibility;
+//     transition-property: opacity, margin-top, visibility;
+// }
+
+// .css-tooltip-bottom .tooltip:before {
+//     border-left: 8px solid transparent !important;
+//     border-right: 8px solid transparent !important;
+//     border-top: 0 !important;
+//     border-bottom: 8px solid #000;
+//     top: -8px;
+//     left: 15px;
+// }
+
+// .css-tooltip-bottom:hover .tooltip {
+//     margin-top: 10px;
+//     visibility: visible;
+//     opacity: 1;
+// }

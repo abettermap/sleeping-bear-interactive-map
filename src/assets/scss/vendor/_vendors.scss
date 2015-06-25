@@ -1,0 +1,59 @@
+// VENDOR
+
+/* SASS MQ */
+/* Define breakpoints as variables for reuse */
+$mobile:  320px;
+$big-mobile: 560px;
+$tablet:  740px;
+$desktop: 1025px; // excludes 1024 of iPads
+$wide:    1300px;
+// SASS MQ \\
+$mq-responsive: true;
+
+$mq-breakpoints: (
+  mobile:  		$mobile,
+  big-mobile: 	$big-mobile,
+  tablet:  		$tablet,
+  desktop: 		$desktop,
+  wide:    		$wide
+);
+
+// Define the breakpoint from the $mq-breakpoints list that should
+// be used as the target width when outputting a static stylesheet
+// (i.e. when $mq-responsive is set to 'false').
+$mq-static-breakpoint: desktop;
+
+@import 'sass-mq/mq';
+
+// LEAFLET \\
+@import 'leaflet';
+
+// LEAFLET GPS \\
+@import 'leaflet-gps';
+
+// LEAFLET HISTORY \\
+@import 'leaflet-history-src';
+
+// NG-DIALOG (TEMPORARY)
+@import 'ngDialog';
+
+// ANIMATE.CSS \\
+
+// Use these styles (need to be defined before importing animations) \\
+$use-fadeInUp: true;
+$use-fadeOutDown: true;
+$use-flipInY: true;
+$use-flipOutY: true;
+$use-slideInLeft: true;
+$use-slideInRight: true;
+$use-slideOutLeft: true;
+$use-slideOutRight: true;
+
+
+@import 'animate-sass/animate';
+
+// MathSass
+@import 'mathsass/math';
+
+// Tooltips
+@import 'tooltips';

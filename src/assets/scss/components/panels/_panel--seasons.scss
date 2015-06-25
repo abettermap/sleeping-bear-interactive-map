@@ -1,0 +1,95 @@
+/* SEASONS LABELS */
+
+
+// The keeper of the seasons
+.seasons-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: .85rem 0;
+}
+
+/* All labels */
+.label--seasons {
+
+  border-radius: 10px;
+  @extend %flex-centered;
+  border: none;
+  box-shadow: 0 0 2px #a6a6a6 inset;
+  flex-basis: 31%;
+  flex-flow: column;
+  padding: .45rem;
+
+  &:hover {
+    border-radius: 10px;
+
+    .spring {fill: $spring;}
+
+    .summer {fill: $summer;}
+
+    .fall {fill: $fall;}
+
+    .winter {fill: $winter;}
+
+  }
+
+}
+
+/* Individual */
+.panel input:not(:checked) + .label--seasons {
+  $s: 5.2rem;
+  border: none;
+  max-width: 31.5%;
+
+  svg {
+    pointer-events: none;
+    fill: $c-panel-icon;
+    transition: $a-icon-fill-trans;
+    height: 3.7rem;
+    width: 3.7rem;
+  }
+  &:hover {
+    background-color: $c-seasons-label-fill-checked;
+  }
+}
+.panel input:checked + .label--seasons {
+
+  flex: 1 100%;
+  box-shadow: none;
+  flex-flow: row nowrap;
+  margin-top: .7rem;
+  order: 4;
+  font-size: 2rem;
+  background-color: $c-seasons-label-fill-checked;
+
+
+  svg {
+    height: 4rem;
+    width: 4rem;
+    margin-right: 0.5rem;
+  }
+
+  .spring {
+    fill: $spring;
+  }
+
+  .summer {
+    fill: $summer;
+  }
+
+  .fall {
+    fill: $fall;
+  }
+
+  .winter {
+    fill: $winter;
+  }
+
+}
+
+.panel__icon {
+
+  border-radius: 10px;
+  pointer-events: none;
+
+}

@@ -1,0 +1,302 @@
+
+/***********************/
+/**      INPUTS       **/
+/***********************/
+
+/* Bg, text, and border color for unselected inputs in popups/panels */
+%input-hover {
+  transition: $a-all-hover-transition;
+
+  &:hover {
+    background-color: $c-feat-toggle-nav-hover;
+    border-color: $c-panel-checked-border;
+    color: $near-white;
+  }
+
+}
+
+
+/***********************/
+/**   PANELS/POPUPS   **/
+/***********************/
+
+%panel-popup {
+  box-shadow: 0 -5px 25px 0 $dark-gray;
+  overflow-x: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 1000001;
+}
+
+.panel,
+.popup {
+
+  @extend %panel-popup;
+
+  /* Unchecked labels */
+  input:not(:checked) + label {
+    background-color: $c-panel-unchecked-fill;
+    border: solid $c-panel-unchecked-border 1px;
+    border-radius: 10px;
+    color: lighten($c-panel-unchecked-text, 13%);
+
+    @include mq($from: desktop) {
+      transition: $a-all-hover-transition;
+
+      &:hover {
+        background-color: lighten($c-seasons-label-fill-checked, 2%);
+        border-color: $c-panel-checked-border;
+        box-shadow: inset 0 0 5px $c-panel-unchecked-border;
+        color: lighten($near-black, 5%);
+      }
+    }
+  }
+
+  /* Checked labels */
+  input:checked + label {
+    background-color: darken($c-panel-checked-fill, 7%);
+    border: solid darken($c-panel-checked-border, 7%) 1px;
+    border-radius: 10px;
+    color: $c-panel-checked-text;
+    text-shadow: 1px 1px 1px $near-black;
+    /* Descriptions beneath main text */
+    .poi-type__desc {
+      color: lighten($near-black, 4%);
+    }
+  }
+
+}
+
+%panel__header {
+  align-items: center;
+  background-color: $c-panel-header;
+  color: $near-white;
+  display: flex;
+  font-size: $l-panel-header-ht;
+  height: 3.3rem;
+  justify-content: space-between;
+  left: 0;
+  margin: 0;
+  padding: .5rem .7rem;
+  right: 0;
+  text-align: center;
+  top: 0;
+  z-index: 1;
+
+  svg {
+    fill: $near-white;
+    height: $l-panel-header-ht + .2rem;
+    transition: $a-icon-fill-trans;
+    vertical-align: bottom;
+    width: $l-panel-header-ht + .2rem;
+  }
+
+}
+
+%panel__inner {
+  bottom: 0;
+  display: flex;
+  flex: 1;
+  font-size: 1rem;
+  left: 0;
+  overflow-y: auto;
+  position: absolute;
+  right: 0;
+  top: 3.3rem;
+
+  // Scrollbars \\
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(to left, rgba($gray, .15) 20%, rgba($c-panel-header, 0) 100%);
+    border: 1px solid rgba($gray, .35);
+    border-radius: 7px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #eee;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  }
+
+}
+
+%panel__box {
+  display: flex;
+  flex: 0 100%;
+  min-height: -webkit-min-content;
+}
+
+%panel__row {
+  flex: 0 100%;
+  padding: 1.2rem;
+}
+
+
+/***************/
+/**  Btn SVG  **/
+/***************/
+
+// Info button in popups
+.btn--info {
+  @extend %btn-svg-bg;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHBhdGggZmlsbD0iI2Y5ZjlmOSIgZD0iTTI1NiA5MC4wMDJjOTEuNzQgMCAxNjYgNzQuMjQgMTY2IDE2NS45OTggMCA5MS43NC03NC4yNDUgMTY1Ljk5OC0xNjYgMTY1Ljk5OC05MS43MzggMC0xNjYtNzQuMjQyLTE2Ni0xNjUuOTk4IDAtOTEuNzQgNzQuMjQzLTE2NS45OTggMTY2LTE2NS45OThtMC00MEMxNDIuMjMgNTAuMDAyIDUwIDE0Mi4yMjggNTAgMjU2YzAgMTEzLjc3IDkyLjIzIDIwNS45OTggMjA2IDIwNS45OThTNDYyIDM2OS43NjggNDYyIDI1NmMwLTExMy43NzItOTIuMjMtMjA1Ljk5OC0yMDYtMjA1Ljk5OHptLTMuNDM0IDMyMS44MDZjLTI4LjIxIDkuOTEzLTUxLjQ2Ni0xLjQ1NS00Ni44LTI4LjU0NyA0LjY2Ni0yNy4wOTcgMzEuNDM1LTg1LjEwOCAzNS4yNTQtOTYuMDc4IDMuODE2LTEwLjk3LTMuNTAyLTEzLjk3Ny0xMS4zNDYtOS41MTMtNC41MjQgMi42MS0xMS4yNDggNy44NC0xNy4wMiAxMi45MjQtMS42LTMuMjIzLTMuODUyLTYuOTA2LTUuNTQyLTEwLjQzMyA5LjQyLTkuNDM4IDI1LjE2NC0yMi4wOTMgNDMuODAzLTI2LjY4IDIyLjI3LTUuNDk3IDU5LjQ5MiAzLjI5IDQzLjQ5NCA0NS44NTgtMTEuNDI1IDMwLjM0LTE5LjUwNCA1MS4yNzYtMjQuNTk1IDY2Ljg2OC01LjA4OCAxNS41OTguOTU1IDE4Ljg2OCA5Ljg2MyAxMi43OSA2Ljk2LTQuNzUgMTQuMzcyLTExLjIxMyAxOS44MDYtMTYuMjI1IDIuNTE1IDQuMDg3IDMuMzIgNS4zOSA1LjgwNiAxMC4wODUtOS40MzMgOS42Ny0zNC4xMDggMzIuMjk2LTUyLjcyNCAzOC45NTN6bTU4LjQ1LTE4Ny42OGMtMTIuNzk1IDEwLjg5LTMxLjc2IDEwLjY1NC00Mi4zNy0uNTMzLTEwLjYwNy0xMS4xOC04LjgzNy0yOS4wNzYgMy45NTUtMzkuOTcgMTIuNzk1LTEwLjg5IDMxLjc2NC0xMC42NTMgNDIuMzcuNTI2IDEwLjYwNyAxMS4xODcgOC44NCAyOS4wOC0zLjk1NCAzOS45Nzd6Ii8+PC9zdmc+');
+
+}
+
+// Camera button in popups
+.btn--camera {
+  @extend %btn-svg-bg;
+
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHBhdGggZmlsbD0iI2Y5ZjlmOSIgZD0iTTMzOS42NTIgMjc3LjQ4YzAgMjkuMzktMjMuOTEgNTMuMjk4LTUzLjMgNTMuMjk4LTI5LjM4OCAwLTUzLjI5Ny0yMy45MS01My4yOTctNTMuMyAwLTI5LjM4OCAyMy45MS01My4yOTcgNTMuMjk4LTUzLjI5NyAyOS4zOSAwIDUzLjMgMjMuOTEgNTMuMyA1My4zek00NjIgMTQ4LjEyNHYyNjdINTB2LTI2N2gxMTMuMjJjMTEuMjUyIDAgMjEuNTYtNi4yOTcgMjYuNjkzLTE2LjMxbDE3LjkyLTM0Ljk0aDE1My42NjRsMTkuODIgMzUuNzg1YzUuMjg1IDkuNTQzIDE1LjMzNCAxNS40NjUgMjYuMjQzIDE1LjQ2NUg0NjJ6bS0zMDcuMTcgNTguMjVjMC0xMS4zMjItOS4xNzctMjAuNS0yMC41LTIwLjVzLTIwLjUgOS4xNzgtMjAuNSAyMC41IDkuMTggMjAuNSAyMC41IDIwLjUgMjAuNS05LjE3OCAyMC41LTIwLjV6TTM4NS41IDI3Ny40OGMwLTU0LjY3LTQ0LjQ3Ny05Ni44NTUtOTkuMTQ2LTk2Ljg1NS01NC42NyAwLTk5LjE0NiA0Mi4xODUtOTkuMTQ2IDk2Ljg1NCAwIDU0LjY3IDQ0LjQ3NyA5OS4xNDUgOTkuMTQ2IDk5LjE0NSA1NC42NyAwIDk5LjE0Ni00NC40NzcgOTkuMTQ2LTk5LjE0NnpNMTQyLjMzIDEwNC42MjRoLTY1LjV2MjdoNjUuNXYtMjd6Ii8+PC9zdmc+');
+
+}
+
+// Back button
+.btn--back {
+  @extend %btn-svg-bg;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZjlmOWY5IiBkPSJNNjguNyAyNTZMMjc1IDUwdjY3LjhoMTY4LjMydjI3Ni40SDI3NVY0NjIiLz48L3N2Zz4=');
+}
+
+%btn-svg-bg {
+  $s: 2.2rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 85%;
+  height: $s;
+  width: $s;
+}
+
+.panel__close {
+
+  @extend %btn-svg-bg;
+
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHBhdGggZmlsbD0iI2Y5ZjlmOSIgZD0iTTQzOC4zOTMgMzc0LjU5NUwzMTkuNzU3IDI1NS45NzdsMTE4LjYyLTExOC42My02My43ODItNjMuNzQtMTE4LjYgMTE4LjYxOC0xMTguNjItMTE4LjYwMy02My43NjggNjMuNzMgMTE4LjY0IDExOC42M0w3My42MiAzNzQuNjI2bDYzLjczIDYzLjc2OCAxMTguNjUtMTE4LjY2IDExOC42NSAxMTguNjQ1Ii8+PC9zdmc+');
+
+}
+
+
+/***********************/
+/**      BUTTONS      **/
+/***********************/
+
+.btn {
+
+  background-color: $c-btn-bg;
+  border-radius: 5px;
+  color: $near-white;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 300ms ease;
+
+  @include mq($from: desktop) {
+    &:hover {
+      background-color: darken($c-btn-bg, 10%);
+    }
+  }
+
+  // Start it shifted inward as far as triangle's width
+  + .css-tooltip-right .tooltip {
+    left: -8px;
+  }
+
+}
+
+
+/**************/
+/** Tooltips **/
+/**************/
+
+// Common
+.controls__label + .css-tooltip-right,
+.btn + .css-tooltip-left,
+.btn + .css-tooltip-right {
+
+  display: inline-block;
+  opacity: 0;
+  transition: all 300ms ease;
+
+  .tooltip {
+    opacity: 0;
+  }
+
+}
+
+// Only hover on desktop and up
+@include mq($from: desktop) {
+
+  .btn:hover,
+  .controls__label:hover {
+    + .css-tooltip-left,
+    + .css-tooltip-right {
+      opacity: 1;
+      visibility: visible;
+
+      > .tooltip {
+        opacity: .93;
+        visibility: visible;
+      }
+
+    }
+
+    + .css-tooltip-left .tooltip {
+      right: 2.7rem;
+    }
+
+    + .css-tooltip-right .tooltip {
+      left: 0;
+    }
+
+  }
+}
+
+// Controls (except toolbox icon)
+.controls__checkbox:not(:checked) + .controls__label:hover + .css-tooltip-right {
+  .tooltip {
+    left: 55px;
+  }
+}
+
+// Hide when toolbox isn't "checked"
+.controls__checkbox:checked + .controls__label + .css-tooltip-right {
+  .tooltip {
+    display: none;
+  }
+}
+
+// 'Filter' tab's tooltip needs to be higher
+.popup__footer__tab.footer-tab--right {
+  .css-tooltip-left .tooltip {
+    right: 2.2rem;
+    top: -2.2rem;
+  }
+}
+
+
+/**************/
+/**   Flex   **/
+/**************/
+
+%flex-centered {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+
+/* No pointer events or fill changes */
+.no-hover {
+  cursor: move;
+  pointer-events: none;
+}
+
+
+/***********************/
+/**   Miscellaneous   **/
+/***********************/
+
+// Hide back button until needed
+.vis-hidden {
+  visibility: hidden;
+}

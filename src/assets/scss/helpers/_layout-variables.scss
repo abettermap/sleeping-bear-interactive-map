@@ -1,0 +1,48 @@
+/* LAYOUT VARIABLES */
+
+/*
+Layout spacing
+*/
+$container-spacing: 2rem;
+$theme-padding: 30px;
+$big-radio-size: 75px;
+
+/*
+Inputs
+*/
+$l-btn-padding: .4rem .65rem;
+
+/*
+Panels & popups
+*/
+$l-panel-ht: 29rem;
+
+$panel-width: 50%;
+$l-panel-inner-padding: 1rem;
+
+/* Panel header */
+$l-panel-header-ht: 1.5rem;
+
+/* Panel toggles */
+$panel-toggle-padding: 0.6rem;
+$panel-toggle-content-ht: 2.8rem;
+$panel-toggle-ht: $panel-toggle-padding + $panel-toggle-content-ht;
+$l-panel-bottom: $panel-toggle-padding*2 + $panel-toggle-content-ht;
+
+/* Icons */
+$l-panel-toggle-icon-size: $panel-toggle-content-ht * .75;
+$l-sm-icon-size: 1.7rem;
+
+/* POI nav panel */
+$l-nav-icon-size: 3.5rem;
+
+/* Panel labels */
+
+/* POI toggles */
+$l-poi-toggle-icon-size: 2rem;
+
+$l-label-padding: .2rem;
+$l-label-ht: $l-poi-toggle-icon-size + $l-label-padding*2;
+
+/* Trail toggles */
+$l-trail-toggle-line-padding: .5rem .75rem;

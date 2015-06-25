@@ -1,0 +1,96 @@
+// From the website (via webcolourdata.com) \\
+$dark-brown: #4d4839;
+$lt-brown: #a29479;
+$med-brown: #957b62;
+$pale-blue: #6fa0cf;
+$lt-blue-gray: #abc8cf;
+$steely-blue: #7198a9;
+$lt-purple-blue: #a8b4c6;
+$med-dull-blue: #5c7797;
+$pink: #d69c87;
+
+$c-nav-menu: #a7dcec;
+
+// From the logo \\
+$sky-blue: rgb(134, 201, 233);
+// $paleblue: rgb(192, 229, 238);
+// $near-black: rgb(15, 15, 16);
+$deep-blue: rgb(30, 60, 142);
+$green: rgb(62, 106, 43);
+$peach: rgb(252, 202, 138);
+$med-blue: rgb(70, 135, 195);
+$baby-puke: rgb(134, 128, 47);
+
+// Regular ol' colors \\
+$dark-gray: #808080;
+$gray: #808080;
+$near-black: #4d4d4d;
+$near-white: #f9f9f9;
+
+// Primary colors \\
+$primary-color: $pale-blue;
+$c-font: $near-black;
+
+// Map wrapper
+$c-map-wrap-box-shadow: desaturate($steely-blue, 14%);
+
+/* ELEMENTS */
+/* Headings */
+$c-h3-color: darken($med-dull-blue, 5%);
+
+
+/* BUTTONS */
+$c-btn-bg: #4284c2;
+
+// Controls
+$c-ball-color: lighten($med-blue, 14%);
+$c-icon-hover: darken($c-btn-bg, 15%);
+
+///// PANELS \\\\\
+$c-panel-bg: #edede3;
+
+// Panel toggles
+$c-panel-toggle: $c-ball-color;
+$c-panel-icon: darken($med-dull-blue, 5%);
+$c-panel-toggle-hover: $primary-color;
+
+// Panel header
+$c-panel-header: $c-panel-toggle;
+
+// Panel checked
+$c-panel-checked-fill	: $steely-blue;//, 30%);
+$c-panel-checked-fill	: lighten($steely-blue, 20%);
+$c-panel-checked-border	: darken($c-panel-checked-fill, 20%);
+$c-panel-unchecked-fill	: lighten($c-panel-checked-fill, 15%);
+$c-panel-unchecked-border	: $c-panel-checked-fill;
+$c-panel-unchecked-text	: lighten($gray, 2%);
+$c-panel-checked-text	: $near-white;
+
+// Seasons
+$c-seasons-label-fill-checked: lighten($c-panel-checked-fill, 6%);
+$c-seasons-label-fill-unchecked: lighten($c-panel-unchecked-fill, 3%);
+
+$spring: #5cb04f;
+$summer: #F9F766;
+$winter: #59cce3;
+$fall: #d21414;
+
+// Features toggles -- map pins
+$c-feat-toggle-nav-arrow: $c-panel-icon;
+$c-features-icon: $green;
+$c-feat-toggle-nav-hover: darken($c-panel-checked-fill,15%);
+
+// Features toggles -- map pins
+$c-access-pin-bg: #7caad4;
+$c-feat-pin-bg: #a7588e;
+$c-comm-pin-bg: #f7892e;
+$c-access-pin-stroke: darken($c-access-pin-bg, 25%);
+$c-feat-pin-stroke: darken($c-feat-pin-bg, 25%);
+$c-comm-pin-stroke: darken($c-comm-pin-bg, 25%);
+
+
+/* TRAIL PANEL */
+$c-panel--trail__header: $c-h3-color;
+$c-grade-overlay: red;
+$c-caution-overlay: yellow;
+

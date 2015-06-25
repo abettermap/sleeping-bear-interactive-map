@@ -1,0 +1,112 @@
+/* Info pages */
+.info-page-- {
+
+  &home {
+
+    opacity: 1;
+
+    &.ng-hide-add.ng-hide-add-active {
+      animation: $a-poi-trans-dur slideOutLeft ease;
+    }
+
+    &.ng-hide-remove.ng-hide-remove-active {
+      animation: $a-poi-trans-dur slideInLeft ease;
+    }
+
+    &.ng-hide {
+      opacity: 0;
+    }
+
+  }
+
+  &topic {
+
+    opacity: 1;
+
+    &.ng-hide-add.ng-hide-add-active {
+      animation: $a-poi-trans-dur slideOutRight ease;
+    }
+
+    &.ng-hide-remove.ng-hide-remove-active {
+      animation: $a-poi-trans-dur slideInRight ease;
+    }
+
+    &.ng-hide {
+      opacity: 0;
+    }
+
+    h5 {
+      @extend %h4;
+      margin-top: .25rem;
+    }
+
+    // Wrap if using no <p>
+    p {
+      white-space: pre-wrap;
+    }
+
+  }
+}
+
+/* Logos list */
+.logos {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  margin: .4rem 0 -.2rem;
+  padding: 0;
+
+  > li {
+    text-align: center;
+  }
+
+  img, svg {
+    flex: 0 22%;
+    width: 72px;
+  }
+}
+
+/* Credits */
+.credits {
+    color: $gray;
+    display: block;
+    font-size: .9rem;
+    margin-top: .25rem;
+    margin-bottom: .75rem;
+}
+
+/* Topics list */
+.info-topics-list {
+
+  // Add space after last list item
+  li:last-of-type {
+    &:after {
+      content: "";
+      display: block;
+      height: 1rem;
+    }
+  }
+
+}
+
+.info-topics-link {
+  font-size: 1.1rem;
+}
+
+.help-list {
+  margin: 0;
+  padding-left: 20px;
+  img {
+    border: solid 1px #bbb;
+    margin: .5rem 0;
+  }
+  strong {
+    color: #222;
+  }
+  ol {
+    font-size: .9rem;
+    list-style-type: lower-alpha;
+    padding-left: 20px;
+  }
+}

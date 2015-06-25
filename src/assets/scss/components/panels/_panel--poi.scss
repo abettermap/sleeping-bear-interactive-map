@@ -1,0 +1,226 @@
+/* POI page container */
+$a-long-trans: 5000ms;
+
+%poi-page-shared {
+  opacity: 1;
+}
+
+.poi-page {
+
+  &--home {
+
+    opacity: 1;
+
+    &.ng-hide-add.ng-hide-add-active {
+      animation: $a-poi-trans-dur slideOutLeft ease;
+    }
+
+    &.ng-hide-remove.ng-hide-remove-active {
+      animation: $a-poi-trans-dur slideInLeft ease;
+    }
+
+    &.ng-hide {
+      opacity: 0;
+    }
+
+  }
+
+  &--poi {
+
+    opacity: 1;
+
+    &.ng-hide-add.ng-hide-add-active {
+      animation: $a-poi-trans-dur slideOutRight ease;
+    }
+
+    &.ng-hide-remove.ng-hide-remove-active {
+      animation: $a-poi-trans-dur slideInRight ease;
+    }
+
+    &.ng-hide {
+      opacity: 0;
+    }
+
+  }
+}
+
+
+/* Subgroup (Home) page */
+
+// List and list items
+.poi-subgroup {
+
+  position: relative; // parent for abs-pos'd sel count icon
+
+  &-list {
+    list-style-type: none;
+    margin-bottom: 0;
+    margin-top: .25rem;
+    padding-left: .5rem;
+
+    @include mq($from: tablet) {
+      margin-bottom: .5rem;
+    }
+
+    // Override positioning from shared class
+    .poi-type__icon {
+      margin-right: 10px;
+    }
+
+  }
+
+  // Not the last list item
+  &:before {
+    content: '';
+    display: block;
+    height: .32rem;
+  }
+
+  // Subgroup selected count
+  &-count {
+    $s: 1.2rem;
+    $p: .1rem;
+    background-color: #f00;
+    border: solid 2px darken(#f00, 25%);
+    border-radius: 100%;
+    color: $near-white;
+    font-size: .8rem;
+    font-weight: bold;
+    height: $s;
+    left: -.3rem;
+    line-height: ($s + $p)/2;
+    padding: $p;
+    position: absolute;
+    text-align: center;
+    top: .15rem;
+    width: $s;
+  }
+
+  &-link {
+    color: $near-black;
+    display: block;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: $a-all-hover-transition;
+
+    // "Main Access Points" blurb
+    &--access {
+      cursor: default;
+      font-size: .9rem;
+      span {
+        color: #808080;
+        display: block;
+        font-size: 0.85rem;
+        overflow: hidden;
+        text-decoration: none;
+        width: calc(100% - 2.4rem - .75rem);
+      }
+    }
+
+    &--feat {
+      @include mq($from: desktop) {
+        &:hover {
+          color: $c-feat-pin-bg;
+        }
+      }
+    }
+
+    &--comm {
+      @include mq($from: desktop) {
+
+        &:hover {
+          color: $c-comm-pin-bg;
+        }
+
+      }
+    }
+  }
+
+  &__name {
+    display: block;
+    font-size: 1.15rem;
+    line-height: 1;
+    text-decoration: underline;
+  }
+
+  // Preview list (assumes more than 1 per category)
+  &__preview {
+    color: $gray;
+    display: block;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    overflow: hidden;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: calc(100% - 2.4rem - .75rem);
+  }
+
+}
+
+/* POI LISTS */
+.poi-type-list {
+  flex-flow: column;
+  justify-content: stretch;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* POI LIST ITEMS & DESCENDANTS */
+.poi-type {
+  align-items: center;
+  margin-bottom: .4rem;
+
+  /* Labels */
+  &__label {
+    flex: 0 100%;
+    font-size: 1.2rem;
+    line-height: .8;
+    padding: .4em .4em .15em;
+  }
+
+  /* SVG icons */
+  &__icon {
+    $size: 2rem;
+    border-radius: 25px;
+    border-style: solid;
+    border-width: 2px;
+    display: inline;
+    fill: $near-white;
+    float: left;
+    height: $size;
+    margin-right: 7px;
+    padding: .2rem;
+    width: $size;
+
+    @include mq($from: tablet) {
+      height: $size*1.2;
+      width: $size*1.2;
+    }
+
+    &--access {
+      background-color: $c-access-pin-bg;
+      border-color: $c-access-pin-stroke;
+    }
+
+    &--feat {
+      background-color: $c-feat-pin-bg;
+      border-color: $c-feat-pin-stroke;
+    }
+
+    &--comm {
+      background-color: $c-comm-pin-bg;
+      border-color: $c-comm-pin-stroke;
+    }
+
+  }
+
+  &__desc {
+    color: lighten($gray, 10%);
+    flex: 0 35%;
+    font-size: .85rem;
+    line-height: 2;
+    text-shadow: none;
+  }
+}

@@ -1,0 +1,355 @@
+/* Popup Info Page */
+
+// Name, or type if no name
+.popup-info-pg__title {
+  color: #38629c;
+  font-family: Brawler, serif;
+  font-size: 2.2rem;
+  font-weight: 100;
+  line-height: 1.1;
+  margin: 0;
+}
+
+// Wavy line separator
+.divider {
+  fill: desaturate(#d2b48c, 10%);
+  margin: -.3rem 0;
+  width: 100%;
+}
+
+// Blurry background
+.blurred-bg {
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  bottom: 1px;
+  filter: sepia(.75) blur(0);
+  left: 0;
+  opacity: 1;
+  position: absolute;
+  right: 0;
+  top: 1px;
+  transition: opacity 10s ease-out;
+
+  &.ng-hide-add.ng-hide-add-active {
+    transition: none;
+  }
+
+  &.ng-hide {
+    opacity: 0;
+  }
+
+}
+
+.popup-info-pg__content {
+  background-color: rgba($c-panel-bg, .925);
+  min-height: calc(100% - 3.3rem);
+  padding: 1.2rem;
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  p {
+    font-size: .9rem;
+  }
+
+  h4 {
+    align-items: center;
+    display: flex;
+  }
+
+  header {
+    margin-bottom: .5rem;
+    text-align: center;
+  }
+
+  > div:last-of-type:after {
+    content: '';
+    display: block;
+    height: 4rem;
+  }
+
+}
+
+// The little guys
+.popup-info-pg__ {
+
+  &subtitle {
+    @extend %flex-centered;
+
+    color: darken($c-panel-header, 5%);
+    line-height: .95;
+    margin: 0;
+
+    .icon--heading {
+      $s: 1.4rem;
+      fill: darken($c-panel-header, 5%);
+      height: $s;
+      width: $s;
+    }
+
+  }
+
+  &coords {
+    display: block;
+    font-size: .75rem;
+    height: 1rem;
+    margin-top: 0;
+  }
+}
+
+// Distance from DC
+.dist-from-dc {
+  color: darken($gray, 7%);
+  font-size: .85rem;
+  margin-top: .25rem;
+}
+
+.subtitle__text {
+  font-family: Brawler;
+  font-size: 1.07rem;
+  margin: 0 .25rem;
+}
+
+.icon--heading {
+  display: inline-block;
+  fill: #38629c;
+  height: 1.8rem;
+  vertical-align: middle;
+  width: 1.8rem;
+}
+
+h4 .icon--heading {
+  margin-right: .3rem;
+}
+
+.icon--subtitle {
+  $s: 1.3rem;
+  height: $s;
+  width: $s;
+}
+
+/* Seasons */
+.available-seasons {
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  margin: .2rem 0 0;
+  padding: 0;
+
+  >li {
+    text-align: center;
+  }
+}
+
+$c-season-unavail: lighten($gray, 15%);
+$c-season-avail: darken($c-panel-header, 18%);
+
+.available-seasons__icon {
+  $s: 1.5rem;
+  display: inline-block;
+  fill: $c-season-unavail;
+  height: $s;
+  vertical-align: middle;
+  width: $s;
+
+  &.available {
+    fill: $c-season-avail;
+  }
+
+  &.spring {
+    fill: $spring;
+  }
+
+  &.summer {
+    fill: $summer;
+  }
+
+  &.fall {
+    fill: $fall;
+  }
+
+  &.winter {
+    fill: $winter;
+  }
+}
+
+.available-seasons__text {
+  color: $c-season-unavail;
+  font-size: 1rem;
+  margin-left: -3px;
+  vertical-align: middle;
+
+  &.season-available {
+    color: $c-season-avail;
+  }
+}
+
+// No margin on directions paragraph
+.directions p {
+  margin: 0;
+}
+
+// Hide video outbound link blocking
+.prevent-link {
+  display: none;
+  height: 36px;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+
+  // Parent
+  &-container {
+    position: relative;
+  }
+
+}
+
+/* Sharing buttons list */
+
+// Current URL container
+.footer-tab--url {
+  $f: .75rem;
+  background-color: $c-panel-header;
+  border-style: solid;
+  border-width: 3px 3px 0;
+  display: block;
+  opacity: 1;
+  padding: .75rem 25px;
+  right: .5rem;
+  z-index: 3;
+
+  p {
+    margin: 0 0 .5rem;
+  }
+
+  a {
+    color: $near-white;
+    display: block;
+    font-size: $f;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    text-align: center;
+    text-decoration: none;
+  }
+
+}
+
+// Darken current URL
+.current-url {
+  color: #38629c;
+  text-shadow: none;
+}
+
+a.close-tab {
+  background-color: $c-btn-bg;
+  border-radius: 15px;
+  font-weight: bold;
+  line-height: .75;
+  margin: 0;
+  padding: 6px;
+  position: absolute;
+  right: 4px;
+  text-decoration: none;
+  top: 4px;
+
+  @include mq($from: desktop) {
+    &:hover {
+      background-color: darken($c-btn-bg, 10%);
+    }
+  }
+}
+
+// Link list and buttons
+.link-sharing-list {
+  @extend %flex-centered;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  > li {
+    flex: 0 16%;
+    list-style-type: none;
+  }
+}
+
+.btn--share {
+  $s: 2.5rem;
+  display: inline-block;
+  height: $s;
+  margin: 0;
+  padding: 0;
+  width: $s;
+}
+
+// Sharing icons
+.icon--share {
+  $s: 100%;
+  padding: 2px;
+  fill: $near-white;
+  height: $s;
+  width: $s;
+  vertical-align: middle;
+}
+
+// Caution
+.caution {
+
+  @extend %flex-centered;
+
+  svg {
+    display: none;
+  }
+
+}
+
+.caution-present {
+  color: $c-season-avail;
+  margin-top: -.5rem;
+
+  .narrative-text {
+    font-size: 1.2rem;
+  }
+
+  svg {
+    display: block;
+    fill: $c-season-avail;
+    $s: 4rem;
+    height: $s;
+    width: $s;
+  }
+
+}
+
+// Commercial contact list
+.contact-info-list {
+  font-size: .9rem;
+  list-style-type: none;
+  margin: .5rem 0 0 1.25rem;
+  padding: 0;
+
+  svg {
+    $s: 1.4rem;
+    fill: lighten(desaturate($c-season-avail, 20%), 10%);
+    height: $s;
+    margin-right: .65rem;
+    width: $s;
+  }
+
+  > li {
+    align-items: center;
+    display: flex;
+  }
+}
+
+
+// Cover all the bases, whether <p> or none
+.narrative-text {
+  font-size: .9rem;
+
+  p {
+    white-space: pre-wrap;
+  }
+
+}

@@ -1,0 +1,100 @@
+
+/* Top-level panel assignments */
+.panel--trail {
+  svg {
+    display: inline;
+    fill: $c-panel--trail__header;
+    height: 1.8rem;
+    width: 1.8rem;
+  }
+  // Paragraphs:
+  &__narrative {
+    margin-top: 0;
+  }
+  &__header {
+    margin-top: .9rem;
+    // font-size: 1.2rem;
+  }
+}
+
+/* Grade, caution, trail condition toggles */
+
+// Shared \\
+.panel--trail__label {
+  @extend %flex-centered;
+  flex: 0 48%;
+  max-width: 48%;
+  font-size: 1.05rem;
+  padding: .3rem 4px;
+  &.trail-cond {
+    flex: 0 70%;
+    max-width: 70%;
+  }
+  svg {
+    margin-right: 5px;
+  }
+  // Container:
+  &-cont {
+    display: flex;
+    justify-content: space-between;
+    + h3 {
+      margin-top: .9rem;
+    }
+  }
+  &.space-around {
+    justify-content: center;
+  }
+
+}
+
+// Make condition button centered
+.trail__label-cont--cond {
+  justify-content: center;
+}
+
+// Line symbols in legend \\
+.legend-line {
+  $line-height: 4px;
+  flex: 0 30%;
+  background-color: $near-white;
+  border-color: $near-black;
+  border-style: dashed;
+  border-width: $line-height 0 0 0;
+  height: $line-height;
+  margin-left: 5px;
+  position: relative;
+  // width: $line-width;
+
+  span {
+    display: block;
+    height: $line-height;
+    opacity: .65;
+    position: relative;
+    top: $line-height*-1;
+    width: 100%;
+  }
+
+}
+
+// Line overlay colors
+.line-overlay {
+
+  &--sbht_grade {
+    background-color: $c-grade-overlay;
+  }
+
+  &--sbht_caution {
+    background-color: $c-caution-overlay;
+  }
+}
+
+// Different color for trail cond icon \\
+svg.toggle__icon--trail-cond {
+  background-color: $near-white;
+  border: solid darken($winter, 25%) 1px;
+  border-radius: 5px;
+  fill: darken($winter, 5%);
+  height: 1.8rem;
+  padding: .2rem;
+  width: 1.8rem;
+}

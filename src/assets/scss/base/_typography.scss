@@ -1,0 +1,18 @@
+html {
+
+  font-size: 15px;
+
+  @include mq(tablet) {
+    font-size: 16px;
+  }
+
+  @include mq(desktop) {
+    font-size: 17px;
+  }
+
+}
+
+body {
+  color: $c-font;
+  font-family: 'Average Sans', sans-serif;
+}

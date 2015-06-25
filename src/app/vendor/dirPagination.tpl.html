@@ -1,0 +1,52 @@
+<div>
+    <div class="popup__footer__tab footer-tab--right">
+        <a class="btn" href="" ng-click="vm.showThumbSort = !vm.showThumbSort">
+            <svg class="footer__tab__icon" viewBox="0 0 100 100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-filter"></use></svg>
+            Filter
+        </a>
+        <span class="css-tooltip-left color-blue">
+            <span class="tooltip">Filter nearby results by direction</span>
+        </span>
+    </div>
+    <div class="popup__footer__tab footer-tab--url" ng-hide="!vm.showThumbSort">
+        <p>Choose an option below to include all nearby results, or just those heading toward the north or south end of the trail (all distances are relative to the currently selected location).</p>
+        <div class="thumbs-dir-btns">
+            <input value="both" id="thumbs-both" type="radio"
+                ng-model="$root.thumbsDirectionModel"
+                ng-click="$root.updateThumbs('both')">
+            <label for="thumbs-both" class="btn btn--thumbs-sort" ng-click="vm.showThumbSort = !vm.showThumbSort">
+                <svg class="icon--thumbs-dir" viewBox="0 0 100 100">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-compass-both"></use>
+                </svg>
+                Both
+            </label>
+            <input value="north" id="thumbs-north" type="radio"
+                ng-model="$root.thumbsDirectionModel"
+                ng-click="$root.updateThumbs('north')">
+            <label for="thumbs-north" class="btn btn--thumbs-sort" ng-click="vm.showThumbSort = !vm.showThumbSort">
+                <svg class="icon--thumbs-dir" viewBox="0 0 100 100">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-compass-north"></use>
+                </svg>
+                North
+            </label>
+            <input value="south" id="thumbs-south" type="radio"
+                ng-model="$root.thumbsDirectionModel"
+                ng-click="$root.updateThumbs('south')">
+            <label for="thumbs-south" class="btn btn--thumbs-sort" ng-click="vm.showThumbSort = !vm.showThumbSort">
+                <svg class="icon--thumbs-dir" viewBox="0 0 100 100">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-compass-south"></use>
+                </svg>
+                South
+            </label>
+        </div>
+        <a class="close-tab" href="" ng-click="vm.showThumbSort = !vm.showThumbSort">X</a>
+    </div>
+    <ul class="pagination" ng-show="1 < pages.length">
+        <li ng-show="directionLinks" ng-class="{ disabled : pagination.current == 1 }" class="ng-scope pagination-arrow-container">
+            <a class="pagination-arrow" href="javascript:;" ng-click="setCurrent(pagination.current - 1)" class="ng-binding">‹</a>
+        </li>
+        <li ng-show="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }" class="ng-scope pagination-arrow-container">
+            <a class="pagination-arrow" href="javascript:;" ng-click="setCurrent(pagination.current + 1)" class="ng-binding">›</a>
+        </li>
+    </ul>
+</div>

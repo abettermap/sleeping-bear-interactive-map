@@ -1,0 +1,243 @@
+//vars
+$pi: 3.14;
+$menu-items: 7;
+$l-ball-ht: 50px;
+$a-trans-timing-items: cubic-bezier(.165, .840, .440, 1);
+$a-trans-tools: transform 600ms ease;
+$a-trans-fill: fill 250ms ease;
+
+%ball {
+  background: $c-btn-bg;
+  border-radius: 100%;
+  position: absolute;
+}
+
+
+// Filters
+%goo {
+  -webkit-filter: url("#shadowed-goo");
+  filter: url('../img/svg/project/defs/gooey.svg#shadowed-goo');
+  position: absolute;
+}
+
+// Hide input
+.controls__checkbox {
+  display: none;
+}
+
+
+//////////// FILTER CONTAINERS \\\\\\\\\\\\\\
+.filter-container-y,
+.filter-container-x {
+  @extend %goo;
+}
+
+// Show filter containers once checked
+.controls__checkbox:checked ~ .filter-container-x {
+  height: $l-ball-ht;
+  width: $l-ball-ht * 5;
+}
+
+.controls__checkbox:checked ~ .filter-container-y {
+  height: $l-ball-ht * 5;
+  width: $l-ball-ht;
+}
+
+// Y axis backgrounds when checked
+.controls__checkbox:checked ~ .filter-container-y > .controls__menu-item {
+
+  visibility: visible;
+
+  @for $i from 1 through 3 {
+
+    &:nth-of-type(#{$i}) {
+      transform: translate3d(0, round($l-ball-ht * $i), 0);
+      transition-duration: 90ms + (80ms * $i);
+    }
+
+  }
+
+}
+
+// X axis backgrounds when checked
+.controls__checkbox:checked ~ .filter-container-x > .controls__menu-item {
+
+  visibility: visible;
+
+  @for $i from 1 through 3 {
+
+    &:nth-of-type(#{$i}) {
+      transform: translate3d(round($l-ball-ht * $i), 0, 0);
+      transition-duration: 90ms + (80ms * $i);
+    }
+  }
+
+}
+
+
+
+//////////// HAMBURGER CONTAINER & TOOLS ICON \\\\\\\\\\\\\\
+.controls__label {
+
+  @extend %ball;
+
+  $l-size: $l-ball-ht * .95;
+
+  height: $l-size;
+  text-align: center;
+  transition: transform 200ms cubic-bezier(.175, .885, .320, 1.275);
+  width: $l-size;
+  z-index: 2;
+
+  &:hover {
+
+    @include mq($from: desktop) {
+      transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+
+      .controls__icon {
+        transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+      }
+    }
+
+  }
+
+
+  // The tools icon
+  .controls__icon {
+    $l-spacing: $l-ball-ht/10;
+
+    height: round($l-ball-ht * .75);
+    left: $l-spacing;
+    margin-top: 10%;
+    padding: 2px;
+    pointer-events: none;
+    transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+    transition: $a-trans-tools;
+    visibility: visible;
+    width: round($l-ball-ht * .75);
+
+  }
+
+}
+
+// Hamburg container when checked
+.controls__checkbox:checked + .controls__label {
+
+  $l-size: $l-ball-ht;
+  background-color: $near-white;
+  height: $l-size;
+  transform: scale(.9, .9) translate3d(0, 0, 0);
+  transition: transform 200ms linear;
+  width: $l-size;
+
+  &:hover {
+    @include mq($from: desktop) {
+      transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+
+      .controls__icon {
+        fill: $c-icon-hover;
+        transition: transform 200ms linear, $a-trans-fill;
+      }
+    }
+  }
+
+  .controls__icon {
+
+    -ms-filter: "FlipH";
+    fill: $c-btn-bg;
+    filter: FlipH;
+    transform: scaleX(-1);
+    transition: transform 200ms linear, $a-trans-fill, $a-trans-tools;
+
+  }
+
+}
+
+// Individual balls
+.controls__menu-item {
+
+  background-color: lighten($c-btn-bg, 14%);
+  border-radius: 100%;
+  height: $l-ball-ht;
+  position: absolute;
+  transition-duration: 280ms;
+  visibility: hidden;
+  width: $l-ball-ht;
+
+}
+
+
+//////////// SVG ICONS \\\\\\\\\\\\\\
+
+// SVG ICONS (except tools)
+.controls__icon {
+  cursor: pointer;
+  fill: $near-white;
+  height: 50px;
+  padding: 9px;
+  position: absolute;
+  visibility: hidden;
+  width: 50px;
+}
+
+.controls__checkbox:checked ~ .css-tooltip-right {
+  background: transparent;
+  display: inline-block !important;
+  height: $l-ball-ht;
+  width: $l-ball-ht;
+
+  @include mq($from: desktop) {
+    &:hover+svg {
+      fill: $c-icon-hover;
+    }
+  }
+}
+
+// Non-toolbox icons when checked
+.controls__checkbox:checked ~ .controls__icon,
+.controls__checkbox:checked ~ .css-tooltip-right {
+
+  transition-timing-function: $a-trans-timing-items;
+  visibility: visible;
+  $l-offset: round(($l-ball-ht - $l-ball-ht * .68)/2);
+
+  // Vert axis
+  @for $i from 1 through 3 {
+
+    &:nth-of-type(#{$i}) {
+      $y: round($l-ball-ht * $i);
+
+      padding: 8px; // Vert looked smaller for some reason
+      transform: translate3d(0, $y, 0);
+      transition: transform 90ms+(80ms*$i) $a-trans-timing-items, $a-trans-fill;
+    }
+  }
+
+  // Horiz axis
+  @for $i from 4 through 7 {
+
+    &:nth-of-type(#{$i}) {
+      $o: $i - 3;
+      $x: round($l-ball-ht * $o);
+      $dur: 90ms + (80ms * $i);
+      transform: translate3d($x, 0, 0);
+      transition: transform $dur $a-trans-timing-items, $a-trans-fill;
+    }
+  }
+
+}
+
+// "Locate" tool icon when active
+.tool-icon--active {
+  fill: $c-icon-hover;
+}
+
+#test {
+  z-index: 5;
+}
+
+// Back btn disabled
+.back-disabled {
+  cursor: not-allowed;
+  fill: rgba($near-white, .5);
+}

@@ -1,0 +1,131 @@
+%full {
+  height: 100%;
+  width: 100%;
+}
+
+html {
+  @extend %full;
+  overflow-x: hidden;
+}
+
+// Overflow on body
+body {
+  @extend %full;
+  background-color: $c-panel-bg;
+  margin: 0;
+  padding: 0;
+}
+
+// Hide inputs and .never-show
+input,
+.never-show {
+  display: none;
+}
+
+.never-show {
+  opacity: 0;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 2.2rem;
+  color: $med-blue;
+}
+
+h3 {
+  color: $c-h3-color;
+  font-size: 1.5rem;
+  margin: 0 0 .3rem;
+}
+
+%h4 {
+  color: #38629c;
+  fill: darken(desaturate($c-panel-header, 27%), 15%);
+  font-family: Brawler, serif;
+  font-size: 1.4rem;
+  font-weight: normal;
+  margin: 1rem auto .4rem;
+  vertical-align: bottom;
+}
+
+h4 {
+  @extend %h4;
+}
+
+h5 {
+  color: #38629c;
+  font-family: 'Average Sans', sans-serif;
+  font-size: 1.2rem;
+  font-weight: normal;
+  margin: .6rem auto .2rem;
+
+  + p {
+    margin-top: 0;
+  }
+}
+
+
+a {
+  color: $c-panel-header;
+  text-decoration: underline;
+  transition: 300ms;
+
+  @include mq($from: desktop) {
+
+    &:hover {
+      color: darken($c-panel-header, 12%);
+    }
+
+  }
+
+}
+
+img {
+  max-width: 100%;
+}
+
+label {
+  cursor: pointer;
+  display: block;
+}
+
+p {
+  font-size: .95rem;
+  margin-top: .8rem;
+}
+
+// Attribution
+.leaflet-container .leaflet-control-attribution {
+  background: rgba(255, 255, 255, .4);
+  border-top-left-radius: 5px;
+  text-align: right;
+  width: 190px;
+}
+
+// Make room for panel toggles' box shadow
+.leaflet-bottom {
+  bottom: 7px;
+}
+
+* {
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+
+}
+
+// Clearfix (included in desktop theme, not mobile)
+.clearfix:after {
+  clear: both;
+  content: ' ';
+  display: block;
+  font-size: 0;
+  height: 0;
+  // visibility: hidden;
+  overflow: hidden;
+}
