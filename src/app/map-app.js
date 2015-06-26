@@ -21,7 +21,6 @@
             'panelsModule',
             'popupsModule',
             'layersModule',
-            // 'ngDialog',
             'ngAnimate',
             'angularUtils.directives.dirPagination',
             'ui.router',
@@ -57,7 +56,7 @@
                     title: 'Sleeping Bear Heritage Trail - Interactive Map',
                     description: "An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country.",
                     url: 'http://friendsofsleepingbear.org/sbht-i-map'
-                }
+                };
 
 
                 /******************************/
@@ -69,11 +68,11 @@
                     both: [],
                     north: [],
                     south: [],
-                }
+                };
 
                 $rootScope.updateThumbs = function(direction){
                     $rootScope.thumbsArrays.current = $rootScope.thumbsArrays[direction];
-                }
+                };
 
                 $rootScope.thumbsDirectionModel = 'both';
 
@@ -98,7 +97,6 @@
                 });
 
                 $rootScope.tempSublayerIndexes = {
-                    // commercial: [50],
                     sbht_caution: -1,
                     sbht_grade: -1,
                     trail_condition: -1,
@@ -109,6 +107,57 @@
 
 })();
 
+(function() {
+
+    'use strict';
+
+    angular
+        .module('popupsModule')
+        .controller('BetaDisclaimerCtrl', BetaDisclaimerCtrl);
+
+    BetaDisclaimerCtrl.$inject = ['ngDialog', '$timeout'];
+
+    function BetaDisclaimerCtrl(ngDialog, $timeout){
+
+        // Cookies for temp map beta disclaimer
+        function setCookie(cname,cvalue) {
+            var expires = "expires=Fri, 22 May 2015 00:00:00 UTC";
+            document.cookie = cname+"="+cvalue+"; "+expires;
+        }
+
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1);
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function checkCookie() {
+            var visitedStatus = getCookie("map visited");
+            if (visitedStatus !== "") {
+                // console.log("Welcome back");
+                // ngDialog.open({ template: 'src/app/map/beta-disclaimer.html' });
+            } else {
+                // alert("hey guyyyyysss");
+                ngDialog.open({ template: 'src/app/map/beta-disclaimer.html' });
+                setCookie("map visited", 1);
+                $timeout(function() {
+                    $('#ngdialog1').scrollTop(0);
+                }, 500);
+            }
+        }
+
+        checkCookie();
+
+    }
+
+})();
 (function() {
 
     'use strict';
@@ -294,7 +343,6 @@
                 html: "<svg viewBox='0 0 100 100'>" +
                     "<use xlink:href='#icon-locate'></use></svg>"
             }),
-            // iconAnchor: [-216, 16]
         });
 
             positionMarker.addTo(map);
@@ -577,113 +625,6 @@
     'use strict';
 
     angular
-        .module('metaInfoModule')
-        .service('MetaInfoService', MetaInfoService)
-        .service('PageTitle', function() {
-            var title = 'Productmate';
-            return {
-              title: function() { return title; },
-              setTitle: function(newTitle) { title = newTitle; }
-            };
-          });
-
-    function MetaInfoService() {
-
-        var metaDescription = '';
-        var metaKeywords = '';
-
-        return {
-            metaDescription: function() {
-                return metaDescription;
-            },
-            metaKeywords: function() { return metaKeywords; },
-            reset: function() {
-              metaDescription = '';
-              metaKeywords = '';
-            },
-            setMetaDescription: function(newMetaDescription) {
-              metaDescription = newMetaDescription;
-            },
-            appendMetaKeywords: function(newKeywords) {
-              for (var key in newKeywords) {
-                if (metaKeywords === '') {
-                  metaKeywords += newKeywords[key].name;
-                } else {
-                  metaKeywords += ', ' + newKeywords[key].name;
-                }
-              }
-            }
-        };
-      }
-
-})();
-(function() {
-
-    'use strict';
-
-    angular
-        .module('popupsModule')
-        .directive('dynamicMeta', dynamicMeta);
-
-    dynamicMeta.$inject = ['$rootScope', 'MetaInfoService'];
-
-    function dynamicMeta($rootScope, MetaInfoService){
-
-        var metaDefaults = {
-            ogTitle: 'Sleeping Bear Heritage Trail - Interactive Map',
-        };
-
-
-        return {
-            // restrict: 'A',
-            // scope: {
-            //     property: '@description',
-            //     content: '@content',
-            // },
-            template: '<meta name="akljsdfkljadsljkf" content="{{description}}">',
-            // controller: 'DynamicMetaCtrl',
-            // controller: function(){
-
-            // },
-            // link: function(scope, elem, attrs) {
-
-            //     scope.metaDefaults = metaDefaults;
-            //     scope.description = 'description goes here';
-
-
-            //     $rootScope.$on('metaUpdated',function(event, data){
-
-            //     attrs.$observe('og:title', function(value){
-            //         console.log(value);
-            //     });
-
-            //         // scope.$apply(function() {
-            //         //   scope.color = "white";
-            //         // });
-
-            //     });
-            //         // debugger;
-
-
-
-
-            //     // attrs.$set('tooltip', function(value) {
-            //     //   if (value) {
-            //     //     element.addClass('tooltip-title');
-            //     //   }
-            //     // });
-            // },
-            // // controllerAs: 'vm',
-            replace: true
-        };
-    }
-
-})();
-(function() {
-
-    'use strict';
-
-    angular
         .module('mapApp')
         .factory('kioskFactory', kioskFactory);
 
@@ -699,7 +640,6 @@
 
         // Disable outbound links if kiosk
         function disableLinks(){
-
 
             var k = window.location.href.indexOf('kiosk');
 
@@ -1812,7 +1752,6 @@
                     html: "<svg viewBox='0 0 100 100'>" +
                         "<use xlink:href='#icon-locate'></use></svg>"
                 }),
-                // iconAnchor: [-216, 16]
             });
 
             var gpsCtrl =  new L.Control.Gps({
@@ -1850,7 +1789,6 @@
     }
 
 })();
-//////*   ctrlsFactory.js   *//////
 (function() {
 
     'use strict';
@@ -1859,16 +1797,14 @@
         .module('ctrlsModule')
         .factory('ctrlsFactory', ctrlsFactory);
 
-    // do this so you don't lose it during ugg...
     ctrlsFactory.$inject = ['mapFactory'];
 
     function ctrlsFactory(mapFactory){
 
         var map = mapFactory.map;
 
-        var ctrlsFactory = {
+        var factory = {
             getZoom: getZoom,
-            // fullScreen: fullScreen,
             locate: locate,
             map: map,
             tileLayers: mapFactory.tileLayers,
@@ -1900,49 +1836,9 @@
             });
         }
 
-        // function fullScreen(){
-        //     angular.element('#map-wrapper').toggleClass('fullscreen');
-        //     map.invalidateSize();
-        //     $('#map-wrapper')[0].scrollIntoView(true);
-        // }
-
-        // function changeTiles(current) {
-        // function changeTiles() {
-
-
-
-        //     var layerName = current.toString(),
-        //         newLayer = '',
-        //         currentLayer = '';
-
-        //     for (var key in tileLayers) {
-        //         if (key === layerName){
-        //             newLayer = key;
-        //         } else {
-        //             currentLayer = key;
-        //         }
-        //     }
-
-        //     map.removeLayer(tileLayers[currentLayer]);
-        //     map.addLayer(tileLayers[newLayer]);
-        //     tileLayers[newLayer].bringToBack();
-
-        // };
-
-        // ctrlsFactory.executeFunctionByName = function(functionName, context /*, args */) {
-        //     var args = [].slice.call(arguments).splice(2);
-        //     var namespaces = functionName.split(".");
-        //     var func = namespaces.pop();
-        //     for(var i = 0; i < namespaces.length; i++) {
-        //       context = context[namespaces[i]];
-        //     }
-        //     return context[func].apply(this, args);
-        // };
-
-        return ctrlsFactory;
+        return factory;
 
     }
-
 
 })();
 (function() {
@@ -2363,8 +2259,6 @@
         /******************************/
         var sublayers = layersFactory.sublayers;
 
-
-
         function toggleFeatures(types){
 
             var query,
@@ -2431,9 +2325,7 @@
                 }
 
                 for (var i = 0; i < types.length; i++) {
-
                     if (i === 0) {
-                        // arr.push(" OR (substring(commercial.categories," + types[i] + ",1) = 'y'");
                         arr.push(" WHERE (substring(commercial.categories," + types[i] + ",1) = 'y'");
                     } else {
                         arr.push(" OR substring(commercial.categories," + types[i] + ",1) = 'y'");
@@ -2445,9 +2337,7 @@
             } else {  /* When not called from setSeason()... */
 
                 for (var n = 0; n < states.commercial.length; n++) {
-
                     if (n === 0) {
-                        // arr.push(" OR (substring(commercial.categories," + states.commercial[n] + ",1) = 'y'");
                         arr.push(" WHERE (substring(commercial.categories," + states.commercial[n] + ",1) = 'y'");
                     } else {
                         arr.push(" OR substring(commercial.categories," + states.commercial[n] + ",1) = 'y'");
@@ -2486,7 +2376,6 @@
 
         // Get feature subgroups
         function getSubGroups (table){
-            // debugger;
             var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT DISTINCT ON (sub_group) sub_group FROM ",
                 query;
 
@@ -2499,7 +2388,7 @@
             return $http({
                 method: 'GET',
                 url: query,
-             });
+            });
         }
 
         // Get POI toggles data

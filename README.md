@@ -1,6 +1,6 @@
 # Sleeping Bear Heritage Trail Interactive Map
 
-![SBHT map screenshot](https://github.com/abettermap/sleeping-bear-interactive-map/blob/development/src/assets/img/raster/sbht-screenshot.jpg "SBHT map screenshot")
+![SBHT map screenshot](https://github.com/abettermap/sleeping-bear-interactive-map/blob/master/src/assets/img/raster/sbht-screenshot.jpg "SBHT map screenshot")
 
 ## Background
 >The paved, multi-use Sleeping Bear Heritage Trail is the only trail in
