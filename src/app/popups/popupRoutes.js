@@ -10,6 +10,8 @@
             paginationTemplateProvider.setPath(pagPath);
 
             $urlRouterProvider.otherwise('/');
+            $locationProvider.html5Mode(true);
+            $locationProvider.hashPrefix('!');
 
             $stateProvider
                 .state('popup', {
