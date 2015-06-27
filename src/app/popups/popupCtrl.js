@@ -218,19 +218,32 @@
                 },
                 {
                     name: 'facebook',
-                    caption: 'on Facebook',
+                    caption: ' on Facebook',
                     icon: '#icon-facebook',
-                    target: '_self',
-                    url: "",
+                    target: '_blank',
+                    url: '',
                     click: function(){
-                        popupFactory.fbShareDialog(urlShareParams);
+                        var left = (screen.width/2)-(300);
+                        var top = (screen.height/2)-(300);
+                        MyWindow = window.open(popupFactory.setShareUrl('facebook', urlShareParams),
+                            'MyWindow',
+                            'width=600,height=600,top=' + top + ',left=' + left);
+                        return false;
                     }
                 },
                 {
                     name: 'twitter',
-                    caption: 'on Twitter',
+                    caption: ' on Twitter',
                     icon: '#icon-twitter',
-                    url: popupFactory.setShareUrl('twitter', urlShareParams),
+                    url: '',
+                    click: function(){
+                        var left = (screen.width/2)-(300);
+                        var top = (screen.height/2)-(150);
+                        MyWindow = window.open(popupFactory.setShareUrl('twitter', urlShareParams),
+                            'MyWindow',
+                            'width=600,height=300,top=' + top + ',left=' + left);
+                        return false;
+                    },
                     target: '_blank',
                 },
                 {
