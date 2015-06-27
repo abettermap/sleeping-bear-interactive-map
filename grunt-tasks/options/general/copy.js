@@ -18,6 +18,16 @@ module.exports = {
             }
         ]
     },
+    staticPage: {
+        expand: true,
+        src: 'static-page.php',
+        dest: 'build'
+    },
+    htaccess: {
+        expand: true,
+        src: '.htaccess',
+        dest: 'build'
+    },
     fastClick: {
         expand: true,
         src: 'src/assets/js/vendor/fastclick.js',
