@@ -62,7 +62,7 @@
         <link rel="stylesheet" href="src/assets/css/map-style.css">
         <!-- endbuild -->
 
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" sizes="152x152" href="src/assets/img/raster/apple-icons/apple-touch-icon-152x152.png" />
 
         <script type="text/javascript" src="src/assets/js/vendor/fastclick.js" async></script>
