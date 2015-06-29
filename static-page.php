@@ -86,11 +86,11 @@
             echo '<meta property="og:image:height" content="' . $size[1] . '" />' . "\r\n";
 
             // Pinterest location experiment
-            if ($_SERVER['HTTP_USER_AGENT'] !== 'Pinterest/0.1 +http://pinterest.com/') {
+            echo '<meta property="og:type" content="place" />';
+            echo '<meta property="place:location:latitude" content="' . $data->lat . '" />';
+            echo '<meta property="place:location:longitude" content="' . $data->lon . '" />';
+            if ($_SERVER['HTTP_USER_AGENT'] === 'Pinterest/0.1 +http://pinterest.com/') {
             } else {
-                echo '<meta property="og:type" content="place" />';
-                echo '<meta property="place:location:latitude" content="' . $data->lat . '" />';
-                echo '<meta property="place:location:longitude" content="' . $data->lon . '" />';
             }
         ?>
         <!-- Twitter summary card metadata -->
