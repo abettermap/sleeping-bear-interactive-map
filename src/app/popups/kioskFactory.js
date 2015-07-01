@@ -31,8 +31,8 @@
                       'text-decoration: none !important;' +
                       'pointer-events: none !important;' +
                     '}' +
-                    '.disable-outbound-links iframe,'+
-                    '.disable-outbound-links h4 {' +
+                    '.disable-outbound-links iframe,' +
+                    'popup-info-pg__content .disable-outbound-links h4 {' +
                         'display: none !important;' +
                     '}' +
                     '.prevent-link {' +
