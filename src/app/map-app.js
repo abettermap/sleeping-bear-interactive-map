@@ -628,9 +628,9 @@
         .module('mapApp')
         .factory('kioskFactory', kioskFactory);
 
-    kioskFactory.$inject = ['$http', '$rootScope', 'layersFactory'];
+    kioskFactory.$inject = ['$http', '$rootScope', 'layersFactory', '$state'];
 
-    function kioskFactory($http, $rootScope, layersFactory){
+    function kioskFactory($http, $rootScope, layersFactory, $state){
 
         var factory = {
             disableLinks: disableLinks,
@@ -638,18 +638,24 @@
             screensaverTimer: null,
         };
 
-        // Disable outbound links if kiosk
+        // Disable context menu and outbound links if kiosk
         function disableLinks(){
 
             var k = window.location.href.indexOf('kiosk');
-
             if (k > 0){
+
+                // Disable right-click
+                $('body').attr('oncontextmenu', 'return false');
 
                 var css = '' +
                     '.disable-outbound-links a {' +
                       'color: inherit !important;' +
                       'text-decoration: none !important;' +
                       'pointer-events: none !important;' +
+                    '}' +
+                    '.disable-outbound-links iframe,' +
+                    'popup-info-pg__content .disable-outbound-links h4 {' +
+                        'display: none !important;' +
                     '}' +
                     '.prevent-link {' +
                         'display: block !important;' +
@@ -754,12 +760,12 @@
                 var randomId = Math.floor(Math.random() * dataResponse.data.rows.length);
                 randomId = dataResponse.data.rows[randomId].id;
 
-                // Create URL
-                var newUrl = window.location.origin + window.location.pathname + '#\/popup\/' +
-                    subs[randomSub] + '\/' + randomId;
+                var params = {
+                    cartodb_id: randomId,
+                    layer: subs[randomSub],
+                };
 
-                // Go to URL
-                window.location.href = newUrl;
+                $state.go('popup.poi', params, {reload: true});
 
             });
 
@@ -1014,19 +1020,32 @@
                 },
                 {
                     name: 'facebook',
-                    caption: 'on Facebook',
+                    caption: ' on Facebook',
                     icon: '#icon-facebook',
-                    target: '_self',
-                    url: "",
+                    target: '_blank',
+                    url: '',
                     click: function(){
-                        popupFactory.fbShareDialog(urlShareParams);
+                        var left = (screen.width/2)-(300);
+                        var top = (screen.height/2)-(300);
+                        MyWindow = window.open(popupFactory.setShareUrl('facebook', urlShareParams),
+                            'MyWindow',
+                            'width=600,height=600,top=' + top + ',left=' + left);
+                        return false;
                     }
                 },
                 {
                     name: 'twitter',
-                    caption: 'on Twitter',
+                    caption: ' on Twitter',
                     icon: '#icon-twitter',
-                    url: popupFactory.setShareUrl('twitter', urlShareParams),
+                    url: '',
+                    click: function(){
+                        var left = (screen.width/2)-(300);
+                        var top = (screen.height/2)-(150);
+                        MyWindow = window.open(popupFactory.setShareUrl('twitter', urlShareParams),
+                            'MyWindow',
+                            'width=600,height=300,top=' + top + ',left=' + left);
+                        return false;
+                    },
                     target: '_blank',
                 },
                 {
@@ -1493,18 +1512,20 @@
         }
 
         /* Social links */
-        function setShareUrl(medium, shareParams) {
+        function setShareUrl(medium, params) {
 
             var shareUrl = {
                     email: "mailto:?subject=" + $rootScope.metaInfo.title +
                     "&body=Check out this location on the Sleeping Bear Heritage Trail Interactive Map: " + getCurrentUrl(),
-                    google: 'https://plus.google.com/share?url=' + getCurrentUrl(),
+                    facebook: 'https://www.facebook.com/sharer/sharer.php?' +
+                    'u=' + encodeURIComponent(params.url),
+                    google: 'https://plus.google.com/share?url=' + encodeURIComponent(params.url),
                     link: '#',
-                    pinterest: 'http://pinterest.com/pin/create/button/?url=' + encodeURIComponent(shareParams.url) +
-                        '&media=' + shareParams.img +
-                        '&description=' + shareParams.description,
-                    twitter: "https://twitter.com/intent/tweet?text=" + shareParams.description.substr(0,90) + "..." +
-                        "&url=" + encodeURIComponent(shareParams.url) + "&hashtags=SleepingBear,Michigan"
+                    pinterest: 'http://pinterest.com/pin/create/button/?url=' + encodeURIComponent(params.url) +
+                        '&media=' + params.img +
+                        '&description=' + params.description.substr(0,490),
+                    twitter: "https://twitter.com/intent/tweet?text=" + params.description.substr(0,90) + "..." +
+                        "&url=" + encodeURIComponent(params.url) + "&hashtags=SleepingBear,Michigan"
                 };
 
             return shareUrl[medium];
@@ -1538,11 +1559,23 @@
             var pagPath = 'src/app/vendor/dirPagination.tpl.html';
             paginationTemplateProvider.setPath(pagPath);
 
-            $urlRouterProvider.otherwise('/');
+            // Check if kiosk
+            var k = window.location.href.indexOf('kiosk'),
+                path;
+
+            if (k > 0){
+                path = '/kiosk/';
+            } else {
+                path = '/';
+            }
+
+            $locationProvider.html5Mode(true);
+            $locationProvider.hashPrefix('!');
+            $urlRouterProvider.otherwise(path);
 
             $stateProvider
                 .state('popup', {
-                    url: '/',
+                    url: path,
                     template: '<div ui-view></div>',
                 })
                 .state('position', {
