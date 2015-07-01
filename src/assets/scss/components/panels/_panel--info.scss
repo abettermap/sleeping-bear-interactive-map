@@ -69,11 +69,11 @@
 
 /* Credits */
 .credits {
-    color: $gray;
-    display: block;
-    font-size: .9rem;
-    margin-top: .25rem;
-    margin-bottom: .75rem;
+  color: $gray;
+  display: block;
+  font-size: .9rem;
+  margin-top: .25rem;
+  margin-bottom: .75rem;
 }
 
 /* Topics list */
@@ -109,4 +109,19 @@
     list-style-type: lower-alpha;
     padding-left: 20px;
   }
+}
+
+/* Software Credits */
+.software-credits__logo {
+  display: block;
+  margin: .75rem auto;
+  max-height: 7rem;
+  max-width: 80%;
+}
+
+// Larger font for opening paragraph
+.intro-text {
+  border-bottom: dashed #808080 1px;
+  font-size: 1rem;
+  padding-bottom: 1rem;
 }
