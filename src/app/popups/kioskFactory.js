@@ -6,9 +6,9 @@
         .module('mapApp')
         .factory('kioskFactory', kioskFactory);
 
-    kioskFactory.$inject = ['$http', '$rootScope', 'layersFactory'];
+    kioskFactory.$inject = ['$http', '$rootScope', 'layersFactory', '$state'];
 
-    function kioskFactory($http, $rootScope, layersFactory){
+    function kioskFactory($http, $rootScope, layersFactory, $state){
 
         var factory = {
             disableLinks: disableLinks,
@@ -16,18 +16,24 @@
             screensaverTimer: null,
         };
 
-        // Disable outbound links if kiosk
+        // Disable context menu and outbound links if kiosk
         function disableLinks(){
 
             var k = window.location.href.indexOf('kiosk');
-
             if (k > 0){
+
+                // Disable right-click
+                $('body').attr('oncontextmenu', 'return false');
 
                 var css = '' +
                     '.disable-outbound-links a {' +
                       'color: inherit !important;' +
                       'text-decoration: none !important;' +
                       'pointer-events: none !important;' +
+                    '}' +
+                    '.disable-outbound-links iframe,'+
+                    '.disable-outbound-links h4 {' +
+                        'display: none !important;' +
                     '}' +
                     '.prevent-link {' +
                         'display: block !important;' +
@@ -132,12 +138,12 @@
                 var randomId = Math.floor(Math.random() * dataResponse.data.rows.length);
                 randomId = dataResponse.data.rows[randomId].id;
 
-                // Create URL
-                var newUrl = window.location.origin + window.location.pathname + '#\/popup\/' +
-                    subs[randomSub] + '\/' + randomId;
+                var params = {
+                    cartodb_id: randomId,
+                    layer: subs[randomSub],
+                };
 
-                // Go to URL
-                window.location.href = newUrl;
+                $state.go('popup.poi', params, {reload: true});
 
             });
 
