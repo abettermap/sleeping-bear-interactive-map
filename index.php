@@ -6,7 +6,7 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1.0">
         <title ng-bind="$root.metaInfo.title"></title>
         <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Average+Sans|Brawler">
-
+        <base href="/sbht-i-map/"/>
         <meta name="description" ng-attr-content="An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country." />
         <meta property="og:image" content="src/assets/img/raster/logos/sbht-logo.jpg" />
         <meta property="og:description" content="An interactive map of the Sleeping Bear Heritage Trail, Northwest Michigan's most popular pathway running through the heart of dune country." />
@@ -59,10 +59,10 @@
         </style>
 
         <!-- build:css src/assets/css/map-style.css -->
-        <link rel="stylesheet" href="./src/assets/css/map-style.css">
+        <link rel="stylesheet" href="src/assets/css/map-style.css">
         <!-- endbuild -->
 
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" sizes="152x152" href="src/assets/img/raster/apple-icons/apple-touch-icon-152x152.png" />
 
         <script type="text/javascript" src="src/assets/js/vendor/fastclick.js" async></script>
@@ -126,15 +126,15 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
 
         <!-- build:js src/assets/js/map-vendors.js -->
-        <script type="text/javascript" src="./src/assets/js/vendor/angular-animate.js"></script>
-        <script type="text/javascript" src="./src/assets/js/vendor/angular-ui-router.js"></script>
-        <script type="text/javascript" src="./src/assets/js/vendor/esri-leaflet-basemaps.js"></script>
-        <script type="text/javascript" src="./src/assets/js/vendor/leaflet-history-src.js"></script>
-        <script type="text/javascript" src="./src/assets/js/vendor/leaflet-gps.js"></script>
+        <script type="text/javascript" src="src/assets/js/vendor/angular-animate.js"></script>
+        <script type="text/javascript" src="src/assets/js/vendor/angular-ui-router.js"></script>
+        <script type="text/javascript" src="src/assets/js/vendor/esri-leaflet-basemaps.js"></script>
+        <script type="text/javascript" src="src/assets/js/vendor/leaflet-history-src.js"></script>
+        <script type="text/javascript" src="src/assets/js/vendor/leaflet-gps.js"></script>
         <!-- endbuild -->
 
         <!-- build:js src/app/map-app.js -->
-        <script type="text/javascript" src="./src/app/map-app.js"></script>
+        <script type="text/javascript" src="src/app/map-app.js"></script>
         <!-- endbuild -->
 
     </body>

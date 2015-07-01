@@ -18,6 +18,16 @@ module.exports = {
             }
         ]
     },
+    staticPage: {
+        expand: true,
+        src: 'static-page.php',
+        dest: 'build'
+    },
+    htaccess: {
+        expand: true,
+        src: '.htaccess',
+        dest: 'build'
+    },
     fastClick: {
         expand: true,
         src: 'src/assets/js/vendor/fastclick.js',
@@ -86,6 +96,22 @@ module.exports = {
         src: ['assets/img/svg/project/min/*.svg'],
         expand: true,
         dest: 'build/src/assets/img/svg/project/min/'
+    },
+    softwareCredits: {
+        cwd: 'src/',
+        filter: 'isFile',
+        flatten: true,
+        src: ['assets/img/svg/project/credits/*.svg'],
+        expand: true,
+        dest: 'build/src/assets/img/svg/project/credits/'
+    },
+    iconmonstr: {
+        cwd: 'src/',
+        filter: 'isFile',
+        flatten: true,
+        src: ['assets/img/raster/credits/*.jpg'],
+        expand: true,
+        dest: 'build/src/assets/img/raster/credits/'
     }
 
 };

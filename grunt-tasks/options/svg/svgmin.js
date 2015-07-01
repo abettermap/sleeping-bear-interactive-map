@@ -6,6 +6,16 @@ module.exports = {
             { removeUselessStrokeAndFill: false }
         ]
     },
+    softwareCredits: {
+        files: [{
+            expand: true,
+            cwd: 'src/assets/img/svg/project/credits/',
+            src: [
+                '*.svg'
+            ],
+            dest: 'src/assets/img/svg/project/credits/'
+        }]
+    },
     icons: {
         files: [{
             expand: true,

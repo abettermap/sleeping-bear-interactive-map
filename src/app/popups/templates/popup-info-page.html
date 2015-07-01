@@ -109,17 +109,14 @@
     </div> -->
 
     <!-- VIDEO CLIP -->
-    <div ng-show="vm.selFeatData.video_link">
+    <div ng-show="vm.selFeatData.video_link" class="disable-outbound-links">
         <h4>
             <svg class="icon--heading" viewBox="0 0 100 100">
                 <use xlink:href="#icon-video_link"></use>
             </svg>
             Video
         </h4>
-        <div class="prevent-link-container">
-            <div class="prevent-link"></div>
-            <iframe width="100%" ng-src="{{vm.videoUrl}}" controls=0 modestbranding=1 allownetworking="internal" frameborder="0" allowfullscreen></iframe>
-        </div>
+        <iframe width="100%" ng-src="{{vm.videoUrl}}" controls=0 modestbranding=1 allownetworking="internal" frameborder="0" allowfullscreen></iframe>
     </div>
 
     <!-- DIRECTIONS -->

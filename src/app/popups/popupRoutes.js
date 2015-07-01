@@ -9,11 +9,23 @@
             var pagPath = 'src/app/vendor/dirPagination.tpl.html';
             paginationTemplateProvider.setPath(pagPath);
 
-            $urlRouterProvider.otherwise('/');
+            // Check if kiosk
+            var k = window.location.href.indexOf('kiosk'),
+                path;
+
+            if (k > 0){
+                path = '/kiosk/';
+            } else {
+                path = '/';
+            }
+
+            $locationProvider.html5Mode(true);
+            $locationProvider.hashPrefix('!');
+            $urlRouterProvider.otherwise(path);
 
             $stateProvider
                 .state('popup', {
-                    url: '/',
+                    url: path,
                     template: '<div ui-view></div>',
                 })
                 .state('position', {

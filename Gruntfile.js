@@ -58,7 +58,7 @@ module.exports = function(grunt) {
         'copy:kiosk',
         'autoprefixer:build',
         'htmlmin',
-        // 'shell',
+        'shell',
     ]);
 
     // DEFAULT ()

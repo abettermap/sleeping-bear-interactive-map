@@ -6,23 +6,42 @@
   position: absolute;
   right: 0;
   top: 0;
+
   @include mq($from: mobile, $and: '(min-device-height: 481px)') {
     bottom: 2.9rem;
     top: -.3rem;
   }
+
+  // Transitions
+  transition: 300ms;
+
+  &.ng-enter {
+    opacity: 0;
+
+    &.ng-enter-active {
+      opacity: 1;
+    }
+  }
+
+  &.ng-leave {
+    opacity: 1;
+
+    &.ng-leave-active {
+      opacity: 0;
+    }
+  }
+
 }
 
-.active-img  {
-
-  top: 0;
-  bottom: 0;
-  height: 100%;
-  width: 100%;
-  position: absolute;
+.active-img {
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
-
+  bottom: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 /* THUMBS */
@@ -31,7 +50,7 @@
 
   background-color: rgba($c-panel-header, .65);
   bottom: 0;
-  box-shadow: 0 -2px 22px 0 rgba($near-black,.75);
+  box-shadow: 0 -2px 22px 0 rgba($near-black, .75);
   flex-flow: row nowrap;
   height: 3.4rem;
   padding: .25rem 0;
@@ -235,45 +254,54 @@
 }
 
 .popup__footer {
+
   .pagination {
-    right: 0;
-    left: 0;
     bottom: 0;
+    left: 0;
+    right: 0;
     top: 0;
   }
+
   .pagination-arrow-container {
     a {
       height: 3.4rem;
       line-height: .75rem;
     }
+
     &:first-of-type {
       left: 0;
+
       a {
-          border-radius: 0 2.5rem 2.5rem 0;
-          padding: .74rem .35rem .94rem .25rem;
+        border-radius: 0 2.5rem 2.5rem 0;
+        padding: .74rem .35rem .94rem .25rem;
       }
     }
+
     &:last-of-type {
-        right: 0;
+      right: 0;
+
       a {
         border-radius: 1.75rem 0 0 1.75rem;
         padding: .74rem .25rem .94rem .35rem;
       }
     }
   }
+
   &--opaque {
     background-color: $c-panel-header;
+
     .popup__footer__tab {
       background-color: inherit;
     }
+
     &:before {
       content: '';
-      height: 15px;
-      width: 100%;
-      top: -15px;
-      filter: blur(5px);
       display: block;
+      filter: blur(5px);
+      height: 15px;
       position: absolute;
+      top: -15px;
+      width: 100%;
     }
   }
 }
@@ -282,6 +310,24 @@
 .thumb {
   display: inline-block;
   min-width: 20%;
+  transition: 300ms;
+
+  &.ng-enter {
+    opacity: 0;
+
+    &.ng-enter-active {
+      opacity: 1;
+    }
+  }
+
+  &.ng-leave {
+    opacity: 1;
+
+    &.ng-leave-active {
+      opacity: 0;
+    }
+  }
+
 }
 
 /* <a> elements */

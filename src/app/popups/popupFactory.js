@@ -341,18 +341,20 @@
         }
 
         /* Social links */
-        function setShareUrl(medium, shareParams) {
+        function setShareUrl(medium, params) {
 
             var shareUrl = {
                     email: "mailto:?subject=" + $rootScope.metaInfo.title +
                     "&body=Check out this location on the Sleeping Bear Heritage Trail Interactive Map: " + getCurrentUrl(),
-                    google: 'https://plus.google.com/share?url=' + getCurrentUrl(),
+                    facebook: 'https://www.facebook.com/sharer/sharer.php?' +
+                    'u=' + encodeURIComponent(params.url),
+                    google: 'https://plus.google.com/share?url=' + encodeURIComponent(params.url),
                     link: '#',
-                    pinterest: 'http://pinterest.com/pin/create/button/?url=' + encodeURIComponent(shareParams.url) +
-                        '&media=' + shareParams.img +
-                        '&description=' + shareParams.description,
-                    twitter: "https://twitter.com/intent/tweet?text=" + shareParams.description.substr(0,90) + "..." +
-                        "&url=" + encodeURIComponent(shareParams.url) + "&hashtags=SleepingBear,Michigan"
+                    pinterest: 'http://pinterest.com/pin/create/button/?url=' + encodeURIComponent(params.url) +
+                        '&media=' + params.img +
+                        '&description=' + params.description.substr(0,490),
+                    twitter: "https://twitter.com/intent/tweet?text=" + params.description.substr(0,90) + "..." +
+                        "&url=" + encodeURIComponent(params.url) + "&hashtags=SleepingBear,Michigan"
                 };
 
             return shareUrl[medium];
