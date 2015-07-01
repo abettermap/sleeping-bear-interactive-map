@@ -12,6 +12,10 @@ build
 src/assets/scss/auto
 src/assets/scss/inline
 
+# Credits Markup #
+######
+software-credits-markup.html
+
 # Beta Disclaimer #
 ######
 src/app/map/beta-disclaimer.html
