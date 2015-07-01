@@ -1,0 +1,69 @@
+<div class="software-credits">
+  <p class="intro-text">For those interested in the nerdy inner workings of the map, read on! This section is also a shoutout from the <a href="http://abettermap.com/about" target="_blank" title="A Better Map's About Page">developer</a> to the countless libraries, APIs, repositories, forums, and blog posts that made this map possible.</p>
+  <h4>Licensing</h4>
+  <p>Every last drop of the code used in the map is <a href="http://opensource.org/" target="_blank" title="Open Source Initiative">open source</a>, and many of the programs used to edit the data and images are as well. The source code for the project is <a target="_blank" href="https://github.com/abettermap/sleeping-bear-interactive-map">available on GitHub</a> for anyone interested.</p>
+  <h4>Framework</h4>
+  <a target="_blank" title="By AngularJS [CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File%3AAngularJS_logo.svg"><img class="software-credits__logo" alt="AngularJS logo" src="src/assets/img/svg/project/credits/logo-angular.svg"/></a>
+  <p>First and foremost, this is an <a href="https://angularjs.org" title="AngularJS" target="_blank">AngularJS</a> show. Angular is Google's very powerful (and very challenging) open-source single-page application framework that can be used for super sweetness like custom directives and data binding.</p>
+  <p>Certain Angular modules were used as well, including:</p>
+  <ul>
+    <li>
+      <a href="https://github.com/angular-ui/ui-router" target="_blank" title="AngularUI Router - Github">AngularUI Router</a> for the dynamic data-driven URLs
+    </li>
+    <li>
+      A <a href="https://github.com/michaelbromley/angularUtils/tree/master/src/directives/pagination" target="_blank" title="Angular pagination directive">pagination directive</a> to switch between popup images
+    </li>
+    <li>
+      <a href="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular-animate.js" target="_blank" title="Angular Animate source code">Angular Animate</a> for the fancy animations between certain views.
+    </li>
+    <li>
+      <a href="https://github.com/likeastore/ngDialog" target="_blank" title="ngDialog source code - Github">ngDialog</a> for the temporary fullscreen disclaimer we used for awhile.
+    </li>
+  </ul>
+  <p>For anyone interested in learning AngularJS, I highly recommend Dan Wahlin's <a href="https://www.udemy.com/angularjs-jumpstart/" target="_blank">Udemy course</a>. Or anything by Dan for that matter. Great instructor!</p>
+  <h4>The Map</h4>
+  <img title="CartoDB" class="software-credits__logo" src="src/assets/img/svg/project/credits/logo-cartodb.svg" alt="CartoDB logo" />
+  <p>The map itself is powered by:</p>
+  <ul>
+    <li><a href="http://cartodb.com/" title="CartoDB" target="_blank">CartoDB</a> on the back end (and a bit of their JS API for the front)</li>
+    <li><a href="http://leafletjs.com" target="_blank" title="LeafletJS">LeafletJS</a> on the front end (it's actually included in the CartoDB code)</li>
+    <li><a target="_blank" title="Leaflet GPS" href="https://github.com/stefanocudini/leaflet-gps">Leaflet GPS</a> to handle the geolocation icon and functionality</li>
+    <li><a href="https://github.com/cscott530/leaflet-history" target="_blank" title="Leaflet History">Leaflet History</a> to give you the "zoom to previous position" option in the map tools.</li>
+    <li><a href="https://github.com/Esri/esri-leaflet" target="_blank" title="Leaflet ESRI Basemaps">ESRI Leaflet tools</a> for using ArcGIS services with Leaflet.</li>
+  </ul>
+  <h4>Styling</h4>
+  <img class="software-credits__logo" title="Sass website" src="src/assets/img/svg/project/credits/logo-sass.svg" alt="Sass logo" />
+  <p>The appearance, styling, and layout look the way they do thanks to:</p>
+    <ul>
+      <li><a href="http://sass-lang.com/" target="_blank">Sass</a> is my favorite preprocessor, and I used it to compile nearly all the CSS in the project. For those of you interested in learning Sass, I highly recommend <a href="https://www.youtube.com/user/DevTipsForDesigners" target="_blank">DevTips</a> and <a href="https://www.youtube.com/user/LevelUpTuts" target="_blank">LevelUpTuts</a> to get you started.</li>
+      <li><a href="https://github.com/sass-mq/sass-mq" target="_blank">Sass mq</a> made writing media query breakpoints much simpler.</li>
+      <li><a href="https://github.com/tgdev/animate-sass" target="_blank">Animate Sass</a> was used for the smooth animations on the map panels' transitions. Animate Sass is based on the very-cool <a href="http://daneden.github.io/animate.css/" target="_blank">Animate.css</a> library.</li>
+    </ul>
+  <h4>Workflow</h4>
+  <a title="By eeme158 team (uploaded by botg) [GPL (http://www.gnu.org/licenses/gpl.html)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File%3AFileZilla_logo.svg" target="_blank"><img class="software-credits__logo" alt="FileZilla logo" src="src/assets/img/svg/project/credits/logo-filezilla.svg"/></a>
+  <p>These tools and applications made the workflow a lot smoother:</p>
+  <ul>
+    <li>There are a lot of great text editors out there, but <a target="_blank" href="http://www.sublimetext.com/3">Sublime Text 3</a> is my weapon of choice.</li>
+    <li><a target="_blank" href="http://gruntjs.com/">Grunt</a> simplifies just about every tedious web development task you can think of. From JavaScript minification to image optimization to Sass compiling, Grunt is a lifesaver!</li>
+    <li>There are too many Grunt plugins to list here, but <a href="http://www.browsersync.io/" target="_blank" title="Browsersync">Browsersync</a> deserves special mention. Basically it allows you to fire up a development website on your local network and access it from any device on that network. It even shows real-time updates and it syncs your scrolling movements on all devices. Creepy and incredibly useful at the same time!</li>
+    <li><a target="_blank" href="https://filezilla-project.org/">FileZilla</a> is an FTP client that allowed us to upload our code and images to the live server.</li>
+  </ul>
+  <h4>Source Control</h4>
+  <p>Keeping track of changes in the code is a crucial part of any project, and for this one I used <a href="https://git-scm.com/" target="_blank" title="Git website">Git</a>. And, while I'm comfortable using some Git commands from the terminal, <a href="https://www.sourcetreeapp.com/" target="_blank" title="SourceTree website">SourceTree</a> is immensely valuable when it comes to visualizing Git actions and results.</p>
+  <h4>Icons &amp; Graphics</h4>
+  <img src="src/assets/img/raster/credits/logo-iconmonstr.jpg" alt="Iconmonstr logo" class="software-credits__logo">
+  <p>Most of the icons in this application came from sources much more talented at graphics production than myself, and the ones I customized were based off of them as well. Here are my main sources:</p>
+  <ul>
+    <li><a href="https://thenounproject.com/" target="_blank" title="The Noun Project">The Noun Project</a></li>
+    <li><a href="http://iconmonstr.com/" target="_blank" title="iconmonstr">iconmonstr</a></li>
+    <li><a href="http://www.clker.com/" target="_blank" title="Clker">Clker</a></li>
+  </ul>
+  <h4>Image &amp; Graphics Editing</h4>
+  <a target="_blank" title="By Inkscape team. This vector image was created with Inkscape. [GPL (http://www.gnu.org/licenses/gpl.html)], via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File%3AInkscape_Logo.svg"><img width="128" alt="Inkscape Logo" class="software-credits__logo" src="src/assets/img/svg/project/credits/logo-inkscape.svg"/></a>
+  <p>These programs came in handy for various image editing and processing tasks:</p>
+  <ul>
+    <li>Google's <a href="https://picasa.google.com/" target="_blank" title="Picasa">Picasa</a> for enhancing photos.</li>
+    <li><a href="https://inkscape.org/en/" target="_blank" title="Inkscape">Inkscape™</a> for editing and creating SVG vector graphics. If you're looking for a decent free alternative to Adobe Illustrator, look no further!</li>
+    <li><a href="http://www.faststone.org/FSResizerDetail.htm" target="_blank" title="FastStone Photo Resizer">FastStone Photo Resizer</a> for optimizing and resizing photos (and this map has A LOT of them).</li>
+  </ul>
+</div>
