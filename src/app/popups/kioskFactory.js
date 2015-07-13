@@ -57,6 +57,8 @@
                 document.getElementById('map-wrapper').addEventListener("touchmove", screenSaver);
                 document.getElementById('map-wrapper').addEventListener("mousemove", screenSaver);
 
+                screenSaver();
+
             }
 
         }
