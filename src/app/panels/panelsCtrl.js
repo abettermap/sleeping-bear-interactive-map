@@ -37,7 +37,7 @@
 
         //////// SEASONS PANEL \\\\\\\\
         vm.activeSeason = $rootScope.queryStates.season;
-        vm.activeSeasonIcon = 'spring';
+        vm.activeSeasonIcon = 'summer';
 
         // Close Seasons panel when season is clicked
         vm.setSeason = function(season){
@@ -219,11 +219,14 @@
             layersFactory.toggleOverlayState(overlay);
         };
 
+        // Why is 'data' passed here?
         $rootScope.$on('setDefaults', function(data){
 
             vm.overlayStates[0].on = false;
             vm.overlayStates[1].on = false;
             vm.trailCondState = false;
+            // Why faces not turned off?
+            // vm.facesState = false;
 
         });
 

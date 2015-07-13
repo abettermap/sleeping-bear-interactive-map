@@ -36,11 +36,12 @@
                 /******* QUERY STATES  ********/
                 /******************************/
 
+                /**** NEED TO AUTOMATE DEFAULT SEASON ****/
                 $rootScope.queryStates = {
                     commercial: [50],
                     faces: false,
                     features: ["'mainpoints'"],
-                    season: 2,
+                    season: 3,
                     sbht_caution: false,
                     trail_condition: false,
                     trail_pix: true
