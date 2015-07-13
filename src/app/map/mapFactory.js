@@ -16,6 +16,7 @@
         };
 
         var factory = {
+            addGps: addGps,
             createMap: createMap,
             map: {},
             tileLayers: tileLayers,
@@ -41,6 +42,36 @@
         function createMap(){
             factory.map = L.map('map', leafletDefaults);
             factory.zoomHome(factory.map);
+        }
+
+        function addGps(map){
+
+            var tempMarker = L.marker([0,0],{
+                iconSize: [25,25],
+                icon: L.divIcon({
+                    className: 'current-location-icon',
+                    html: "<svg viewBox='0 0 100 100'>" +
+                        "<use xlink:href='#icon-locate'></use></svg>"
+                }),
+            });
+
+            var gpsCtrl =  new L.Control.Gps({
+                maxZoom: 20,
+                marker: tempMarker,
+                style: {radius: 15, weight:4, color: 'red', fill: false, opacity:0.8}
+            });
+            gpsCtrl._map = map;
+
+            var controlDiv = gpsCtrl.onAdd(map);
+            $('#zoom-to-current').append(controlDiv);
+
+        }
+
+        function locate(){
+            map.locate({
+                setView: true,
+                maxZoom: 13
+            });
         }
 
         return factory;
