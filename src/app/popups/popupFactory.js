@@ -336,8 +336,8 @@
 
         /* Get correct URL, even if via FB */
         function getCurrentUrl(){
-            var test = "http://" + $location.$$host + "/sbht-i-map/#" + $location.$$url;
-            return test;
+            var url = "http://" + $location.$$host + "/sbht-i-map" + $location.$$url;
+            return url;
         }
 
         /* Social links */

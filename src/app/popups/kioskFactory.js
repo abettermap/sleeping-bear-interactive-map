@@ -12,6 +12,7 @@
 
         var factory = {
             disableLinks: disableLinks,
+            resetMapDefaults: resetMapDefaults,
             screensaverInterval: null,
             screensaverTimer: null,
         };
@@ -60,6 +61,7 @@
 
         }
 
+        // Kiosk screensaver
         function screenSaver(){
 
             clearInterval(factory.screensaverInterval);
@@ -67,17 +69,28 @@
 
             factory.screensaverTimer = setTimeout(function(){
 
+                // Start counter
+                var count = 1;
+
+                // Start timed interval
                 factory.screensaverInterval = setInterval(function(){
-                    resetMapDefaults();
+                    count++;
+                    if (count <= 50){
+                        resetMapDefaults();
+                    } else {
+                        window.location = '/sbht-i-map/kiosk';
+                    }
                 }, 7000);
 
             }, 180000);
 
         }
 
+
+        // Reset map defaults
         function resetMapDefaults(){
 
-            // Zoom to 12
+            // Set zoom to 12
             layersFactory.map.setZoom(12);
 
             // Uncheck all POI toggles, faces, trail_condition
@@ -91,8 +104,8 @@
                 $('#trail-pics-toggle').click();
             }
 
-            // Click spring
-            $('#spring-toggle').click();
+            // Click summer
+            $('#summer-toggle').click();
 
 
             /* DISABLE GRADE, CAUTION, TRAIL_CONDITION */
@@ -121,7 +134,6 @@
             $rootScope.queryStates.sbht_caution = false;
             $rootScope.queryStates.trail_condition = false;
 
-            // Go to random feature
             goToRandomFeat();
 
         }

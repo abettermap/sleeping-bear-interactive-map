@@ -1269,6 +1269,28 @@ body.ngdialog-open {
   -webkit-animation-name: flipOutY;
   animation-name: flipOutY; }
 
+/* Tooltip Color */
+.color-blue .tooltip {
+  background: #31598a;
+  border-radius: 4px;
+  color: #ffffff !important;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4); }
+
+.color-blue .tooltip:before {
+  border-color: #31598a; }
+
+.color-blue .tooltip:after {
+  content: '';
+  display: block;
+  border-top: 1px solid #6591c3;
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 100%;
+  height: 10px;
+  border-radius: 4px; }
+
+.css-tooltip-bottom,
 .css-tooltip-right,
 .css-tooltip-left {
   position: absolute !important;
@@ -1277,7 +1299,8 @@ body.ngdialog-open {
   z-index: 2; }
 
 .css-tooltip-left .tooltip,
-.css-tooltip-right .tooltip {
+.css-tooltip-right .tooltip,
+.css-tooltip-bottom .tooltip {
   font-size: 1rem;
   line-height: normal !important;
   min-width: 160px;
@@ -1285,18 +1308,19 @@ body.ngdialog-open {
   padding: 10px 10px 12px 10px !important;
   position: absolute;
   text-align: left;
-  transition-duration: 0.25s;
+  transition-duration: .25s;
   transition-timing-function: cubic-bezier(0.35, 0, 0.35, 1);
   visibility: hidden;
   z-index: 9999999 !important; }
 
 .css-tooltip-left .tooltip:before,
+.css-tooltip-bottom .tooltip:before,
 .css-tooltip-right .tooltip:before {
-  content: "";
+  content: '';
   display: block;
-  width: 0px;
-  height: 0px;
-  position: absolute; }
+  height: 0;
+  position: absolute;
+  width: 0; }
 
 /* tooltip left
 -------------------------------------------------------------- */
@@ -1306,7 +1330,7 @@ body.ngdialog-open {
   top: -.25rem; }
 
 .css-tooltip-left .tooltip:before {
-  border-left: 8px solid #000;
+  border-left: 8px solid #31598a;
   border-right: 0 !important;
   border-top: 8px solid transparent !important;
   border-bottom: 8px solid transparent !important;
@@ -1317,43 +1341,44 @@ body.ngdialog-open {
 -------------------------------------------------------------- */
 .css-tooltip-right .tooltip {
   left: 2.2rem;
-  top: -.25rem;
-  text-align: left; }
+  text-align: left;
+  top: -.25rem; }
 
 .css-tooltip-right .tooltip:before {
-  border-left: 0 !important;
-  border-right: 8px solid #000;
-  border-top: 8px solid transparent !important;
   border-bottom: 8px solid transparent !important;
-  top: 1.2rem;
-  left: -8px; }
+  border-left: 0 !important;
+  border-right: 8px solid #31598a;
+  border-top: 8px solid transparent !important;
+  left: -8px;
+  top: 1.2rem; }
 
 @media (min-width: 64.0625em) {
+  .css-tooltip-bottom:hover .tooltip,
   .css-tooltip-right:hover .tooltip {
-    visibility: visible;
+    margin-left: 15px;
     opacity: .93;
-    margin-left: 15px; } }
+    visibility: visible; } }
 
-/* Tooltip Color */
-.color-blue .tooltip {
-  color: #ffffff !important;
-  background: #31598a;
-  border-radius: 4px;
-  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.4); }
+/*tooltip bottom
+-------------------------------------------------------------- */
+.css-tooltip-bottom .tooltip {
+  left: -10px;
+  margin-top: 30px;
+  top: 100%;
+  transition-property: opacity, margin-top, visibility; }
 
-.color-blue .tooltip:before {
-  border-color: #31598a; }
+.css-tooltip-bottom .tooltip:before {
+  border-bottom: 8px solid #31598a;
+  border-left: 8px solid transparent !important;
+  border-right: 8px solid transparent !important;
+  border-top: 0 !important;
+  left: 15px;
+  top: -8px; }
 
-.color-blue .tooltip:after {
-  content: "";
-  display: block;
-  border-top: 1px solid #6591c3;
-  position: absolute;
-  left: 0px;
-  top: 1px;
-  width: 100%;
-  height: 10px;
-  border-radius: 4px; }
+.css-tooltip-bottom:hover .tooltip {
+  margin-top: 10px;
+  opacity: 1;
+  visibility: visible; }
 
 /* LEAVE THE REST IN IF NEEDED LATER */
 /* ELEMENTS */
@@ -1865,7 +1890,7 @@ body {
 
 /* Nav controls */
 .controls__label {
-  background: #4284c2;
+  background: #5591c8;
   border-radius: 100%;
   position: absolute; }
 
@@ -1900,6 +1925,10 @@ body {
     -webkit-transform: translate3d(0, 150px, 0);
             transform: translate3d(0, 150px, 0);
     transition-duration: 330ms; }
+  .controls__checkbox:checked ~ .filter-container-y > .controls__menu-item:nth-of-type(4) {
+    -webkit-transform: translate3d(0, 200px, 0);
+            transform: translate3d(0, 200px, 0);
+    transition-duration: 410ms; }
 
 .controls__checkbox:checked ~ .filter-container-x > .controls__menu-item {
   visibility: visible; }
@@ -1987,20 +2016,24 @@ body {
   visibility: hidden;
   width: 50px; }
 
+.controls__checkbox:checked ~ .css-tooltip-bottom,
 .controls__checkbox:checked ~ .css-tooltip-right {
   background: transparent;
   display: inline-block !important;
   height: 50px;
   width: 50px; }
   @media (min-width: 64.0625em) {
+    .controls__checkbox:checked ~ .css-tooltip-bottom:hover + svg,
     .controls__checkbox:checked ~ .css-tooltip-right:hover + svg {
       fill: #2d5d8b; } }
 
 .controls__checkbox:checked ~ .controls__icon,
+.controls__checkbox:checked ~ .css-tooltip-bottom,
 .controls__checkbox:checked ~ .css-tooltip-right {
   transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
   visibility: visible; }
   .controls__checkbox:checked ~ .controls__icon:nth-of-type(1),
+  .controls__checkbox:checked ~ .css-tooltip-bottom:nth-of-type(1),
   .controls__checkbox:checked ~ .css-tooltip-right:nth-of-type(1) {
     padding: 8px;
     -webkit-transform: translate3d(0, 50px, 0);
@@ -2008,6 +2041,7 @@ body {
     transition: -webkit-transform 170ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease;
     transition: transform 170ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease; }
   .controls__checkbox:checked ~ .controls__icon:nth-of-type(2),
+  .controls__checkbox:checked ~ .css-tooltip-bottom:nth-of-type(2),
   .controls__checkbox:checked ~ .css-tooltip-right:nth-of-type(2) {
     padding: 8px;
     -webkit-transform: translate3d(0, 100px, 0);
@@ -2015,6 +2049,7 @@ body {
     transition: -webkit-transform 250ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease;
     transition: transform 250ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease; }
   .controls__checkbox:checked ~ .controls__icon:nth-of-type(3),
+  .controls__checkbox:checked ~ .css-tooltip-bottom:nth-of-type(3),
   .controls__checkbox:checked ~ .css-tooltip-right:nth-of-type(3) {
     padding: 8px;
     -webkit-transform: translate3d(0, 150px, 0);
@@ -2022,34 +2057,39 @@ body {
     transition: -webkit-transform 330ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease;
     transition: transform 330ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease; }
   .controls__checkbox:checked ~ .controls__icon:nth-of-type(4),
+  .controls__checkbox:checked ~ .css-tooltip-bottom:nth-of-type(4),
   .controls__checkbox:checked ~ .css-tooltip-right:nth-of-type(4) {
-    -webkit-transform: translate3d(50px, 0, 0);
-            transform: translate3d(50px, 0, 0);
+    padding: 8px;
+    -webkit-transform: translate3d(0, 200px, 0);
+            transform: translate3d(0, 200px, 0);
     transition: -webkit-transform 410ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease;
     transition: transform 410ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease; }
   .controls__checkbox:checked ~ .controls__icon:nth-of-type(5),
+  .controls__checkbox:checked ~ .css-tooltip-bottom:nth-of-type(5),
   .controls__checkbox:checked ~ .css-tooltip-right:nth-of-type(5) {
-    -webkit-transform: translate3d(100px, 0, 0);
-            transform: translate3d(100px, 0, 0);
+    -webkit-transform: translate3d(50px, 0, 0);
+            transform: translate3d(50px, 0, 0);
     transition: -webkit-transform 490ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease;
     transition: transform 490ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease; }
   .controls__checkbox:checked ~ .controls__icon:nth-of-type(6),
+  .controls__checkbox:checked ~ .css-tooltip-bottom:nth-of-type(6),
   .controls__checkbox:checked ~ .css-tooltip-right:nth-of-type(6) {
-    -webkit-transform: translate3d(150px, 0, 0);
-            transform: translate3d(150px, 0, 0);
+    -webkit-transform: translate3d(100px, 0, 0);
+            transform: translate3d(100px, 0, 0);
     transition: -webkit-transform 570ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease;
     transition: transform 570ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease; }
   .controls__checkbox:checked ~ .controls__icon:nth-of-type(7),
+  .controls__checkbox:checked ~ .css-tooltip-bottom:nth-of-type(7),
   .controls__checkbox:checked ~ .css-tooltip-right:nth-of-type(7) {
-    -webkit-transform: translate3d(200px, 0, 0);
-            transform: translate3d(200px, 0, 0);
+    -webkit-transform: translate3d(150px, 0, 0);
+            transform: translate3d(150px, 0, 0);
     transition: -webkit-transform 650ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease;
     transition: transform 650ms cubic-bezier(0.165, 0.84, 0.44, 1), fill 250ms ease; }
 
 .tool-icon--active {
   fill: #2d5d8b; }
 
-#test {
+#zoom-to-current {
   z-index: 5; }
 
 .back-disabled {

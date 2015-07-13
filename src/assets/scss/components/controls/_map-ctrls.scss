@@ -7,7 +7,7 @@ $a-trans-tools: transform 600ms ease;
 $a-trans-fill: fill 250ms ease;
 
 %ball {
-  background: $c-btn-bg;
+  background: lighten($c-btn-bg, 5%);
   border-radius: 100%;
   position: absolute;
 }
@@ -48,7 +48,7 @@ $a-trans-fill: fill 250ms ease;
 
   visibility: visible;
 
-  @for $i from 1 through 3 {
+  @for $i from 1 through 4 {
 
     &:nth-of-type(#{$i}) {
       transform: translate3d(0, round($l-ball-ht * $i), 0);
@@ -180,6 +180,7 @@ $a-trans-fill: fill 250ms ease;
   width: 50px;
 }
 
+.controls__checkbox:checked ~ .css-tooltip-bottom,
 .controls__checkbox:checked ~ .css-tooltip-right {
   background: transparent;
   display: inline-block !important;
@@ -195,6 +196,7 @@ $a-trans-fill: fill 250ms ease;
 
 // Non-toolbox icons when checked
 .controls__checkbox:checked ~ .controls__icon,
+.controls__checkbox:checked ~ .css-tooltip-bottom,
 .controls__checkbox:checked ~ .css-tooltip-right {
 
   transition-timing-function: $a-trans-timing-items;
@@ -202,7 +204,7 @@ $a-trans-fill: fill 250ms ease;
   $l-offset: round(($l-ball-ht - $l-ball-ht * .68)/2);
 
   // Vert axis
-  @for $i from 1 through 3 {
+  @for $i from 1 through 4 {
 
     &:nth-of-type(#{$i}) {
       $y: round($l-ball-ht * $i);
@@ -214,10 +216,10 @@ $a-trans-fill: fill 250ms ease;
   }
 
   // Horiz axis
-  @for $i from 4 through 7 {
+  @for $i from 5 through 7 {
 
     &:nth-of-type(#{$i}) {
-      $o: $i - 3;
+      $o: $i - 4;
       $x: round($l-ball-ht * $o);
       $dur: 90ms + (80ms * $i);
       transform: translate3d($x, 0, 0);
@@ -232,7 +234,7 @@ $a-trans-fill: fill 250ms ease;
   fill: $c-icon-hover;
 }
 
-#test {
+#zoom-to-current {
   z-index: 5;
 }
 

@@ -113,5 +113,4 @@ module.exports = {
         expand: true,
         dest: 'build/src/assets/img/raster/credits/'
     }
-
 };

@@ -12,20 +12,27 @@
         <a class="controls__menu-item" href="javascript:;"></a>
         <a class="controls__menu-item" href="javascript:;"></a>
         <a class="controls__menu-item" href="javascript:;"></a>
+        <a class="controls__menu-item" href="javascript:;"></a>
     </div>
+    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.reloadMap()">
+        <span class="tooltip">Reset map to defaults</span>
+    </a>
+    <svg class="controls__icon" viewBox="0 0 100 100">
+        <use xlink:href="#icon-reset"></use>
+    </svg>
     <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.zoomHome()">
         <span class="tooltip">Zoom to initial extent</span>
     </a>
     <svg class="controls__icon" viewBox="0 0 100 100">
         <use xlink:href="#icon-zoom-home"></use>
     </svg>
-    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.zoomIn()">
+    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.map.zoomIn()">
         <span class="tooltip">Zoom in</span>
     </a>
     <svg class="controls__icon" viewBox="0 0 100 100">
         <use xlink:href="#icon-zoom-in"></use>
     </svg>
-    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.zoomOut()">
+    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.map.zoomOut()">
         <span class="tooltip">Zoom out</span>
     </a>
     <svg class="controls__icon" viewBox="0 0 100 100">
@@ -36,7 +43,7 @@
         <a class="controls__menu-item" href="javascript:;"></a>
         <a class="controls__menu-item" href="javascript:;"></a>
     </div>
-    <a href="javascript:;" class="css-tooltip-right color-blue"
+    <a href="javascript:;" class="css-tooltip-bottom color-blue"
         ng-click="vm.historyControl.goBack()"
         ng-class="{'back-disabled': !vm.backEnabled}">
         <span class="tooltip">Zoom to previous map position</span>
@@ -44,13 +51,13 @@
     <svg class="controls__icon" ng-class="{'back-disabled': !vm.backEnabled}" viewBox="0 0 100 100">
         <use xlink:href="#icon-back"></use>
     </svg>
-    <a id="test" href="javascript:;" class="css-tooltip-right color-blue">
+    <a id="zoom-to-current" href="javascript:;" class="css-tooltip-bottom color-blue">
         <span class="tooltip">Zoom to current location via GPS</span>
     </a>
     <svg class="controls__icon" viewBox="0 0 100 100" ng-class="{'tool-icon--active': vm.gpsIsActive}">
         <use xlink:href="#icon-locate"></use>
     </svg>
-    <a href="javascript:;" class="css-tooltip-right color-blue" ng-click="vm.changeTiles()">
+    <a href="javascript:;" class="css-tooltip-bottom color-blue" ng-click="vm.changeTiles()">
         <span class="tooltip">Change background</span>
     </a>
     <svg class="controls__icon" viewBox="0 0 100 100">

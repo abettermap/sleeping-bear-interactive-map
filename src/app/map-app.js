@@ -36,11 +36,12 @@
                 /******* QUERY STATES  ********/
                 /******************************/
 
+                /**** NEED TO AUTOMATE DEFAULT SEASON ****/
                 $rootScope.queryStates = {
                     commercial: [50],
                     faces: false,
                     features: ["'mainpoints'"],
-                    season: 2,
+                    season: 3,
                     sbht_caution: false,
                     trail_condition: false,
                     trail_pix: true
@@ -278,24 +279,35 @@
 
     function mapFactory($http){
 
+        // Background layers
         var tileLayers = {
             aerial: L.esri.basemapLayer('Imagery'),
             terrain: L.esri.basemapLayer('Topographic')
         };
 
         var factory = {
+            addGps: addGps,
             createMap: createMap,
             map: {},
+            reloadMap: reloadMap,
             tileLayers: tileLayers,
             zoomHome: zoomHome,
         };
 
+        // Leaflet defaults
         var leafletDefaults = {
             attribution: false,
             zoomControl: false,
             layers: tileLayers.terrain
         };
 
+        // Make the map
+        function createMap(){
+            factory.map = L.map('map', leafletDefaults);
+            factory.zoomHome(factory.map);
+        }
+
+        // Zoom to initial extent
         function zoomHome(map){
             var empireBeach = L.latLng(44.8123, -86.0681),
                 portOneida = L.latLng(44.9394, -85.9374),
@@ -306,9 +318,55 @@
             ]);
         }
 
-        function createMap(){
-            factory.map = L.map('map', leafletDefaults);
-            factory.zoomHome(factory.map);
+        function addGps(map){
+
+            var tempMarker = L.marker([0,0],{
+                iconSize: [25,25],
+                icon: L.divIcon({
+                    className: 'current-location-icon',
+                    html: "<svg viewBox='0 0 100 100'>" +
+                        "<use xlink:href='#icon-locate'></use></svg>"
+                }),
+            });
+
+            var gpsCtrl =  new L.Control.Gps({
+                maxZoom: 20,
+                marker: tempMarker,
+                style: {radius: 15, weight:4, color: 'red', fill: false, opacity:0.8}
+            });
+            gpsCtrl._map = map;
+
+            var controlDiv = gpsCtrl.onAdd(map);
+            $('#zoom-to-current').append(controlDiv);
+
+        }
+
+        // Reload map
+        function reloadMap(){
+
+            var url = location.href;
+
+            // If popup, go to initial page
+            if (url.indexOf('popup') > -1) {
+                if (url.indexOf('kiosk') > -1){ // Kiosk
+                    window.location = '/sbht-i-map/kiosk';
+                } else {
+                    window.location = '/sbht-i-map'; // Not kiosk
+                }
+            // Otherwise reload
+            } else {
+                location.reload();
+            }
+
+        }
+
+
+        // Zoom to current GPS position
+        function locate(){
+            map.locate({
+                setView: true,
+                maxZoom: 13
+            });
         }
 
         return factory;
@@ -634,6 +692,7 @@
 
         var factory = {
             disableLinks: disableLinks,
+            resetMapDefaults: resetMapDefaults,
             screensaverInterval: null,
             screensaverTimer: null,
         };
@@ -682,6 +741,7 @@
 
         }
 
+        // Kiosk screensaver
         function screenSaver(){
 
             clearInterval(factory.screensaverInterval);
@@ -689,17 +749,28 @@
 
             factory.screensaverTimer = setTimeout(function(){
 
+                // Start counter
+                var count = 1;
+
+                // Start timed interval
                 factory.screensaverInterval = setInterval(function(){
-                    resetMapDefaults();
+                    count++;
+                    if (count <= 50){
+                        resetMapDefaults();
+                    } else {
+                        window.location = '/sbht-i-map/kiosk';
+                    }
                 }, 7000);
 
             }, 180000);
 
         }
 
+
+        // Reset map defaults
         function resetMapDefaults(){
 
-            // Zoom to 12
+            // Set zoom to 12
             layersFactory.map.setZoom(12);
 
             // Uncheck all POI toggles, faces, trail_condition
@@ -713,8 +784,8 @@
                 $('#trail-pics-toggle').click();
             }
 
-            // Click spring
-            $('#spring-toggle').click();
+            // Click summer
+            $('#summer-toggle').click();
 
 
             /* DISABLE GRADE, CAUTION, TRAIL_CONDITION */
@@ -743,7 +814,6 @@
             $rootScope.queryStates.sbht_caution = false;
             $rootScope.queryStates.trail_condition = false;
 
-            // Go to random feature
             goToRandomFeat();
 
         }
@@ -1507,8 +1577,8 @@
 
         /* Get correct URL, even if via FB */
         function getCurrentUrl(){
-            var test = "http://" + $location.$$host + "/sbht-i-map/#" + $location.$$url;
-            return test;
+            var url = "http://" + $location.$$host + "/sbht-i-map" + $location.$$url;
+            return url;
         }
 
         /* Social links */
@@ -1697,21 +1767,22 @@
         .module('ctrlsModule')
         .controller('CtrlsCtrl', CtrlsCtrl);
 
-    CtrlsCtrl.$inject = ['ctrlsFactory', '$scope'];
+    CtrlsCtrl.$inject = ['mapFactory', '$scope', 'kioskFactory'];
 
-    function CtrlsCtrl(ctrlsFactory, $scope){
+    function CtrlsCtrl(mapFactory, $scope, kioskFactory){
 
         var vm = this,
-            map = ctrlsFactory.map,
-            tileLayers = ctrlsFactory.tileLayers;
+            map = mapFactory.map,
+            tileLayers = mapFactory.tileLayers;
+
+        vm.map = mapFactory.map;
 
         // Toggle bg tiles layer
         vm.bgId = '#icon-tree';
         vm.showAerial = false;
 
-
         // Locate
-        addGps(map);
+        mapFactory.addGps(map);
 
         var gpsBtn = angular.element( document.querySelector( '.gps-button' ) );
 
@@ -1753,11 +1824,17 @@
           }
         };
 
-        // Others
-        vm.zoomHome = ctrlsFactory.zoomHome;
-        vm.zoomIn = ctrlsFactory.zoomIn;
-        vm.zoomOut = ctrlsFactory.zoomOut;
+        // Zoom to home extent
+        vm.zoomHome = function(){
+            mapFactory.zoomHome(map);
+        };
 
+        // Reset map defaults
+        vm.reloadMap = function(){
+            mapFactory.reloadMap();
+        };
+
+        // Change background layer
         vm.changeTiles = function(){
 
             vm.showAerial = !vm.showAerial;
@@ -1776,28 +1853,6 @@
 
         };
 
-        function addGps(map){
-
-            var tempMarker = L.marker([0,0],{
-                iconSize: [25,25],
-                icon: L.divIcon({
-                    className: 'current-location-icon',
-                    html: "<svg viewBox='0 0 100 100'>" +
-                        "<use xlink:href='#icon-locate'></use></svg>"
-                }),
-            });
-
-            var gpsCtrl =  new L.Control.Gps({
-                maxZoom: 20,
-                marker: tempMarker,
-                style: {radius: 15, weight:4, color: 'red', fill: false, opacity:0.8}
-            });
-            gpsCtrl._map = map;
-
-            var controlDiv = gpsCtrl.onAdd(map);
-            $('#test').append(controlDiv);
-
-        }
 
     }
 
@@ -1819,58 +1874,6 @@
             controllerAs: 'vm',
             replace: true
         };
-    }
-
-})();
-(function() {
-
-    'use strict';
-
-    angular
-        .module('ctrlsModule')
-        .factory('ctrlsFactory', ctrlsFactory);
-
-    ctrlsFactory.$inject = ['mapFactory'];
-
-    function ctrlsFactory(mapFactory){
-
-        var map = mapFactory.map;
-
-        var factory = {
-            getZoom: getZoom,
-            locate: locate,
-            map: map,
-            tileLayers: mapFactory.tileLayers,
-            zoomHome: zoomHome,
-            zoomIn: zoomIn,
-            zoomOut: zoomOut,
-        };
-
-        function getZoom(){
-            return mapFactory.map.getZoom();
-        }
-
-        function zoomIn(){
-            map.zoomIn();
-        }
-
-        function zoomOut(){
-            map.zoomOut();
-        }
-
-        function zoomHome(){
-            mapFactory.zoomHome(map);
-        }
-
-        function locate(){
-            map.locate({
-                setView: true,
-                maxZoom: 13
-            });
-        }
-
-        return factory;
-
     }
 
 })();
@@ -1989,7 +1992,7 @@
 
         //////// SEASONS PANEL \\\\\\\\
         vm.activeSeason = $rootScope.queryStates.season;
-        vm.activeSeasonIcon = 'spring';
+        vm.activeSeasonIcon = 'summer';
 
         // Close Seasons panel when season is clicked
         vm.setSeason = function(season){
@@ -2171,11 +2174,14 @@
             layersFactory.toggleOverlayState(overlay);
         };
 
+        // Why is 'data' passed here?
         $rootScope.$on('setDefaults', function(data){
 
             vm.overlayStates[0].on = false;
             vm.overlayStates[1].on = false;
             vm.trailCondState = false;
+            // Why faces not turned off?
+            // vm.facesState = false;
 
         });
 
