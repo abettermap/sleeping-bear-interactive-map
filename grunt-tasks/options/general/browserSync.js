@@ -11,13 +11,15 @@ module.exports = {
       ]
     },
     options: {
-      watchTask: true,
-      proxy: 'sbht.dev',
-      notify: true,
-      ui: false,
-      open: true,
       ghostMode: false,
-      startPath: '/sbht-i-map'
+      // host: '192.168.56.1',
+      // host: '10.1.248.111',
+      notify: true,
+      open: true,
+      proxy: 'sbht.dev',
+      startPath: '/sbht-i-map',
+      ui: false,
+      watchTask: true,
     }
   }
 

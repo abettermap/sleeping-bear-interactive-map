@@ -122,8 +122,7 @@
             echo '<span class="never-show">' . $contents . '</span>';
         ?>
         <script type="text/javascript" src="//cartodb-libs.global.ssl.fastly.net/cartodb.js/v3/3.12/cartodb.js"></script>
-
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
 
         <!-- build:js src/assets/js/map-vendors.js -->
         <script type="text/javascript" src="src/assets/js/vendor/angular-animate.js"></script>
