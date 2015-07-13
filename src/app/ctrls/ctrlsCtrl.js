@@ -6,21 +6,22 @@
         .module('ctrlsModule')
         .controller('CtrlsCtrl', CtrlsCtrl);
 
-    CtrlsCtrl.$inject = ['ctrlsFactory', '$scope'];
+    CtrlsCtrl.$inject = ['mapFactory', '$scope', 'kioskFactory'];
 
-    function CtrlsCtrl(ctrlsFactory, $scope){
+    function CtrlsCtrl(mapFactory, $scope, kioskFactory){
 
         var vm = this,
-            map = ctrlsFactory.map,
-            tileLayers = ctrlsFactory.tileLayers;
+            map = mapFactory.map,
+            tileLayers = mapFactory.tileLayers;
+
+        vm.map = mapFactory.map;
 
         // Toggle bg tiles layer
         vm.bgId = '#icon-tree';
         vm.showAerial = false;
 
-
         // Locate
-        addGps(map);
+        mapFactory.addGps(map);
 
         var gpsBtn = angular.element( document.querySelector( '.gps-button' ) );
 
@@ -62,11 +63,17 @@
           }
         };
 
-        // Others
-        vm.zoomHome = ctrlsFactory.zoomHome;
-        vm.zoomIn = ctrlsFactory.zoomIn;
-        vm.zoomOut = ctrlsFactory.zoomOut;
+        // Zoom to home extent
+        vm.zoomHome = function(){
+            mapFactory.zoomHome(map);
+        };
 
+        // Reset map defaults
+        vm.reloadMap = function(){
+            mapFactory.reloadMap();
+        };
+
+        // Change background layer
         vm.changeTiles = function(){
 
             vm.showAerial = !vm.showAerial;
@@ -85,28 +92,6 @@
 
         };
 
-        function addGps(map){
-
-            var tempMarker = L.marker([0,0],{
-                iconSize: [25,25],
-                icon: L.divIcon({
-                    className: 'current-location-icon',
-                    html: "<svg viewBox='0 0 100 100'>" +
-                        "<use xlink:href='#icon-locate'></use></svg>"
-                }),
-            });
-
-            var gpsCtrl =  new L.Control.Gps({
-                maxZoom: 20,
-                marker: tempMarker,
-                style: {radius: 15, weight:4, color: 'red', fill: false, opacity:0.8}
-            });
-            gpsCtrl._map = map;
-
-            var controlDiv = gpsCtrl.onAdd(map);
-            $('#test').append(controlDiv);
-
-        }
 
     }
 
