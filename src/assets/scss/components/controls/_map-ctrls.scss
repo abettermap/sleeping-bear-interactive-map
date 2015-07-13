@@ -7,7 +7,7 @@ $a-trans-tools: transform 600ms ease;
 $a-trans-fill: fill 250ms ease;
 
 %ball {
-  background: $c-btn-bg;
+  background: lighten($c-btn-bg, 5%);
   border-radius: 100%;
   position: absolute;
 }
