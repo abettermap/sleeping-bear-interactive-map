@@ -77,6 +77,12 @@
                 // Start timed interval
                 factory.screensaverInterval = setInterval(function(){
                     count++;
+
+                    // Make CDB link target in same window
+                    if (count == 2){
+                        $('.cartodb-logo a').attr('target', '_self');
+                    }
+
                     if (count <= 50){
                         resetMapDefaults();
                     } else {
