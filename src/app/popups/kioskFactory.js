@@ -11,6 +11,7 @@
     function kioskFactory($http, $rootScope, layersFactory, $state){
 
         var factory = {
+            cdbSamePgCount: null,
             disableLinks: disableLinks,
             resetMapDefaults: resetMapDefaults,
             screensaverInterval: null,
@@ -22,6 +23,7 @@
 
             var k = window.location.href.indexOf('kiosk');
             if (k > 0){
+            // if (k < 0){
 
                 // Disable right-click
                 $('body').attr('oncontextmenu', 'return false');
@@ -57,6 +59,17 @@
                 document.getElementById('map-wrapper').addEventListener("touchmove", screenSaver);
                 document.getElementById('map-wrapper').addEventListener("mousemove", screenSaver);
 
+                /** Make CDB link target in same window **/
+                var cdbSamePg = null;
+
+                if (!factory.cdbSamePgCount){
+                    factory.cdbSamePgCount = true;
+                    cdbSamePg = setTimeout(function(){
+                        $('.cartodb-logo a').attr('target', '_self');
+                        $('a[href="http://cartodb.com/attributions"]').attr('target', '_self');
+                    }, 2000);
+                }
+
                 screenSaver();
 
             }
@@ -77,11 +90,6 @@
                 // Start timed interval
                 factory.screensaverInterval = setInterval(function(){
                     count++;
-
-                    // Make CDB link target in same window
-                    if (count == 2){
-                        $('.cartodb-logo a').attr('target', '_self');
-                    }
 
                     if (count <= 50){
                         resetMapDefaults();
