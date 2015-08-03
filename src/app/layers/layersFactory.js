@@ -233,15 +233,16 @@
             popupFactory.clearTempMarker(factory.map, factory.map._layers);
 
             /***** Have marker ready but don't add to map *****/
+            /***** Also disable right-clicking icon (being lazy and doing for non-kiosk too) *****/
             var tempMarker = L.marker(coords,{
                 temp: true,
                 icon: L.divIcon({
                     className: 'temp-div-icon',
                     html: '' +
-                        '<svg class="icon--temp--bg" viewBox="0 0 100 100">' +
+                        '<svg oncontextmenu="return false" class="icon--temp--bg" viewBox="0 0 100 100">' +
                             '<use xlink:href="#icon-map-pin-wide-empty"></use>' +
                         '</svg>' +
-                        '<svg class="icon--temp--fg" viewBox="0 0 100 100">' +
+                        '<svg oncontextmenu="return false" class="icon--temp--fg" viewBox="0 0 100 100">' +
                             '<use xlink:href="#icon-' + type + '"></use>' +
                         '</svg>'
                 }),
