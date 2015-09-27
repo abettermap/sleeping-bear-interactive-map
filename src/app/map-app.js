@@ -643,15 +643,16 @@
             popupFactory.clearTempMarker(factory.map, factory.map._layers);
 
             /***** Have marker ready but don't add to map *****/
+            /***** Also disable right-clicking icon (being lazy and doing for non-kiosk too) *****/
             var tempMarker = L.marker(coords,{
                 temp: true,
                 icon: L.divIcon({
                     className: 'temp-div-icon',
                     html: '' +
-                        '<svg class="icon--temp--bg" viewBox="0 0 100 100">' +
+                        '<svg oncontextmenu="return false" class="icon--temp--bg" viewBox="0 0 100 100">' +
                             '<use xlink:href="#icon-map-pin-wide-empty"></use>' +
                         '</svg>' +
-                        '<svg class="icon--temp--fg" viewBox="0 0 100 100">' +
+                        '<svg oncontextmenu="return false" class="icon--temp--fg" viewBox="0 0 100 100">' +
                             '<use xlink:href="#icon-' + type + '"></use>' +
                         '</svg>'
                 }),
@@ -691,6 +692,7 @@
     function kioskFactory($http, $rootScope, layersFactory, $state){
 
         var factory = {
+            cdbSamePgCount: null,
             disableLinks: disableLinks,
             resetMapDefaults: resetMapDefaults,
             screensaverInterval: null,
@@ -702,6 +704,7 @@
 
             var k = window.location.href.indexOf('kiosk');
             if (k > 0){
+            // if (k < 0){
 
                 // Disable right-click
                 $('body').attr('oncontextmenu', 'return false');
@@ -737,6 +740,19 @@
                 document.getElementById('map-wrapper').addEventListener("touchmove", screenSaver);
                 document.getElementById('map-wrapper').addEventListener("mousemove", screenSaver);
 
+                /** Make CDB link target in same window **/
+                var cdbSamePg = null;
+
+                if (!factory.cdbSamePgCount){
+                    factory.cdbSamePgCount = true;
+                    cdbSamePg = setTimeout(function(){
+                        $('.cartodb-logo a').attr('target', '_self');
+                        $('a[href="http://cartodb.com/attributions"]').attr('target', '_self');
+                    }, 2000);
+                }
+
+                screenSaver();
+
             }
 
         }
@@ -755,6 +771,7 @@
                 // Start timed interval
                 factory.screensaverInterval = setInterval(function(){
                     count++;
+
                     if (count <= 50){
                         resetMapDefaults();
                     } else {

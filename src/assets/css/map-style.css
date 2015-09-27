@@ -1353,7 +1353,6 @@ body.ngdialog-open {
   top: 1.2rem; }
 
 @media (min-width: 64.0625em) {
-  .css-tooltip-bottom:hover .tooltip,
   .css-tooltip-right:hover .tooltip {
     margin-left: 15px;
     opacity: .93;
@@ -1375,10 +1374,11 @@ body.ngdialog-open {
   left: 15px;
   top: -8px; }
 
-.css-tooltip-bottom:hover .tooltip {
-  margin-top: 10px;
-  opacity: 1;
-  visibility: visible; }
+@media (min-width: 64.0625em) {
+  .css-tooltip-bottom:hover .tooltip {
+    margin-top: 10px;
+    opacity: 1;
+    visibility: visible; } }
 
 /* LEAVE THE REST IN IF NEEDED LATER */
 /* ELEMENTS */
@@ -2535,7 +2535,7 @@ svg.toggle__icon--trail-cond {
     -webkit-flex: 0 22%;
         -ms-flex: 0 22%;
             flex: 0 22%;
-    width: 72px; }
+    width: 82px; }
 
 /* Credits */
 .credits {
