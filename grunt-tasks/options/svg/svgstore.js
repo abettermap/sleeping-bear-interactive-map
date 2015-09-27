@@ -3,7 +3,10 @@ module.exports = {
     options: {
         prefix: 'icon-',
         cleanup: ['fill', 'stroke'],
-        includeTitleElement: false
+        includeTitleElement: false,
+        formatting : {
+          indent_size : 2
+        }
     },
     all: {
         files: {

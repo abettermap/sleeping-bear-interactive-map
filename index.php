@@ -33,9 +33,6 @@
               width: 47.5px;
               z-index: 2;
             }
-            .never-show {
-              display: none;
-            }
             .panel__toggle {
               background-color: #7caad4;
               border-left: solid #5591c8 1px;
@@ -65,7 +62,7 @@
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" sizes="152x152" href="src/assets/img/raster/apple-icons/apple-touch-icon-152x152.png" />
 
-        <script type="text/javascript" src="src/assets/js/vendor/fastclick.js" async></script>
+        <script type="text/javascript" src="src/assets/js/vendor/fastclick.js"></script>
         <script type="text/javascript">
 
             var _gaq = _gaq || [];
@@ -95,7 +92,7 @@
              var js, fjs = d.getElementsByTagName(s)[0];
              if (d.getElementById(id)) {return;}
              js = d.createElement(s); js.id = id;
-             js.src = "http://connect.facebook.net/en_US/sdk.js";
+             js.src = "https://connect.facebook.net/en_US/sdk.js";
              fjs.parentNode.insertBefore(js, fjs);
            }(document, 'script', 'facebook-jssdk'));
         </script>
@@ -106,8 +103,6 @@
           <div ui-view></div>
         </div>
         <?php
-            $contents = file_get_contents( 'src/assets/img/svg/project/defs/fosb-svg-defs.svg' );
-            echo '<span class="never-show">' . $contents . '</span>';
             $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-trail_condition.mss');
             echo '<span id="mss-trail_condition" class="never-show">' . $contents . '</span>';
             $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-features.mss');
