@@ -47,9 +47,9 @@
                 style.type = 'text/css';
 
                 if (style.styleSheet){
-                  style.styleSheet.cssText = css;
+                    style.styleSheet.cssText = css;
                 } else {
-                  style.appendChild(document.createTextNode(css));
+                    style.appendChild(document.createTextNode(css));
                 }
 
                 head.appendChild(style);
@@ -123,9 +123,7 @@
             // Click summer
             $('#summer-toggle').click();
 
-
             /* DISABLE GRADE, CAUTION, TRAIL_CONDITION */
-
             // Let controller know about it in order to update model
             $rootScope.$broadcast('setDefaults');
 

@@ -77,15 +77,11 @@
 
             var url = location.href;
 
-            // If popup, go to initial page
-            if (url.indexOf('popup') > -1) {
-                if (url.indexOf('kiosk') > -1){ // Kiosk
-                    window.location = '/sbht-i-map/kiosk';
-                } else {
-                    window.location = '/sbht-i-map'; // Not kiosk
-                }
-            // Otherwise reload
+            if (url.indexOf('kiosk') > -1){ // Kiosk
+                window.location = '/sbht-i-map/kiosk';
+                location.reload();
             } else {
+                window.location = '/sbht-i-map'; // Not kiosk
                 location.reload();
             }
 
