@@ -27,12 +27,12 @@
         /******************************/
         /****** TOGGLE POI TYPES ******/
         /******************************/
-        var sublayers = layersFactory.sublayers;
 
         function toggleFeatures(types){
 
             var query,
                 states = $rootScope.queryStates,
+                sublayers = layersFactory.sublayers,
                 featQuery = {
                     start: "SELECT 'features' AS layer," +
                         " features.lin_dist," +
@@ -59,6 +59,7 @@
             } else {
                 featQuery.all = featQuery.start + states.features + featQuery.end;
             }
+
             sublayers.features.setSQL(featQuery.all);
 
         }
@@ -68,6 +69,7 @@
 
             var query,
                 states = $rootScope.queryStates,
+                sublayers = layersFactory.sublayers,
                 string = '',
                 arr = [],
                 commQuery = {
@@ -121,7 +123,6 @@
             commQuery.all = commQuery.start + string + commQuery.end;
 
             sublayers.commercial.setSQL(commQuery.all);
-
 
         }
 
