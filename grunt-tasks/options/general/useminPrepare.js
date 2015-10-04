@@ -1,8 +1,15 @@
 module.exports = {
 
-    html: 'index.php',
-    options: {
-        dest: 'build'
-    }
+    main: {
+        src: [
+            'index.php',
+        ],
+        options: {
+            dest: 'build/',
+            flow: {
+                steps: {'js' : ['uglifyjs'] }
+            }
+        }
+    },
 
 };
