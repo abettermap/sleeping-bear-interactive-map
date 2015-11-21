@@ -120,14 +120,14 @@
         // Change POI toggle view
         vm.activePoiPage = 'Home';
         vm.activePoiPageIcon = '#icon-map-pin';
-        vm.activePoiPageTitle = 'Points of Interest';
+        vm.activePoiPageTitle = 'Features On/Off';
 
         vm.setActivePoiPage = function(page){
 
             vm.activePoiPage = page;
 
             if (page === 'Home'){
-                vm.activePoiPageTitle = 'Points of Interest';
+                vm.activePoiPageTitle = 'Features On/Off';
                 vm.activePoiPageIcon = '#icon-map-pin';
             } else {
                 vm.activePoiPageTitle = page;
@@ -255,7 +255,7 @@
 
 
         //////// INFO PANEL \\\\\\\\
-        vm.activeInfoPgHeader = 'Help & Info';
+        vm.activeInfoPgHeader = 'How to Use';
         vm.isInfoHomePage = true;
         vm.activeInfoPgIcon = '#icon-info';
 
@@ -272,7 +272,7 @@
         vm.setActiveInfoPg = function(page){
 
             if (page === 'Home'){
-                vm.activeInfoPgHeader = 'Help & Info';
+                vm.activeInfoPgHeader = 'How to Use';
             } else {
                 vm.activeInfoPgHeader = page;
             }

@@ -22,7 +22,7 @@
             map: {},
             reloadMap: reloadMap,
             tileLayers: tileLayers,
-            zoomHome: zoomHome,
+            zoomHome: zoomHome
         };
 
         // Leaflet defaults

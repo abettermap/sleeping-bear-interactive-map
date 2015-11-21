@@ -5,21 +5,23 @@
 
 .panel {
   background-color: $c-panel-bg;
-  .panel__header {
 
+  .panel__header {
     @extend %panel__header;
+
     @include mq($from: tablet) {
       position: absolute;
     }
+
     .btn {
       transition: 300ms ease-out;
       opacity: 1;
+
       // Animations
       &.ng-hide {
         opacity: 0;
       }
     }
-
   }
 
   &__inner {
@@ -34,6 +36,15 @@
     @extend %panel__row;
   }
 
+  &__narrative--top {
+    border-bottom: dashed gray 1px;
+    margin-bottom: 1rem;
+
+    p {
+      margin-top: 0;
+    }
+  }
+
   &__narrative {
     border-top: dashed gray 1px;
     margin-top: 1rem;
@@ -45,7 +56,7 @@
       height: 1rem;
     }
 
-    h3+p {
+    h3 + p {
       margin-top: .4rem;
     }
   }
@@ -98,7 +109,6 @@
     border-left: 0;
   }
 
-
   &__label {
     display: none;
 
@@ -106,26 +116,20 @@
       display: inline-block;
       vertical-align: middle;
     }
-
   }
 
   &__icon {
-
     display: inline-block;
     fill: $near-white;
     height: $l-panel-toggle-icon-size;
-    margin-right: 5px;
     width: $l-panel-toggle-icon-size;
 
     @include mq($from: tablet) {
-
       $l-panel-toggle-icon-size-big: $panel-toggle-content-ht;
       fill: darken($c-panel-toggle, 30%);
       height: $l-panel-toggle-icon-size-big;
       padding: .25rem;
       width: $l-panel-toggle-icon-size-big;
-
     }
   }
-
 }

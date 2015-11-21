@@ -1808,7 +1808,9 @@ h1 {
 h3 {
   color: #526b87;
   font-size: 1.5rem;
-  margin: 0 0 0.3rem; }
+  margin: 0 0 0.4rem; }
+  h3 + p {
+    margin-top: .1rem; }
 
 h4, .info-page--topic h5 {
   color: #38629c;
@@ -1818,6 +1820,9 @@ h4, .info-page--topic h5 {
   font-weight: normal;
   margin: 1rem auto 0.4rem;
   vertical-align: bottom; }
+
+h4 + p {
+  margin-top: .3rem; }
 
 h5 {
   color: #38629c;
@@ -2111,6 +2116,11 @@ body {
     opacity: 1; }
     .panel .panel__header .btn.ng-hide {
       opacity: 0; }
+  .panel__narrative--top {
+    border-bottom: dashed gray 1px;
+    margin-bottom: 1rem; }
+    .panel__narrative--top p {
+      margin-top: 0; }
   .panel__narrative {
     border-top: dashed gray 1px;
     margin-top: 1rem; }
@@ -2165,7 +2175,6 @@ body {
     display: inline-block;
     fill: #f9f9f9;
     height: 2.1rem;
-    margin-right: 5px;
     width: 2.1rem; }
     @media (min-width: 46.25em) {
       .panel__toggle__icon {
@@ -2543,13 +2552,15 @@ svg.toggle__icon--trail-cond {
   display: block;
   font-size: .9rem;
   margin-top: .25rem;
-  margin-bottom: .75rem; }
+  margin-bottom: 1.15rem; }
 
 /* Topics list */
-.info-topics-list li:last-of-type:after {
-  content: "";
-  display: block;
-  height: 1rem; }
+.info-topics-list {
+  margin-bottom: 0; }
+  .info-topics-list li:last-of-type:after {
+    content: "";
+    display: block;
+    height: 1rem; }
 
 .info-topics-link {
   font-size: 1.1rem; }
@@ -2568,6 +2579,12 @@ svg.toggle__icon--trail-cond {
     padding-left: 20px; }
 
 /* Software Credits */
+.software-credits h4:first-of-type {
+  margin-top: 0; }
+
+.software-credits .panel__narrative:after {
+  display: none; }
+
 .software-credits__logo {
   display: block;
   margin: .75rem auto;

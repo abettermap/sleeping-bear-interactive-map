@@ -38,7 +38,11 @@ h1 {
 h3 {
   color: $c-h3-color;
   font-size: 1.5rem;
-  margin: 0 0 .3rem;
+  margin: 0 0 .4rem;
+
+  + p {
+    margin-top: .1rem;
+  }
 }
 
 %h4 {
@@ -53,6 +57,10 @@ h3 {
 
 h4 {
   @extend %h4;
+
+  + p {
+    margin-top: .3rem;
+  }
 }
 
 h5 {
@@ -67,20 +75,16 @@ h5 {
   }
 }
 
-
 a {
   color: $c-panel-header;
   text-decoration: underline;
   transition: 300ms;
 
   @include mq($from: desktop) {
-
     &:hover {
       color: darken($c-panel-header, 12%);
     }
-
   }
-
 }
 
 img {
@@ -107,7 +111,7 @@ ul {
 
 // Attribution
 .leaflet-container .leaflet-control-attribution {
-  background: rgba(255, 255, 255, .4);
+  background: rgba(255, 255, 255, 0.4);
   border-top-left-radius: 5px;
   text-align: right;
   width: 190px;
@@ -124,7 +128,6 @@ ul {
   &:focus {
     outline: none;
   }
-
 }
 
 // Clearfix (included in desktop theme, not mobile)

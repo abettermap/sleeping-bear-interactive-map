@@ -1,8 +1,6 @@
 /* Info pages */
 .info-page-- {
-
   &home {
-
     opacity: 1;
 
     &.ng-hide-add.ng-hide-add-active {
@@ -16,11 +14,9 @@
     &.ng-hide {
       opacity: 0;
     }
-
   }
 
   &topic {
-
     opacity: 1;
 
     &.ng-hide-add.ng-hide-add-active {
@@ -44,7 +40,6 @@
     p {
       white-space: pre-wrap;
     }
-
   }
 }
 
@@ -73,11 +68,12 @@
   display: block;
   font-size: .9rem;
   margin-top: .25rem;
-  margin-bottom: .75rem;
+  margin-bottom: 1.15rem;
 }
 
 /* Topics list */
 .info-topics-list {
+  margin-bottom: 0;
 
   // Add space after last list item
   li:last-of-type {
@@ -87,7 +83,6 @@
       height: 1rem;
     }
   }
-
 }
 
 .info-topics-link {
@@ -97,13 +92,16 @@
 .help-list {
   margin: 0;
   padding-left: 20px;
+
   img {
     border: solid 1px #bbb;
     margin: .5rem 0;
   }
+
   strong {
     color: #222;
   }
+
   ol {
     font-size: .9rem;
     list-style-type: lower-alpha;
@@ -112,11 +110,23 @@
 }
 
 /* Software Credits */
-.software-credits__logo {
-  display: block;
-  margin: .75rem auto;
-  max-height: 7rem;
-  max-width: 80%;
+.software-credits {
+  h4:first-of-type {
+    margin-top: 0;
+  }
+
+  .panel__narrative {
+    &:after {
+      display: none;
+    }
+  }
+
+  &__logo {
+    display: block;
+    margin: .75rem auto;
+    max-height: 7rem;
+    max-width: 80%;
+  }
 }
 
 // Larger font for opening paragraph

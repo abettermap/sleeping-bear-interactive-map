@@ -29,7 +29,16 @@
             (Trail Mile Marker 0)</span>
         </div>
     </header>
-
+    <!-- NARRATIVE -->
+    <div ng-show="vm.selFeatData.narrative">
+        <h4>
+            <svg class="icon--heading" viewBox="0 0 100 100">
+                <use xlink:href="#icon-list"></use>
+            </svg>
+            Description
+        </h4>
+        <div class="narrative-text disable-outbound-links" ng-bind-html="vm.trustHtml(vm.selFeatData.narrative)"></div>
+    </div>
     <!-- SEASONS -->
     <div ng-show="vm.selFeatData.available">
         <h4>
@@ -47,7 +56,6 @@
             </li>
         </ul>
     </div>
-
     <!-- COMMERCIAL CONTACT INFO -->
     <div ng-show="vm.selFeatData.layer === 'commercial'">
         <h4>
@@ -96,7 +104,6 @@
             <div class="narrative-text" ng-bind-html="vm.trustHtml($root.cautionInfo.text)"></div>
         </div>
     </div>
-
     <!-- AUDIO CLIP (leaving out until mp3's or SoundCloud ready, too many console errors!) -->
 <!--     <div ng-show="vm.selFeatData.audio_link">
         <h4>
@@ -107,7 +114,6 @@
         </h4>
         <iframe width="100%" ng-src="{{vm.audioUrl}}"></iframe>
     </div> -->
-
     <!-- VIDEO CLIP -->
     <div ng-show="vm.selFeatData.video_link" class="disable-outbound-links">
         <h4>
@@ -118,7 +124,6 @@
         </h4>
         <iframe width="100%" ng-src="{{vm.videoUrl}}" controls=0 modestbranding=1 allownetworking="internal" frameborder="0" allowfullscreen></iframe>
     </div>
-
     <!-- DIRECTIONS -->
     <div class="directions disable-outbound-links" ng-hide="vm.selFeatData.layer === 'faces'">
         <h4>
@@ -129,16 +134,4 @@
         </h4>
         <p><a target="_blank" ng-href="{{vm.directionsUrl}}">Click here</a> for Google Maps directions to this location (opens in a new tab).</p>
     </div>
-
-    <!-- NARRATIVE -->
-    <div ng-show="vm.selFeatData.narrative">
-        <h4>
-            <svg class="icon--heading" viewBox="0 0 100 100">
-                <use xlink:href="#icon-list"></use>
-            </svg>
-            Description
-        </h4>
-        <div class="narrative-text disable-outbound-links" ng-bind-html="vm.trustHtml(vm.selFeatData.narrative)"></div>
-    </div>
-
 </div>

@@ -291,7 +291,7 @@
             map: {},
             reloadMap: reloadMap,
             tileLayers: tileLayers,
-            zoomHome: zoomHome,
+            zoomHome: zoomHome
         };
 
         // Leaflet defaults
@@ -346,15 +346,11 @@
 
             var url = location.href;
 
-            // If popup, go to initial page
-            if (url.indexOf('popup') > -1) {
-                if (url.indexOf('kiosk') > -1){ // Kiosk
-                    window.location = '/sbht-i-map/kiosk';
-                } else {
-                    window.location = '/sbht-i-map'; // Not kiosk
-                }
-            // Otherwise reload
+            if (url.indexOf('kiosk') > -1){ // Kiosk
+                window.location = '/sbht-i-map/kiosk';
+                location.reload();
             } else {
+                window.location = '/sbht-i-map'; // Not kiosk
                 location.reload();
             }
 
@@ -728,9 +724,9 @@
                 style.type = 'text/css';
 
                 if (style.styleSheet){
-                  style.styleSheet.cssText = css;
+                    style.styleSheet.cssText = css;
                 } else {
-                  style.appendChild(document.createTextNode(css));
+                    style.appendChild(document.createTextNode(css));
                 }
 
                 head.appendChild(style);
@@ -804,9 +800,7 @@
             // Click summer
             $('#summer-toggle').click();
 
-
             /* DISABLE GRADE, CAUTION, TRAIL_CONDITION */
-
             // Let controller know about it in order to update model
             $rootScope.$broadcast('setDefaults');
 
@@ -2092,14 +2086,14 @@
         // Change POI toggle view
         vm.activePoiPage = 'Home';
         vm.activePoiPageIcon = '#icon-map-pin';
-        vm.activePoiPageTitle = 'Points of Interest';
+        vm.activePoiPageTitle = 'Features On/Off';
 
         vm.setActivePoiPage = function(page){
 
             vm.activePoiPage = page;
 
             if (page === 'Home'){
-                vm.activePoiPageTitle = 'Points of Interest';
+                vm.activePoiPageTitle = 'Features On/Off';
                 vm.activePoiPageIcon = '#icon-map-pin';
             } else {
                 vm.activePoiPageTitle = page;
@@ -2227,7 +2221,7 @@
 
 
         //////// INFO PANEL \\\\\\\\
-        vm.activeInfoPgHeader = 'Help & Info';
+        vm.activeInfoPgHeader = 'How to Use';
         vm.isInfoHomePage = true;
         vm.activeInfoPgIcon = '#icon-info';
 
@@ -2244,7 +2238,7 @@
         vm.setActiveInfoPg = function(page){
 
             if (page === 'Home'){
-                vm.activeInfoPgHeader = 'Help & Info';
+                vm.activeInfoPgHeader = 'How to Use';
             } else {
                 vm.activeInfoPgHeader = page;
             }
@@ -2313,12 +2307,12 @@
         /******************************/
         /****** TOGGLE POI TYPES ******/
         /******************************/
-        var sublayers = layersFactory.sublayers;
 
         function toggleFeatures(types){
 
             var query,
                 states = $rootScope.queryStates,
+                sublayers = layersFactory.sublayers,
                 featQuery = {
                     start: "SELECT 'features' AS layer," +
                         " features.lin_dist," +
@@ -2345,6 +2339,7 @@
             } else {
                 featQuery.all = featQuery.start + states.features + featQuery.end;
             }
+
             sublayers.features.setSQL(featQuery.all);
 
         }
@@ -2354,6 +2349,7 @@
 
             var query,
                 states = $rootScope.queryStates,
+                sublayers = layersFactory.sublayers,
                 string = '',
                 arr = [],
                 commQuery = {
@@ -2407,7 +2403,6 @@
             commQuery.all = commQuery.start + string + commQuery.end;
 
             sublayers.commercial.setSQL(commQuery.all);
-
 
         }
 
