@@ -236,6 +236,7 @@
             /***** Also disable right-clicking icon (being lazy and doing for non-kiosk too) *****/
             var tempMarker = L.marker(coords,{
                 temp: true,
+                zIndexOffset: 1000,
                 icon: L.divIcon({
                     className: 'temp-div-icon',
                     html: '' +
@@ -249,7 +250,6 @@
             });
 
             tempMarker.addTo(factory.map);
-
             panToSelection(coords, type);
 
         }
