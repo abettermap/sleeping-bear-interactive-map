@@ -121,14 +121,15 @@
   &__icon {
     display: inline-block;
     fill: $near-white;
-    height: $l-panel-toggle-icon-size;
-    width: $l-panel-toggle-icon-size;
+    height: $l-panel-toggle-icon-size * 1.2;
+    width: $l-panel-toggle-icon-size * 1.2;
 
     @include mq($from: tablet) {
       $l-panel-toggle-icon-size-big: $panel-toggle-content-ht;
       fill: darken($c-panel-toggle, 30%);
       height: $l-panel-toggle-icon-size-big;
-      padding: .25rem;
+      // padding: .25rem;
+      margin-right: .3rem;
       width: $l-panel-toggle-icon-size-big;
     }
   }
