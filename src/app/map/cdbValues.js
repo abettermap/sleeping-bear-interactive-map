@@ -14,6 +14,12 @@
             layerProps: {
                 attribution: false,
                 type: 'CartoDB',
+                tiler_domain: "cartodb.com",
+                tiler_port: "443",
+                tiler_protocol: "https",
+                sql_domain: "cartodb.com",
+                sql_port: "443",
+                sql_protocol: "https",
                 user_name: 'remcaninch',
                 sublayers: [
                     // TRAIL
