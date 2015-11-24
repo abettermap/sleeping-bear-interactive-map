@@ -151,7 +151,7 @@
                 query;
 
             if (table == 'feat'){
-                query = prefix + "feature_types WHERE type != 'mainpoints'";
+                query = prefix + "feature_types WHERE type != 'mainpoints' ORDER BY sub_group DESC";
             } else {
                 query = prefix + "commercial_types";
             }
