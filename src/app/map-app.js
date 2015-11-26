@@ -175,6 +175,12 @@
             layerProps: {
                 attribution: false,
                 type: 'CartoDB',
+                tiler_domain: "cartodb.com",
+                tiler_port: "443",
+                tiler_protocol: "https",
+                sql_domain: "cartodb.com",
+                sql_port: "443",
+                sql_protocol: "https",
                 user_name: 'remcaninch',
                 sublayers: [
                     // TRAIL
@@ -642,6 +648,7 @@
             /***** Also disable right-clicking icon (being lazy and doing for non-kiosk too) *****/
             var tempMarker = L.marker(coords,{
                 temp: true,
+                zIndexOffset: 1000,
                 icon: L.divIcon({
                     className: 'temp-div-icon',
                     html: '' +
@@ -655,7 +662,6 @@
             });
 
             tempMarker.addTo(factory.map);
-
             panToSelection(coords, type);
 
         }
@@ -2431,7 +2437,7 @@
                 query;
 
             if (table == 'feat'){
-                query = prefix + "feature_types WHERE type != 'mainpoints'";
+                query = prefix + "feature_types WHERE type != 'mainpoints' ORDER BY sub_group DESC";
             } else {
                 query = prefix + "commercial_types";
             }

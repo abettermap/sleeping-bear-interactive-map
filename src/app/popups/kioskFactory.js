@@ -109,7 +109,7 @@
             // Set zoom to 12
             layersFactory.map.setZoom(12);
 
-            // Uncheck all POI toggles, faces, trail_condition
+            // Uncheck all POI toggles, faces
             var checkBoxes = $('.poi-type__checkbox, #faces-toggle');
             [].forEach.call(checkBoxes, uncheckBoxes);
 
@@ -123,15 +123,14 @@
             // Click summer
             $('#summer-toggle').click();
 
-            /* DISABLE GRADE, CAUTION, TRAIL_CONDITION */
+            /* DISABLE GRADE AND CAUTION */
             // Let controller know about it in order to update model
             $rootScope.$broadcast('setDefaults');
 
             // Uncheck all (can't do via click() b/c using ng-change)
             var overlays = [
                 {id: '#sbht_caution-toggle', sub: 'sbht_caution'},
-                {id: '#sbht_grade-toggle', sub: 'sbht_grade'},
-                {id: '#trail-cond-toggle', sub: 'trail_condition'},
+                {id: '#sbht_grade-toggle', sub: 'sbht_grade'}
             ];
 
             for (var i = 0; i < overlays.length; i++){
@@ -146,7 +145,6 @@
 
             // Update $rootScope as needed
             $rootScope.queryStates.sbht_caution = false;
-            $rootScope.queryStates.trail_condition = false;
 
             goToRandomFeat();
 

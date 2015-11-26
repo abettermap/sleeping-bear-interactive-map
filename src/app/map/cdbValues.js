@@ -61,12 +61,6 @@
                         interactivity: 'cartodb_id, type, filepath, layer, lin_dist',
                         sql: "SELECT 'features' AS layer, features.lin_dist, features.the_geom_webmercator, features.seasons, features.cartodb_id, features.type, features.filepath, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons,3,1) = 'y' AND features.type = 'mainpoints' ORDER BY priority DESC",
                     },
-                    // TRAIL (SKI) CONDITION
-                    {
-                        interactivity: 'cartodb_id, filepath, layer, lin_dist',
-                        cartocss: getMss('trail_condition'),
-                        sql: "SELECT the_geom_webmercator, lin_dist, cartodb_id, filepath, 'trail_condition' as layer FROM trail_condition",
-                    },
                     // COMMERCIAL
                     {
                         cartocss: getMss('commercial'),

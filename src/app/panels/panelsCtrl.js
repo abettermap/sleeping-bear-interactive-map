@@ -224,7 +224,7 @@
 
             vm.overlayStates[0].on = false;
             vm.overlayStates[1].on = false;
-            vm.trailCondState = false;
+
             // Why faces not turned off?
             // vm.facesState = false;
 
@@ -238,21 +238,6 @@
             $rootScope.queryStates[layer] = !$rootScope.queryStates[layer];
 
         };
-
-        // Show trail condition button if winter is selected and current month Nov - Mar
-        vm.showTrailCondition = function(){
-
-            var d = new Date(),
-                month = d.getMonth();
-
-            if (vm.queryStates.season == 1 && ((month <= 2 ) || (month >= 10 ))){
-                return true;
-            } else {
-                return false;
-            }
-
-        };
-
 
         //////// INFO PANEL \\\\\\\\
         vm.activeInfoPgHeader = 'How to Use';

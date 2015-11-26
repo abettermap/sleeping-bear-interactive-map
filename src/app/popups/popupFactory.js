@@ -55,21 +55,18 @@
                 end = " ORDER BY dist LIMIT 50",
                 nonPoiStatus = {
                     faces: states.faces,
-                    trail_condition: '',
                     trail_pix: '',
                 },
                 queries = {
                     commercial: "",
                     faces: "",
-                    trail_pix: "",
-                    trail_condition: "",
+                    trail_pix: ""
                 },
                 skipCurrentCdbId = {
                     commercial: "",
                     faces: "",
                     features: "",
-                    trail_pix: "",
-                    trail_condition: "",
+                    trail_pix: ""
                 };
 
             skipCurrentCdbId[params.layer] = " AND cartodb_id != " + params.cartodb_id;
@@ -97,7 +94,6 @@
                     " FROM commercial" + commQuery +
                     " AND " + sharedSeasons + skipCurrentCdbId.commercial;
 
-
             // Trail pics
             if (states.trail_pix){
                 if (params.layer === 'trail_pix'){
@@ -110,20 +106,6 @@
                     queries.trail_pix = ' UNION ALL ' + sql +
                     " 'trail_pix' AS layer" +
                     " FROM trail_pix WHERE " + sharedSeasons;
-                }
-            }
-
-            // Trail condition
-            if (states.trail_condition){
-                if (params.layer === 'trail_condition'){
-                    queries.trail_condition = ' UNION ALL ' + sql +
-                    " 'trail_condition' AS layer" +
-                    " FROM trail_condition" +
-                    " WHERE cartodb_id != " + params.cartodb_id;
-                } else {
-                    queries.trail_condition = ' UNION ALL ' + sql +
-                    " 'trail_condition' AS layer" +
-                    " FROM trail_condition";
                 }
             }
 
@@ -141,7 +123,7 @@
                 }
             }
 
-            query = shared.url + featQuery + commQuery + queries.faces + queries.trail_pix + queries.trail_condition + end;
+            query = shared.url + featQuery + commQuery + queries.faces + queries.trail_pix + end;
 
             return $http({
                 method: 'GET',
@@ -170,12 +152,7 @@
                         " 'Trail Snapshot' AS name," +
                         " 'Trail Photos' AS type_name," +
                         " 'trail_pix' AS layer" +
-                        " FROM trail_pix WHERE " + seasonsString,
-                    trail_condition: "" +
-                        " '' AS seasons, 'trail-cond' AS type," +
-                        " 'Current Ski Conditions' AS name," +
-                        " 'Ski Conditions' AS type_name," +
-                        " 'trail_condition' AS layer FROM trail_condition"
+                        " FROM trail_pix WHERE " + seasonsString
                 },
                 nonPoiShared = "" +
                     " UNION ALL" +

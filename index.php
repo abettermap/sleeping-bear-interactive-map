@@ -103,8 +103,6 @@
           <div ui-view></div>
         </div>
         <?php
-            $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-trail_condition.mss');
-            echo '<span id="mss-trail_condition" class="never-show">' . $contents . '</span>';
             $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-features.mss');
             echo '<span id="mss-features" class="never-show">' . $contents . '</span>';
             $contents = file_get_contents( 'src/assets/spatial/carto-css/sbht-commercial.mss');

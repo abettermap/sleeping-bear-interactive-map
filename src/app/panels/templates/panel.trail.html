@@ -55,21 +55,6 @@
                         </span>
                     </label>
                 </div>
-                <!-- SKI CONDITIONS -->
-                <div ng-show="vm.showTrailCondition()">
-                    <h3 class="panel--trail__header">Current Ski Conditions</h3>
-                    <div class="panel--trail__label-cont trail__label-cont--cond">
-                        <input type="checkbox" id="trail-cond-toggle"
-                            ng-model="vm.trailCondState"
-                            ng-change="vm.toggleOverlayState('trail_condition')">
-                        <label class="panel--trail__label trail-cond" for="trail-cond-toggle">
-                            <svg viewBox="0 0 100 100" class="toggle__icon--trail-cond">
-                                <use xlink:href="#icon-trail-cond"></use>
-                            </svg>
-                            Current Ski Conditions
-                        </label>
-                    </div>
-                </div>
                 <div class="panel__narrative">
                     <p>The map has a large image library showing trail scenes and visitors enjoying the trail. Select one or both options, then click any point along the trail on the map to view photos.</p>
                     <p>While the trail is mostly flat, there are a few hills and other areas to exercise special caution. Click the "Grade" and "Caution" buttons to show these areas on the map.</p>

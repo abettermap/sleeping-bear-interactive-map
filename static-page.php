@@ -52,8 +52,6 @@
             $description = $default_description;
             if ($data->table === 'trail_pix') {
                 $name = 'Trail Photo';
-            } elseif ($data->table === 'trail_pix') {
-                $name = 'X/C Ski Conditions';
             } else {
                 $name = 'Faces Along the Trail';
             }
