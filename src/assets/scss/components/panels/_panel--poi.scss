@@ -6,9 +6,7 @@ $a-long-trans: 5000ms;
 }
 
 .poi-page {
-
   &--home {
-
     opacity: 1;
 
     &.ng-hide-add.ng-hide-add-active {
@@ -22,11 +20,9 @@ $a-long-trans: 5000ms;
     &.ng-hide {
       opacity: 0;
     }
-
   }
 
   &--poi {
-
     opacity: 1;
 
     &.ng-hide-add.ng-hide-add-active {
@@ -40,23 +36,21 @@ $a-long-trans: 5000ms;
     &.ng-hide {
       opacity: 0;
     }
-
   }
 }
-
 
 /* Subgroup (Home) page */
 
 // List and list items
 .poi-subgroup {
+  position: relative;
 
-  position: relative; // parent for abs-pos'd sel count icon
-
+  // parent for abs-pos'd sel count icon
   &-list {
     list-style-type: none;
     margin-bottom: 0;
     margin-top: .25rem;
-    padding-left: .5rem;
+    padding-left: 0;
 
     @include mq($from: tablet) {
       margin-bottom: .5rem;
@@ -66,7 +60,6 @@ $a-long-trans: 5000ms;
     .poi-type__icon {
       margin-right: 10px;
     }
-
   }
 
   // Not the last list item
@@ -79,7 +72,7 @@ $a-long-trans: 5000ms;
   // Subgroup selected count
   &-count {
     $s: 1.2rem;
-    $p: .1rem;
+    $p: 0.1rem;
     background-color: #f00;
     border: solid 2px darken(#f00, 25%);
     border-radius: 100%;
@@ -88,7 +81,7 @@ $a-long-trans: 5000ms;
     font-weight: bold;
     height: $s;
     left: -.3rem;
-    line-height: ($s + $p)/2;
+    line-height: ($s + $p) / 2;
     padding: $p;
     position: absolute;
     text-align: center;
@@ -99,14 +92,17 @@ $a-long-trans: 5000ms;
   &-link {
     color: $near-black;
     display: block;
+    float: right;
     font-size: 1.2rem;
     text-decoration: none;
     transition: $a-all-hover-transition;
+    width: calc(100% - 2.4rem - .75rem);
 
     // "Main Access Points" blurb
     &--access {
       cursor: default;
       font-size: .9rem;
+
       span {
         color: #808080;
         display: block;
@@ -127,11 +123,9 @@ $a-long-trans: 5000ms;
 
     &--comm {
       @include mq($from: desktop) {
-
         &:hover {
           color: $c-comm-pin-bg;
         }
-
       }
     }
   }
@@ -147,15 +141,11 @@ $a-long-trans: 5000ms;
   &__preview {
     color: $gray;
     display: block;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    overflow: hidden;
+    font-size: 0.85rem;
+    line-height: 1.25;
+    margin-top: .1rem;
     text-decoration: none;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: calc(100% - 2.4rem - .75rem);
   }
-
 }
 
 /* POI LISTS */
@@ -195,8 +185,8 @@ $a-long-trans: 5000ms;
     width: $size;
 
     @include mq($from: tablet) {
-      height: $size*1.2;
-      width: $size*1.2;
+      height: $size * 1.2;
+      width: $size * 1.2;
     }
 
     &--access {
@@ -213,7 +203,6 @@ $a-long-trans: 5000ms;
       background-color: $c-comm-pin-bg;
       border-color: $c-comm-pin-stroke;
     }
-
   }
 
   &__desc {
