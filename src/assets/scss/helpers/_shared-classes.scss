@@ -285,3 +285,9 @@
 .vis-hidden {
   visibility: hidden;
 }
+
+// Horizontal rule
+.hr-rule--dashed {
+  border: 0;
+  border-bottom: 1px dashed;
+}

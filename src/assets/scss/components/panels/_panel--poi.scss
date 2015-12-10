@@ -43,6 +43,7 @@ $a-long-trans: 5000ms;
 
 // List and list items
 .poi-subgroup {
+  margin-bottom: .3rem;
   position: relative;
 
   // parent for abs-pos'd sel count icon
@@ -145,6 +146,11 @@ $a-long-trans: 5000ms;
     line-height: 1.25;
     margin-top: .1rem;
     text-decoration: none;
+    text-transform: lowercase;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
   }
 }
 
@@ -166,8 +172,8 @@ $a-long-trans: 5000ms;
   &__label {
     flex: 0 100%;
     font-size: 1.2rem;
-    line-height: .8;
-    padding: .4em .4em .15em;
+    line-height: .95;
+    padding: 0.6rem 0.4rem 0;
   }
 
   /* SVG icons */
@@ -181,6 +187,7 @@ $a-long-trans: 5000ms;
     float: left;
     height: $size;
     margin-right: 7px;
+    margin-top: -.3rem;
     padding: .2rem;
     width: $size;
 
@@ -211,5 +218,6 @@ $a-long-trans: 5000ms;
     font-size: .85rem;
     line-height: 2;
     text-shadow: none;
+    text-transform: none;
   }
 }

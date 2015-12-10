@@ -165,7 +165,7 @@
         // Get POI toggles data
         function getPoiPages (table){
 
-            var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT name, sub_group, type, type_desc, priority",
+            var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT name, sub_group, type, priority",
                 query;
 
             if (table === 'feat'){
