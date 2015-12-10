@@ -43,7 +43,6 @@
                     features: ["'mainpoints'"],
                     season: 3,
                     sbht_caution: false,
-                    trail_condition: false,
                     trail_pix: true
                 };
 
@@ -99,8 +98,7 @@
 
                 $rootScope.tempSublayerIndexes = {
                     sbht_caution: -1,
-                    sbht_grade: -1,
-                    trail_condition: -1,
+                    sbht_grade: -1
                 };
 
             }

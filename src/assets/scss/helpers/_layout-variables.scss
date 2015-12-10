@@ -10,7 +10,7 @@ $big-radio-size: 75px;
 /*
 Inputs
 */
-$l-btn-padding: .4rem .65rem;
+$l-btn-padding: 0.4rem 0.65rem;
 
 /*
 Panels & popups
@@ -25,12 +25,12 @@ $l-panel-header-ht: 1.5rem;
 
 /* Panel toggles */
 $panel-toggle-padding: 0.6rem;
-$panel-toggle-content-ht: 2.8rem;
+$panel-toggle-content-ht: 1.9rem;
 $panel-toggle-ht: $panel-toggle-padding + $panel-toggle-content-ht;
-$l-panel-bottom: $panel-toggle-padding*2 + $panel-toggle-content-ht;
+$l-panel-bottom: $panel-toggle-padding * 2 + $panel-toggle-content-ht;
 
 /* Icons */
-$l-panel-toggle-icon-size: $panel-toggle-content-ht * .75;
+$l-panel-toggle-icon-size: $panel-toggle-content-ht * 0.75;
 $l-sm-icon-size: 1.7rem;
 
 /* POI nav panel */
@@ -41,8 +41,8 @@ $l-nav-icon-size: 3.5rem;
 /* POI toggles */
 $l-poi-toggle-icon-size: 2rem;
 
-$l-label-padding: .2rem;
-$l-label-ht: $l-poi-toggle-icon-size + $l-label-padding*2;
+$l-label-padding: 0.2rem;
+$l-label-ht: $l-poi-toggle-icon-size + $l-label-padding * 2;
 
 /* Trail toggles */
-$l-trail-toggle-line-padding: .5rem .75rem;
+$l-trail-toggle-line-padding: 0.5rem 0.75rem;

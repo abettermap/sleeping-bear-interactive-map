@@ -11,6 +11,7 @@
     function kioskFactory($http, $rootScope, layersFactory, $state){
 
         var factory = {
+            cdbSamePgCount: null,
             disableLinks: disableLinks,
             resetMapDefaults: resetMapDefaults,
             screensaverInterval: null,
@@ -22,6 +23,7 @@
 
             var k = window.location.href.indexOf('kiosk');
             if (k > 0){
+            // if (k < 0){
 
                 // Disable right-click
                 $('body').attr('oncontextmenu', 'return false');
@@ -45,9 +47,9 @@
                 style.type = 'text/css';
 
                 if (style.styleSheet){
-                  style.styleSheet.cssText = css;
+                    style.styleSheet.cssText = css;
                 } else {
-                  style.appendChild(document.createTextNode(css));
+                    style.appendChild(document.createTextNode(css));
                 }
 
                 head.appendChild(style);
@@ -56,6 +58,19 @@
                 document.getElementById('map-wrapper').addEventListener("touchend", screenSaver);
                 document.getElementById('map-wrapper').addEventListener("touchmove", screenSaver);
                 document.getElementById('map-wrapper').addEventListener("mousemove", screenSaver);
+
+                /** Make CDB link target in same window **/
+                var cdbSamePg = null;
+
+                if (!factory.cdbSamePgCount){
+                    factory.cdbSamePgCount = true;
+                    cdbSamePg = setTimeout(function(){
+                        $('.cartodb-logo a').attr('target', '_self');
+                        $('a[href="http://cartodb.com/attributions"]').attr('target', '_self');
+                    }, 2000);
+                }
+
+                screenSaver();
 
             }
 
@@ -75,6 +90,7 @@
                 // Start timed interval
                 factory.screensaverInterval = setInterval(function(){
                     count++;
+
                     if (count <= 50){
                         resetMapDefaults();
                     } else {
@@ -93,7 +109,7 @@
             // Set zoom to 12
             layersFactory.map.setZoom(12);
 
-            // Uncheck all POI toggles, faces, trail_condition
+            // Uncheck all POI toggles, faces
             var checkBoxes = $('.poi-type__checkbox, #faces-toggle');
             [].forEach.call(checkBoxes, uncheckBoxes);
 
@@ -107,17 +123,14 @@
             // Click summer
             $('#summer-toggle').click();
 
-
-            /* DISABLE GRADE, CAUTION, TRAIL_CONDITION */
-
+            /* DISABLE GRADE AND CAUTION */
             // Let controller know about it in order to update model
             $rootScope.$broadcast('setDefaults');
 
             // Uncheck all (can't do via click() b/c using ng-change)
             var overlays = [
                 {id: '#sbht_caution-toggle', sub: 'sbht_caution'},
-                {id: '#sbht_grade-toggle', sub: 'sbht_grade'},
-                {id: '#trail-cond-toggle', sub: 'trail_condition'},
+                {id: '#sbht_grade-toggle', sub: 'sbht_grade'}
             ];
 
             for (var i = 0; i < overlays.length; i++){
@@ -132,7 +145,6 @@
 
             // Update $rootScope as needed
             $rootScope.queryStates.sbht_caution = false;
-            $rootScope.queryStates.trail_condition = false;
 
             goToRandomFeat();
 

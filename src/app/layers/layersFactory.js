@@ -39,12 +39,10 @@
                     sbht_grade: layer.getSubLayer(1),
                     sbht_caution: layer.getSubLayer(2),
                     features: layer.getSubLayer(3),
-                    trail_condition: layer.getSubLayer(4),
-                    commercial: layer.getSubLayer(5),
+                    commercial: layer.getSubLayer(4)
                 };
 
-                // Hide trail_condition, grade, caution
-                factory.sublayers.trail_condition.hide();
+                // Hide grade, caution
                 factory.sublayers.sbht_grade.hide();
                 factory.sublayers.sbht_caution.hide();
 
@@ -86,11 +84,6 @@
 
                 // When features is clicked
                 factory.sublayers.features.on('featureClick', function(e, latlng, pos, data){
-                    featureWasClicked(e, latlng, pos, data);
-                });
-
-                // When trail_condition is clicked
-                factory.sublayers.trail_condition.on('featureClick', function(e, latlng, pos, data){
                     featureWasClicked(e, latlng, pos, data);
                 });
 
@@ -156,18 +149,20 @@
         /***** SET SELECTED FEATURE COLOR *****/
         function setSelFeatColor(sublayer, cartodb_id){
 
-            var sub, subs = factory.sublayers, mss,
-                featCommCondArr = ['features', 'commercial', 'trail_condition'];
+            var sub,
+                subs = factory.sublayers,
+                mss,
+                featCommArr = ['features', 'commercial'];
 
             // If trail_pix or faces, clear others
             if (sublayer === 'trail_pix' || sublayer === 'faces'){
-                for (var i = 0; i < 3; i++) {
-                    sub = featCommCondArr[i];
+                for (var i = 0; i < 2; i++) {
+                    sub = featCommArr[i];
                     subs[sub].setCartoCSS(getMss(sub));
                 }
             } else {
-                for (var n = 0; n < 3; n++) {
-                    sub = featCommCondArr[n];
+                for (var n = 0; n < 2; n++) {
+                    sub = featCommArr[n];
                     if (sub === sublayer){
                         subs[sub].setCartoCSS(getMss(sub));
                     } else {
@@ -178,29 +173,24 @@
 
         }
 
-        function getMss(sublayer, cartodb_id){
+        /* Get mss for a sublayer via the MSS in the DOM */
+        function getMss(sublayer){
 
-            var newString = '', mss = $('#mss-' + sublayer).text();
+            /* The DOM element text and a generic prefix for selected symbology  */
+            var mssElementText = $('#mss-' + sublayer).text(),
+                newString = '#' + sublayer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
+                  'bg/marker-fill: @c-sel-feat-fill; bg/marker-line-color: @c-sel-feat-stroke;}';
 
-            /* Slightly different symbology for trail_condition */
-            if (cartodb_id){
-                if (sublayer === 'trail_condition'){
-                    newString = '#' + sublayer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
-                      'bg/marker-fill: @c-sel-feat-fill; bg/marker-line-color: @c-sel-feat-stroke; fg/marker-fill: #fff;}';
-                } else {
-                    newString = '#' + sublayer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
-                      'bg/marker-fill: @c-sel-feat-fill; bg/marker-line-color: @c-sel-feat-stroke;}';
-                }
-            }
+            return mssElementText + newString;
 
-            return mss + newString;
         }
 
         /****** PAN TO SELECTION ******/
         function panToSelection(coords, type){
 
             var map = factory.map,
-                targetPoint, targetLatLng,
+                targetPoint,
+                targetLatLng,
                 viewportWidth = document.documentElement.clientWidth;
 
             // Zoom in if mainpoints
@@ -233,22 +223,23 @@
             popupFactory.clearTempMarker(factory.map, factory.map._layers);
 
             /***** Have marker ready but don't add to map *****/
+            /***** Also disable right-clicking icon (being lazy and doing for non-kiosk too) *****/
             var tempMarker = L.marker(coords,{
                 temp: true,
+                zIndexOffset: 1000,
                 icon: L.divIcon({
                     className: 'temp-div-icon',
                     html: '' +
-                        '<svg class="icon--temp--bg" viewBox="0 0 100 100">' +
+                        '<svg oncontextmenu="return false" class="icon--temp--bg" viewBox="0 0 100 100">' +
                             '<use xlink:href="#icon-map-pin-wide-empty"></use>' +
                         '</svg>' +
-                        '<svg class="icon--temp--fg" viewBox="0 0 100 100">' +
+                        '<svg oncontextmenu="return false" class="icon--temp--fg" viewBox="0 0 100 100">' +
                             '<use xlink:href="#icon-' + type + '"></use>' +
                         '</svg>'
                 }),
             });
 
             tempMarker.addTo(factory.map);
-
             panToSelection(coords, type);
 
         }
@@ -256,7 +247,7 @@
         /***** TOGGLE OVERLAY STATE *****/
         function toggleOverlayState(overlay){
 
-            if (overlay === 'trail_condition' || overlay === 'sbht_caution'){
+            if (overlay === 'sbht_caution'){
                 $rootScope.queryStates[overlay] = !$rootScope.queryStates[overlay];
             }
 

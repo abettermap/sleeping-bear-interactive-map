@@ -27,12 +27,12 @@
         /******************************/
         /****** TOGGLE POI TYPES ******/
         /******************************/
-        var sublayers = layersFactory.sublayers;
 
         function toggleFeatures(types){
 
             var query,
                 states = $rootScope.queryStates,
+                sublayers = layersFactory.sublayers,
                 featQuery = {
                     start: "SELECT 'features' AS layer," +
                         " features.lin_dist," +
@@ -59,6 +59,7 @@
             } else {
                 featQuery.all = featQuery.start + states.features + featQuery.end;
             }
+
             sublayers.features.setSQL(featQuery.all);
 
         }
@@ -68,6 +69,7 @@
 
             var query,
                 states = $rootScope.queryStates,
+                sublayers = layersFactory.sublayers,
                 string = '',
                 arr = [],
                 commQuery = {
@@ -122,7 +124,6 @@
 
             sublayers.commercial.setSQL(commQuery.all);
 
-
         }
 
         /* Will need to be run by router to keep season toggle accurate*/
@@ -150,7 +151,7 @@
                 query;
 
             if (table == 'feat'){
-                query = prefix + "feature_types WHERE type != 'mainpoints'";
+                query = prefix + "feature_types WHERE type != 'mainpoints' ORDER BY sub_group DESC";
             } else {
                 query = prefix + "commercial_types";
             }
@@ -164,7 +165,7 @@
         // Get POI toggles data
         function getPoiPages (table){
 
-            var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT name, sub_group, type, type_desc, priority",
+            var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT name, sub_group, type, priority",
                 query;
 
             if (table === 'feat'){

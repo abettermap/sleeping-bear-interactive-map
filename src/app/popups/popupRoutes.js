@@ -116,13 +116,7 @@
                                         " 'camera' AS type," +
                                         " 'Trail Snapshot' AS name," +
                                         " 'Trail Photos' AS type_name" +
-                                        sharedSuffix,
-                                    trail_condition: "" +
-                                        sharedPrefix +
-                                        " 'trail-cond' AS type," +
-                                        " 'Current Ski Conditions' AS name," +
-                                        " 'Ski Conditions' AS type_name" +
-                                        sharedSuffix,
+                                        sharedSuffix
                                 };
 
                             query = queries[sp.layer];

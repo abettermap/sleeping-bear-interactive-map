@@ -43,7 +43,6 @@
                     features: ["'mainpoints'"],
                     season: 3,
                     sbht_caution: false,
-                    trail_condition: false,
                     trail_pix: true
                 };
 
@@ -99,8 +98,7 @@
 
                 $rootScope.tempSublayerIndexes = {
                     sbht_caution: -1,
-                    sbht_grade: -1,
-                    trail_condition: -1,
+                    sbht_grade: -1
                 };
 
             }
@@ -175,6 +173,12 @@
             layerProps: {
                 attribution: false,
                 type: 'CartoDB',
+                tiler_domain: "cartodb.com",
+                tiler_port: "443",
+                tiler_protocol: "https",
+                sql_domain: "cartodb.com",
+                sql_port: "443",
+                sql_protocol: "https",
                 user_name: 'remcaninch',
                 sublayers: [
                     // TRAIL
@@ -215,12 +219,6 @@
                         cartocss: getMss('features'),
                         interactivity: 'cartodb_id, type, filepath, layer, lin_dist',
                         sql: "SELECT 'features' AS layer, features.lin_dist, features.the_geom_webmercator, features.seasons, features.cartodb_id, features.type, features.filepath, feature_types.name AS type_name, feature_types.priority FROM features INNER JOIN feature_types ON features.type=feature_types.type WHERE substring(features.seasons,3,1) = 'y' AND features.type = 'mainpoints' ORDER BY priority DESC",
-                    },
-                    // TRAIL (SKI) CONDITION
-                    {
-                        interactivity: 'cartodb_id, filepath, layer, lin_dist',
-                        cartocss: getMss('trail_condition'),
-                        sql: "SELECT the_geom_webmercator, lin_dist, cartodb_id, filepath, 'trail_condition' as layer FROM trail_condition",
                     },
                     // COMMERCIAL
                     {
@@ -291,7 +289,7 @@
             map: {},
             reloadMap: reloadMap,
             tileLayers: tileLayers,
-            zoomHome: zoomHome,
+            zoomHome: zoomHome
         };
 
         // Leaflet defaults
@@ -346,15 +344,11 @@
 
             var url = location.href;
 
-            // If popup, go to initial page
-            if (url.indexOf('popup') > -1) {
-                if (url.indexOf('kiosk') > -1){ // Kiosk
-                    window.location = '/sbht-i-map/kiosk';
-                } else {
-                    window.location = '/sbht-i-map'; // Not kiosk
-                }
-            // Otherwise reload
+            if (url.indexOf('kiosk') > -1){ // Kiosk
+                window.location = '/sbht-i-map/kiosk';
+                location.reload();
             } else {
+                window.location = '/sbht-i-map'; // Not kiosk
                 location.reload();
             }
 
@@ -449,12 +443,10 @@
                     sbht_grade: layer.getSubLayer(1),
                     sbht_caution: layer.getSubLayer(2),
                     features: layer.getSubLayer(3),
-                    trail_condition: layer.getSubLayer(4),
-                    commercial: layer.getSubLayer(5),
+                    commercial: layer.getSubLayer(4)
                 };
 
-                // Hide trail_condition, grade, caution
-                factory.sublayers.trail_condition.hide();
+                // Hide grade, caution
                 factory.sublayers.sbht_grade.hide();
                 factory.sublayers.sbht_caution.hide();
 
@@ -496,11 +488,6 @@
 
                 // When features is clicked
                 factory.sublayers.features.on('featureClick', function(e, latlng, pos, data){
-                    featureWasClicked(e, latlng, pos, data);
-                });
-
-                // When trail_condition is clicked
-                factory.sublayers.trail_condition.on('featureClick', function(e, latlng, pos, data){
                     featureWasClicked(e, latlng, pos, data);
                 });
 
@@ -566,18 +553,20 @@
         /***** SET SELECTED FEATURE COLOR *****/
         function setSelFeatColor(sublayer, cartodb_id){
 
-            var sub, subs = factory.sublayers, mss,
-                featCommCondArr = ['features', 'commercial', 'trail_condition'];
+            var sub,
+                subs = factory.sublayers,
+                mss,
+                featCommArr = ['features', 'commercial'];
 
             // If trail_pix or faces, clear others
             if (sublayer === 'trail_pix' || sublayer === 'faces'){
-                for (var i = 0; i < 3; i++) {
-                    sub = featCommCondArr[i];
+                for (var i = 0; i < 2; i++) {
+                    sub = featCommArr[i];
                     subs[sub].setCartoCSS(getMss(sub));
                 }
             } else {
-                for (var n = 0; n < 3; n++) {
-                    sub = featCommCondArr[n];
+                for (var n = 0; n < 2; n++) {
+                    sub = featCommArr[n];
                     if (sub === sublayer){
                         subs[sub].setCartoCSS(getMss(sub));
                     } else {
@@ -588,29 +577,24 @@
 
         }
 
-        function getMss(sublayer, cartodb_id){
+        /* Get mss for a sublayer via the MSS in the DOM */
+        function getMss(sublayer){
 
-            var newString = '', mss = $('#mss-' + sublayer).text();
+            /* The DOM element text and a generic prefix for selected symbology  */
+            var mssElementText = $('#mss-' + sublayer).text(),
+                newString = '#' + sublayer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
+                  'bg/marker-fill: @c-sel-feat-fill; bg/marker-line-color: @c-sel-feat-stroke;}';
 
-            /* Slightly different symbology for trail_condition */
-            if (cartodb_id){
-                if (sublayer === 'trail_condition'){
-                    newString = '#' + sublayer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
-                      'bg/marker-fill: @c-sel-feat-fill; bg/marker-line-color: @c-sel-feat-stroke; fg/marker-fill: #fff;}';
-                } else {
-                    newString = '#' + sublayer + '[cartodb_id=' + cartodb_id + '][zoom>1][zoom<22]{' +
-                      'bg/marker-fill: @c-sel-feat-fill; bg/marker-line-color: @c-sel-feat-stroke;}';
-                }
-            }
+            return mssElementText + newString;
 
-            return mss + newString;
         }
 
         /****** PAN TO SELECTION ******/
         function panToSelection(coords, type){
 
             var map = factory.map,
-                targetPoint, targetLatLng,
+                targetPoint,
+                targetLatLng,
                 viewportWidth = document.documentElement.clientWidth;
 
             // Zoom in if mainpoints
@@ -643,22 +627,23 @@
             popupFactory.clearTempMarker(factory.map, factory.map._layers);
 
             /***** Have marker ready but don't add to map *****/
+            /***** Also disable right-clicking icon (being lazy and doing for non-kiosk too) *****/
             var tempMarker = L.marker(coords,{
                 temp: true,
+                zIndexOffset: 1000,
                 icon: L.divIcon({
                     className: 'temp-div-icon',
                     html: '' +
-                        '<svg class="icon--temp--bg" viewBox="0 0 100 100">' +
+                        '<svg oncontextmenu="return false" class="icon--temp--bg" viewBox="0 0 100 100">' +
                             '<use xlink:href="#icon-map-pin-wide-empty"></use>' +
                         '</svg>' +
-                        '<svg class="icon--temp--fg" viewBox="0 0 100 100">' +
+                        '<svg oncontextmenu="return false" class="icon--temp--fg" viewBox="0 0 100 100">' +
                             '<use xlink:href="#icon-' + type + '"></use>' +
                         '</svg>'
                 }),
             });
 
             tempMarker.addTo(factory.map);
-
             panToSelection(coords, type);
 
         }
@@ -666,7 +651,7 @@
         /***** TOGGLE OVERLAY STATE *****/
         function toggleOverlayState(overlay){
 
-            if (overlay === 'trail_condition' || overlay === 'sbht_caution'){
+            if (overlay === 'sbht_caution'){
                 $rootScope.queryStates[overlay] = !$rootScope.queryStates[overlay];
             }
 
@@ -691,6 +676,7 @@
     function kioskFactory($http, $rootScope, layersFactory, $state){
 
         var factory = {
+            cdbSamePgCount: null,
             disableLinks: disableLinks,
             resetMapDefaults: resetMapDefaults,
             screensaverInterval: null,
@@ -702,6 +688,7 @@
 
             var k = window.location.href.indexOf('kiosk');
             if (k > 0){
+            // if (k < 0){
 
                 // Disable right-click
                 $('body').attr('oncontextmenu', 'return false');
@@ -725,9 +712,9 @@
                 style.type = 'text/css';
 
                 if (style.styleSheet){
-                  style.styleSheet.cssText = css;
+                    style.styleSheet.cssText = css;
                 } else {
-                  style.appendChild(document.createTextNode(css));
+                    style.appendChild(document.createTextNode(css));
                 }
 
                 head.appendChild(style);
@@ -736,6 +723,19 @@
                 document.getElementById('map-wrapper').addEventListener("touchend", screenSaver);
                 document.getElementById('map-wrapper').addEventListener("touchmove", screenSaver);
                 document.getElementById('map-wrapper').addEventListener("mousemove", screenSaver);
+
+                /** Make CDB link target in same window **/
+                var cdbSamePg = null;
+
+                if (!factory.cdbSamePgCount){
+                    factory.cdbSamePgCount = true;
+                    cdbSamePg = setTimeout(function(){
+                        $('.cartodb-logo a').attr('target', '_self');
+                        $('a[href="http://cartodb.com/attributions"]').attr('target', '_self');
+                    }, 2000);
+                }
+
+                screenSaver();
 
             }
 
@@ -755,6 +755,7 @@
                 // Start timed interval
                 factory.screensaverInterval = setInterval(function(){
                     count++;
+
                     if (count <= 50){
                         resetMapDefaults();
                     } else {
@@ -773,7 +774,7 @@
             // Set zoom to 12
             layersFactory.map.setZoom(12);
 
-            // Uncheck all POI toggles, faces, trail_condition
+            // Uncheck all POI toggles, faces
             var checkBoxes = $('.poi-type__checkbox, #faces-toggle');
             [].forEach.call(checkBoxes, uncheckBoxes);
 
@@ -787,17 +788,14 @@
             // Click summer
             $('#summer-toggle').click();
 
-
-            /* DISABLE GRADE, CAUTION, TRAIL_CONDITION */
-
+            /* DISABLE GRADE AND CAUTION */
             // Let controller know about it in order to update model
             $rootScope.$broadcast('setDefaults');
 
             // Uncheck all (can't do via click() b/c using ng-change)
             var overlays = [
                 {id: '#sbht_caution-toggle', sub: 'sbht_caution'},
-                {id: '#sbht_grade-toggle', sub: 'sbht_grade'},
-                {id: '#trail-cond-toggle', sub: 'trail_condition'},
+                {id: '#sbht_grade-toggle', sub: 'sbht_grade'}
             ];
 
             for (var i = 0; i < overlays.length; i++){
@@ -812,7 +810,6 @@
 
             // Update $rootScope as needed
             $rootScope.queryStates.sbht_caution = false;
-            $rootScope.queryStates.trail_condition = false;
 
             goToRandomFeat();
 
@@ -1000,7 +997,7 @@
 
 
         // Get non-poi narratives from help table
-        if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces' || vm.selFeatData.layer === 'trail_condition'){
+        if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces'){
 
             popupFactory.getNonPoiNarrative(vm.selFeatData.layer).then(function(dataResponse) {
                 vm.selFeatData.narrative = dataResponse.data.rows[0].narrative;
@@ -1046,7 +1043,7 @@
                 secondImgFiles = result,
                 suffix = 'img_prod\/' + vm.selFeatData.layer + '\/mid_size' + vm.selFeatData.filepath;
 
-            // Length will be zero for trail pics, faces, and trail condition (???)
+            // Length will be zero for trail pics and faces
             if (secondImgFiles.length <= 0){
                 activeImages =[suffix];
             } else {
@@ -1296,21 +1293,18 @@
                 end = " ORDER BY dist LIMIT 50",
                 nonPoiStatus = {
                     faces: states.faces,
-                    trail_condition: '',
                     trail_pix: '',
                 },
                 queries = {
                     commercial: "",
                     faces: "",
-                    trail_pix: "",
-                    trail_condition: "",
+                    trail_pix: ""
                 },
                 skipCurrentCdbId = {
                     commercial: "",
                     faces: "",
                     features: "",
-                    trail_pix: "",
-                    trail_condition: "",
+                    trail_pix: ""
                 };
 
             skipCurrentCdbId[params.layer] = " AND cartodb_id != " + params.cartodb_id;
@@ -1338,7 +1332,6 @@
                     " FROM commercial" + commQuery +
                     " AND " + sharedSeasons + skipCurrentCdbId.commercial;
 
-
             // Trail pics
             if (states.trail_pix){
                 if (params.layer === 'trail_pix'){
@@ -1351,20 +1344,6 @@
                     queries.trail_pix = ' UNION ALL ' + sql +
                     " 'trail_pix' AS layer" +
                     " FROM trail_pix WHERE " + sharedSeasons;
-                }
-            }
-
-            // Trail condition
-            if (states.trail_condition){
-                if (params.layer === 'trail_condition'){
-                    queries.trail_condition = ' UNION ALL ' + sql +
-                    " 'trail_condition' AS layer" +
-                    " FROM trail_condition" +
-                    " WHERE cartodb_id != " + params.cartodb_id;
-                } else {
-                    queries.trail_condition = ' UNION ALL ' + sql +
-                    " 'trail_condition' AS layer" +
-                    " FROM trail_condition";
                 }
             }
 
@@ -1382,7 +1361,7 @@
                 }
             }
 
-            query = shared.url + featQuery + commQuery + queries.faces + queries.trail_pix + queries.trail_condition + end;
+            query = shared.url + featQuery + commQuery + queries.faces + queries.trail_pix + end;
 
             return $http({
                 method: 'GET',
@@ -1411,12 +1390,7 @@
                         " 'Trail Snapshot' AS name," +
                         " 'Trail Photos' AS type_name," +
                         " 'trail_pix' AS layer" +
-                        " FROM trail_pix WHERE " + seasonsString,
-                    trail_condition: "" +
-                        " '' AS seasons, 'trail-cond' AS type," +
-                        " 'Current Ski Conditions' AS name," +
-                        " 'Ski Conditions' AS type_name," +
-                        " 'trail_condition' AS layer FROM trail_condition"
+                        " FROM trail_pix WHERE " + seasonsString
                 },
                 nonPoiShared = "" +
                     " UNION ALL" +
@@ -1736,13 +1710,7 @@
                                         " 'camera' AS type," +
                                         " 'Trail Snapshot' AS name," +
                                         " 'Trail Photos' AS type_name" +
-                                        sharedSuffix,
-                                    trail_condition: "" +
-                                        sharedPrefix +
-                                        " 'trail-cond' AS type," +
-                                        " 'Current Ski Conditions' AS name," +
-                                        " 'Ski Conditions' AS type_name" +
-                                        sharedSuffix,
+                                        sharedSuffix
                                 };
 
                             query = queries[sp.layer];
@@ -2075,14 +2043,14 @@
         // Change POI toggle view
         vm.activePoiPage = 'Home';
         vm.activePoiPageIcon = '#icon-map-pin';
-        vm.activePoiPageTitle = 'Points of Interest';
+        vm.activePoiPageTitle = 'Features On/Off';
 
         vm.setActivePoiPage = function(page){
 
             vm.activePoiPage = page;
 
             if (page === 'Home'){
-                vm.activePoiPageTitle = 'Points of Interest';
+                vm.activePoiPageTitle = 'Features On/Off';
                 vm.activePoiPageIcon = '#icon-map-pin';
             } else {
                 vm.activePoiPageTitle = page;
@@ -2179,7 +2147,7 @@
 
             vm.overlayStates[0].on = false;
             vm.overlayStates[1].on = false;
-            vm.trailCondState = false;
+
             // Why faces not turned off?
             // vm.facesState = false;
 
@@ -2194,23 +2162,8 @@
 
         };
 
-        // Show trail condition button if winter is selected and current month Nov - Mar
-        vm.showTrailCondition = function(){
-
-            var d = new Date(),
-                month = d.getMonth();
-
-            if (vm.queryStates.season == 1 && ((month <= 2 ) || (month >= 10 ))){
-                return true;
-            } else {
-                return false;
-            }
-
-        };
-
-
         //////// INFO PANEL \\\\\\\\
-        vm.activeInfoPgHeader = 'Help & Info';
+        vm.activeInfoPgHeader = 'How to Use';
         vm.isInfoHomePage = true;
         vm.activeInfoPgIcon = '#icon-info';
 
@@ -2227,7 +2180,7 @@
         vm.setActiveInfoPg = function(page){
 
             if (page === 'Home'){
-                vm.activeInfoPgHeader = 'Help & Info';
+                vm.activeInfoPgHeader = 'How to Use';
             } else {
                 vm.activeInfoPgHeader = page;
             }
@@ -2296,12 +2249,12 @@
         /******************************/
         /****** TOGGLE POI TYPES ******/
         /******************************/
-        var sublayers = layersFactory.sublayers;
 
         function toggleFeatures(types){
 
             var query,
                 states = $rootScope.queryStates,
+                sublayers = layersFactory.sublayers,
                 featQuery = {
                     start: "SELECT 'features' AS layer," +
                         " features.lin_dist," +
@@ -2328,6 +2281,7 @@
             } else {
                 featQuery.all = featQuery.start + states.features + featQuery.end;
             }
+
             sublayers.features.setSQL(featQuery.all);
 
         }
@@ -2337,6 +2291,7 @@
 
             var query,
                 states = $rootScope.queryStates,
+                sublayers = layersFactory.sublayers,
                 string = '',
                 arr = [],
                 commQuery = {
@@ -2391,7 +2346,6 @@
 
             sublayers.commercial.setSQL(commQuery.all);
 
-
         }
 
         /* Will need to be run by router to keep season toggle accurate*/
@@ -2419,7 +2373,7 @@
                 query;
 
             if (table == 'feat'){
-                query = prefix + "feature_types WHERE type != 'mainpoints'";
+                query = prefix + "feature_types WHERE type != 'mainpoints' ORDER BY sub_group DESC";
             } else {
                 query = prefix + "commercial_types";
             }
@@ -2433,7 +2387,7 @@
         // Get POI toggles data
         function getPoiPages (table){
 
-            var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT name, sub_group, type, type_desc, priority",
+            var prefix = "https://remcaninch.cartodb.com/api/v2/sql?q=SELECT name, sub_group, type, priority",
                 query;
 
             if (table === 'feat'){

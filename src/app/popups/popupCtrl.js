@@ -128,7 +128,7 @@
 
 
         // Get non-poi narratives from help table
-        if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces' || vm.selFeatData.layer === 'trail_condition'){
+        if (vm.selFeatData.layer === 'trail_pix' || vm.selFeatData.layer === 'faces'){
 
             popupFactory.getNonPoiNarrative(vm.selFeatData.layer).then(function(dataResponse) {
                 vm.selFeatData.narrative = dataResponse.data.rows[0].narrative;
@@ -174,7 +174,7 @@
                 secondImgFiles = result,
                 suffix = 'img_prod\/' + vm.selFeatData.layer + '\/mid_size' + vm.selFeatData.filepath;
 
-            // Length will be zero for trail pics, faces, and trail condition (???)
+            // Length will be zero for trail pics and faces
             if (secondImgFiles.length <= 0){
                 activeImages =[suffix];
             } else {

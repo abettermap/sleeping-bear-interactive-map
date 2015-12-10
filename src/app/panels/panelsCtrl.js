@@ -120,14 +120,14 @@
         // Change POI toggle view
         vm.activePoiPage = 'Home';
         vm.activePoiPageIcon = '#icon-map-pin';
-        vm.activePoiPageTitle = 'Points of Interest';
+        vm.activePoiPageTitle = 'Features On/Off';
 
         vm.setActivePoiPage = function(page){
 
             vm.activePoiPage = page;
 
             if (page === 'Home'){
-                vm.activePoiPageTitle = 'Points of Interest';
+                vm.activePoiPageTitle = 'Features On/Off';
                 vm.activePoiPageIcon = '#icon-map-pin';
             } else {
                 vm.activePoiPageTitle = page;
@@ -224,7 +224,7 @@
 
             vm.overlayStates[0].on = false;
             vm.overlayStates[1].on = false;
-            vm.trailCondState = false;
+
             // Why faces not turned off?
             // vm.facesState = false;
 
@@ -239,23 +239,8 @@
 
         };
 
-        // Show trail condition button if winter is selected and current month Nov - Mar
-        vm.showTrailCondition = function(){
-
-            var d = new Date(),
-                month = d.getMonth();
-
-            if (vm.queryStates.season == 1 && ((month <= 2 ) || (month >= 10 ))){
-                return true;
-            } else {
-                return false;
-            }
-
-        };
-
-
         //////// INFO PANEL \\\\\\\\
-        vm.activeInfoPgHeader = 'Help & Info';
+        vm.activeInfoPgHeader = 'How to Use';
         vm.isInfoHomePage = true;
         vm.activeInfoPgIcon = '#icon-info';
 
@@ -272,7 +257,7 @@
         vm.setActiveInfoPg = function(page){
 
             if (page === 'Home'){
-                vm.activeInfoPgHeader = 'Help & Info';
+                vm.activeInfoPgHeader = 'How to Use';
             } else {
                 vm.activeInfoPgHeader = page;
             }

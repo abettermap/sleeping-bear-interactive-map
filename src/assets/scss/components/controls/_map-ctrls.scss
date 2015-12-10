@@ -2,7 +2,7 @@
 $pi: 3.14;
 $menu-items: 7;
 $l-ball-ht: 50px;
-$a-trans-timing-items: cubic-bezier(.165, .840, .440, 1);
+$a-trans-timing-items: cubic-bezier(0.165, 0.84, 0.44, 1);
 $a-trans-tools: transform 600ms ease;
 $a-trans-fill: fill 250ms ease;
 
@@ -12,11 +12,10 @@ $a-trans-fill: fill 250ms ease;
   position: absolute;
 }
 
-
 // Filters
 %goo {
   -webkit-filter: url("#shadowed-goo");
-  filter: url('../img/svg/project/defs/gooey.svg#shadowed-goo');
+  filter: url("../img/svg/project/defs/gooey.svg#shadowed-goo");
   position: absolute;
 }
 
@@ -24,7 +23,6 @@ $a-trans-fill: fill 250ms ease;
 .controls__checkbox {
   display: none;
 }
-
 
 //////////// FILTER CONTAINERS \\\\\\\\\\\\\\
 .filter-container-y,
@@ -45,52 +43,39 @@ $a-trans-fill: fill 250ms ease;
 
 // Y axis backgrounds when checked
 .controls__checkbox:checked ~ .filter-container-y > .controls__menu-item {
-
   visibility: visible;
 
   @for $i from 1 through 4 {
-
     &:nth-of-type(#{$i}) {
       transform: translate3d(0, round($l-ball-ht * $i), 0);
-      transition-duration: 90ms + (80ms * $i);
+      transition-duration: 90ms + 80ms * $i;
     }
-
   }
-
 }
 
 // X axis backgrounds when checked
 .controls__checkbox:checked ~ .filter-container-x > .controls__menu-item {
-
   visibility: visible;
 
   @for $i from 1 through 3 {
-
     &:nth-of-type(#{$i}) {
       transform: translate3d(round($l-ball-ht * $i), 0, 0);
-      transition-duration: 90ms + (80ms * $i);
+      transition-duration: 90ms + 80ms * $i;
     }
   }
-
 }
-
-
 
 //////////// HAMBURGER CONTAINER & TOOLS ICON \\\\\\\\\\\\\\
 .controls__label {
-
   @extend %ball;
-
-  $l-size: $l-ball-ht * .95;
-
+  $l-size: $l-ball-ht * 0.95;
   height: $l-size;
   text-align: center;
-  transition: transform 200ms cubic-bezier(.175, .885, .320, 1.275);
+  transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   width: $l-size;
   z-index: 2;
 
   &:hover {
-
     @include mq($from: desktop) {
       transform: scale(1.1, 1.1) translate3d(0, 0, 0);
 
@@ -98,15 +83,12 @@ $a-trans-fill: fill 250ms ease;
         transform: scale(1.1, 1.1) translate3d(0, 0, 0);
       }
     }
-
   }
-
 
   // The tools icon
   .controls__icon {
-    $l-spacing: $l-ball-ht/10;
-
-    height: round($l-ball-ht * .75);
+    $l-spacing: $l-ball-ht / 10;
+    height: round($l-ball-ht * 0.75);
     left: $l-spacing;
     margin-top: 10%;
     padding: 2px;
@@ -114,19 +96,43 @@ $a-trans-fill: fill 250ms ease;
     transform: scale(1.1, 1.1) translate3d(0, 0, 0);
     transition: $a-trans-tools;
     visibility: visible;
-    width: round($l-ball-ht * .75);
-
+    width: round($l-ball-ht * 0.75);
   }
+}
 
+// Nav controls helper text
+.controls__descrip {
+  background: lighten($c-panel-toggle, 5);
+  color: $near-white;
+  // font-size: 0.9rem;
+  // border-bottom-left-radius: 10px;
+  // left: -5rem;
+  // padding: .2rem .4rem .3rem;
+  // transform: rotate(-90deg);
+  // top: 2.2rem;
+  font-size: 0.85rem;
+  left: -3.3rem;
+  opacity: 1;
+  padding: 0rem 2.1rem 0.3rem;
+  position: absolute;
+  text-shadow: 1px 1px 2px hsl(0, 0%, 50%);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-27deg);
+  top: -0.9rem;
+  transition: 300ms;
+  white-space: nowrap;
+
+  .controls__checkbox:checked ~ & {
+    opacity: 0;
+  }
 }
 
 // Hamburg container when checked
 .controls__checkbox:checked + .controls__label {
-
   $l-size: $l-ball-ht;
   background-color: $near-white;
   height: $l-size;
-  transform: scale(.9, .9) translate3d(0, 0, 0);
+  transform: scale(0.9, 0.9) translate3d(0, 0, 0);
   transition: transform 200ms linear;
   width: $l-size;
 
@@ -142,20 +148,16 @@ $a-trans-fill: fill 250ms ease;
   }
 
   .controls__icon {
-
     -ms-filter: "FlipH";
     fill: $c-btn-bg;
     filter: FlipH;
     transform: scaleX(-1);
     transition: transform 200ms linear, $a-trans-fill, $a-trans-tools;
-
   }
-
 }
 
 // Individual balls
 .controls__menu-item {
-
   background-color: lighten($c-btn-bg, 14%);
   border-radius: 100%;
   height: $l-ball-ht;
@@ -163,9 +165,7 @@ $a-trans-fill: fill 250ms ease;
   transition-duration: 280ms;
   visibility: hidden;
   width: $l-ball-ht;
-
 }
-
 
 //////////// SVG ICONS \\\\\\\\\\\\\\
 
@@ -188,7 +188,7 @@ $a-trans-fill: fill 250ms ease;
   width: $l-ball-ht;
 
   @include mq($from: desktop) {
-    &:hover+svg {
+    &:hover + svg {
       fill: $c-icon-hover;
     }
   }
@@ -198,35 +198,31 @@ $a-trans-fill: fill 250ms ease;
 .controls__checkbox:checked ~ .controls__icon,
 .controls__checkbox:checked ~ .css-tooltip-bottom,
 .controls__checkbox:checked ~ .css-tooltip-right {
-
   transition-timing-function: $a-trans-timing-items;
   visibility: visible;
-  $l-offset: round(($l-ball-ht - $l-ball-ht * .68)/2);
+  $l-offset: round(($l-ball-ht - $l-ball-ht * 0.68) / 2);
 
   // Vert axis
   @for $i from 1 through 4 {
-
     &:nth-of-type(#{$i}) {
       $y: round($l-ball-ht * $i);
-
-      padding: 8px; // Vert looked smaller for some reason
+      padding: 8px;
+      // Vert looked smaller for some reason
       transform: translate3d(0, $y, 0);
-      transition: transform 90ms+(80ms*$i) $a-trans-timing-items, $a-trans-fill;
+      transition: transform (90ms + 80ms * $i) $a-trans-timing-items, $a-trans-fill;
     }
   }
 
   // Horiz axis
   @for $i from 5 through 7 {
-
     &:nth-of-type(#{$i}) {
       $o: $i - 4;
       $x: round($l-ball-ht * $o);
-      $dur: 90ms + (80ms * $i);
+      $dur: 90ms + 80ms * $i;
       transform: translate3d($x, 0, 0);
       transition: transform $dur $a-trans-timing-items, $a-trans-fill;
     }
   }
-
 }
 
 // "Locate" tool icon when active
@@ -241,5 +237,5 @@ $a-trans-fill: fill 250ms ease;
 // Back btn disabled
 .back-disabled {
   cursor: not-allowed;
-  fill: rgba($near-white, .5);
+  fill: rgba($near-white, 0.5);
 }

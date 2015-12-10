@@ -107,7 +107,6 @@
 
 @include mq($from: desktop) {
 
-  .css-tooltip-bottom:hover .tooltip,
   .css-tooltip-right:hover .tooltip {
     margin-left: 15px;
     opacity: .93;
@@ -137,10 +136,14 @@
   top: -8px;
 }
 
-.css-tooltip-bottom:hover .tooltip {
-  margin-top: 10px;
-  opacity: 1;
-  visibility: visible;
+@include mq($from: desktop) {
+
+  .css-tooltip-bottom:hover .tooltip {
+    margin-top: 10px;
+    opacity: 1;
+    visibility: visible;
+  }
+
 }
 
 
